@@ -275,24 +275,25 @@
       };
     },
 
-    // ── Account ─────────────────────────────────────────────────────
     currentAccount: function () {
-      if (typeof window !== 'undefined' && window.__NODE_SERVER_STATE__ && window.__NODE_SERVER_STATE__.account && window.__NODE_SERVER_STATE__.account.login) {
-        return String(window.__NODE_SERVER_STATE__.account.login);
+      if (typeof window !== 'undefined' && window.__NODE_SERVER_STATE__) {
+        var isOanda = window.__NODE_SERVER_STATE__.brokerBackend === 'OANDA';
+        if (window.__NODE_SERVER_STATE__.account && window.__NODE_SERVER_STATE__.account.login) {
+          return String(window.__NODE_SERVER_STATE__.account.login);
+        }
+        return isOanda ? '101-001-40395350-001' : '70257567';
       }
       return '101-001-40395350-001';
     },
 
     accountsMetainfo: function () {
-      var acc = (typeof window !== 'undefined' && window.__NODE_SERVER_STATE__ && window.__NODE_SERVER_STATE__.account) || {};
-      var isOanda = !acc.server || acc.server.indexOf('oanda') !== -1;
+      var state = (typeof window !== 'undefined' && window.__NODE_SERVER_STATE__) || {};
+      var acc = state.account || {};
+      var isOanda = state.brokerBackend === 'OANDA' || (acc.server && acc.server.indexOf('oanda') !== -1);
+      var pt = state.priceType || 'MID';
       var id = String(acc.login || (isOanda ? '101-001-40395350-001' : '70257567'));
-      var ptSuffix = '';
-      if (acc.server && acc.server.match(/\[(MID|BID|ASK)\]/i)) {
-        ptSuffix = ' ' + acc.server.match(/\[(MID|BID|ASK)\]/i)[0].toUpperCase();
-      }
       var baseName = acc.name || (isOanda ? 'OANDA Practice (101-001-40395350-001)' : 'MT5 Demo — Vinod (OrbexGlobal)');
-      var name = baseName.indexOf('[') === -1 ? (baseName + ptSuffix) : baseName;
+      var name = baseName.indexOf('[') === -1 ? (baseName + ' [' + pt + ']') : baseName;
       var curr = acc.currency || 'USD';
       return Promise.resolve([{
         id: id,
@@ -303,8 +304,12 @@
 
     accountManagerInfo: function () {
       var self = this;
+      var state = (typeof window !== 'undefined' && window.__NODE_SERVER_STATE__) || {};
+      var isOanda = state.brokerBackend === 'OANDA' || (state.account && state.account.server && state.account.server.indexOf('oanda') !== -1);
+      var pt = state.priceType || 'MID';
+      var title = isOanda ? ('OANDA Practice [' + pt + ']') : ('MT5 Demo [' + pt + ']');
       return {
-        accountTitle: 'MT5 Demo Account',
+        accountTitle: title,
         summary: [
           { text: 'Balance',     wValue: self._balanceValue,    formatter: 'fixed', isDefault: true },
           { text: 'Equity',      wValue: self._equityValue,     formatter: 'fixed', isDefault: true },

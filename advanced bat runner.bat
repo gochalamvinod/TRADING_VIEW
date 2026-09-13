@@ -9,25 +9,32 @@ echo.
 echo ================================================================================
 echo   TRADINGVIEW ADVANCED CHARTS ENTERPRISE SYSTEM
 echo ================================================================================
-echo   SELECT BROKER / DATAFEED BACKEND:
+echo   [STEP 1/2] SELECT BROKER / DATAFEED BACKEND:
 echo.
 echo     [1] OANDA API (Practice Account: 101-001-40395350-001)
 echo     [2] Normal MetaTrader 5 (Local Terminal64 IPC / Orbex Global)
 echo.
 echo ================================================================================
 set "BROKER_CHOICE=1"
-set /p "BROKER_CHOICE=Enter choice [1 or 2, default: 1]: "
+set /p "BROKER_CHOICE=Enter broker choice [1 or 2, default: 1]: "
 if "%BROKER_CHOICE%"=="" set "BROKER_CHOICE=1"
 
-if "%BROKER_CHOICE%"=="1" (
-    set "BROKER_BACKEND=OANDA"
-    set "OANDA_ACCOUNT_ID=101-001-40395350-001"
-    set "OANDA_API_TOKEN=f2be2aaf1443ae8071a5982196c9e217-13d1b5a73efca27fd1c07b068bdd0832"
-    set "BACKEND_LABEL=OANDA v20 REST API (101-001-40395350-001)"
-) else (
-    set "BROKER_BACKEND=MT5"
-    set "BACKEND_LABEL=MetaTrader 5 IPC (Terminal64 / Orbex Global)"
-)
+if /i "%BROKER_CHOICE%"=="2" goto :set_mt5
+if /i "%BROKER_CHOICE%"=="mt5" goto :set_mt5
+if /i "%BROKER_CHOICE%"=="m" goto :set_mt5
+if /i "%BROKER_CHOICE%"=="normal" goto :set_mt5
+
+set "BROKER_BACKEND=OANDA"
+set "OANDA_ACCOUNT_ID=101-001-40395350-001"
+set "OANDA_API_TOKEN=f2be2aaf1443ae8071a5982196c9e217-13d1b5a73efca27fd1c07b068bdd0832"
+set "BACKEND_LABEL=OANDA v20 REST API (101-001-40395350-001)"
+goto :done_broker
+
+:set_mt5
+set "BROKER_BACKEND=MT5"
+set "BACKEND_LABEL=MetaTrader 5 IPC (Terminal64 / Orbex Global)"
+
+:done_broker
 
 echo.
 echo ================================================================================
@@ -42,16 +49,29 @@ set "PRICE_CHOICE=1"
 set /p "PRICE_CHOICE=Enter price type [1=Mid, 2=Bid, 3=Ask, default: 1]: "
 if "%PRICE_CHOICE%"=="" set "PRICE_CHOICE=1"
 
-if "%PRICE_CHOICE%"=="2" (
-    set "PRICE_TYPE=BID"
-    set "PRICE_LABEL=Bid Price (Sell)"
-) else if "%PRICE_CHOICE%"=="3" (
-    set "PRICE_TYPE=ASK"
-    set "PRICE_LABEL=Ask Price (Buy)"
-) else (
-    set "PRICE_TYPE=MID"
-    set "PRICE_LABEL=Mid Price (Average)"
-)
+if /i "%PRICE_CHOICE%"=="2" goto :set_bid
+if /i "%PRICE_CHOICE%"=="bid" goto :set_bid
+if /i "%PRICE_CHOICE%"=="b" goto :set_bid
+
+if /i "%PRICE_CHOICE%"=="3" goto :set_ask
+if /i "%PRICE_CHOICE%"=="ask" goto :set_ask
+if /i "%PRICE_CHOICE%"=="a" goto :set_ask
+
+set "PRICE_TYPE=MID"
+set "PRICE_LABEL=Mid Price (Average)"
+goto :done_price
+
+:set_bid
+set "PRICE_TYPE=BID"
+set "PRICE_LABEL=Bid Price (Sell)"
+goto :done_price
+
+:set_ask
+set "PRICE_TYPE=ASK"
+set "PRICE_LABEL=Ask Price (Buy)"
+goto :done_price
+
+:done_price
 
 title TradingView Advanced Charts [%BROKER_BACKEND% - %PRICE_TYPE%]
 
@@ -61,7 +81,7 @@ echo   ACTIVE CONFIGURATION: %BACKEND_LABEL%
 echo   PRICE TYPE:           %PRICE_LABEL% (%PRICE_TYPE%)
 echo ================================================================================
 echo   Website URL:       http://localhost:9000 (Interactive Chart UI)
-echo   Reverse Proxy:     http://127.0.0.1:9999 (In-Memory Engine & Trade Router)
+echo   Reverse Proxy:     http://127.0.0.1:9999 (In-Memory Engine ^& Trade Router)
 echo   Python Engine:     http://127.0.0.1:8080 (FastAPI + %BACKEND_LABEL%)
 echo   Julia Accelerator: http://127.0.0.1:8085 (High-Performance Indicators)
 echo   WebSocket Stream:  ws://127.0.0.1:9999/ws/quotes (Real-Time Push)

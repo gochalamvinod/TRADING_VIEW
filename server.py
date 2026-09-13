@@ -882,15 +882,20 @@ async def get_quotes(symbols: str = Query(..., description="Comma-separated list
                 if tick and info:
                     offset = get_broker_timezone_offset(sym)
                     tick_msc = int(getattr(tick, 'time_msc', 0) or (tick.time * 1000))
-                    time_utc_msc = int(tick_msc - offset * 1000)
-                    price = float(tick.last if tick.last > 0 else tick.bid)
-                    ask = float(tick.ask if tick.ask > 0 else price)
-                    bid = float(tick.bid if tick.bid > 0 else price)
+                    ask = float(tick.ask if tick.ask > 0 else (tick.last if tick.last > 0 else tick.bid))
+                    bid = float(tick.bid if tick.bid > 0 else (tick.last if tick.last > 0 else tick.ask))
+                    digits = info.digits or 2
+                    if PRICE_TYPE == "BID":
+                        price = bid if bid > 0 else (tick.last if tick.last > 0 else ask)
+                    elif PRICE_TYPE == "ASK":
+                        price = ask if ask > 0 else (tick.last if tick.last > 0 else bid)
+                    else: # MID
+                        price = round((bid + ask) * 0.5, digits) if (ask > 0 and bid > 0) else (bid or ask or tick.last)
                     point = info.point or 0.00001
-                    spread = round(ask - bid, info.digits or 2) if (ask > 0 and bid > 0) else 0.0
+                    spread = round(ask - bid, digits) if (ask > 0 and bid > 0) else 0.0
                     vol = float(getattr(tick, 'volume', 0.0) or getattr(tick, 'volume_real', 0.0) or 0.0)
                     s_open = float(getattr(info, 'session_open', 0.0) or 0.0)
-                    change = round(price - s_open, info.digits or 2) if s_open > 0 else 0.0
+                    change = round(price - s_open, digits) if s_open > 0 else 0.0
                     chp = round((change / s_open) * 100.0, 2) if s_open > 0 else 0.0
 
                     digits = info.digits or 2
@@ -1590,7 +1595,7 @@ def get_history(
 def get_ticks(
     symbol: str = Query(..., description="Symbol ticker, e.g., EURUSD"),
     ticks_per_bar: int = Query(40, description="Number of ticks per bar"),
-    side: str = Query("bid", description="Price side: bid, ask, mid"),
+    side: str = Query(PRICE_TYPE.lower(), description="Price side: bid, ask, mid"),
     days: int = Query(2, description="Days of history to fetch"),
 ) -> Dict[str, Any]:
     """Return OHLC data based on tick count using the ultra-fast 2D numpy ticks module or OANDA candles."""
@@ -2406,6 +2411,34 @@ async def modify_trade(req: ModifyOrderRequest) -> Response:
     Modify Stop Loss, Take Profit, price, or expiration of an open position or pending order.
     Async lockless fast path returning pre-serialized orjson response bytes.
     """
+    if BROKER_BACKEND == "OANDA":
+        target_ticket = None
+        if isinstance(req.ticket, int):
+            target_ticket = req.ticket
+        elif isinstance(req.ticket, str):
+            cleaned = req.ticket.replace("_sl", "").replace("_tp", "").strip()
+            if cleaned.isdigit():
+                target_ticket = int(cleaned)
+        if target_ticket is None and req.symbol:
+            open_pos = oanda_engine.get_open_positions(req.symbol)
+            if open_pos:
+                target_ticket = open_pos[0]["ticket"]
+        if target_ticket is None:
+            raise HTTPException(status_code=400, detail="Invalid ticket for modification")
+        res = oanda_engine.modify_trade_or_order(
+            ticket=target_ticket,
+            sl=float(req.sl) if req.sl is not None else None,
+            tp=float(req.tp) if req.tp is not None else None,
+            price=float(req.price) if req.price is not None else None
+        )
+        is_success = res.get("retcode") == 10009
+        return Response(content=orjson.dumps({
+            "success": is_success,
+            "retcode": res.get("retcode", 10009 if is_success else 10015),
+            "ticket": target_ticket,
+            "comment": res.get("comment", res.get("error", ""))
+        }), media_type="application/json")
+
     if not ensure_mt5():
         raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
@@ -2569,9 +2602,6 @@ async def close_trade_position(req: CloseOrderRequest) -> Response:
     Resolves live bid/ask prices and symbol specifications directly from RAM cache (< 2µs).
     Guards raw_mt5.order_send under _trade_lock and returns pre-serialized orjson response bytes.
     """
-    if not ensure_mt5():
-        raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
-
     # 0. Resolve ticket identifier
     target_ticket = None
     if isinstance(req.ticket, int):
@@ -2601,6 +2631,9 @@ async def close_trade_position(req: CloseOrderRequest) -> Response:
         if not is_success:
             resp["error"] = res.get("error", "Failed to close on OANDA")
         return Response(content=orjson.dumps(resp, default=str), media_type="application/json")
+
+    if not ensure_mt5():
+        raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
     # 1. Check if ticket is an open position
     positions = mt5.positions_get(ticket=target_ticket)
@@ -3252,6 +3285,30 @@ async def websocket_quotes_endpoint(websocket: WebSocket):
             sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
     except Exception:
         pass
+    oanda_stream_task = None
+    oanda_subbed = set(["EURUSD", "XAUUSD"])
+
+    async def oanda_streamer():
+        try:
+            while True:
+                await asyncio.sleep(0.35)
+                if oanda_subbed:
+                    syms_to_fetch = list(oanda_subbed)
+                    q_list = oanda_engine.get_quotes(syms_to_fetch)
+                    for q_item in q_list:
+                        n = q_item.get("n")
+                        t_msc = int(time.time() * 1000)
+                        msg_str = orjson.dumps({
+                            "type": "quote",
+                            "symbol": n,
+                            "data": q_item,
+                            "time_msc": t_msc,
+                            "time_utc_msc": t_msc
+                        }).decode("utf-8")
+                        await websocket.send_text(msg_str)
+        except (asyncio.CancelledError, WebSocketDisconnect, Exception):
+            pass
+
     if BROKER_BACKEND == "OANDA":
         try:
             init_quotes = oanda_engine.get_quotes(["EURUSD", "XAUUSD"])
@@ -3259,6 +3316,7 @@ async def websocket_quotes_endpoint(websocket: WebSocket):
                 await websocket.send_text(orjson.dumps({"type": "quote", "symbol": q_it.get("n"), "data": q_it}).decode("utf-8"))
         except Exception:
             pass
+        oanda_stream_task = asyncio.create_task(oanda_streamer())
     else:
         hft_engine.add_ws_client(websocket)
         sample_sym = "EURUSD." if "EURUSD." in hft_engine.latest_quotes else ("XAUUSD." if "XAUUSD." in hft_engine.latest_quotes else None)
@@ -3279,6 +3337,8 @@ async def websocket_quotes_endpoint(websocket: WebSocket):
                     if isinstance(syms, str):
                         syms = [syms]
                     if p.get("action") in ("subscribe", "sub") and syms:
+                        for s in syms:
+                            oanda_subbed.add(s)
                         quotes = oanda_engine.get_quotes(syms)
                         for q_item in quotes:
                             await websocket.send_text(orjson.dumps({
@@ -3287,6 +3347,9 @@ async def websocket_quotes_endpoint(websocket: WebSocket):
                                 "data": q_item,
                                 "time_msc": int(time.time() * 1000)
                             }).decode("utf-8"))
+                    elif p.get("action") in ("unsubscribe", "unsub") and syms:
+                        for s in syms:
+                            oanda_subbed.discard(s)
                 except Exception:
                     pass
                 continue
@@ -3310,6 +3373,8 @@ async def websocket_quotes_endpoint(websocket: WebSocket):
     except (WebSocketDisconnect, Exception):
         pass
     finally:
+        if oanda_stream_task:
+            oanda_stream_task.cancel()
         hft_engine.remove_ws_client(websocket)
 
 

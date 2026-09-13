@@ -1069,10 +1069,6 @@
           }
 
           sendWsSubscriptions([symName, cleanSym, cleanSym + "."]);
-          // Silence _dataPulseProvider HTTP polling when WebSocket is active
-          if (quoteWs && quoteWs.readyState === WebSocket.OPEN && datafeed && datafeed._dataPulseProvider) {
-            datafeed._dataPulseProvider._requestsPending = 999999;
-          }
           return origSubscribeBars(symbolInfo, resolution, monotonicRealtimeCallback, listenerGUID, onResetCacheNeededCallback);
         };
 
@@ -1785,10 +1781,11 @@
           }
         };
 
+        const defaultInitialSymbol = (window.__NODE_SERVER_STATE__ && window.__NODE_SERVER_STATE__.brokerBackend === 'OANDA') ? 'EURUSD' : 'XAUUSD.';
         widget = new TradingView.widget({
           fullscreen: false,
           autosize: true,
-          symbol: "XAUUSD.",
+          symbol: defaultInitialSymbol,
           interval: "1",
           container: "tv_chart_container",
           library_path: "charting_library/",

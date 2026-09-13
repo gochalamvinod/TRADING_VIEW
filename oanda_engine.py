@@ -280,9 +280,12 @@ def get_history(symbol: str, resolution: str, from_ts: Any = None, to_ts: Any = 
         params["count"] = safe_count
         if effective_to:
             params["to"] = effective_to
-    elif from_ts is not None and effective_to:
+    elif from_ts is not None:
         params["from"] = datetime.fromtimestamp(from_ts, tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-        params["to"] = effective_to
+        if effective_to:
+            params["to"] = effective_to
+        else:
+            params["count"] = 5000
     else:
         params["count"] = 500
         if effective_to:
@@ -678,6 +681,11 @@ def execute_order(symbol: str, action: str, volume: float, price: Optional[float
             deal_id = int(fill_tx.get("id") or order_id)
             exec_price = float(fill_tx.get("price", price or 0.0))
 
+            global _positions_cache_ts, _orders_cache_ts, _account_cache_ts
+            _positions_cache_ts = 0.0
+            _orders_cache_ts = 0.0
+            _account_cache_ts = 0.0
+
             return {
                 "retcode": 10009, # 10009 == TRADE_RETCODE_DONE
                 "deal": deal_id,
@@ -696,7 +704,12 @@ def execute_order(symbol: str, action: str, volume: float, price: Optional[float
 
 
 def close_trade_or_order(ticket: int) -> Dict[str, Any]:
-    """Close an open trade or cancel a pending order on OANDA."""
+    """Close an open trade or cancel a pending order on OANDA with cache invalidation."""
+    global _positions_cache_ts, _orders_cache_ts, _account_cache_ts
+    _positions_cache_ts = 0.0
+    _orders_cache_ts = 0.0
+    _account_cache_ts = 0.0
+
     # First try closing as a trade
     try:
         url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/trades/{ticket}/close"
@@ -716,6 +729,78 @@ def close_trade_or_order(ticket: int) -> Dict[str, Any]:
         return {"retcode": 10015, "error": str(e)}
 
     return {"retcode": 10009, "comment": f"Closed #{ticket}"}
+
+
+def modify_trade_or_order(ticket: int, sl: Optional[float] = None, tp: Optional[float] = None, price: Optional[float] = None) -> Dict[str, Any]:
+    """Modify Stop Loss, Take Profit, or Price of an open trade or pending order on OANDA."""
+    global _positions_cache_ts, _orders_cache_ts, _account_cache_ts
+    _positions_cache_ts = 0.0
+    _orders_cache_ts = 0.0
+    _account_cache_ts = 0.0
+
+    # 1. Try modifying SL/TP on an open trade first (if price is not specified)
+    if price is None or price <= 0:
+        body: Dict[str, Any] = {}
+        if sl is not None:
+            if sl > 0:
+                body["stopLoss"] = {"price": str(round(sl, 5)), "timeInForce": "GTC"}
+            else:
+                body["stopLoss"] = None
+        if tp is not None:
+            if tp > 0:
+                body["takeProfit"] = {"price": str(round(tp, 5)), "timeInForce": "GTC"}
+            else:
+                body["takeProfit"] = None
+
+        if body:
+            try:
+                url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/trades/{ticket}/orders"
+                r = client.put(url, json=body)
+                if r.status_code in (200, 201):
+                    return {"retcode": 10009, "comment": f"OANDA Trade #{ticket} modified successfully"}
+            except Exception:
+                pass
+
+    # 2. If it is a pending order (or price was specified), replace the pending order on OANDA
+    try:
+        ord_url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/orders/{ticket}"
+        r_get = client.get(ord_url)
+        if r_get.status_code == 200:
+            curr_ord = r_get.json().get("order", {})
+            ord_type = curr_ord.get("type", "LIMIT")
+            new_price = str(round(price, 5)) if (price is not None and price > 0) else curr_ord.get("price")
+            repl_body: Dict[str, Any] = {
+                "order": {
+                    "type": ord_type,
+                    "instrument": curr_ord.get("instrument"),
+                    "units": curr_ord.get("units"),
+                    "price": new_price,
+                    "timeInForce": curr_ord.get("timeInForce", "GTC")
+                }
+            }
+            if sl is not None and sl > 0:
+                repl_body["order"]["stopLossOnFill"] = {"price": str(round(sl, 5)), "timeInForce": "GTC"}
+            elif "stopLossOnFill" in curr_ord and sl is None:
+                repl_body["order"]["stopLossOnFill"] = curr_ord["stopLossOnFill"]
+
+            if tp is not None and tp > 0:
+                repl_body["order"]["takeProfitOnFill"] = {"price": str(round(tp, 5)), "timeInForce": "GTC"}
+            elif "takeProfitOnFill" in curr_ord and tp is None:
+                repl_body["order"]["takeProfitOnFill"] = curr_ord["takeProfitOnFill"]
+
+            r_put = client.put(ord_url, json=repl_body)
+            if r_put.status_code in (200, 201):
+                put_data = r_put.json()
+                created_tx = put_data.get("orderCreateTransaction", {})
+                new_ticket = int(created_tx.get("id", ticket))
+                return {"retcode": 10009, "ticket": new_ticket, "comment": f"OANDA Order #{ticket} replaced by #{new_ticket}"}
+            else:
+                err_msg = r_put.json().get("errorMessage", r_put.text[:200])
+                return {"retcode": 10015, "error": f"OANDA Replace Error: {err_msg}"}
+    except Exception as ex:
+        return {"retcode": 10015, "error": str(ex)}
+
+    return {"retcode": 10009, "comment": f"OANDA Modified #{ticket}"}
 
 
 def search_symbols(query: str, limit: int = 30) -> List[Dict[str, Any]]:
@@ -741,6 +826,7 @@ def search_symbols(query: str, limit: int = 30) -> List[Dict[str, Any]]:
 
                 results.append({
                     "symbol": tv_sym,
+                    "ticker": tv_sym,
                     "full_name": f"OANDA:{name}",
                     "description": desc,
                     "exchange": "OANDA",
@@ -752,33 +838,54 @@ def search_symbols(query: str, limit: int = 30) -> List[Dict[str, Any]]:
 
 
 def get_trade_history(days: int = 7) -> Dict[str, Any]:
-    """Return past transactions/deals from OANDA."""
+    """Return past transactions/deals and orders from OANDA."""
     try:
         url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/transactions/sinceid?id=1"
         r = client.get(url)
         if r.status_code == 200:
             txs = r.json().get("transactions", [])
             deals = []
+            orders = []
             for tx in txs:
-                if tx.get("type") in ("ORDER_FILL", "TRADE_CLOSE"):
-                    t_id = int(tx.get("id", 0))
-                    inst = tx.get("instrument", "")
-                    tv_sym = oanda_to_tv_symbol(inst)
-                    units = float(tx.get("units", 0.0))
-                    vol = round(abs(units) / 100000.0, 2)
+                tx_type = tx.get("type", "")
+                t_id = int(tx.get("id", 0))
+                inst = tx.get("instrument", "")
+                tv_sym = oanda_to_tv_symbol(inst) if inst else ""
+                units = float(tx.get("units", 0.0) or 0.0)
+                vol = round(abs(units) / 100000.0, 2)
+                tx_time_str = tx.get("time", "")
+                try:
+                    tx_ts = int(datetime.fromisoformat(tx_time_str.replace("Z", "+00:00")).timestamp()) if tx_time_str else int(time.time())
+                except Exception:
+                    tx_ts = int(time.time())
+
+                if tx_type in ("ORDER_FILL", "TRADE_CLOSE"):
                     deals.append({
                         "ticket": t_id,
                         "order": int(tx.get("orderID", t_id)),
-                        "time": int(datetime.fromisoformat(tx["time"].replace("Z", "+00:00")).timestamp()),
+                        "time": tx_ts,
+                        "time_msc": tx_ts * 1000,
                         "type": 0 if units > 0 else 1,
                         "entry": 0,
                         "symbol": tv_sym,
                         "volume": vol,
-                        "price": float(tx.get("price", 0.0)),
-                        "profit": float(tx.get("pl", 0.0)),
+                        "price": float(tx.get("price", 0.0) or 0.0),
+                        "profit": float(tx.get("pl", 0.0) or 0.0),
                         "comment": f"OANDA Deal #{t_id}"
                     })
-            return {"deals": deals, "orders": []}
+                elif "ORDER" in tx_type:
+                    orders.append({
+                        "ticket": t_id,
+                        "time_setup": tx_ts,
+                        "time_setup_msc": tx_ts * 1000,
+                        "symbol": tv_sym,
+                        "type_name": tx_type,
+                        "volume_initial": vol,
+                        "volume_current": vol,
+                        "price_open": float(tx.get("price", 0.0) or 0.0),
+                        "comment": f"OANDA Order #{t_id} ({tx_type})"
+                    })
+            return {"deals": deals, "orders": orders}
     except Exception as e:
         print(f"[OANDA] get_trade_history error: {e}")
     return {"deals": [], "orders": []}

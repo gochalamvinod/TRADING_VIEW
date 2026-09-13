@@ -659,6 +659,8 @@ function handleDynamicHtml(req, res, filePath) {
     let html = fs.readFileSync(filePath, 'utf-8');
     const bootstrapPayload = JSON.stringify({
       serverTime: Date.now(),
+      brokerBackend: (process.env.BROKER_BACKEND || 'MT5').toUpperCase(),
+      priceType: (process.env.PRICE_TYPE || 'MID').toUpperCase(),
       version: tradeState.version,
       backendOnline: tradeState.backendOnline,
       positions: tradeState.positions,

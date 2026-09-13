@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TradingView Charting Library demo (Save/Load to URL)</title>
+
+    <!-- Fix for iOS Safari zooming bug -->
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0"
+    />
+
+    <!-- TradingView Charting Library -->
+    <script type="text/javascript" src="charting_library/charting_library.standalone.js"></script>
+    <script type="text/javascript" src="datafeeds/udf/dist/bundle.js"></script>
+    <script type="text/javascript" src="broker-sample/dist/bundle.js"></script>
+  </head>
+
+  <body style="margin: 0px">
+    <div id="tv_chart_container" style="width:100%; height:100vh;"></div>
+
+    <script type="text/javascript">
+      /*****************************************************************************
+       * UrlSaveLoadAdapter
+       *
+       * Usage:
+       *   const adapter = new UrlSaveLoadAdapter({
+       *     baseUrl: "http://localhost:8000",    // your backend root (no trailing slash)
+       *     clientId: "example.com",             // partition key for charts (same as backend expects)
+       *     userId: "user-123",                  // unique per user
+       *     apiVersion: "1.0",                   // version path prefix (optional)
+       *     extraHeaders: { Authorization: "Bearer ..." } // optional
+       *   });
+       *
+       * The adapter implements:
+       *   - getAllCharts() -> Promise<array of metadata>
+       *   - loadChartContent(chartId) -> Promise<JSON|string>
+       *   - saveChartContent(chartId, chartData) -> Promise<{id:...}>
+       *   - removeChart(chartId) -> Promise<{ok:true}>
+       *
+       * Backend endpoints expected (standard TradingView-style):
+       *   GET  /{version}/charts?client=...&user=...           -> list
+       *   POST /{version}/charts?client=...&user=...           -> create, returns {"id":"..."}
+       *   PUT  /{version}/charts/{id}?client=...&user=...     -> update (optional)
+       *   GET  /{version}/charts/{id}?client=...&user=...     -> load (returns raw saved layout JSON)
+       *   DELETE /{version}/charts/{id}?client=...&user=...   -> delete
+       *
+       * Notes:
+       * - If PUT fails, adapter falls back to POST (creates a new id).
+       * - Ensure CORS on backend allows your page origin and allows credentials if using cookies.
+       *****************************************************************************/
+
+      function UrlSaveLoadAdapter({ baseUrl, clientId, userId, apiVersion = "1.0", extraHeaders = {} }) {
+        if (!baseUrl) throw new Error("UrlSaveLoadAdapter requires baseUrl");
+        this.baseUrl = baseUrl.replace(/\/$/, ""); // strip trailing slash
+        this.client = clientId;
+        this.user = userId;
+        this.version = apiVersion;
+        // default content-type; allow user to override via extraHeaders
+        this.headers = Object.assign({ "Content-Type": "application/json" }, extraHeaders);
+      }
+
+      UrlSaveLoadAdapter.prototype._qs = function () {
+        const p = new URLSearchParams();
+        if (this.client) p.set("client", this.client);
+        if (this.user) p.set("user", this.user);
+        return p.toString();
+      };
+
+      UrlSaveLoadAdapter.prototype._url = function (path) {
+        // path should start with "/"
+        const qs = this._qs();
+        return `${this.baseUrl}/${this.version}${path}${qs ? "?" + qs : ""}`;
+      };
+
+      // List all saved charts for this client+user
+      UrlSaveLoadAdapter.prototype.getAllCharts = function () {
+        const url = this._url("/charts");
+        return fetch(url, {
+          method: "GET",
+          headers: this.headers,
+          credentials: "include"
+        })
+          .then(async (res) => {
+            if (!res.ok) {
+              const txt = await res.text().catch(() => "");
+              throw new Error("Failed to list charts: " + res.status + " " + txt);
+            }
+            return res.json();
+          })
+          .catch((err) => {
+            console.error("getAllCharts error:", err);
+            return Promise.reject(err);
+          });
+      };
+
+      // Load chart content by id (TradingView accepts object or string)
+      UrlSaveLoadAdapter.prototype.loadChartContent = function (chartId) {
+        if (!chartId) return Promise.reject(new Error("loadChartContent: chartId required"));
+        const url = this._url("/charts/" + encodeURIComponent(chartId));
+        return fetch(url, {
+          method: "GET",
+          headers: this.headers,
+          credentials: "include"
+        })
+          .then(async (res) => {
+            if (!res.ok) {
+              const txt = await res.text().catch(() => "");
+              throw new Error("Failed to load chart: " + res.status + " " + txt);
+            }
+            // Try to parse JSON; if not JSON, return raw text
+            return res.json().catch(async () => {
+              return res.text();
+            });
+          })
+          .catch((err) => {
+            console.error("loadChartContent error:", err);
+            return Promise.reject(err);
+          });
+      };
+
+      // Save chart content. If chartId provided -> try PUT (update), else POST (create)
+      UrlSaveLoadAdapter.prototype.saveChartContent = function (chartId, chartData) {
+        const body = typeof chartData === "string" ? chartData : JSON.stringify(chartData);
+
+        const doPost = () => {
+          const url = this._url("/charts");
+          return fetch(url, {
+            method: "POST",
+            headers: this.headers,
+            credentials: "include",
+            body: body
+          })
+            .then(async (res) => {
+              if (!res.ok) {
+                const txt = await res.text().catch(() => "");
+                throw new Error("POST failed: " + res.status + " " + txt);
+              }
+              return res.json();
+            })
+            .catch((err) => {
+              console.error("saveChartContent POST error:", err);
+              return Promise.reject(err);
+            });
+        };
+
+        const tryPut = () => {
+          const url = this._url("/charts/" + encodeURIComponent(chartId));
+          return fetch(url, {
+            method: "PUT",
+            headers: this.headers,
+            credentials: "include",
+            body: body
+          }).then(async (res) => {
+            if (!res.ok) {
+              const txt = await res.text().catch(() => "");
+              throw new Error("PUT failed: " + res.status + " " + txt);
+            }
+            return res.json().catch(() => ({ id: chartId }));
+          });
+        };
+
+        if (chartId) {
+          // prefer PUT, but fall back to POST if PUT not supported or fails
+          return tryPut().catch((err) => {
+            console.warn("PUT failed, falling back to POST. error:", err);
+            return doPost();
+          });
+        } else {
+          return doPost();
+        }
+      };
+
+      // Delete a saved chart
+      UrlSaveLoadAdapter.prototype.removeChart = function (chartId) {
+        if (!chartId) return Promise.reject(new Error("removeChart: chartId required"));
+        const url = this._url("/charts/" + encodeURIComponent(chartId));
+        return fetch(url, {
+          method: "DELETE",
+          headers: this.headers,
+          credentials: "include"
+        })
+          .then(async (res) => {
+            if (!res.ok) {
+              const txt = await res.text().catch(() => "");
+              throw new Error("Delete failed: " + res.status + " " + txt);
+            }
+            return { ok: true };
+          })
+          .catch((err) => {
+            console.error("removeChart error:", err);
+            return Promise.reject(err);
+          });
+      };
+
+      // ---------------------------------------------------------------------------
+      // Replace the LocalStorageSaveLoadAdapter usage with UrlSaveLoadAdapter and init
+      // ---------------------------------------------------------------------------
+
+      function initOnReady() {
+        // Datafeed: keep your existing datafeed URL
+        const datafeed = new Datafeeds.UDFCompatibleDatafeed(
+          "https://guilty-jade-telling-lopez.trycloudflare.com",
+          1000
+        );
+
+        // Create adapter instance - CHANGE THE baseUrl/clientId/userId to match your backend
+        const saveLoadAdapter = new UrlSaveLoadAdapter({
+          baseUrl: "http://localhost:8000", // <-- change to your backend server (no trailing slash)
+          clientId: "example.com",           // <-- change to your client id
+          userId: "user-12345",              // <-- change to your user id
+          apiVersion: "1.0",                 // optional; adapt if your backend uses different version path
+          // extraHeaders: { "Authorization": "Bearer <token>" } // optional
+        });
+
+        const widget = new TradingView.widget({
+          library_path: "charting_library/lib",
+          fullscreen: true,
+          symbol: "XAUUSD.",
+          interval: "60",
+          container: "tv_chart_container",
+          datafeed: datafeed,
+          locale: "en",
+          disabled_features: ["order_panel", "trading_account_manager"],
+          enabled_features: [
+            "study_templates", "header_symbol_search", "save_chart_properties_to_local_storage", "watchlist_context_menu", "watchlist_import_export",
+            "header_compare", "header_indicators", "timeframes_toolbar", "left_toolbar",
+            "items_favoriting", "show_object_tree", "edit_buttons_in_legend", "display_market_status", "watchlist_sections", "custom_resolutions", "right_toolbar",
+            "watchlist", "legend_context_menu", "volume_force_overlay", "main_series_scale_menu",
+            "chart_crosshair_menu", "border_around_the_chart", "chart_property_page_trading",
+            "property_pages", "hide_left_toolbar_by_default", "show_dialog_on_double_click",
+            "go_to_date", "timezone_menu", "snapshot_trading_drawings", "show_symbol_watchlist",
+            "property_page_scales", "header_screenshot", "header_fullscreen_button",
+            "favorite_timeframes", "chart_templates", "header_saveload", "datasource_copypaste", "add_to_watchlist", "drawing_templates", "multiple_watchlists", "support_multicharts", "multi_chart_layout"
+          ],
+          // pass the adapter so header save/load uses your backend
+          save_load_adapter: saveLoadAdapter,
+          // If you prefer to use TradingView's charts_storage_url-based flow,
+          // set charts_storage_url / client_id / user_id instead of save_load_adapter.
+        });
+      }
+
+      window.addEventListener("DOMContentLoaded", initOnReady, false);
+    </script>
+  </body>
+</html>

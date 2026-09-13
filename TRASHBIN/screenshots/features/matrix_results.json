@@ -1,0 +1,162 @@
+[
+  {
+    "id": "f01_plot_styles",
+    "name": "Plot Styles (Line, Step, Histogram, Area, Cross, Circles)",
+    "success": true,
+    "title": "Feature 01 - Plot Styles",
+    "entityId": "YIUMyE",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f01_plot_styles.png"
+  },
+  {
+    "id": "f02_plotcandle",
+    "name": "plotcandle Custom Colored Candlesticks",
+    "success": true,
+    "title": "Feature 02 - Plotcandle",
+    "entityId": "zevbuO",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f02_plotcandle.png"
+  },
+  {
+    "id": "f03_plotbar",
+    "name": "plotbar Four-Price OHLC Bars",
+    "success": true,
+    "title": "Feature 03 - Plotbar",
+    "entityId": "l9Zpie",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f03_plotbar.png"
+  },
+  {
+    "id": "f04_plotshape",
+    "name": "plotshape Geometric Shapes & Arrows",
+    "success": true,
+    "title": "Feature 04 - Plotshape",
+    "entityId": "Wdc7uF",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f04_plotshape.png"
+  },
+  {
+    "id": "f05_plotchar",
+    "name": "plotchar Unicode Characters & Emojis",
+    "success": true,
+    "title": "Feature 05 - Plotchar",
+    "entityId": "yKLrOi",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f05_plotchar.png"
+  },
+  {
+    "id": "f06_plotarrow",
+    "name": "plotarrow Directional Sized Arrows",
+    "success": true,
+    "title": "Feature 06 - Plotarrow",
+    "entityId": "j9BwIB",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f06_plotarrow.png"
+  },
+  {
+    "id": "f07_hline_and_bands",
+    "name": "hline Static Levels and Bands",
+    "success": true,
+    "title": "Feature 07 - Hline Levels",
+    "entityId": "LSlB7R",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f07_hline_and_bands.png"
+  },
+  {
+    "id": "f08_fill_solid_and_gradient",
+    "name": "fill Channel Shading (Solid & Gradient)",
+    "success": true,
+    "title": "Feature 08 - Fill Channels",
+    "entityId": "D9OGqS",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f08_fill_solid_and_gradient.png"
+  },
+  {
+    "id": "f09_box_drawings",
+    "name": "box.new Rectangular Shaded Range Boxes",
+    "success": true,
+    "title": "Feature 09 - Box Drawings",
+    "entityId": "nZc03x",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f09_box_drawings.png"
+  },
+  {
+    "id": "f10_line_drawings",
+    "name": "line.new Trendlines & Vertical Day Dividers",
+    "success": true,
+    "title": "Feature 10 - Line Drawings",
+    "entityId": "vJATyq",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f10_line_drawings.png"
+  },
+  {
+    "id": "f11_polyline_drawings",
+    "name": "polyline.new Zig-Zag Wave Segments",
+    "success": true,
+    "title": "Feature 11 - Polyline Drawings",
+    "entityId": "m5GvH1",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f11_polyline_drawings.png"
+  },
+  {
+    "id": "f12_table_dashboard",
+    "name": "table.new Anchored Metrics Dashboard",
+    "success": true,
+    "title": "Feature 12 - Table Dashboard",
+    "entityId": "PqsnGX",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f12_table_dashboard.png"
+  },
+  {
+    "id": "f13_label_drawings",
+    "name": "label.new Anchored Signal Callouts",
+    "success": true,
+    "title": "Feature 13 - Label Drawings",
+    "entityId": "6d21wS",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f13_label_drawings.png"
+  },
+  {
+    "id": "f14_all_9_inputs",
+    "name": "All 9 Standard Input Types",
+    "success": true,
+    "title": "Feature 14 - All 9 Inputs",
+    "entityId": "KoeGGE",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f14_all_9_inputs.png"
+  },
+  {
+    "id": "f15_extended_inputs_and_active",
+    "name": "Extended Inputs (price, time, text_area) & Active Param",
+    "success": true,
+    "title": "Feature 15 - Extended Inputs & Active",
+    "entityId": "XCjK3G",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f15_extended_inputs_and_active.png"
+  },
+  {
+    "id": "f16_udt_methods_tuples",
+    "name": "User-Defined Types, Custom Methods, and Tuple Unpacking",
+    "success": true,
+    "title": "Feature 16 - UDT & Methods",
+    "entityId": "FeZP9S",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f16_udt_methods_tuples.png"
+  },
+  {
+    "id": "f17_v6_fractional_division",
+    "name": "Pine Script v6 Fractional Division Preservation",
+    "success": true,
+    "title": "Feature 17 - v6 Fractional Division",
+    "entityId": "j6ICI6",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f17_v6_fractional_division.png"
+  },
+  {
+    "id": "f18_strict_linebr_and_scale_invariance",
+    "name": "plot.style_linebr & Zero Price Scale Badges (Strict NaN Invariance)",
+    "success": true,
+    "title": "Feature 18 - Strict Line Breaks",
+    "entityId": "4JJSMA",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f18_strict_linebr_and_scale_invariance.png"
+  },
+  {
+    "id": "f19_sessions_luxalgo_full_workload",
+    "name": "Sessions [LuxAlgo] Full Production Indicator",
+    "success": true,
+    "title": "Sessions [LuxAlgo]",
+    "entityId": "4tb0xg",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f19_sessions_luxalgo_full_workload.png"
+  },
+  {
+    "id": "f20_master_multi_feature_combination",
+    "name": "Master Multi-Feature Synergy (Candles + BB + Fill + Shapes + Table + Dividers)",
+    "success": true,
+    "title": "Feature 20 - Master Multi-Feature Synergy",
+    "entityId": "WpFtHh",
+    "screenshot": "E:\\TRADINGVIEW ADVANCED\\screenshots\\features\\f20_master_multi_feature_combination.png"
+  }
+]

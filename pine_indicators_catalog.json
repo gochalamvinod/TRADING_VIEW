@@ -1,0 +1,732 @@
+[
+  {
+    "name": "Sessions [LuxAlgo]",
+    "baseName": "Sessions_LuxAlgo",
+    "pineName": "Sessions_LuxAlgo.pine",
+    "jsName": "Sessions_LuxAlgo.js",
+    "shortTitle": "Sessions",
+    "overlay": true,
+    "plots": [],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "3D MACD Bar Plot [LuxAlgo]",
+    "baseName": "3D_MACD_Bar_Plot_LuxAlgo",
+    "pineName": "3D_MACD_Bar_Plot_LuxAlgo.pine",
+    "jsName": "3D_MACD_Bar_Plot_LuxAlgo.js",
+    "shortTitle": "3D MACD Bar Plo",
+    "overlay": false,
+    "plots": [],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Arbitrage Matrix [LuxAlgo]",
+    "baseName": "Arbitrage_Matrix_LuxAlgo",
+    "pineName": "Arbitrage_Matrix_LuxAlgo.pine",
+    "jsName": "Arbitrage_Matrix_LuxAlgo.js",
+    "shortTitle": "Arbitrage Matri",
+    "overlay": true,
+    "plots": [],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Asset Drift Model",
+    "baseName": "Asset_Drift_Model",
+    "pineName": "Asset_Drift_Model.pine",
+    "jsName": "Asset_Drift_Model.js",
+    "shortTitle": "ADM",
+    "overlay": false,
+    "plots": [],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "CE 1M + 3M Buy, Sell, Hold",
+    "baseName": "CE_1M_3M_Buy_Sell_Hold",
+    "pineName": "CE_1M_3M_Buy_Sell_Hold.pine",
+    "jsName": "CE_1M_3M_Buy_Sell_Hold.js",
+    "shortTitle": "CE 1M 3M Buy Se",
+    "overlay": true,
+    "plots": [],
+    "shapes": [
+      {
+        "id": "shape_0",
+        "key": "BUY",
+        "title": "BUY"
+      },
+      {
+        "id": "shape_1",
+        "key": "SELL",
+        "title": "SELL"
+      },
+      {
+        "id": "shape_2",
+        "key": "HOLD",
+        "title": "HOLD"
+      }
+    ],
+    "score": 100
+  },
+  {
+    "name": "Crossing Moving Averages with ADX Filter",
+    "baseName": "Crossing_Moving_Averages_with_ADX_Filter",
+    "pineName": "Crossing_Moving_Averages_with_ADX_Filter.pine",
+    "jsName": "Crossing_Moving_Averages_with_ADX_Filter.js",
+    "shortTitle": "Crossing Moving",
+    "overlay": true,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "Fast MA",
+        "title": "Fast MA"
+      },
+      {
+        "id": "plot_1",
+        "key": "Slow MA",
+        "title": "Slow MA"
+      }
+    ],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Folded RSI (custom RSI, phase-invariant)",
+    "baseName": "Folded_RSI",
+    "pineName": "Folded_RSI.pine",
+    "jsName": "Folded_RSI.js",
+    "shortTitle": "Folded RSI",
+    "overlay": false,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "Folded RSI",
+        "title": "Folded RSI"
+      },
+      {
+        "id": "plot_1",
+        "key": "Raw (no smooth)",
+        "title": "Raw (no smooth)"
+      },
+      {
+        "id": "plot_2",
+        "key": "RSI",
+        "title": "RSI"
+      },
+      {
+        "id": "plot_3",
+        "key": " RSI Smooth",
+        "title": " RSI Smooth"
+      },
+      {
+        "id": "plot_4",
+        "key": "[object Object]",
+        "title": "Plot 5"
+      }
+    ],
+    "shapes": [
+      {
+        "id": "shape_0",
+        "key": "OB",
+        "title": "OB"
+      },
+      {
+        "id": "shape_1",
+        "key": "OS",
+        "title": "OS"
+      }
+    ],
+    "score": 100
+  },
+  {
+    "name": "Golden Pocket Zones",
+    "baseName": "Golden_Pocket_Zones",
+    "pineName": "Golden_Pocket_Zones.pine",
+    "jsName": "Golden_Pocket_Zones.js",
+    "shortTitle": "Golden Pocket Z",
+    "overlay": true,
+    "plots": [],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Hyperfork Matrix",
+    "baseName": "Hyperfork_Matrix",
+    "pineName": "Hyperfork_Matrix.pine",
+    "jsName": "Hyperfork_Matrix.js",
+    "shortTitle": "Hyperfork Matri",
+    "overlay": true,
+    "plots": [],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Impulse Trend Arrows",
+    "baseName": "Impulse_Trend_Arrows",
+    "pineName": "Impulse_Trend_Arrows.pine",
+    "jsName": "Impulse_Trend_Arrows.js",
+    "shortTitle": "Impulse Trend Arrows",
+    "overlay": true,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "Baseline",
+        "title": "Baseline"
+      },
+      {
+        "id": "plot_1",
+        "key": "ATR Upper",
+        "title": "ATR Upper"
+      },
+      {
+        "id": "plot_2",
+        "key": "ATR Lower",
+        "title": "ATR Lower"
+      }
+    ],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Institutional Order Flow Strength Classifier [LuxAlgo]",
+    "baseName": "Institutional_Order_Flow_Strength_Classifier_LuxAlgo",
+    "pineName": "Institutional_Order_Flow_Strength_Classifier_LuxAlgo.pine",
+    "jsName": "Institutional_Order_Flow_Strength_Classifier_LuxAlgo.js",
+    "shortTitle": "Institutional O",
+    "overlay": true,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "Strongest OB Top",
+        "title": "Strongest OB Top"
+      },
+      {
+        "id": "plot_1",
+        "key": "Strongest OB Bottom",
+        "title": "Strongest OB Bottom"
+      },
+      {
+        "id": "plot_2",
+        "key": "Strongest OB Median",
+        "title": "Strongest OB Median"
+      }
+    ],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Liquidity Sweep Detector [DefinedEdge]",
+    "baseName": "Liquidity_Sweep_Detector",
+    "pineName": "Liquidity_Sweep_Detector.pine",
+    "jsName": "Liquidity_Sweep_Detector.js",
+    "shortTitle": "Sweep Detector",
+    "overlay": true,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "Trend EMA",
+        "title": "Trend EMA"
+      }
+    ],
+    "shapes": [
+      {
+        "id": "shape_0",
+        "key": "Bull Sweep",
+        "title": "Bull Sweep"
+      },
+      {
+        "id": "shape_1",
+        "key": "Bear Sweep",
+        "title": "Bear Sweep"
+      }
+    ],
+    "score": 100
+  },
+  {
+    "name": "Manias, Panics and Crashes",
+    "baseName": "Manias_Panics_and_Crashes",
+    "pineName": "Manias_Panics_and_Crashes.pine",
+    "jsName": "Manias_Panics_and_Crashes.js",
+    "shortTitle": "MPC",
+    "overlay": false,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "[object Object]",
+        "title": "Plot 1"
+      }
+    ],
+    "shapes": [
+      {
+        "id": "shape_0",
+        "key": "Composite Risk",
+        "title": "Composite Risk"
+      },
+      {
+        "id": "shape_1",
+        "key": "Mania Score",
+        "title": "Mania Score"
+      },
+      {
+        "id": "shape_2",
+        "key": "Panic Score",
+        "title": "Panic Score"
+      },
+      {
+        "id": "shape_3",
+        "key": "Crash Score",
+        "title": "Crash Score"
+      },
+      {
+        "id": "shape_4",
+        "key": "VIX",
+        "title": "VIX"
+      },
+      {
+        "id": "shape_5",
+        "key": "Credit Stress",
+        "title": "Credit Stress"
+      },
+      {
+        "id": "shape_6",
+        "key": "Breadth %",
+        "title": "Breadth %"
+      }
+    ],
+    "score": 100
+  },
+  {
+    "name": "Net Buy Volume [theUltimator5]",
+    "baseName": "Net_Buy_Volume_theUltimator5",
+    "pineName": "Net_Buy_Volume_theUltimator5.pine",
+    "jsName": "Net_Buy_Volume_theUltimator5.js",
+    "shortTitle": "Net Buy Volume ",
+    "overlay": false,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "Net Vol",
+        "title": "Net Vol"
+      },
+      {
+        "id": "plot_1",
+        "key": "Net $",
+        "title": "Net $"
+      },
+      {
+        "id": "plot_2",
+        "key": "Delta",
+        "title": "Delta"
+      }
+    ],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "NY 5m 15m Orb - Statistics LTF Candle structure",
+    "baseName": "NY_5m_15m_Orb_-_Statistics_LTF_Candle_structure",
+    "pineName": "NY_5m_15m_Orb_-_Statistics_LTF_Candle_structure.pine",
+    "jsName": "NY_5m_15m_Orb_-_Statistics_LTF_Candle_structure.js",
+    "shortTitle": "NY ORB",
+    "overlay": true,
+    "plots": [],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Peak Trading Activity Graphs [LuxAlgo]",
+    "baseName": "Peak_Trading_Activity_Graphs_LuxAlgo",
+    "pineName": "Peak_Trading_Activity_Graphs_LuxAlgo.pine",
+    "jsName": "Peak_Trading_Activity_Graphs_LuxAlgo.js",
+    "shortTitle": "Peak Trading Ac",
+    "overlay": true,
+    "plots": [],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "L1 Proximal Filter [LuxAlgo]",
+    "baseName": "Proximal_Range_Filter_LuxAlgo",
+    "pineName": "Proximal_Range_Filter_LuxAlgo.pine",
+    "jsName": "Proximal_Range_Filter_LuxAlgo.js",
+    "shortTitle": "Proximal Range ",
+    "overlay": true,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "L1 Proximal Filter",
+        "title": "L1 Proximal Filter"
+      },
+      {
+        "id": "plot_1",
+        "key": "Source Plot",
+        "title": "Source Plot"
+      },
+      {
+        "id": "plot_2",
+        "key": "Trend Switch Dot",
+        "title": "Trend Switch Dot"
+      }
+    ],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Pro Pattern Al-Sat (High Winrate)",
+    "baseName": "Pro_Pattern_Long-Short_High_Winrate",
+    "pineName": "Pro_Pattern_Long-Short_High_Winrate.pine",
+    "jsName": "Pro_Pattern_Long-Short_High_Winrate.js",
+    "shortTitle": "Pro Pattern Lon",
+    "overlay": true,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "EMA Fast",
+        "title": "EMA Fast"
+      },
+      {
+        "id": "plot_1",
+        "key": "EMA Slow",
+        "title": "EMA Slow"
+      },
+      {
+        "id": "plot_2",
+        "key": "Supertrend",
+        "title": "Supertrend"
+      }
+    ],
+    "shapes": [
+      {
+        "id": "shape_0",
+        "key": "Al\u0131\u015f",
+        "title": "Al\u0131\u015f"
+      },
+      {
+        "id": "shape_1",
+        "key": "Sat\u0131\u015f",
+        "title": "Sat\u0131\u015f"
+      }
+    ],
+    "score": 100
+  },
+  {
+    "name": "Quantum Structure | jjart",
+    "baseName": "Quantum_Structure_jjart",
+    "pineName": "Quantum_Structure_jjart.pine",
+    "jsName": "Quantum_Structure_jjart.js",
+    "shortTitle": "Quantum Structu",
+    "overlay": true,
+    "plots": [],
+    "shapes": [
+      {
+        "id": "shape_0",
+        "key": "Waiting Bullish",
+        "title": "Waiting Bullish"
+      },
+      {
+        "id": "shape_1",
+        "key": "Waiting Bearish",
+        "title": "Waiting Bearish"
+      },
+      {
+        "id": "shape_2",
+        "key": "Swing High",
+        "title": "Swing High"
+      },
+      {
+        "id": "shape_3",
+        "key": "Swing Low",
+        "title": "Swing Low"
+      },
+      {
+        "id": "shape_4",
+        "key": "Bullish Entry (Normal) LTF",
+        "title": "Bullish Entry (Normal) LTF"
+      },
+      {
+        "id": "shape_5",
+        "key": "Bullish Entry (Normal)",
+        "title": "Bullish Entry (Normal)"
+      },
+      {
+        "id": "shape_6",
+        "key": "Bullish Entry (HTF Aligned) LTF",
+        "title": "Bullish Entry (HTF Aligned) LTF"
+      },
+      {
+        "id": "shape_7",
+        "key": "Bullish Entry (HTF Aligned)",
+        "title": "Bullish Entry (HTF Aligned)"
+      },
+      {
+        "id": "shape_8",
+        "key": "Bearish Entry (Normal) LTF",
+        "title": "Bearish Entry (Normal) LTF"
+      },
+      {
+        "id": "shape_9",
+        "key": "Bearish Entry (Normal)",
+        "title": "Bearish Entry (Normal)"
+      },
+      {
+        "id": "shape_10",
+        "key": "Bearish Entry (HTF Aligned) LTF",
+        "title": "Bearish Entry (HTF Aligned) LTF"
+      },
+      {
+        "id": "shape_11",
+        "key": "Bearish Entry (HTF Aligned)",
+        "title": "Bearish Entry (HTF Aligned)"
+      },
+      {
+        "id": "shape_12",
+        "key": "Bullish Entry (Reversal)",
+        "title": "Bullish Entry (Reversal)"
+      },
+      {
+        "id": "shape_13",
+        "key": "Bearish Entry (Reversal)",
+        "title": "Bearish Entry (Reversal)"
+      }
+    ],
+    "score": 100
+  },
+  {
+    "name": "LuckyFX RBtrader strategy",
+    "baseName": "RBT_strategy",
+    "pineName": "RBT_strategy.pine",
+    "jsName": "RBT_strategy.js",
+    "shortTitle": "RBT strategy",
+    "overlay": true,
+    "plots": [],
+    "shapes": [
+      {
+        "id": "shape_0",
+        "key": "Bullish Signal",
+        "title": "Bullish Signal"
+      },
+      {
+        "id": "shape_1",
+        "key": "Bearish Signal",
+        "title": "Bearish Signal"
+      }
+    ],
+    "score": 100
+  },
+  {
+    "name": "Scalping Strategy 3 minutes",
+    "baseName": "Scalping_Strategy_3_minutes",
+    "pineName": "Scalping_Strategy_3_minutes.pine",
+    "jsName": "Scalping_Strategy_3_minutes.js",
+    "shortTitle": "XXX ",
+    "overlay": true,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "[object Object]",
+        "title": "Plot 1"
+      }
+    ],
+    "shapes": [
+      {
+        "id": "shape_0",
+        "key": "Long",
+        "title": "Long"
+      },
+      {
+        "id": "shape_1",
+        "key": "Short",
+        "title": "Short"
+      },
+      {
+        "id": "shape_2",
+        "key": "Close",
+        "title": "Close"
+      },
+      {
+        "id": "shape_3",
+        "key": "TP1 Cross",
+        "title": "TP1 Cross"
+      },
+      {
+        "id": "shape_4",
+        "key": "TP2 Cross",
+        "title": "TP2 Cross"
+      },
+      {
+        "id": "shape_5",
+        "key": "TP3 Cross",
+        "title": "TP3 Cross"
+      },
+      {
+        "id": "shape_6",
+        "key": "SL Cross",
+        "title": "SL Cross"
+      }
+    ],
+    "score": 75
+  },
+  {
+    "name": "Smart Trader, Episode 03, by Ata Sabanc\u0131 | Candles and Tradelines",
+    "baseName": "Smart_Trader_Episode_03_by_Ata_Sabanci_Candles_and_Tradelines",
+    "pineName": "Smart_Trader_Episode_03_by_Ata_Sabanci_Candles_and_Tradelines.pine",
+    "jsName": "Smart_Trader_Episode_03_by_Ata_Sabanci_Candles_and_Tradelines.js",
+    "shortTitle": "ST-EP03",
+    "overlay": true,
+    "plots": [],
+    "shapes": [],
+    "score": 90
+  },
+  {
+    "name": "SMC [Trade with Dhruv]",
+    "baseName": "SMC_Trade_with_Dhruv",
+    "pineName": "SMC_Trade_with_Dhruv.pine",
+    "jsName": "SMC_Trade_with_Dhruv.js",
+    "shortTitle": "SMC Trade with ",
+    "overlay": true,
+    "plots": [],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "[TehThomas] - Aligned Timeframe Fair Value Gaps",
+    "baseName": "TehThomas_-_Aligned_Timeframe_Fair_Value_Gaps",
+    "pineName": "TehThomas_-_Aligned_Timeframe_Fair_Value_Gaps.pine",
+    "jsName": "TehThomas_-_Aligned_Timeframe_Fair_Value_Gaps.js",
+    "shortTitle": "TehThomas - Ali",
+    "overlay": true,
+    "plots": [],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Volatility Contraction Score",
+    "baseName": "Volatility_Contraction_Score",
+    "pineName": "Volatility_Contraction_Score.pine",
+    "jsName": "Volatility_Contraction_Score.js",
+    "shortTitle": "VCS",
+    "overlay": false,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "VCS",
+        "title": "VCS"
+      },
+      {
+        "id": "plot_1",
+        "key": "Avg Vol",
+        "title": "Avg Vol"
+      },
+      {
+        "id": "plot_2",
+        "key": "Market Cap",
+        "title": "Market Cap"
+      },
+      {
+        "id": "plot_3",
+        "key": "ADR %",
+        "title": "ADR %"
+      },
+      {
+        "id": "plot_4",
+        "key": "Relative Strength",
+        "title": "Relative Strength"
+      }
+    ],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Volume Surprise [LuxAlgo]",
+    "baseName": "Volume_Surprise_LuxAlgo",
+    "pineName": "Volume_Surprise_LuxAlgo.pine",
+    "jsName": "Volume_Surprise_LuxAlgo.js",
+    "shortTitle": "Volume Surprise",
+    "overlay": false,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "Volume",
+        "title": "Volume"
+      },
+      {
+        "id": "plot_1",
+        "key": "Expected Volume",
+        "title": "Expected Volume"
+      },
+      {
+        "id": "plot_2",
+        "key": "Difference",
+        "title": "Difference"
+      }
+    ],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "Volume Weighted Trend [QuantAlgo]",
+    "baseName": "Volume_Weighted_Trend_QuantAlgo",
+    "pineName": "Volume_Weighted_Trend_QuantAlgo.pine",
+    "jsName": "Volume_Weighted_Trend_QuantAlgo.js",
+    "shortTitle": "Volume Weighted",
+    "overlay": true,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "VWMA Glow Outer",
+        "title": "VWMA Glow Outer"
+      },
+      {
+        "id": "plot_1",
+        "key": "VWMA Glow Inner",
+        "title": "VWMA Glow Inner"
+      },
+      {
+        "id": "plot_2",
+        "key": "VWMA Line",
+        "title": "VWMA Line"
+      },
+      {
+        "id": "plot_3",
+        "key": "Upper Band",
+        "title": "Upper Band"
+      },
+      {
+        "id": "plot_4",
+        "key": "Upper Mid",
+        "title": "Upper Mid"
+      },
+      {
+        "id": "plot_5",
+        "key": "Lower Band",
+        "title": "Lower Band"
+      },
+      {
+        "id": "plot_6",
+        "key": "Lower Mid",
+        "title": "Lower Mid"
+      }
+    ],
+    "shapes": [],
+    "score": 100
+  },
+  {
+    "name": "VSA Pro Trend and Rejection",
+    "baseName": "VSA_Pro_Trend_and_Rejection",
+    "pineName": "VSA_Pro_Trend_and_Rejection.pine",
+    "jsName": "VSA_Pro_Trend_and_Rejection.js",
+    "shortTitle": "VSA Pro Trend a",
+    "overlay": true,
+    "plots": [
+      {
+        "id": "plot_0",
+        "key": "Trend Hatt\u0131",
+        "title": "Trend Hatt\u0131"
+      }
+    ],
+    "shapes": [],
+    "score": 100
+  }
+]

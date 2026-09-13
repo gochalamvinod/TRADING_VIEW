@@ -1,0 +1,2108 @@
+{
+  "master_features": [
+    "14851",
+    "38914",
+    "accessible_keyboard_shortcuts",
+    "adaptive_logo",
+    "add_to_watchlist",
+    "additional_multichart_layouts",
+    "advanced_emoji_in_titles",
+    "alerts",
+    "align_dwm_bars_to_main_series",
+    "allow_arbitrary_symbol_search_input",
+    "allow_supported_resolutions_set_only",
+    "always_pass_called_order_to_modify",
+    "always_show_legend_values_on_mobile",
+    "app_phone",
+    "app_tablet",
+    "aria_crosshair_price_description",
+    "aria_detailed_chart_descriptions",
+    "atsv2s",
+    "auto_enable_symbol_labels",
+    "axis_pressed_mouse_move_scale",
+    "bars_marks",
+    "border_around_the_chart",
+    "bovespa_widget",
+    "broker_button",
+    "bugreport_button",
+    "buy_sell_buttons",
+    "bypass_chart_height_check",
+    "chart_content_overrides_by_defaults",
+    "chart_crosshair_menu",
+    "chart_drag_export",
+    "chart_hide_close_order_button",
+    "chart_hide_close_position_button",
+    "chart_property_page",
+    "chart_property_page_right_margin_editor",
+    "chart_property_page_scales",
+    "chart_property_page_trading",
+    "chart_scroll",
+    "chart_style_hilo",
+    "chart_style_hilo_last_price",
+    "chart_template_storage",
+    "chart_zoom",
+    "charting_library",
+    "charting_library_base",
+    "charting_library_debug_mode",
+    "charting_library_export_chart_data",
+    "charting_library_single_symbol_request",
+    "charts_auto_save",
+    "charts_emoji_sync",
+    "clear_bars_on_series_error",
+    "clear_price_scale_on_error_or_empty_bars",
+    "collapsible_header",
+    "compare_recent_symbols_enabled",
+    "compare_symbol",
+    "compare_symbol_search_spread_operators",
+    "confirm_overwrite_if_chart_layout_with_name_exists",
+    "constraint_dialogs_movement",
+    "context_menus",
+    "control_bar",
+    "countdown",
+    "create_volume_indicator_by_default",
+    "create_volume_indicator_by_default_once",
+    "cropped_tick_marks",
+    "currency_menu_disabled",
+    "custom_items_in_context_menu",
+    "custom_resolutions",
+    "datasource_copypaste",
+    "delete_button_in_legend",
+    "determine_first_data_request_size_using_visible_range",
+    "disable_legend_inplace_symbol_change",
+    "disable_pulse_animation",
+    "disable_resolution_rebuild",
+    "disable_sameinterval_aligning",
+    "display_data_mode",
+    "display_legend_on_all_charts",
+    "display_market_status",
+    "dom_widget",
+    "dont_show_boolean_study_arguments",
+    "drawing_templates",
+    "edit_buttons_in_legend",
+    "embed_resizer_overrides",
+    "enable_dom_data_for_untradable_symbols",
+    "end_of_period_timescale_marks",
+    "expand_symbolsearch_items",
+    "extended_extrapolation_limit",
+    "fix_left_edge",
+    "footer_publish_idea_button",
+    "force_exchange_as_title",
+    "format_button_in_legend",
+    "fundamental_widget",
+    "go_to_date",
+    "graying_disabled_tools_enabled",
+    "handle_scale",
+    "handle_scroll",
+    "header_chart_type",
+    "header_compare",
+    "header_fullscreen_button",
+    "header_in_fullscreen_mode",
+    "header_indicators",
+    "header_interval_dialog_button",
+    "header_layouttoggle",
+    "header_quick_search",
+    "header_resolutions",
+    "header_saveload",
+    "header_screenshot",
+    "header_settings",
+    "header_symbol_search",
+    "header_undo_redo",
+    "header_widget",
+    "header_widget_dom_node",
+    "hide_alert_referral_tool",
+    "hide_chats_page",
+    "hide_exponentiation_spread_operator",
+    "hide_ideas_page",
+    "hide_ideas_streams_page",
+    "hide_image_invalid_symbol",
+    "hide_last_na_study_output",
+    "hide_left_toolbar_by_default",
+    "hide_legend_by_default",
+    "hide_loading_screen_on_series_error",
+    "hide_main_series_symbol_from_indicator_legend",
+    "hide_object_tree_and_price_scale_exchange_label",
+    "hide_open_popup_button",
+    "hide_price_scale_global_last_bar_value",
+    "hide_price_scale_if_all_sources_hidden",
+    "hide_publish_button",
+    "hide_reciprocal_spread_operator",
+    "hide_resolution_in_legend",
+    "hide_right_toolbar",
+    "hide_right_toolbar_tabs",
+    "hide_series_legend_item",
+    "hide_study_compare_legend_item",
+    "hide_study_overlay_legend_item",
+    "hide_unresolved_symbols_in_legend",
+    "hide_volume_ma",
+    "horz_touch_drag_scroll",
+    "iframe_loading_compatibility_mode",
+    "iframe_loading_root_path",
+    "iframe_loading_same_origin",
+    "image_drawingtool",
+    "insert_indicator_dialog_shortcut",
+    "intraday_inactivity_gaps",
+    "items_favoriting",
+    "japanese_chart_styles",
+    "keep_object_tree_widget_in_right_toolbar",
+    "lean_chart_load",
+    "left_toolbar",
+    "legend_context_menu",
+    "legend_inplace_edit",
+    "legend_last_day_change",
+    "legend_widget",
+    "library_custom_color_themes",
+    "linetoolpropertieswidget_template_button",
+    "link_to_tradingview",
+    "lock_visible_range_when_adjusting_percentage_right_margin",
+    "lock_visible_time_range_on_resize",
+    "logo_always_maximized",
+    "logo_without_link",
+    "low_density_bars",
+    "main_series_scale_menu",
+    "marked_symbols",
+    "mobile_app_action_open_details_webview",
+    "mobile_app_hide_replay_toolbar",
+    "mobile_trading",
+    "mouse_wheel_scale",
+    "mouse_wheel_scroll",
+    "move_logo_to_main_pane",
+    "moving_average_study_changable_currency_unit",
+    "multiple_watchlists",
+    "no_bars_status",
+    "no_min_chart_width",
+    "object_tree_legend_mode",
+    "objects_tree_context_menu",
+    "open_account_manager",
+    "options_details_widget",
+    "order_info",
+    "order_panel",
+    "order_panel_close_button",
+    "order_panel_undock",
+    "pane_context_menu",
+    "pay_attention_to_ticker_not_symbol",
+    "phone_verification",
+    "pinch_scale",
+    "plain_studymarket",
+    "popup_hints",
+    "pre_post_market_price_line",
+    "pre_post_market_sessions",
+    "prefer_quote_short_name",
+    "prefer_symbol_name_over_fullname",
+    "pressed_mouse_move_scroll",
+    "price_scale_always_last_bar_value",
+    "pricescale_currency",
+    "pricescale_unit",
+    "property_pages",
+    "real_brokers",
+    "referral_program_for_widget_owners",
+    "refresh_saved_charts_list_on_dialog_show",
+    "remove_img_from_rss",
+    "remove_library_container_border",
+    "request_only_visible_range_on_reset",
+    "right_bar_stays_on_scroll",
+    "right_toolbar",
+    "save_chart_properties_to_local_storage",
+    "save_old_chart_before_save_as",
+    "save_shortcut",
+    "saved_charts_count_restriction",
+    "saveload_requires_authentication",
+    "saveload_separate_drawings_storage",
+    "saveload_storage_customization",
+    "scales_context_menu",
+    "scales_date_format",
+    "scales_time_hours_format",
+    "secondary_series_extend_time_scale",
+    "seconds_resolution",
+    "shift_visible_range_on_new_bar",
+    "show_animated_logo",
+    "show_average_close_price_line_and_label",
+    "show_chart_property_page",
+    "show_chart_warn_message",
+    "show_community_feed_button",
+    "show_dom_first_time",
+    "show_exchange_logos",
+    "show_hide_button_in_legend",
+    "show_interval_dialog_on_key_press",
+    "show_last_price_and_change_only_in_series_legend",
+    "show_login_dialog",
+    "show_object_tree",
+    "show_order_panel_on_start",
+    "show_percent_option_for_right_margin",
+    "show_right_widgets_panel_by_default",
+    "show_saved_watchlists",
+    "show_source_code",
+    "show_spread_operators",
+    "show_symbol_logo_for_compare_studies",
+    "show_symbol_logo_in_account_manager",
+    "show_symbol_logo_in_legend",
+    "show_symbol_logos",
+    "show_trading_notifications_history",
+    "show_zoom_and_move_buttons_on_touch",
+    "side_toolbar_in_fullscreen_mode",
+    "skip_event_target_check",
+    "small_no_display",
+    "snapshot_trading_drawings",
+    "source_selection_markers",
+    "star_some_intervals_by_default",
+    "static_charts_service",
+    "stop_study_on_restart",
+    "studies_extend_time_scale",
+    "studies_symbol_search_spread_operators",
+    "study_buttons_in_legend",
+    "study_dialog_fundamentals_economy_addons",
+    "study_on_study",
+    "study_overlay_compare_legend_option",
+    "study_symbol_ticker_description",
+    "study_templates",
+    "support_manage_drawings",
+    "support_multicharts",
+    "symbol_info",
+    "symbol_info_long_description",
+    "symbol_info_price_source",
+    "symbol_search_flags",
+    "symbol_search_hot_key",
+    "symbol_search_limited_exchanges",
+    "symbol_search_option_chain_selector",
+    "symbol_search_parser_mixin",
+    "symbol_search_three_columns_exchanges",
+    "symphony_embed",
+    "test_show_object_tree_debug",
+    "text-note-align-anchor-to-corner",
+    "text_notes",
+    "tick_resolution",
+    "timeframes_toolbar",
+    "timezone_menu",
+    "tpo_summary",
+    "trading_account_manager",
+    "trading_notifications",
+    "trading_terminal",
+    "tv_production",
+    "two_character_bar_marks_labels",
+    "unit_menu_disabled",
+    "update_study_formatter_on_symbol_resolve",
+    "update_timeframes_set_on_symbol_resolve",
+    "uppercase_instrument_names",
+    "use_last_visible_bar_value_in_legend",
+    "use_localstorage_for_settings",
+    "use_na_string_for_not_available_values",
+    "use_overrides_for_overlay",
+    "use_symbol_name_for_header_toolbar",
+    "use_ticker_on_symbol_info_update",
+    "vert_touch_drag_scroll",
+    "volume_force_overlay",
+    "watchlist_context_menu",
+    "watchlist_cross_tab_sync",
+    "watchlist_import_export",
+    "watchlist_sections",
+    "watchlists_from_to_file",
+    "whotrades_auth_only",
+    "widget",
+    "widget_logo",
+    "widgetbar_tabs"
+  ],
+  "feature_map": {
+    "14851": {},
+    "custom_items_in_context_menu": {},
+    "countdown": {},
+    "symbol_search_parser_mixin": {},
+    "pay_attention_to_ticker_not_symbol": {},
+    "graying_disabled_tools_enabled": {},
+    "update_study_formatter_on_symbol_resolve": {},
+    "constraint_dialogs_movement": {},
+    "phone_verification": {},
+    "show_trading_notifications_history": {},
+    "show_interval_dialog_on_key_press": {},
+    "header_interval_dialog_button": {
+      "subsets": [
+        "show_interval_dialog_on_key_press"
+      ]
+    },
+    "header_fullscreen_button": {},
+    "header_symbol_search": {},
+    "symbol_search_hot_key": {},
+    "header_resolutions": {
+      "subsets": [
+        "header_interval_dialog_button"
+      ]
+    },
+    "header_chart_type": {},
+    "header_settings": {},
+    "header_indicators": {},
+    "header_compare": {},
+    "header_undo_redo": {},
+    "header_quick_search": {},
+    "header_screenshot": {},
+    "header_saveload": {},
+    "study_on_study": {},
+    "scales_date_format": {},
+    "scales_time_hours_format": {},
+    "header_widget": {
+      "subsets": [
+        "header_widget_dom_node",
+        "header_symbol_search",
+        "header_resolutions",
+        "header_chart_type",
+        "header_settings",
+        "header_indicators",
+        "header_compare",
+        "header_undo_redo",
+        "header_quick_search",
+        "header_fullscreen_button",
+        "compare_symbol",
+        "header_screenshot"
+      ]
+    },
+    "legend_widget": {},
+    "compare_symbol": {
+      "subsets": [
+        "header_compare"
+      ]
+    },
+    "property_pages": {
+      "subsets": [
+        "show_chart_property_page",
+        "chart_property_page"
+      ]
+    },
+    "show_chart_property_page": {},
+    "chart_property_page": {
+      "subsets": [
+        "chart_property_page_scales",
+        "chart_property_page_trading",
+        "chart_property_page_right_margin_editor"
+      ]
+    },
+    "left_toolbar": {},
+    "right_toolbar": {},
+    "hide_left_toolbar_by_default": {},
+    "control_bar": {},
+    "widget_logo": {},
+    "timeframes_toolbar": {},
+    "edit_buttons_in_legend": {
+      "subsets": [
+        "show_hide_button_in_legend",
+        "format_button_in_legend",
+        "study_buttons_in_legend",
+        "delete_button_in_legend",
+        "legend_inplace_edit"
+      ]
+    },
+    "show_hide_button_in_legend": {},
+    "object_tree_legend_mode": {},
+    "format_button_in_legend": {},
+    "study_buttons_in_legend": {},
+    "delete_button_in_legend": {},
+    "legend_inplace_edit": {},
+    "broker_button": {},
+    "buy_sell_buttons": {
+      "subsets": [
+        "broker_button"
+      ]
+    },
+    "pane_context_menu": {},
+    "scales_context_menu": {},
+    "legend_context_menu": {},
+    "context_menus": {
+      "subsets": [
+        "pane_context_menu",
+        "scales_context_menu",
+        "legend_context_menu",
+        "objects_tree_context_menu"
+      ]
+    },
+    "items_favoriting": {},
+    "save_chart_properties_to_local_storage": {},
+    "use_localstorage_for_settings": {
+      "subsets": [
+        "items_favoriting",
+        "save_chart_properties_to_local_storage"
+      ]
+    },
+    "handle_scale": {
+      "subsets": [
+        "mouse_wheel_scale",
+        "pinch_scale",
+        "axis_pressed_mouse_move_scale"
+      ]
+    },
+    "handle_scroll": {
+      "subsets": [
+        "mouse_wheel_scroll",
+        "pressed_mouse_move_scroll",
+        "horz_touch_drag_scroll",
+        "vert_touch_drag_scroll"
+      ]
+    },
+    "plain_studymarket": {},
+    "disable_resolution_rebuild": {},
+    "border_around_the_chart": {},
+    "charting_library_debug_mode": {},
+    "saveload_requires_authentication": {},
+    "saveload_storage_customization": {},
+    "volume_force_overlay": {},
+    "create_volume_indicator_by_default": {},
+    "create_volume_indicator_by_default_once": {},
+    "saved_charts_count_restriction": {},
+    "lean_chart_load": {},
+    "stop_study_on_restart": {},
+    "star_some_intervals_by_default": {},
+    "move_logo_to_main_pane": {},
+    "show_animated_logo": {},
+    "link_to_tradingview": {},
+    "logo_without_link": {},
+    "logo_always_maximized": {},
+    "right_bar_stays_on_scroll": {},
+    "chart_content_overrides_by_defaults": {},
+    "snapshot_trading_drawings": {},
+    "allow_supported_resolutions_set_only": {},
+    "widgetbar_tabs": {
+      "subsets": [
+        "right_toolbar"
+      ]
+    },
+    "show_object_tree": {
+      "subsets": [
+        "right_toolbar"
+      ]
+    },
+    "dom_widget": {
+      "subsets": [
+        "right_toolbar"
+      ]
+    },
+    "collapsible_header": {},
+    "study_templates": {},
+    "side_toolbar_in_fullscreen_mode": {},
+    "header_in_fullscreen_mode": {},
+    "remove_library_container_border": {},
+    "whotrades_auth_only": {},
+    "support_multicharts": {},
+    "display_market_status": {},
+    "display_data_mode": {},
+    "datasource_copypaste": {},
+    "drawing_templates": {
+      "subsets": [
+        "linetoolpropertieswidget_template_button"
+      ]
+    },
+    "expand_symbolsearch_items": {},
+    "symbol_search_three_columns_exchanges": {},
+    "symbol_search_flags": {},
+    "symbol_search_limited_exchanges": {},
+    "bugreport_button": {
+      "subsets": [
+        "right_toolbar"
+      ]
+    },
+    "footer_publish_idea_button": {},
+    "text_notes": {},
+    "show_source_code": {},
+    "symbol_info": {},
+    "no_bars_status": {},
+    "clear_bars_on_series_error": {},
+    "hide_loading_screen_on_series_error": {},
+    "seconds_resolution": {},
+    "dont_show_boolean_study_arguments": {},
+    "hide_last_na_study_output": {},
+    "price_scale_always_last_bar_value": {},
+    "study_dialog_fundamentals_economy_addons": {},
+    "uppercase_instrument_names": {},
+    "trading_notifications": {},
+    "chart_crosshair_menu": {},
+    "japanese_chart_styles": {},
+    "hide_series_legend_item": {},
+    "hide_study_overlay_legend_item": {},
+    "hide_study_compare_legend_item": {},
+    "linetoolpropertieswidget_template_button": {},
+    "use_overrides_for_overlay": {},
+    "timezone_menu": {},
+    "main_series_scale_menu": {},
+    "show_login_dialog": {},
+    "remove_img_from_rss": {},
+    "bars_marks": {},
+    "chart_scroll": {},
+    "chart_zoom": {},
+    "source_selection_markers": {},
+    "low_density_bars": {},
+    "end_of_period_timescale_marks": {},
+    "open_account_manager": {},
+    "show_order_panel_on_start": {},
+    "order_panel": {
+      "subsets": [
+        "order_panel_close_button",
+        "order_panel_undock",
+        "right_toolbar",
+        "order_info"
+      ]
+    },
+    "multiple_watchlists": {},
+    "watchlist_import_export": {},
+    "study_overlay_compare_legend_option": {},
+    "mobile_app_action_open_details_webview": {},
+    "custom_resolutions": {},
+    "referral_program_for_widget_owners": {},
+    "mobile_trading": {},
+    "real_brokers": {},
+    "no_min_chart_width": {},
+    "lock_visible_time_range_on_resize": {},
+    "pricescale_currency": {},
+    "cropped_tick_marks": {},
+    "trading_account_manager": {},
+    "disable_sameinterval_aligning": {},
+    "display_legend_on_all_charts": {},
+    "chart_style_hilo": {},
+    "chart_style_hilo_last_price": {},
+    "pricescale_unit": {},
+    "show_spread_operators": {},
+    "hide_exponentiation_spread_operator": {},
+    "hide_reciprocal_spread_operator": {},
+    "compare_symbol_search_spread_operators": {},
+    "studies_symbol_search_spread_operators": {},
+    "hide_resolution_in_legend": {},
+    "hide_unresolved_symbols_in_legend": {},
+    "fix_left_edge": {},
+    "study_symbol_ticker_description": {},
+    "two_character_bar_marks_labels": {},
+    "tick_resolution": {},
+    "secondary_series_extend_time_scale": {},
+    "hide_volume_ma": {},
+    "small_no_display": {},
+    "charting_library_single_symbol_request": {},
+    "use_ticker_on_symbol_info_update": {},
+    "show_zoom_and_move_buttons_on_touch": {},
+    "hide_main_series_symbol_from_indicator_legend": {},
+    "chart_hide_close_position_button": {},
+    "chart_hide_close_order_button": {},
+    "hide_price_scale_global_last_bar_value": {
+      "subsets": [
+        "use_last_visible_bar_value_in_legend"
+      ]
+    },
+    "keep_object_tree_widget_in_right_toolbar": {},
+    "show_average_close_price_line_and_label": {},
+    "hide_image_invalid_symbol": {},
+    "hide_object_tree_and_price_scale_exchange_label": {},
+    "confirm_overwrite_if_chart_layout_with_name_exists": {},
+    "determine_first_data_request_size_using_visible_range": {},
+    "use_na_string_for_not_available_values": {},
+    "show_last_price_and_change_only_in_series_legend": {},
+    "legend_last_day_change": {},
+    "iframe_loading_compatibility_mode": {},
+    "show_percent_option_for_right_margin": {},
+    "watchlist_context_menu": {},
+    "accessible_keyboard_shortcuts": {},
+    "advanced_emoji_in_titles": {},
+    "app_phone": {},
+    "app_tablet": {},
+    "mobile_app_hide_replay_toolbar": {},
+    "symbol_search_option_chain_selector": {},
+    "tv_production": {
+      "subsets": [
+        "advanced_emoji_in_titles",
+        "auto_enable_symbol_labels",
+        "symbol_search_parser_mixin",
+        "header_fullscreen_button",
+        "header_widget",
+        "dont_show_boolean_study_arguments",
+        "left_toolbar",
+        "right_toolbar",
+        "buy_sell_buttons",
+        "control_bar",
+        "symbol_search_hot_key",
+        "context_menus",
+        "edit_buttons_in_legend",
+        "object_tree_legend_mode",
+        "uppercase_instrument_names",
+        "use_localstorage_for_settings",
+        "saveload_requires_authentication",
+        "volume_force_overlay",
+        "saved_charts_count_restriction",
+        "create_volume_indicator_by_default",
+        "create_volume_indicator_by_default_once",
+        "charts_auto_save",
+        "save_old_chart_before_save_as",
+        "chart_content_overrides_by_defaults",
+        "alerts",
+        "header_saveload",
+        "header_layouttoggle",
+        "datasource_copypaste",
+        "show_saved_watchlists",
+        "watchlists_from_to_file",
+        "add_to_watchlist",
+        "property_pages",
+        "support_multicharts",
+        "display_market_status",
+        "display_data_mode",
+        "show_chart_warn_message",
+        "support_manage_drawings",
+        "widgetbar_tabs",
+        "study_templates",
+        "collapsible_header",
+        "drawing_templates",
+        "footer_publish_idea_button",
+        "text_notes",
+        "show_source_code",
+        "symbol_info",
+        "linetoolpropertieswidget_template_button",
+        "trading_notifications",
+        "symbol_search_three_columns_exchanges",
+        "symbol_search_flags",
+        "symbol_search_limited_exchanges",
+        "phone_verification",
+        "custom_resolutions",
+        "compare_symbol",
+        "study_on_study",
+        "japanese_chart_styles",
+        "show_login_dialog",
+        "dom_widget",
+        "bars_marks",
+        "chart_scroll",
+        "chart_zoom",
+        "show_trading_notifications_history",
+        "source_selection_markers",
+        "study_dialog_fundamentals_economy_addons",
+        "multiple_watchlists",
+        "marked_symbols",
+        "order_panel",
+        "pricescale_currency",
+        "show_animated_logo",
+        "pricescale_currency",
+        "show_object_tree",
+        "watchlist_import_export",
+        "scales_date_format",
+        "scales_time_hours_format",
+        "popup_hints",
+        "show_right_widgets_panel_by_default",
+        "compare_recent_symbols_enabled",
+        "chart_style_hilo_last_price",
+        "symbol_search_option_chain_selector"
+      ]
+    },
+    "widget": {
+      "subsets": [
+        "auto_enable_symbol_labels",
+        "symbol_search_parser_mixin",
+        "uppercase_instrument_names",
+        "left_toolbar",
+        "right_toolbar",
+        "control_bar",
+        "symbol_search_hot_key",
+        "context_menus",
+        "edit_buttons_in_legend",
+        "object_tree_legend_mode",
+        "use_localstorage_for_settings",
+        "saveload_requires_authentication",
+        "volume_force_overlay",
+        "create_volume_indicator_by_default",
+        "create_volume_indicator_by_default_once",
+        "dont_show_boolean_study_arguments",
+        "header_widget_dom_node",
+        "header_symbol_search",
+        "header_resolutions",
+        "header_chart_type",
+        "header_compare",
+        "header_indicators",
+        "star_some_intervals_by_default",
+        "display_market_status",
+        "display_data_mode",
+        "show_chart_warn_message",
+        "symbol_info",
+        "linetoolpropertieswidget_template_button",
+        "symbol_search_three_columns_exchanges",
+        "symbol_search_flags",
+        "symbol_search_limited_exchanges",
+        "widgetbar_tabs",
+        "compare_symbol",
+        "show_login_dialog",
+        "plain_studymarket",
+        "japanese_chart_styles",
+        "bars_marks",
+        "chart_scroll",
+        "chart_zoom",
+        "source_selection_markers",
+        "property_pages",
+        "show_right_widgets_panel_by_default",
+        "chart_style_hilo_last_price"
+      ]
+    },
+    "bovespa_widget": {
+      "subsets": [
+        "widget",
+        "header_settings",
+        "linetoolpropertieswidget_template_button",
+        "compare_recent_symbols_enabled"
+      ]
+    },
+    "charting_library_base": {
+      "subsets": [
+        "14851",
+        "allow_supported_resolutions_set_only",
+        "auto_enable_symbol_labels",
+        "border_around_the_chart",
+        "collapsible_header",
+        "constraint_dialogs_movement",
+        "context_menus",
+        "control_bar",
+        "create_volume_indicator_by_default",
+        "custom_items_in_context_menu",
+        "datasource_copypaste",
+        "uppercase_instrument_names",
+        "display_market_status",
+        "edit_buttons_in_legend",
+        "object_tree_legend_mode",
+        "graying_disabled_tools_enabled",
+        "header_widget",
+        "legend_widget",
+        "header_saveload",
+        "dont_show_boolean_study_arguments",
+        "lean_chart_load",
+        "left_toolbar",
+        "right_toolbar",
+        "link_to_tradingview",
+        "pay_attention_to_ticker_not_symbol",
+        "plain_studymarket",
+        "refresh_saved_charts_list_on_dialog_show",
+        "right_bar_stays_on_scroll",
+        "saveload_storage_customization",
+        "stop_study_on_restart",
+        "timeframes_toolbar",
+        "symbol_search_hot_key",
+        "update_study_formatter_on_symbol_resolve",
+        "update_timeframes_set_on_symbol_resolve",
+        "use_localstorage_for_settings",
+        "volume_force_overlay",
+        "widget_logo",
+        "countdown",
+        "use_overrides_for_overlay",
+        "trading_notifications",
+        "compare_symbol",
+        "symbol_info",
+        "timezone_menu",
+        "main_series_scale_menu",
+        "create_volume_indicator_by_default_once",
+        "bars_marks",
+        "chart_scroll",
+        "chart_zoom",
+        "source_selection_markers",
+        "property_pages",
+        "go_to_date",
+        "adaptive_logo",
+        "show_animated_logo",
+        "handle_scale",
+        "handle_scroll",
+        "shift_visible_range_on_new_bar",
+        "chart_content_overrides_by_defaults",
+        "cropped_tick_marks",
+        "scales_date_format",
+        "scales_time_hours_format",
+        "popup_hints",
+        "save_shortcut",
+        "show_right_widgets_panel_by_default",
+        "show_object_tree",
+        "insert_indicator_dialog_shortcut",
+        "compare_recent_symbols_enabled",
+        "hide_main_series_symbol_from_indicator_legend",
+        "chart_style_hilo",
+        "request_only_visible_range_on_reset",
+        "clear_price_scale_on_error_or_empty_bars",
+        "show_symbol_logo_in_legend",
+        "show_symbol_logo_for_compare_studies",
+        "library_custom_color_themes"
+      ]
+    },
+    "charting_library": {
+      "subsets": [
+        "charting_library_base"
+      ]
+    },
+    "static_charts_service": {
+      "subsets": [
+        "charting_library",
+        "disable_resolution_rebuild"
+      ]
+    },
+    "trading_terminal": {
+      "subsets": [
+        "charting_library_base",
+        "support_multicharts",
+        "header_layouttoggle",
+        "japanese_chart_styles",
+        "chart_property_page_trading",
+        "add_to_watchlist",
+        "open_account_manager",
+        "show_dom_first_time",
+        "order_panel",
+        "buy_sell_buttons",
+        "multiple_watchlists",
+        "show_trading_notifications_history",
+        "always_pass_called_order_to_modify",
+        "show_object_tree",
+        "watchlist_import_export",
+        "drawing_templates",
+        "trading_account_manager",
+        "chart_crosshair_menu",
+        "compare_recent_symbols_enabled",
+        "watchlist_context_menu",
+        "show_symbol_logo_in_account_manager",
+        "watchlist_sections",
+        "prefer_quote_short_name",
+        "enable_dom_data_for_untradable_symbols",
+        "prefer_symbol_name_over_fullname",
+        "watchlist_cross_tab_sync"
+      ]
+    }
+  },
+  "subsets_map": {
+    "header_interval_dialog_button": [
+      "show_interval_dialog_on_key_press"
+    ],
+    "header_resolutions": [
+      "header_interval_dialog_button"
+    ],
+    "header_widget": [
+      "header_widget_dom_node",
+      "header_symbol_search",
+      "header_resolutions",
+      "header_chart_type",
+      "header_settings",
+      "header_indicators",
+      "header_compare",
+      "header_undo_redo",
+      "header_quick_search",
+      "header_fullscreen_button",
+      "compare_symbol",
+      "header_screenshot"
+    ],
+    "compare_symbol": [
+      "header_compare"
+    ],
+    "property_pages": [
+      "show_chart_property_page",
+      "chart_property_page"
+    ],
+    "chart_property_page": [
+      "chart_property_page_scales",
+      "chart_property_page_trading",
+      "chart_property_page_right_margin_editor"
+    ],
+    "edit_buttons_in_legend": [
+      "show_hide_button_in_legend",
+      "format_button_in_legend",
+      "study_buttons_in_legend",
+      "delete_button_in_legend",
+      "legend_inplace_edit"
+    ],
+    "buy_sell_buttons": [
+      "broker_button"
+    ],
+    "context_menus": [
+      "pane_context_menu",
+      "scales_context_menu",
+      "legend_context_menu",
+      "objects_tree_context_menu"
+    ],
+    "use_localstorage_for_settings": [
+      "items_favoriting",
+      "save_chart_properties_to_local_storage"
+    ],
+    "handle_scale": [
+      "mouse_wheel_scale",
+      "pinch_scale",
+      "axis_pressed_mouse_move_scale"
+    ],
+    "handle_scroll": [
+      "mouse_wheel_scroll",
+      "pressed_mouse_move_scroll",
+      "horz_touch_drag_scroll",
+      "vert_touch_drag_scroll"
+    ],
+    "widgetbar_tabs": [
+      "right_toolbar"
+    ],
+    "show_object_tree": [
+      "right_toolbar"
+    ],
+    "dom_widget": [
+      "right_toolbar"
+    ],
+    "drawing_templates": [
+      "linetoolpropertieswidget_template_button"
+    ],
+    "bugreport_button": [
+      "right_toolbar"
+    ],
+    "order_panel": [
+      "order_panel_close_button",
+      "order_panel_undock",
+      "right_toolbar",
+      "order_info"
+    ],
+    "hide_price_scale_global_last_bar_value": [
+      "use_last_visible_bar_value_in_legend"
+    ],
+    "tv_production": [
+      "advanced_emoji_in_titles",
+      "auto_enable_symbol_labels",
+      "symbol_search_parser_mixin",
+      "header_fullscreen_button",
+      "header_widget",
+      "dont_show_boolean_study_arguments",
+      "left_toolbar",
+      "right_toolbar",
+      "buy_sell_buttons",
+      "control_bar",
+      "symbol_search_hot_key",
+      "context_menus",
+      "edit_buttons_in_legend",
+      "object_tree_legend_mode",
+      "uppercase_instrument_names",
+      "use_localstorage_for_settings",
+      "saveload_requires_authentication",
+      "volume_force_overlay",
+      "saved_charts_count_restriction",
+      "create_volume_indicator_by_default",
+      "create_volume_indicator_by_default_once",
+      "charts_auto_save",
+      "save_old_chart_before_save_as",
+      "chart_content_overrides_by_defaults",
+      "alerts",
+      "header_saveload",
+      "header_layouttoggle",
+      "datasource_copypaste",
+      "show_saved_watchlists",
+      "watchlists_from_to_file",
+      "add_to_watchlist",
+      "property_pages",
+      "support_multicharts",
+      "display_market_status",
+      "display_data_mode",
+      "show_chart_warn_message",
+      "support_manage_drawings",
+      "widgetbar_tabs",
+      "study_templates",
+      "collapsible_header",
+      "drawing_templates",
+      "footer_publish_idea_button",
+      "text_notes",
+      "show_source_code",
+      "symbol_info",
+      "linetoolpropertieswidget_template_button",
+      "trading_notifications",
+      "symbol_search_three_columns_exchanges",
+      "symbol_search_flags",
+      "symbol_search_limited_exchanges",
+      "phone_verification",
+      "custom_resolutions",
+      "compare_symbol",
+      "study_on_study",
+      "japanese_chart_styles",
+      "show_login_dialog",
+      "dom_widget",
+      "bars_marks",
+      "chart_scroll",
+      "chart_zoom",
+      "show_trading_notifications_history",
+      "source_selection_markers",
+      "study_dialog_fundamentals_economy_addons",
+      "multiple_watchlists",
+      "marked_symbols",
+      "order_panel",
+      "pricescale_currency",
+      "show_animated_logo",
+      "pricescale_currency",
+      "show_object_tree",
+      "watchlist_import_export",
+      "scales_date_format",
+      "scales_time_hours_format",
+      "popup_hints",
+      "show_right_widgets_panel_by_default",
+      "compare_recent_symbols_enabled",
+      "chart_style_hilo_last_price",
+      "symbol_search_option_chain_selector"
+    ],
+    "widget": [
+      "auto_enable_symbol_labels",
+      "symbol_search_parser_mixin",
+      "uppercase_instrument_names",
+      "left_toolbar",
+      "right_toolbar",
+      "control_bar",
+      "symbol_search_hot_key",
+      "context_menus",
+      "edit_buttons_in_legend",
+      "object_tree_legend_mode",
+      "use_localstorage_for_settings",
+      "saveload_requires_authentication",
+      "volume_force_overlay",
+      "create_volume_indicator_by_default",
+      "create_volume_indicator_by_default_once",
+      "dont_show_boolean_study_arguments",
+      "header_widget_dom_node",
+      "header_symbol_search",
+      "header_resolutions",
+      "header_chart_type",
+      "header_compare",
+      "header_indicators",
+      "star_some_intervals_by_default",
+      "display_market_status",
+      "display_data_mode",
+      "show_chart_warn_message",
+      "symbol_info",
+      "linetoolpropertieswidget_template_button",
+      "symbol_search_three_columns_exchanges",
+      "symbol_search_flags",
+      "symbol_search_limited_exchanges",
+      "widgetbar_tabs",
+      "compare_symbol",
+      "show_login_dialog",
+      "plain_studymarket",
+      "japanese_chart_styles",
+      "bars_marks",
+      "chart_scroll",
+      "chart_zoom",
+      "source_selection_markers",
+      "property_pages",
+      "show_right_widgets_panel_by_default",
+      "chart_style_hilo_last_price"
+    ],
+    "bovespa_widget": [
+      "widget",
+      "header_settings",
+      "linetoolpropertieswidget_template_button",
+      "compare_recent_symbols_enabled"
+    ],
+    "charting_library_base": [
+      "14851",
+      "allow_supported_resolutions_set_only",
+      "auto_enable_symbol_labels",
+      "border_around_the_chart",
+      "collapsible_header",
+      "constraint_dialogs_movement",
+      "context_menus",
+      "control_bar",
+      "create_volume_indicator_by_default",
+      "custom_items_in_context_menu",
+      "datasource_copypaste",
+      "uppercase_instrument_names",
+      "display_market_status",
+      "edit_buttons_in_legend",
+      "object_tree_legend_mode",
+      "graying_disabled_tools_enabled",
+      "header_widget",
+      "legend_widget",
+      "header_saveload",
+      "dont_show_boolean_study_arguments",
+      "lean_chart_load",
+      "left_toolbar",
+      "right_toolbar",
+      "link_to_tradingview",
+      "pay_attention_to_ticker_not_symbol",
+      "plain_studymarket",
+      "refresh_saved_charts_list_on_dialog_show",
+      "right_bar_stays_on_scroll",
+      "saveload_storage_customization",
+      "stop_study_on_restart",
+      "timeframes_toolbar",
+      "symbol_search_hot_key",
+      "update_study_formatter_on_symbol_resolve",
+      "update_timeframes_set_on_symbol_resolve",
+      "use_localstorage_for_settings",
+      "volume_force_overlay",
+      "widget_logo",
+      "countdown",
+      "use_overrides_for_overlay",
+      "trading_notifications",
+      "compare_symbol",
+      "symbol_info",
+      "timezone_menu",
+      "main_series_scale_menu",
+      "create_volume_indicator_by_default_once",
+      "bars_marks",
+      "chart_scroll",
+      "chart_zoom",
+      "source_selection_markers",
+      "property_pages",
+      "go_to_date",
+      "adaptive_logo",
+      "show_animated_logo",
+      "handle_scale",
+      "handle_scroll",
+      "shift_visible_range_on_new_bar",
+      "chart_content_overrides_by_defaults",
+      "cropped_tick_marks",
+      "scales_date_format",
+      "scales_time_hours_format",
+      "popup_hints",
+      "save_shortcut",
+      "show_right_widgets_panel_by_default",
+      "show_object_tree",
+      "insert_indicator_dialog_shortcut",
+      "compare_recent_symbols_enabled",
+      "hide_main_series_symbol_from_indicator_legend",
+      "chart_style_hilo",
+      "request_only_visible_range_on_reset",
+      "clear_price_scale_on_error_or_empty_bars",
+      "show_symbol_logo_in_legend",
+      "show_symbol_logo_for_compare_studies",
+      "library_custom_color_themes"
+    ],
+    "charting_library": [
+      "charting_library_base"
+    ],
+    "static_charts_service": [
+      "charting_library",
+      "disable_resolution_rebuild"
+    ],
+    "trading_terminal": [
+      "charting_library_base",
+      "support_multicharts",
+      "header_layouttoggle",
+      "japanese_chart_styles",
+      "chart_property_page_trading",
+      "add_to_watchlist",
+      "open_account_manager",
+      "show_dom_first_time",
+      "order_panel",
+      "buy_sell_buttons",
+      "multiple_watchlists",
+      "show_trading_notifications_history",
+      "always_pass_called_order_to_modify",
+      "show_object_tree",
+      "watchlist_import_export",
+      "drawing_templates",
+      "trading_account_manager",
+      "chart_crosshair_menu",
+      "compare_recent_symbols_enabled",
+      "watchlist_context_menu",
+      "show_symbol_logo_in_account_manager",
+      "watchlist_sections",
+      "prefer_quote_short_name",
+      "enable_dom_data_for_untradable_symbols",
+      "prefer_symbol_name_over_fullname",
+      "watchlist_cross_tab_sync"
+    ]
+  },
+  "checked_in_bundles": {
+    "chart_style_hilo": [
+      "1119.d9afdd012b225f041951.js",
+      "library.e8d44337c84d65489d2c.js",
+      "study-property-pages-with-definitions.12ebbd1ccbc8d7a778cd.js"
+    ],
+    "japanese_chart_styles": [
+      "1119.d9afdd012b225f041951.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "pre_post_market_sessions": [
+      "1119.d9afdd012b225f041951.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "intraday_inactivity_gaps": [
+      "1119.d9afdd012b225f041951.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "embed_resizer_overrides": [
+      "2538.13f4bc31d9a146bc25c4.js",
+      "4570.2c8d882e1ef1f67d91f4.js",
+      "currency-label-menu.5e4a65f682c315c97785.js",
+      "custom-intervals-add-dialog.d76a6a740a6ac3246ab1.js",
+      "data-exportdialog.8525d1f6cf241ad40fb2.js",
+      "go-to-date-dialog-impl.c90797e0c6ad86ea2772.js",
+      "insert-image-dialog.7e2f48e68e7184d0d3dd.js",
+      "study-template-dialog.3e845268088620556c3b.js",
+      "symbol-info-dialog-impl.23e8feddd0326a1feabb.js",
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "skip_event_target_check": [
+      "3010.b6767e7ba0734f8ea43b.js",
+      "427.8e4ad2884751c78b5ebd.js",
+      "chart-bottom-toolbar.fd38479e975a1ac4fdd8.js",
+      "floating-toolbars.435f06c307950384d090.js",
+      "footer-widget.08780bf0181c58031ae2.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "advanced_emoji_in_titles": [
+      "3805.42495629e38f02c4d148.js",
+      "3905.5e651f8ebf55269e0eda.js",
+      "watchlist-widget.c7bd684646cd360803e2.js"
+    ],
+    "chart_hide_close_order_button": [
+      "6161.10c4a7de17f463d1d76e.js"
+    ],
+    "chart_hide_close_position_button": [
+      "6161.10c4a7de17f463d1d76e.js"
+    ],
+    "snapshot_trading_drawings": [
+      "6161.10c4a7de17f463d1d76e.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "symbol_search_option_chain_selector": [
+      "7000.21314dd7f29723dd7570.js",
+      "chart-widget-gui.373398f680e71823f0f1.js",
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "show_spread_operators": [
+      "7000.21314dd7f29723dd7570.js",
+      "7335.f7017c32a7d4a05f3652.js",
+      "add-compare-dialog.5c5e616ea16bb43dcec2.js",
+      "chart-widget-gui.373398f680e71823f0f1.js",
+      "header-toolbar.33da2545627b9608b949.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "studies_symbol_search_spread_operators": [
+      "7000.21314dd7f29723dd7570.js",
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "uppercase_instrument_names": [
+      "7000.21314dd7f29723dd7570.js",
+      "7335.f7017c32a7d4a05f3652.js",
+      "library.e8d44337c84d65489d2c.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "study_on_study": [
+      "7000.21314dd7f29723dd7570.js",
+      "library.e8d44337c84d65489d2c.js",
+      "study-property-pages-with-definitions.12ebbd1ccbc8d7a778cd.js"
+    ],
+    "drawing_templates": [
+      "7259.c51f432500f7e107aa27.js",
+      "floating-toolbars.435f06c307950384d090.js",
+      "library.e8d44337c84d65489d2c.js",
+      "line-tool-templates-list.21e19d1b710af56bb4a7.js"
+    ],
+    "show_symbol_logos": [
+      "7335.f7017c32a7d4a05f3652.js",
+      "chart-widget-gui.373398f680e71823f0f1.js",
+      "general-property-page.b2b045afa1ff86d18bcd.js",
+      "studies.df9d03d5d71d89aed43c.js",
+      "symbol-details.b77e4d320c1dbbfb0ea5.js",
+      "trading-account-manager.1b2c5c3fc6d9600dc0fb.js",
+      "watchlist-widget.c7bd684646cd360803e2.js"
+    ],
+    "show_exchange_logos": [
+      "7335.f7017c32a7d4a05f3652.js",
+      "symbol-info-dialog-impl.23e8feddd0326a1feabb.js"
+    ],
+    "pay_attention_to_ticker_not_symbol": [
+      "7335.f7017c32a7d4a05f3652.js",
+      "compare-model.17fcdaff82dd9646d47f.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_exponentiation_spread_operator": [
+      "7335.f7017c32a7d4a05f3652.js"
+    ],
+    "hide_reciprocal_spread_operator": [
+      "7335.f7017c32a7d4a05f3652.js"
+    ],
+    "hide_image_invalid_symbol": [
+      "7335.f7017c32a7d4a05f3652.js",
+      "get-error-card.a031f39f01dfc4896f5c.js"
+    ],
+    "allow_arbitrary_symbol_search_input": [
+      "7335.f7017c32a7d4a05f3652.js",
+      "add-compare-dialog.5c5e616ea16bb43dcec2.js"
+    ],
+    "saveload_separate_drawings_storage": [
+      "7415.6d9e5497dea3ae9ce05b.js",
+      "drawing-toolbar.9f682ebb059580da885e.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "test_show_object_tree_debug": [
+      "7415.6d9e5497dea3ae9ce05b.js"
+    ],
+    "widget": [
+      "7898.93482c7ce4146884bda0.js",
+      "compare-model.17fcdaff82dd9646d47f.js",
+      "floating-toolbars.435f06c307950384d090.js",
+      "header-toolbar.33da2545627b9608b949.js",
+      "library.e8d44337c84d65489d2c.js",
+      "restricted-toolset.6f81af351cfbad2af083.js",
+      "source-properties-editor.900e24a9cf927086b5b6.js",
+      "symbol-details.b77e4d320c1dbbfb0ea5.js",
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "multiple_watchlists": [
+      "7898.93482c7ce4146884bda0.js",
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "watchlist-widget.c7bd684646cd360803e2.js"
+    ],
+    "items_favoriting": [
+      "8687.4bb18f37c96aa9314d64.js",
+      "drawing-toolbar.9f682ebb059580da885e.js",
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "header-toolbar.33da2545627b9608b949.js",
+      "library.e8d44337c84d65489d2c.js",
+      "load-chart-dialog.baf3981812a2cb6bda5d.js",
+      "restricted-toolset.6f81af351cfbad2af083.js",
+      "study-market.958531c4a183b19a7315.js"
+    ],
+    "dom_widget": [
+      "9088.e5b04ee7028204603d5e.js",
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "prefer_symbol_name_over_fullname": [
+      "9088.e5b04ee7028204603d5e.js"
+    ],
+    "compare_symbol_search_spread_operators": [
+      "add-compare-dialog.5c5e616ea16bb43dcec2.js"
+    ],
+    "secondary_series_extend_time_scale": [
+      "add-compare-dialog.5c5e616ea16bb43dcec2.js",
+      "library.e8d44337c84d65489d2c.js",
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "update_timeframes_set_on_symbol_resolve": [
+      "chart-bottom-toolbar.fd38479e975a1ac4fdd8.js"
+    ],
+    "fundamental_widget": [
+      "chart-bottom-toolbar.fd38479e975a1ac4fdd8.js",
+      "chart-widget-gui.373398f680e71823f0f1.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "show_zoom_and_move_buttons_on_touch": [
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "show_symbol_logo_for_compare_studies": [
+      "chart-widget-gui.373398f680e71823f0f1.js",
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "object_tree_legend_mode": [
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "show_symbol_logo_in_legend": [
+      "chart-widget-gui.373398f680e71823f0f1.js",
+      "general-property-page.b2b045afa1ff86d18bcd.js",
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "legend_inplace_edit": [
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "show_hide_button_in_legend": [
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "hide_resolution_in_legend": [
+      "chart-widget-gui.373398f680e71823f0f1.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "disable_legend_inplace_symbol_change": [
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "study_buttons_in_legend": [
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "property_pages": [
+      "chart-widget-gui.373398f680e71823f0f1.js",
+      "floating-toolbars.435f06c307950384d090.js",
+      "library.e8d44337c84d65489d2c.js",
+      "new-edit-object-dialog.4d64cf5237fd0734deb8.js",
+      "trading-account-manager.1b2c5c3fc6d9600dc0fb.js",
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "format_button_in_legend": [
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "delete_button_in_legend": [
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "symbol_info_price_source": [
+      "chart-widget-gui.373398f680e71823f0f1.js",
+      "general-property-page.b2b045afa1ff86d18bcd.js",
+      "library.e8d44337c84d65489d2c.js",
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "hide_legend_by_default": [
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "legend_context_menu": [
+      "chart-widget-gui.373398f680e71823f0f1.js"
+    ],
+    "compare_recent_symbols_enabled": [
+      "compare-model.17fcdaff82dd9646d47f.js"
+    ],
+    "use_last_visible_bar_value_in_legend": [
+      "data-window-widget.997c077e13963f88220b.js",
+      "library.e8d44337c84d65489d2c.js",
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "right_toolbar": [
+      "drawing-toolbar.9f682ebb059580da885e.js",
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js",
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "keep_object_tree_widget_in_right_toolbar": [
+      "drawing-toolbar.9f682ebb059580da885e.js",
+      "library.e8d44337c84d65489d2c.js",
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "support_multicharts": [
+      "drawing-toolbar.9f682ebb059580da885e.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "show_object_tree": [
+      "drawing-toolbar.9f682ebb059580da885e.js",
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js",
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "image_drawingtool": [
+      "drawing-toolbar.9f682ebb059580da885e.js",
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "chart_template_storage": [
+      "general-chart-properties-dialog.f1e0baa3f7c3ba8b7a81.js"
+    ],
+    "show_average_close_price_line_and_label": [
+      "general-property-page.b2b045afa1ff86d18bcd.js",
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "chart_property_page_right_margin_editor": [
+      "general-property-page.b2b045afa1ff86d18bcd.js"
+    ],
+    "show_percent_option_for_right_margin": [
+      "general-property-page.b2b045afa1ff86d18bcd.js"
+    ],
+    "buy_sell_buttons": [
+      "general-property-page.b2b045afa1ff86d18bcd.js",
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "chart_property_page_trading": [
+      "general-property-page.b2b045afa1ff86d18bcd.js"
+    ],
+    "symbol_info_long_description": [
+      "general-property-page.b2b045afa1ff86d18bcd.js"
+    ],
+    "pre_post_market_price_line": [
+      "general-property-page.b2b045afa1ff86d18bcd.js",
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "scales_date_format": [
+      "general-property-page.b2b045afa1ff86d18bcd.js"
+    ],
+    "scales_time_hours_format": [
+      "general-property-page.b2b045afa1ff86d18bcd.js"
+    ],
+    "order_panel": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js",
+      "terminal-configset.abbe3b2ddf1adcad2530.js",
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "header_widget": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "header_compare": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "header_indicators": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "header_settings": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "header_symbol_search": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "header-toolbar.33da2545627b9608b949.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "symbol_info": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "header_undo_redo": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "header_chart_type": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "left_toolbar": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "watchlist_import_export": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "watchlist-widget.c7bd684646cd360803e2.js"
+    ],
+    "header_resolutions": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "show_interval_dialog_on_key_press": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "header_saveload": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "add_to_watchlist": [
+      "global-search-dialog.be3beae2e53101d0e894.js"
+    ],
+    "header_fullscreen_button": [
+      "global-search-dialog.be3beae2e53101d0e894.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "hide_alert_referral_tool": [
+      "header-toolbar.33da2545627b9608b949.js"
+    ],
+    "hide_open_popup_button": [
+      "header-toolbar.33da2545627b9608b949.js"
+    ],
+    "hide_publish_button": [
+      "header-toolbar.33da2545627b9608b949.js"
+    ],
+    "star_some_intervals_by_default": [
+      "header-toolbar.33da2545627b9608b949.js"
+    ],
+    "collapsible_header": [
+      "header-toolbar.33da2545627b9608b949.js"
+    ],
+    "charts_emoji_sync": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "remove_img_from_rss": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "use_localstorage_for_settings": [
+      "library.e8d44337c84d65489d2c.js",
+      "symbol-list-service.ff72f86845c1d337fda3.js"
+    ],
+    "save_chart_properties_to_local_storage": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "symbol_search_hot_key": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "link_to_tradingview": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "charting_library_debug_mode": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "request_only_visible_range_on_reset": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "align_dwm_bars_to_main_series": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "extended_extrapolation_limit": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "disable_resolution_rebuild": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "end_of_period_timescale_marks": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "two_character_bar_marks_labels": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "clear_bars_on_series_error": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "charting_library": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "trading_terminal": [
+      "library.e8d44337c84d65489d2c.js",
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "studies_extend_time_scale": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "disable_sameinterval_aligning": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_left_toolbar_by_default": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "header_quick_search": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "datasource_copypaste": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "text_notes": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "show_chart_property_page": [
+      "library.e8d44337c84d65489d2c.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "chart_crosshair_menu": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "tick_resolution": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "show_last_price_and_change_only_in_series_legend": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "legend_last_day_change": [
+      "library.e8d44337c84d65489d2c.js",
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "use_na_string_for_not_available_values": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "custom_resolutions": [
+      "library.e8d44337c84d65489d2c.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "seconds_resolution": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "allow_supported_resolutions_set_only": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "charting_library_single_symbol_request": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "use_ticker_on_symbol_info_update": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_object_tree_and_price_scale_exchange_label": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_unresolved_symbols_in_legend": [
+      "library.e8d44337c84d65489d2c.js",
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "force_exchange_as_title": [
+      "library.e8d44337c84d65489d2c.js",
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "chart_style_hilo_last_price": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "price_scale_always_last_bar_value": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "display_data_mode": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_series_legend_item": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_price_scale_global_last_bar_value": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "no_bars_status": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "disable_pulse_animation": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "source_selection_markers": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "moving_average_study_changable_currency_unit": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_last_na_study_output": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "always_show_legend_values_on_mobile": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "study_overlay_compare_legend_option": [
+      "library.e8d44337c84d65489d2c.js",
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "hide_study_compare_legend_item": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "dont_show_boolean_study_arguments": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "study_symbol_ticker_description": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_main_series_symbol_from_indicator_legend": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "update_study_formatter_on_symbol_resolve": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "stop_study_on_restart": [
+      "library.e8d44337c84d65489d2c.js",
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "saveload_requires_authentication": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "atsv2s": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "confirm_overwrite_if_chart_layout_with_name_exists": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "saveload_storage_customization": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "charts_auto_save": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "no_min_chart_width": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "bypass_chart_height_check": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "side_toolbar_in_fullscreen_mode": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "header_in_fullscreen_mode": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "show_order_panel_on_start": [
+      "library.e8d44337c84d65489d2c.js",
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "hide_right_toolbar": [
+      "library.e8d44337c84d65489d2c.js",
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "show_right_widgets_panel_by_default": [
+      "library.e8d44337c84d65489d2c.js",
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "widgetbar_tabs": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "aria_detailed_chart_descriptions": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "bars_marks": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "currency_menu_disabled": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "unit_menu_disabled": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "chart_property_page_scales": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "display_legend_on_all_charts": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "chart_drag_export": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "custom_items_in_context_menu": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_price_scale_if_all_sources_hidden": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "clear_price_scale_on_error_or_empty_bars": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "low_density_bars": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "fix_left_edge": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "lock_visible_range_when_adjusting_percentage_right_margin": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "auto_enable_symbol_labels": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "chart_scroll": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "chart_zoom": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "charting_library_export_chart_data": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "chart_content_overrides_by_defaults": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "symphony_embed": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "use_overrides_for_overlay": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "volume_force_overlay": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "create_volume_indicator_by_default": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "create_volume_indicator_by_default_once": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_volume_ma": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "control_bar": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "lean_chart_load": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "determine_first_data_request_size_using_visible_range": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "aria_crosshair_price_description": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "popup_hints": [
+      "library.e8d44337c84d65489d2c.js",
+      "line-tool-image.4d04f2b79bf1118ef7a9.js",
+      "lt-property-pages-with-definitions.f4646c40b1d992a958d0.js"
+    ],
+    "widget_logo": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "adaptive_logo": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "small_no_display": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "38914": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "move_logo_to_main_pane": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "logo_without_link": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "show_animated_logo": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "logo_always_maximized": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "watchlist_context_menu": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "library_custom_color_themes": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "bugreport_button": [
+      "library.e8d44337c84d65489d2c.js",
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "trading_account_manager": [
+      "library.e8d44337c84d65489d2c.js",
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "remove_library_container_border": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "border_around_the_chart": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "pane_context_menu": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "scales_context_menu": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "pricescale_currency": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "pricescale_unit": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "legend_widget": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "display_market_status": [
+      "library.e8d44337c84d65489d2c.js",
+      "symbol-details.b77e4d320c1dbbfb0ea5.js"
+    ],
+    "timezone_menu": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "main_series_scale_menu": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "lock_visible_time_range_on_resize": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "right_bar_stays_on_scroll": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "go_to_date": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "mouse_wheel_scale": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "pinch_scale": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "axis_pressed_mouse_move_scale": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "mouse_wheel_scroll": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "pressed_mouse_move_scroll": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "horz_touch_drag_scroll": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "vert_touch_drag_scroll": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "shift_visible_range_on_new_bar": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "cropped_tick_marks": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "countdown": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "insert_indicator_dialog_shortcut": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "timeframes_toolbar": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "save_shortcut": [
+      "library.e8d44337c84d65489d2c.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "study_templates": [
+      "library.e8d44337c84d65489d2c.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "open_account_manager": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "14851": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "accessible_keyboard_shortcuts": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "hide_loading_screen_on_series_error": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "app_phone": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "app_tablet": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "additional_multichart_layouts": [
+      "library.e8d44337c84d65489d2c.js",
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "tpo_summary": [
+      "library.e8d44337c84d65489d2c.js"
+    ],
+    "text-note-align-anchor-to-corner": [
+      "line-tool-text-note.84dddfb7b76a7bca47bb.js"
+    ],
+    "order_info": [
+      "order-widget.1d82e2e1e9cb3f946588.js"
+    ],
+    "use_symbol_name_for_header_toolbar": [
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "header_layouttoggle": [
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "header_screenshot": [
+      "restricted-toolset.6f81af351cfbad2af083.js"
+    ],
+    "hide_study_overlay_legend_item": [
+      "studies.df9d03d5d71d89aed43c.js"
+    ],
+    "graying_disabled_tools_enabled": [
+      "study-market.958531c4a183b19a7315.js"
+    ],
+    "prefer_quote_short_name": [
+      "symbol-details.b77e4d320c1dbbfb0ea5.js",
+      "watchlist-widget.c7bd684646cd360803e2.js"
+    ],
+    "options_details_widget": [
+      "symbol-details.b77e4d320c1dbbfb0ea5.js"
+    ],
+    "watchlist_cross_tab_sync": [
+      "symbol-list-service.ff72f86845c1d337fda3.js"
+    ],
+    "show_symbol_logo_in_account_manager": [
+      "trading-account-manager.1b2c5c3fc6d9600dc0fb.js"
+    ],
+    "show_trading_notifications_history": [
+      "trading-account-manager.1b2c5c3fc6d9600dc0fb.js",
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "always_pass_called_order_to_modify": [
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "trading_notifications": [
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "order_panel_close_button": [
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "order_panel_undock": [
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "enable_dom_data_for_untradable_symbols": [
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "broker_button": [
+      "trading.5355aa53ba59846168ee.js"
+    ],
+    "watchlist_sections": [
+      "watchlist-widget.c7bd684646cd360803e2.js"
+    ],
+    "hide_right_toolbar_tabs": [
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "alerts": [
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "hide_ideas_page": [
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "hide_chats_page": [
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "hide_ideas_streams_page": [
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "show_community_feed_button": [
+      "widgetbar.d988faecd0403223478e.js"
+    ],
+    "iframe_loading_same_origin": [
+      "charting_library.standalone.js"
+    ],
+    "iframe_loading_compatibility_mode": [
+      "charting_library.standalone.js"
+    ],
+    "iframe_loading_root_path": [
+      "charting_library.standalone.js"
+    ]
+  }
+}

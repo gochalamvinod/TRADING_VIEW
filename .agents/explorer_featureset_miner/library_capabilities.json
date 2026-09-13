@@ -1,0 +1,1270 @@
+{
+  "actionIdsCount": 257,
+  "actionIds": [
+    {
+      "name": "Spinner",
+      "id": "Spinner"
+    },
+    {
+      "name": "Loading",
+      "id": "Loading"
+    },
+    {
+      "name": "AlertAdd",
+      "id": "Alert.Add"
+    },
+    {
+      "name": "AlertEdit",
+      "id": "Alert.Edit"
+    },
+    {
+      "name": "AlertsClone",
+      "id": "Alerts.Clone"
+    },
+    {
+      "name": "AlertsRemove",
+      "id": "Alerts.Remove"
+    },
+    {
+      "name": "AlertsRemoveAll",
+      "id": "Alerts.RemoveAll"
+    },
+    {
+      "name": "AlertsRemoveFiltered",
+      "id": "Alerts.RemoveFiltered"
+    },
+    {
+      "name": "AlertsRemoveAllInactive",
+      "id": "Alerts.RemoveAllInactive"
+    },
+    {
+      "name": "AlertsRemoveAllWatchlistInactive",
+      "id": "Alerts.RemoveAllWatchlistInactive"
+    },
+    {
+      "name": "AlertsRemoveFires",
+      "id": "Alerts.RemoveFires"
+    },
+    {
+      "name": "AlertsRestart",
+      "id": "Alerts.Restart"
+    },
+    {
+      "name": "AlertsRestartAllInactive",
+      "id": "Alerts.RestartAllInactive"
+    },
+    {
+      "name": "AlertsRestartFilteredInactive",
+      "id": "Alerts.RestartFilteredInactive"
+    },
+    {
+      "name": "AlertsStop",
+      "id": "Alerts.Stop"
+    },
+    {
+      "name": "AlertsStopAll",
+      "id": "Alerts.StopAll"
+    },
+    {
+      "name": "AlertsStopFilteredActive",
+      "id": "Alerts.StopFilteredActive"
+    },
+    {
+      "name": "AlertsExportFiresToCSV",
+      "id": "Alerts.ExportFiresToCSV"
+    },
+    {
+      "name": "AlertsLogClear",
+      "id": "AlertsLog.Clear"
+    },
+    {
+      "name": "ChartAddIndicatorToAllCharts",
+      "id": "Chart.AddIndicatorToAllCharts"
+    },
+    {
+      "name": "ChartAddSymbolToWatchList",
+      "id": "Chart.AddSymbolToWatchList"
+    },
+    {
+      "name": "ChartAlertLabelToggleExtendLines",
+      "id": "Chart.AlertLabel.ToggleExtendLines"
+    },
+    {
+      "name": "ChartApplyIndicatorsToAllCharts",
+      "id": "Chart.ApplyIndicatorsToAllCharts"
+    },
+    {
+      "name": "ChartIndicatorApplyChildIndicator",
+      "id": "Chart.Indicator.ApplyChildIndicator"
+    },
+    {
+      "name": "ChartIndicatorApplyFinancials",
+      "id": "Chart.Indicator.ApplyFinancials"
+    },
+    {
+      "name": "ChartIndicatorAbout",
+      "id": "Chart.Indicator.About"
+    },
+    {
+      "name": "ChartIndicatorPineLogs",
+      "id": "Chart.Indicator.PineLogs"
+    },
+    {
+      "name": "ChartIndicatorPineSource",
+      "id": "Chart.Indicator.PineSource"
+    },
+    {
+      "name": "ChartIndicatorAddFavorites",
+      "id": "Chart.Indicator.AddFavorites"
+    },
+    {
+      "name": "ChartChangeTimeZone",
+      "id": "Chart.ChangeTimeZone"
+    },
+    {
+      "name": "ChartClipboardCopyPrice",
+      "id": "Chart.Clipboard.CopyPrice"
+    },
+    {
+      "name": "ChartClipboardCopyLineTools",
+      "id": "Chart.Clipboard.CopyLineTools"
+    },
+    {
+      "name": "ChartClipboardCopySource",
+      "id": "Chart.Clipboard.CopySource"
+    },
+    {
+      "name": "ChartClipboardPasteSource",
+      "id": "Chart.Clipboard.PasteSource"
+    },
+    {
+      "name": "ChartCrosshairLockVerticalCursor",
+      "id": "Chart.Crosshair.LockVerticalCursor"
+    },
+    {
+      "name": "ChartCrosshairPlusButtonDrawHorizontalLine",
+      "id": "Chart.Crosshair.PlusButton.DrawHorizontalLine"
+    },
+    {
+      "name": "ChartCustomActionId",
+      "id": "Chart.CustomActionId"
+    },
+    {
+      "name": "ChartDialogsShowChangeInterval",
+      "id": "Chart.Dialogs.ShowChangeInterval"
+    },
+    {
+      "name": "ChartDialogsShowChangeSymbol",
+      "id": "Chart.Dialogs.ShowChangeSymbol"
+    },
+    {
+      "name": "ChartDialogsShowCompareOrAddSymbol",
+      "id": "Chart.Dialogs.ShowCompareOrAddSymbol"
+    },
+    {
+      "name": "ChartDialogsShowGeneralSettings",
+      "id": "Chart.Dialogs.ShowGeneralSettings"
+    },
+    {
+      "name": "ChartDialogsShowGeneralSettingsLegendTab",
+      "id": "Chart.Dialogs.ShowGeneralSettings.LegendTab"
+    },
+    {
+      "name": "ChartDialogsShowGeneralSettingsSymbolTab",
+      "id": "Chart.Dialogs.ShowGeneralSettings.SymbolTab"
+    },
+    {
+      "name": "ChartDialogsShowGeneralScalesTab",
+      "id": "Chart.Dialogs.ShowGeneralSettings.ScalesTab"
+    },
+    {
+      "name": "ChartDialogsShowGeneralSettingsEventsTab",
+      "id": "Chart.Dialogs.ShowGeneralSettings.EventsTab"
+    },
+    {
+      "name": "ChartDialogsShowGeneralSettingsAlertsTab",
+      "id": "Chart.Dialogs.ShowGeneralSettings.AlertsTab"
+    },
+    {
+      "name": "ChartDialogsShowGoToDate",
+      "id": "Chart.Dialogs.ShowGoToDate"
+    },
+    {
+      "name": "ChartDialogsShowInsertIndicators",
+      "id": "Chart.Dialogs.ShowInsertIndicators"
+    },
+    {
+      "name": "ChartDialogsShowInsertFinancials",
+      "id": "Chart.Dialogs.ShowInsertFinancials"
+    },
+    {
+      "name": "ChartDialogsShowInsertSeasonals",
+      "id": "Chart.Dialogs.ShowInsertSeasonals"
+    },
+    {
+      "name": "ChartDialogsShowInsertTechnicals",
+      "id": "Chart.Dialogs.ShowInsertTechnicals"
+    },
+    {
+      "name": "ChartDialogsShowInsertForecast",
+      "id": "Chart.Dialogs.ShowInsertForecast"
+    },
+    {
+      "name": "ChartDialogsShowInsertOptions",
+      "id": "Chart.Dialogs.ShowInsertOptions"
+    },
+    {
+      "name": "ChartDetailsMetricsActionId",
+      "id": "Chart.Dialogs.DetailsMetrics"
+    },
+    {
+      "name": "ChartDialogsShowInsertEconomyIndicators",
+      "id": "Chart.Dialogs.ShowInsertEconomyIndicators"
+    },
+    {
+      "name": "ChartDialogsShowSymbolInfo",
+      "id": "Chart.Dialogs.ShowSymbolInfo"
+    },
+    {
+      "name": "ChartDrawingToolbarToggleVisibility",
+      "id": "Chart.DrawingToolbar.ToggleVisibility"
+    },
+    {
+      "name": "ChartExternalActionId",
+      "id": "Chart.ExternalActionId"
+    },
+    {
+      "name": "ChartFavoriteDrawingToolsToolbarHide",
+      "id": "Chart.FavoriteDrawingToolsToolbar.Hide"
+    },
+    {
+      "name": "ChartIndicatorShowSettingsDialog",
+      "id": "Chart.Indicator.ShowSettingsDialog"
+    },
+    {
+      "name": "ChartLegendToggleLastDayChangeValuesVisibility",
+      "id": "Chart.Legend.ToggleLastDayChangeValuesVisibility"
+    },
+    {
+      "name": "ChartLinkingGroupSync",
+      "id": "Chart.LinkingGroupSync"
+    },
+    {
+      "name": "ChartLinkingGroupSyncChangeGroup",
+      "id": "Chart.LinkingGroupSync.ChangeGroup"
+    },
+    {
+      "name": "ChartLegendToggleBarChangeValuesVisibility",
+      "id": "Chart.Legend.ToggleBarChangeValuesVisibility"
+    },
+    {
+      "name": "ChartLegendTogglePriceSourceVisibility",
+      "id": "Chart.Legend.TogglePriceSourceVisibility"
+    },
+    {
+      "name": "ChartLegendToggleIndicatorArgumentsVisibility",
+      "id": "Chart.Legend.ToggleIndicatorArgumentsVisibility"
+    },
+    {
+      "name": "ChartLegendToggleIndicatorTitlesVisibility",
+      "id": "Chart.Legend.ToggleIndicatorTitlesVisibility"
+    },
+    {
+      "name": "ChartLegendToggleIndicatorValuesVisibility",
+      "id": "Chart.Legend.ToggleIndicatorValuesVisibility"
+    },
+    {
+      "name": "ChartLegendToggleOhlcValuesVisibility",
+      "id": "Chart.Legend.ToggleOhlcValuesVisibility"
+    },
+    {
+      "name": "ChartLegendToggleOpenMarketStatusVisibility",
+      "id": "Chart.Legend.ToggleOpenMarketStatusVisibility"
+    },
+    {
+      "name": "ChartLegendToggleSymbolVisibility",
+      "id": "Chart.Legend.ToggleSymbolVisibility"
+    },
+    {
+      "name": "ChartLegendToggleVolumeVisibility",
+      "id": "Chart.Legend.ToggleVolumeVisibility"
+    },
+    {
+      "name": "ChartLines",
+      "id": "Chart.Lines"
+    },
+    {
+      "name": "ChartLinesToggleBidAskLinesVisibility",
+      "id": "Chart.Lines.ToggleBidAskLinesVisibility"
+    },
+    {
+      "name": "ChartLinesToggleHighLowLinesVisibility",
+      "id": "Chart.Lines.ToggleHighLowLinesVisibility"
+    },
+    {
+      "name": "ChartLinesToggleAverageLineVisibility",
+      "id": "Chart.Lines.ToggleAverageLineVisibility"
+    },
+    {
+      "name": "ChartLinesTogglePrePostMarketPriceLineVisibility",
+      "id": "Chart.Lines.TogglePrePostMarketPriceLineVisibility"
+    },
+    {
+      "name": "ChartLinesToggleSeriesPrevCloseLineVisibility",
+      "id": "Chart.Lines.ToggleSeriesPrevCloseLineVisibility"
+    },
+    {
+      "name": "ChartLinesToggleSeriesPriceLineVisibility",
+      "id": "Chart.Lines.ToggleSeriesPriceLineVisibility"
+    },
+    {
+      "name": "ChartLineToolBarsPatternToggleFlipped",
+      "id": "Chart.LineTool.BarsPattern.ToggleFlipped"
+    },
+    {
+      "name": "ChartLineToolBarsPatternToggleMirrored",
+      "id": "Chart.LineTool.BarsPattern.ToggleMirrored"
+    },
+    {
+      "name": "ChartLineToolRiskRewardReverse",
+      "id": "Chart.LineTool.RiskReward.Reverse"
+    },
+    {
+      "name": "ChartLineToolClone",
+      "id": "Chart.LineTool.Clone"
+    },
+    {
+      "name": "ChartLineToolCreateLimitOrderFromState",
+      "id": "Chart.LineTool.CreateLimitOrderFromState"
+    },
+    {
+      "name": "ChartLineToolElliotChangeDegreeProperty",
+      "id": "Chart.LineTool.Elliot.ChangeDegreeProperty"
+    },
+    {
+      "name": "ChartLineToolNoSync",
+      "id": "Chart.LineTool.NoSync"
+    },
+    {
+      "name": "ChartLineToolPitchforkChangeTypeToInside",
+      "id": "Chart.LineTool.Pitchfork.ChangeTypeToInside"
+    },
+    {
+      "name": "ChartLineToolPitchforkChangeTypeToModifiedSchiff",
+      "id": "Chart.LineTool.Pitchfork.ChangeTypeToModifiedSchiff"
+    },
+    {
+      "name": "ChartLineToolPitchforkChangeTypeToOriginal",
+      "id": "Chart.LineTool.Pitchfork.ChangeTypeToOriginal"
+    },
+    {
+      "name": "ChartLineToolPitchforkChangeTypeToSchiff",
+      "id": "Chart.LineTool.Pitchfork.ChangeTypeToSchiff"
+    },
+    {
+      "name": "ChartLineToolSyncInLayout",
+      "id": "Chart.LineTool.SyncInLayout"
+    },
+    {
+      "name": "ChartLineToolSyncGlobally",
+      "id": "Chart.LineTool.SyncGlobally"
+    },
+    {
+      "name": "ChartLineToolTemplates",
+      "id": "Chart.LineTool.Templates"
+    },
+    {
+      "name": "ChartLineToolTemplatesApply",
+      "id": "Chart.LineTool.Templates.Apply"
+    },
+    {
+      "name": "ChartLineToolTemplatesApplyDefaults",
+      "id": "Chart.LineTool.Templates.ApplyDefaults"
+    },
+    {
+      "name": "ChartLineToolTemplatesSaveAs",
+      "id": "Chart.LineTool.Templates.SaveAs"
+    },
+    {
+      "name": "ChartLineToolToolbarChangeFontSizeProperty",
+      "id": "Chart.LineTool.Toolbar.ChangeFontSizeProperty"
+    },
+    {
+      "name": "ChartLineToolToolbarChangeLineStyleToDashed",
+      "id": "Chart.LineTool.Toolbar.ChangeLineStyleToDashed"
+    },
+    {
+      "name": "ChartLineToolToolbarChangeLineStyleToDotted",
+      "id": "Chart.LineTool.Toolbar.ChangeLineStyleToDotted"
+    },
+    {
+      "name": "ChartLineToolToolbarChangeLineStyleToSolid",
+      "id": "Chart.LineTool.Toolbar.ChangeLineStyleToSolid"
+    },
+    {
+      "name": "ChartMarksToggleVisibility",
+      "id": "Chart.Marks.ToggleVisibility"
+    },
+    {
+      "name": "ChartMoveChartInLayout",
+      "id": "Chart.MoveChartInLayout"
+    },
+    {
+      "name": "ChartMoveChartInLayoutBack",
+      "id": "Chart.MoveChartInLayout.Back"
+    },
+    {
+      "name": "ChartMoveChartInLayoutForward",
+      "id": "Chart.MoveChartInLayout.Forward"
+    },
+    {
+      "name": "ChartTpoResetAllMergesAndSplits",
+      "id": "Chart.TPO.ResetAllMergesAndSplits"
+    },
+    {
+      "name": "ChartTpoSplitBlock",
+      "id": "Chart.TPO.SplitBlock"
+    },
+    {
+      "name": "ChartTpoMergeBlock",
+      "id": "Chart.TPO.MergeBlock"
+    },
+    {
+      "name": "ChartObjectTreeShow",
+      "id": "Chart.ObjectTree.Show"
+    },
+    {
+      "name": "ChartDataWindowShow",
+      "id": "Chart.DataWindow.Show"
+    },
+    {
+      "name": "ChartPaneControlsDeletePane",
+      "id": "Chart.PaneControls.DeletePane"
+    },
+    {
+      "name": "ChartPaneControlsMaximizePane",
+      "id": "Chart.PaneControls.MaximizePane"
+    },
+    {
+      "name": "ChartPaneControlsMinimizePane",
+      "id": "Chart.PaneControls.MinimizePane"
+    },
+    {
+      "name": "ChartPaneControlsMovePaneDown",
+      "id": "Chart.PaneControls.MovePaneDown"
+    },
+    {
+      "name": "ChartPaneControlsMovePaneUp",
+      "id": "Chart.PaneControls.MovePaneUp"
+    },
+    {
+      "name": "ChartPaneControlsCollapsePane",
+      "id": "Chart.PaneControls.CollapsePane"
+    },
+    {
+      "name": "ChartPaneControlsRestorePane",
+      "id": "Chart.PaneControls.RestorePane"
+    },
+    {
+      "name": "ChartPriceScaleLabels",
+      "id": "Chart.PriceScale.Labels"
+    },
+    {
+      "name": "ChartPriceScaleLabelsToggleBidAskLabelsVisibility",
+      "id": "Chart.PriceScale.Labels.ToggleBidAskLabelsVisibility"
+    },
+    {
+      "name": "ChartPriceScaleLabelsToggleHighLowPriceLabelsVisibility",
+      "id": "Chart.PriceScale.Labels.ToggleHighLowPriceLabelsVisibility"
+    },
+    {
+      "name": "ChartPriceScaleLabelsToggleAveragePriceLabelVisibility",
+      "id": "Chart.PriceScale.Labels.ToggleAveragePriceLabelVisibility"
+    },
+    {
+      "name": "ChartPriceScaleLabelsToggleIndicatorsNameLabelsVisibility",
+      "id": "Chart.PriceScale.Labels.ToggleIndicatorsNameLabelsVisibility"
+    },
+    {
+      "name": "ChartPriceScaleLabelsToggleIndicatorsValueLabelsVisibility",
+      "id": "Chart.PriceScale.Labels.ToggleIndicatorsValueLabelsVisibility"
+    },
+    {
+      "name": "ChartPriceScaleLabelsTogglePrePostMarketLabelsVisibility",
+      "id": "Chart.PriceScale.Labels.TogglePrePostMarketLabelsVisibility"
+    },
+    {
+      "name": "ChartPriceScaleLabelsToggleNoOverlappingLabelsVisibility",
+      "id": "Chart.PriceScale.Labels.ToggleNoOverlappingLabelsVisibility"
+    },
+    {
+      "name": "ChartPriceScaleLabelsToggleSeriesLastValueVisibility",
+      "id": "Chart.PriceScale.Labels.ToggleSeriesLastValueVisibility"
+    },
+    {
+      "name": "ChartPriceScaleLabelsToggleSymbolNameLabelsVisibility",
+      "id": "Chart.PriceScale.Labels.ToggleSymbolNameLabelsVisibility"
+    },
+    {
+      "name": "ChartPriceScaleLabelsToggleSymbolPrevCloseValueVisibility",
+      "id": "Chart.PriceScale.Labels.ToggleSymbolPrevCloseValueVisibility"
+    },
+    {
+      "name": "ChartPriceScaleMergeAllScales",
+      "id": "Chart.PriceScale.MergeAllScales"
+    },
+    {
+      "name": "ChartPriceScaleMergeAllScalesToLeft",
+      "id": "Chart.PriceScale.MergeAllScalesToLeft"
+    },
+    {
+      "name": "ChartPriceScaleMergeAllScalesToRight",
+      "id": "Chart.PriceScale.MergeAllScalesToRight"
+    },
+    {
+      "name": "ChartPriceScaleMoveToLeft",
+      "id": "Chart.PriceScale.MoveToLeft"
+    },
+    {
+      "name": "ChartPriceScaleMoveToRight",
+      "id": "Chart.PriceScale.MoveToRight"
+    },
+    {
+      "name": "ChartPriceScaleReset",
+      "id": "Chart.PriceScale.Reset"
+    },
+    {
+      "name": "ChartPriceScaleToggleAddOrderPlusButtonVisibility",
+      "id": "Chart.PriceScale.ToggleAddOrderPlusButtonVisibility"
+    },
+    {
+      "name": "ChartPriceScaleToggleAutoScale",
+      "id": "Chart.PriceScale.ToggleAutoScale"
+    },
+    {
+      "name": "ChartPriceScaleToggleAutoScaleSeriesOnly",
+      "id": "Chart.PriceScale.ToggleAutoScaleSeriesOnly"
+    },
+    {
+      "name": "ChartPriceScaleToggleCountdownToBarCloseVisibility",
+      "id": "Chart.PriceScale.ToggleCountdownToBarCloseVisibility"
+    },
+    {
+      "name": "ChartPriceScaleToggleIndexedTo100",
+      "id": "Chart.PriceScale.ToggleIndexedTo100"
+    },
+    {
+      "name": "ChartPriceScaleToggleInvertScale",
+      "id": "Chart.PriceScale.ToggleInvertScale"
+    },
+    {
+      "name": "ChartPriceScaleToggleLogarithmic",
+      "id": "Chart.PriceScale.ToggleLogarithmic"
+    },
+    {
+      "name": "ChartPriceScaleTogglePercentage",
+      "id": "Chart.PriceScale.TogglePercentage"
+    },
+    {
+      "name": "ChartPriceScaleToggleRegular",
+      "id": "Chart.PriceScale.ToggleRegular"
+    },
+    {
+      "name": "ChartRedo",
+      "id": "Chart.Redo"
+    },
+    {
+      "name": "ChartRemoveAllIndicators",
+      "id": "Chart.RemoveAllIndicators"
+    },
+    {
+      "name": "ChartRemoveAllIndicatorsAndLineTools",
+      "id": "Chart.RemoveAllIndicatorsAndLineTools"
+    },
+    {
+      "name": "ChartRemoveAllLineTools",
+      "id": "Chart.RemoveAllLineTools"
+    },
+    {
+      "name": "ChartScalesReset",
+      "id": "Chart.Scales.Reset"
+    },
+    {
+      "name": "ChartScalesToggleLockPriceToBarRatio",
+      "id": "Chart.Scales.ToggleLockPriceToBarRatio"
+    },
+    {
+      "name": "ChartScrollToLineTool",
+      "id": "Chart.ScrollToLineTool"
+    },
+    {
+      "name": "ChartSelectedObjectHide",
+      "id": "Chart.SelectedObject.Hide"
+    },
+    {
+      "name": "ChartSelectedObjectRemove",
+      "id": "Chart.SelectedObject.Remove"
+    },
+    {
+      "name": "ChartSelectedObjectShow",
+      "id": "Chart.SelectedObject.Show"
+    },
+    {
+      "name": "ChartSelectedObjectShowSettingsDialog",
+      "id": "Chart.SelectedObject.ShowSettingsDialog"
+    },
+    {
+      "name": "ChartSelectedObjectInsertRowTable",
+      "id": "Chart.SelectedObject.InsertRowTable"
+    },
+    {
+      "name": "ChartSelectedObjectInsertColumnTable",
+      "id": "Chart.SelectedObject.InsertColumnTable"
+    },
+    {
+      "name": "ChartSelectedObjectRemoveRowTable",
+      "id": "Chart.SelectedObject.RemoveRowTable"
+    },
+    {
+      "name": "ChartSelectedObjectRemoveColumnTable",
+      "id": "Chart.SelectedObject.RemoveColumnTable"
+    },
+    {
+      "name": "ChartSelectedObjectToggleLocked",
+      "id": "Chart.SelectedObject.ToggleLocked"
+    },
+    {
+      "name": "ChartSelectedObjectToggleAnchored",
+      "id": "Chart.SelectedObject.ToggleAnchored"
+    },
+    {
+      "name": "ChartSeriesPriceScaleToggleAutoScale",
+      "id": "Chart.Series.PriceScale.ToggleAutoScale"
+    },
+    {
+      "name": "ChartSeriesPriceScaleToggleIndexedTo100",
+      "id": "Chart.Series.PriceScale.ToggleIndexedTo100"
+    },
+    {
+      "name": "ChartSeriesPriceScaleToggleInvertPriceScale",
+      "id": "Chart.Series.PriceScale.ToggleInvertPriceScale"
+    },
+    {
+      "name": "ChartSeriesPriceScaleToggleLogarithmic",
+      "id": "Chart.Series.PriceScale.ToggleLogarithmic"
+    },
+    {
+      "name": "ChartSeriesPriceScaleTogglePercentage",
+      "id": "Chart.Series.PriceScale.TogglePercentage"
+    },
+    {
+      "name": "ChartSeriesPriceScaleToggleRegular",
+      "id": "Chart.Series.PriceScale.ToggleRegular"
+    },
+    {
+      "name": "ChartSessionBreaksToggleVisibility",
+      "id": "Chart.SessionBreaks.ToggleVisibility"
+    },
+    {
+      "name": "ChartSetSession",
+      "id": "Chart.SetSession"
+    },
+    {
+      "name": "ChartSourceChangePriceScale",
+      "id": "Chart.Source.ChangePriceScale"
+    },
+    {
+      "name": "ChartSourceMergeDown",
+      "id": "Chart.Source.MergeDown"
+    },
+    {
+      "name": "ChartSourceMergeUp",
+      "id": "Chart.Source.MergeUp"
+    },
+    {
+      "name": "ChartSourceMoveToNoScale",
+      "id": "Chart.Source.MoveToNoScale"
+    },
+    {
+      "name": "ChartSourceMoveToOtherScale",
+      "id": "Chart.Source.MoveToOtherScale"
+    },
+    {
+      "name": "ChartSourceMoveToPane",
+      "id": "Chart.Source.MoveToPane"
+    },
+    {
+      "name": "ChartSourceUnmergeDown",
+      "id": "Chart.Source.UnmergeDown"
+    },
+    {
+      "name": "ChartSourceUnmergeUp",
+      "id": "Chart.Source.UnmergeUp"
+    },
+    {
+      "name": "ChartSourceVisualOrder",
+      "id": "Chart.Source.VisualOrder"
+    },
+    {
+      "name": "ChartSourceVisualOrderBringForward",
+      "id": "Chart.Source.VisualOrder.BringForward"
+    },
+    {
+      "name": "ChartSourceVisualOrderBringToFront",
+      "id": "Chart.Source.VisualOrder.BringToFront"
+    },
+    {
+      "name": "ChartSourceVisualOrderSendBackward",
+      "id": "Chart.Source.VisualOrder.SendBackward"
+    },
+    {
+      "name": "ChartSourceVisualOrderSendToBack",
+      "id": "Chart.Source.VisualOrder.SendToBack"
+    },
+    {
+      "name": "ChartSourceResetInputPoints",
+      "id": "Chart.Source.ResetInputPoints"
+    },
+    {
+      "name": "ChartThemeApply",
+      "id": "Chart.Theme.Apply"
+    },
+    {
+      "name": "ChartThemeApplyCustom",
+      "id": "Chart.Theme.Apply.Custom"
+    },
+    {
+      "name": "ChartThemeSaveAs",
+      "id": "Chart.Theme.SaveAs"
+    },
+    {
+      "name": "ChartTimeScaleReset",
+      "id": "Chart.TimeScale.Reset"
+    },
+    {
+      "name": "ChartUndo",
+      "id": "Chart.Undo"
+    },
+    {
+      "name": "ChartShowAllIdeas",
+      "id": "Chart.ShowAllIdeas"
+    },
+    {
+      "name": "ChartShowIdeasOfFollowedUsers",
+      "id": "Chart.ShowIdeasOfFollowedUsers"
+    },
+    {
+      "name": "ChartShowMyIdeasOnly",
+      "id": "Chart.ShowMyIdeasOnly"
+    },
+    {
+      "name": "ChartToggleVisibilityAllLineTools",
+      "id": "Chart.ToggleVisibility.AllLineTools"
+    },
+    {
+      "name": "ChartToggleVisibilityContinuousContractSwitch",
+      "id": "Chart.ToggleVisibility.ContinuousContractSwitch"
+    },
+    {
+      "name": "ChartToggleVisibilityContractExpiration",
+      "id": "Chart.ToggleVisibility.ContractExpiration"
+    },
+    {
+      "name": "ChartToggleVisibilityDividends",
+      "id": "Chart.ToggleVisibility.Dividends"
+    },
+    {
+      "name": "ChartToggleVisibilityEarnings",
+      "id": "Chart.ToggleVisibility.Earnings"
+    },
+    {
+      "name": "ChartToggleVisibilityEconomicEvents",
+      "id": "Chart.ToggleVisibility.EconomicEvents"
+    },
+    {
+      "name": "ChartToggleVisibilitySplits",
+      "id": "Chart.ToggleVisibility.Splits"
+    },
+    {
+      "name": "ChartToggleVisibilityLatestNewsAndMinds",
+      "id": "Chart.ToggleVisibility.LatestNewsAndMinds"
+    },
+    {
+      "name": "ChartToggleVisibilityKeyFactsToday",
+      "id": "Chart.ToggleVisibility.KeyFactsToday"
+    },
+    {
+      "name": "ChartSourceIntervalsVisibility",
+      "id": "Chart.Source.IntervalsVisibility"
+    },
+    {
+      "name": "ChartSourceIntervalsVisibilityCurrentAndAbove",
+      "id": "Chart.Source.IntervalsVisibility.CurrentAndAbove"
+    },
+    {
+      "name": "ChartSourceIntervalsVisibilityCurrentAndBelow",
+      "id": "Chart.Source.IntervalsVisibility.CurrentAndBelow"
+    },
+    {
+      "name": "ChartSourceIntervalsVisibilityOnlyCurrent",
+      "id": "Chart.Source.IntervalsVisibility.Current"
+    },
+    {
+      "name": "ChartSourceIntervalsVisibilityAll",
+      "id": "Chart.Source.IntervalsVisibility.All"
+    },
+    {
+      "name": "NoteCreate",
+      "id": "Note.Create"
+    },
+    {
+      "name": "NoteEdit",
+      "id": "Note.Edit"
+    },
+    {
+      "name": "NoteRemove",
+      "id": "Note.Remove"
+    },
+    {
+      "name": "ObjectsTreeCreateGroup",
+      "id": "ObjectsTree.CreateGroup"
+    },
+    {
+      "name": "ObjectsTreeRemoveItem",
+      "id": "ObjectsTree.RemoveItem"
+    },
+    {
+      "name": "ObjectsTreeRenameItem",
+      "id": "ObjectsTree.RenameItem"
+    },
+    {
+      "name": "ObjectsTreeToggleItemLocked",
+      "id": "ObjectsTree.ToggleItemLocked"
+    },
+    {
+      "name": "ObjectsTreeToggleItemVisibility",
+      "id": "ObjectsTree.ToggleItemVisibility"
+    },
+    {
+      "name": "PineEditorConsoleCopyMessage",
+      "id": "PineEditor.Console.CopyMessage"
+    },
+    {
+      "name": "PineEditorConsoleToggleVisibility",
+      "id": "PineEditor.Console.ToggleVisibility"
+    },
+    {
+      "name": "PineEditorConsoleClear",
+      "id": "PineEditor.Console.Clear"
+    },
+    {
+      "name": "ScreenerColumnRemove",
+      "id": "Screener.Column.Remove"
+    },
+    {
+      "name": "ScreenerFilterChange",
+      "id": "Screener.Filter.Change"
+    },
+    {
+      "name": "ScreenerFilterReset",
+      "id": "Screener.Filter.Reset"
+    },
+    {
+      "name": "ScreenerToggleVisibilityCurrency",
+      "id": "Screener.ToggleVisibility.Currency"
+    },
+    {
+      "name": "ScreenerToggleVisibilityDescription",
+      "id": "Screener.ToggleVisibility.Description"
+    },
+    {
+      "name": "ScreenerToggleVisibilityRating",
+      "id": "Screener.ToggleVisibility.Rating"
+    },
+    {
+      "name": "ScreenerToggleVisibilitySymbolType",
+      "id": "Screener.ToggleVisibility.SymbolType"
+    },
+    {
+      "name": "TradingCancelOrder",
+      "id": "Trading.CancelOrder"
+    },
+    {
+      "name": "TradingClosePosition",
+      "id": "Trading.ClosePosition"
+    },
+    {
+      "name": "TradingCustomActionId",
+      "id": "Trading.CustomActionId"
+    },
+    {
+      "name": "TradingDOMPlaceLimitOrder",
+      "id": "Trading.DOMPlaceLimitOrder"
+    },
+    {
+      "name": "TradingDOMPlaceMarketOrder",
+      "id": "Trading.DOMPlaceMarketOrder"
+    },
+    {
+      "name": "TradingDOMPlaceStopLimitOrder",
+      "id": "Trading.DOMPlaceStopLimitOrder"
+    },
+    {
+      "name": "TradingDOMPlaceStopOrder",
+      "id": "Trading.DOMPlaceStopOrder"
+    },
+    {
+      "name": "TradingEditOrder",
+      "id": "Trading.EditOrder"
+    },
+    {
+      "name": "TradingModifyPosition",
+      "id": "Trading.ModifyPosition"
+    },
+    {
+      "name": "TradingReversePosition",
+      "id": "Trading.ReversePosition"
+    },
+    {
+      "name": "TradingSellBuyButtonsToggleVisibility",
+      "id": "Trading.SellBuyButtonsToggleVisibility"
+    },
+    {
+      "name": "TradingTradeFromChart",
+      "id": "Trading.TradeFromChart"
+    },
+    {
+      "name": "TradingNoOverlapMode",
+      "id": "Trading.NoOverlapMode"
+    },
+    {
+      "name": "TradingShowSelectBrokerPanel",
+      "id": "Trading.ShowSelectBrokerPanel"
+    },
+    {
+      "name": "TradingOrderTitle",
+      "id": "Trading.OrderTitle"
+    },
+    {
+      "name": "TradingPositionTitle",
+      "id": "Trading.PositionTitle"
+    },
+    {
+      "name": "WatchlistActions",
+      "id": "Watchlist.Actions"
+    },
+    {
+      "name": "WatchlistAddSymbolToCompare",
+      "id": "Watchlist.AddSymbolToCompare"
+    },
+    {
+      "name": "WatchlistAddSymbolToSection",
+      "id": "Watchlist.AddSymbolToSection"
+    },
+    {
+      "name": "WatchlistChangeFlaggedGroupColor",
+      "id": "Watchlist.ChangeFlaggedGroupColor"
+    },
+    {
+      "name": "WatchlistAddSymbol",
+      "id": "Watchlist.AddSymbol"
+    },
+    {
+      "name": "WatchlistCreate",
+      "id": "Watchlist.Create"
+    },
+    {
+      "name": "WatchlistAddSelectedSymbols",
+      "id": "Watchlist.AddSelectedSymbols"
+    },
+    {
+      "name": "WatchlistAddSelectedSymbolsLists",
+      "id": "Watchlist.AddSelectedSymbols.Lists"
+    },
+    {
+      "name": "WatchlistGetDisplayedTickerDescription",
+      "id": "Watchlist.GetDisplayedTickerDescription"
+    },
+    {
+      "name": "WatchlistCreateSection",
+      "id": "Watchlist.CreateSection"
+    },
+    {
+      "name": "WatchlistFlagSelectedSymbols",
+      "id": "Watchlist.FlagSelectedSymbols"
+    },
+    {
+      "name": "WatchlistFlagSymbol",
+      "id": "Watchlist.FlagSymbol"
+    },
+    {
+      "name": "WatchlistOpenSymbolChart",
+      "id": "Watchlist.OpenSymbolChart"
+    },
+    {
+      "name": "WatchlistOpenSymbolOverview",
+      "id": "Watchlist.OpenSymbolOverview"
+    },
+    {
+      "name": "WatchlistRemoveSection",
+      "id": "Watchlist.RemoveSection"
+    },
+    {
+      "name": "WatchlistRemoveSymbol",
+      "id": "Watchlist.RemoveSymbol"
+    },
+    {
+      "name": "WatchlistRenameSection",
+      "id": "Watchlist.RenameSection"
+    },
+    {
+      "name": "WatchlistUnflagAllSymbols",
+      "id": "Watchlist.UnflagAllSymbols"
+    },
+    {
+      "name": "WatchlistUnflagSelectedSymbols",
+      "id": "Watchlist.UnflagSelectedSymbols"
+    },
+    {
+      "name": "WatchlistUnflagSymbol",
+      "id": "Watchlist.UnflagSymbol"
+    }
+  ],
+  "chartStylesCount": 0,
+  "chartStyles": [],
+  "studyCount": 26,
+  "studiesSample": [
+    "Average Price",
+    "Chaikin Volatility",
+    "Correlation - Log",
+    "Standard Error",
+    "Standard Error Bands",
+    "Linear Regression Slope",
+    "Median Price",
+    "Moving Average Double",
+    "Moving Average Triple",
+    "Moving Average Adaptive",
+    "Moving Average Hamming",
+    "Moving Average Multiple",
+    "Majority Rule",
+    "Standard Deviation",
+    "Trend Strength Index",
+    "Typical Price",
+    "Volatility Close-to-Close",
+    "Volatility Zero Trend Close-to-Close",
+    "Volatility O-H-L-C",
+    "Volatility Index",
+    "Earnings@tv-basicstudies",
+    "Splits@tv-basicstudies",
+    "Dividends@tv-basicstudies",
+    "Sessions@tv-basicstudies",
+    "IntradayInactivityGaps@tv-basicstudies",
+    "BarSetHeikenAshi@tv-basicstudies"
+  ],
+  "lineToolsCount": 203,
+  "lineTools": [
+    "ABCD",
+    "Alert",
+    "AnchoredVWAP",
+    "AnchoredVolumeProfile",
+    "Arc",
+    "Arrow",
+    "ArrowMark",
+    "ArrowMarkDown",
+    "ArrowMarkLeft",
+    "ArrowMarkRight",
+    "ArrowMarkUp",
+    "ArrowMarker",
+    "AsDeleted",
+    "Balloon",
+    "BarsPattern",
+    "BarsPatternMode",
+    "BarsPatternToggleFlipped",
+    "BarsPatternToggleMirrored",
+    "BeingCreatedPaneView",
+    "BezierCubic",
+    "BezierQuadro",
+    "Brush",
+    "BrushBase",
+    "ById",
+    "Callout",
+    "Changed",
+    "Circle",
+    "CircleLines",
+    "ClipboardData",
+    "Clone",
+    "CollectedProperty",
+    "ColorsProperty",
+    "Comment",
+    "CreateLimitOrderFromState",
+    "CrossLine",
+    "CyclicLines",
+    "CypherPattern",
+    "DateAndPriceRange",
+    "DateRange",
+    "DemonstrationHighlighter",
+    "DisjointAngle",
+    "DisjointChannel",
+    "DrawWithoutPoints",
+    "ElliotChangeDegreeProperty",
+    "Elliott",
+    "ElliottCircle",
+    "ElliottCorrection",
+    "ElliottDegree",
+    "ElliottDoubleCombo",
+    "ElliottImpulse",
+    "ElliottMajorRetr",
+    "ElliottMinor",
+    "ElliottMinorRetr",
+    "ElliottSubminuette",
+    "ElliottTriangle",
+    "ElliottTripleCombo",
+    "Ellipse",
+    "Emoji",
+    "Execution",
+    "Extended",
+    "FactoryDefaults",
+    "FibChannel",
+    "FibCircles",
+    "FibRetracement",
+    "FibSpeedResistanceArcs",
+    "FibSpeedResistanceFan",
+    "FibSpiral",
+    "FibTimeZone",
+    "FibWedge",
+    "FibWedgeBase",
+    "FibWithInplaceTextBase",
+    "FinishRequiredWhenCreatedByApi",
+    "FixedRangeVolumeProfile",
+    "FlagMark",
+    "FlatBottom",
+    "FloatingToolbarMoreMenu",
+    "FromGroup",
+    "GannComplex",
+    "GannFan",
+    "GannFixed",
+    "GannSquare",
+    "GhostFeed",
+    "Group",
+    "Groups",
+    "GroupsSharingMode",
+    "HeadAndShoulders",
+    "HeadAndShouldersPaneView",
+    "Highlighter",
+    "HitTest",
+    "HorzLine",
+    "HorzLinePriceAxisView",
+    "HorzRay",
+    "Icon",
+    "Idea",
+    "IfEmpty",
+    "IfNeeded",
+    "Image",
+    "InfoLine",
+    "InfoLineConst",
+    "InsidePitchfork",
+    "LabelBackgroundColorActive",
+    "LabelBackgroundColorCommon",
+    "LastPoint",
+    "LoadError",
+    "Loaded",
+    "ModeExceptBrush",
+    "Name",
+    "NameByStudyId",
+    "Names",
+    "NoSync",
+    "Note",
+    "NoteAbsolute",
+    "OrStudyStub",
+    "Order",
+    "OwnerSource",
+    "PaneViewFibWithLabels",
+    "ParallelChannel",
+    "ParallelChannelPropertiesImpl",
+    "Params",
+    "Path",
+    "Pitchfan",
+    "Pitchfork",
+    "PitchforkChangeTypeToInside",
+    "PitchforkChangeTypeToModifiedSchiff",
+    "PitchforkChangeTypeToOriginal",
+    "PitchforkChangeTypeToSchiff",
+    "PitchforkStyle",
+    "Polyline",
+    "Position",
+    "Prediction",
+    "PriceAxisView",
+    "PriceLabel",
+    "PriceNote",
+    "PriceRange",
+    "Prohibited",
+    "Projection",
+    "Properties",
+    "PropertiesByOwnerSource",
+    "PropertiesStateKeys",
+    "PropertiesWidgetBase",
+    "Ray",
+    "Reason",
+    "Rectangle",
+    "RegressionTrend",
+    "Renderer",
+    "RiskRewardBase",
+    "RiskRewardLong",
+    "RiskRewardReverse",
+    "RiskRewardShort",
+    "RotatedRectangle",
+    "SchiffPitchfork",
+    "SchiffPitchfork2",
+    "Selection",
+    "SharingMode",
+    "Signpost",
+    "SineLine",
+    "State",
+    "Sticker",
+    "SvgIconBase",
+    "SymbolFromSymbolInfo",
+    "SyncGlobally",
+    "SyncInLayout",
+    "SyncMode",
+    "SynchronizeUndoCommand",
+    "Table",
+    "TableContextMenu",
+    "Template",
+    "TemplateAction",
+    "Templates",
+    "TemplatesApply",
+    "TemplatesApplyDefaults",
+    "TemplatesList",
+    "TemplatesSaveAs",
+    "Text",
+    "TextAbsolute",
+    "TextNote",
+    "TextRenderer",
+    "ThreeDrivers",
+    "ThreeDrivesPaneView",
+    "TimeCycles",
+    "ToGroup",
+    "ToolbarChangeFontSizeProperty",
+    "ToolbarChangeLineStyleToDashed",
+    "ToolbarChangeLineStyleToDotted",
+    "ToolbarChangeLineStyleToSolid",
+    "Trading",
+    "TradingPriceAxisView",
+    "TrendAngle",
+    "TrendBasedFibExtension",
+    "TrendBasedFibTime",
+    "TrendLine",
+    "Triangle",
+    "TrianglePattern",
+    "TrianglePatternPaneView",
+    "Tweet",
+    "UpdateNotification",
+    "UsingMagnetOrShift",
+    "VbPFixed",
+    "VertLine",
+    "VertLineTimeAxisView",
+    "WidthsProperty",
+    "WithRelativePriceCoordinate",
+    "ZOrder"
+  ]
+}

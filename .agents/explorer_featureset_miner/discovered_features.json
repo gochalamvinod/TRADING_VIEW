@@ -1,0 +1,3020 @@
+{
+  "total": 299,
+  "features": [
+    {
+      "feature": "widget",
+      "count": 19,
+      "sourcesCount": 10,
+      "sources": [
+        "2614 (base tree)",
+        "7898.93482c7ce4146884bda0.js",
+        "compare-model.17fcdaff82dd9646d47f.js",
+        "floating-toolbars.435f06c307950384d090.js",
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "saveload_separate_drawings_storage",
+      "count": 17,
+      "sourcesCount": 3,
+      "sources": [
+        "7415.6d9e5497dea3ae9ce05b.js",
+        "drawing-toolbar.9f682ebb059580da885e.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "charting_library_debug_mode",
+      "count": 14,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "right_toolbar",
+      "count": 13,
+      "sourcesCount": 5,
+      "sources": [
+        "2614 (base tree)",
+        "drawing-toolbar.9f682ebb059580da885e.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_spread_operators",
+      "count": 13,
+      "sourcesCount": 7,
+      "sources": [
+        "2614 (base tree)",
+        "7000.21314dd7f29723dd7570.js",
+        "7335.f7017c32a7d4a05f3652.js",
+        "add-compare-dialog.5c5e616ea16bb43dcec2.js",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "property_pages",
+      "count": 12,
+      "sourcesCount": 7,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "floating-toolbars.435f06c307950384d090.js",
+        "library.e8d44337c84d65489d2c.js",
+        "new-edit-object-dialog.4d64cf5237fd0734deb8.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "symbol_search_option_chain_selector",
+      "count": 12,
+      "sourcesCount": 6,
+      "sources": [
+        "2614 (base tree)",
+        "7000.21314dd7f29723dd7570.js",
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_widget",
+      "count": 10,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "embed_resizer_overrides",
+      "count": 10,
+      "sourcesCount": 10,
+      "sources": [
+        "2538.13f4bc31d9a146bc25c4.js",
+        "4570.2c8d882e1ef1f67d91f4.js",
+        "currency-label-menu.5e4a65f682c315c97785.js",
+        "custom-intervals-add-dialog.d76a6a740a6ac3246ab1.js",
+        "data-exportdialog.8525d1f6cf241ad40fb2.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "items_favoriting",
+      "count": 9,
+      "sourcesCount": 9,
+      "sources": [
+        "2614 (base tree)",
+        "8687.4bb18f37c96aa9314d64.js",
+        "drawing-toolbar.9f682ebb059580da885e.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "order_panel",
+      "count": 8,
+      "sourcesCount": 5,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js",
+        "terminal-configset.abbe3b2ddf1adcad2530.js",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "watchlist_import_export",
+      "count": 8,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "watchlist-widget.c7bd684646cd360803e2.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_symbol_logos",
+      "count": 8,
+      "sourcesCount": 7,
+      "sources": [
+        "7335.f7017c32a7d4a05f3652.js",
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "general-property-page.b2b045afa1ff86d18bcd.js",
+        "studies.df9d03d5d71d89aed43c.js",
+        "symbol-details.b77e4d320c1dbbfb0ea5.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "show_chart_property_page",
+      "count": 7,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "pay_attention_to_ticker_not_symbol",
+      "count": 6,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "7335.f7017c32a7d4a05f3652.js",
+        "compare-model.17fcdaff82dd9646d47f.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "snapshot_trading_drawings",
+      "count": 6,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "6161.10c4a7de17f463d1d76e.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "drawing_templates",
+      "count": 6,
+      "sourcesCount": 5,
+      "sources": [
+        "2614 (base tree)",
+        "7259.c51f432500f7e107aa27.js",
+        "floating-toolbars.435f06c307950384d090.js",
+        "library.e8d44337c84d65489d2c.js",
+        "line-tool-templates-list.21e19d1b710af56bb4a7.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "uppercase_instrument_names",
+      "count": 6,
+      "sourcesCount": 5,
+      "sources": [
+        "2614 (base tree)",
+        "7000.21314dd7f29723dd7570.js",
+        "7335.f7017c32a7d4a05f3652.js",
+        "library.e8d44337c84d65489d2c.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "multiple_watchlists",
+      "count": 6,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "7898.93482c7ce4146884bda0.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "watchlist-widget.c7bd684646cd360803e2.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "skip_event_target_check",
+      "count": 6,
+      "sourcesCount": 6,
+      "sources": [
+        "3010.b6767e7ba0734f8ea43b.js",
+        "427.8e4ad2884751c78b5ebd.js",
+        "chart-bottom-toolbar.fd38479e975a1ac4fdd8.js",
+        "floating-toolbars.435f06c307950384d090.js",
+        "footer-widget.08780bf0181c58031ae2.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "pre_post_market_price_line",
+      "count": 6,
+      "sourcesCount": 3,
+      "sources": [
+        "general-property-page.b2b045afa1ff86d18bcd.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "show_trading_notifications_history",
+      "count": 5,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "trading-account-manager.1b2c5c3fc6d9600dc0fb.js",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "use_localstorage_for_settings",
+      "count": 5,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "symbol-list-service.ff72f86845c1d337fda3.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_object_tree",
+      "count": 5,
+      "sourcesCount": 5,
+      "sources": [
+        "2614 (base tree)",
+        "drawing-toolbar.9f682ebb059580da885e.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "datasource_copypaste",
+      "count": 5,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "source_selection_markers",
+      "count": 5,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_average_close_price_line_and_label",
+      "count": 5,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "general-property-page.b2b045afa1ff86d18bcd.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "advanced_emoji_in_titles",
+      "count": 5,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "3805.42495629e38f02c4d148.js",
+        "3905.5e651f8ebf55269e0eda.js",
+        "watchlist-widget.c7bd684646cd360803e2.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "use_last_visible_bar_value_in_legend",
+      "count": 5,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "data-window-widget.997c077e13963f88220b.js",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "symbol_info_price_source",
+      "count": 5,
+      "sourcesCount": 4,
+      "sources": [
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "general-property-page.b2b045afa1ff86d18bcd.js",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "buy_sell_buttons",
+      "count": 4,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "general-property-page.b2b045afa1ff86d18bcd.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "saveload_storage_customization",
+      "count": 4,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_crosshair_menu",
+      "count": 4,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "custom_resolutions",
+      "count": 4,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_unresolved_symbols_in_legend",
+      "count": 4,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "secondary_series_extend_time_scale",
+      "count": 4,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "add-compare-dialog.5c5e616ea16bb43dcec2.js",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "trading_terminal",
+      "count": 4,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "popup_hints",
+      "count": 4,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "line-tool-image.4d04f2b79bf1118ef7a9.js",
+        "lt-property-pages-with-definitions.f4646c40b1d992a958d0.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "intraday_inactivity_gaps",
+      "count": 4,
+      "sourcesCount": 2,
+      "sources": [
+        "1119.d9afdd012b225f041951.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "force_exchange_as_title",
+      "count": 4,
+      "sourcesCount": 2,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "header_symbol_search",
+      "count": 3,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "header-toolbar.33da2545627b9608b949.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "study_on_study",
+      "count": 3,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "7000.21314dd7f29723dd7570.js",
+        "library.e8d44337c84d65489d2c.js",
+        "study-property-pages-with-definitions.12ebbd1ccbc8d7a778cd.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "widget_logo",
+      "count": 3,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "disable_resolution_rebuild",
+      "count": 3,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "stop_study_on_restart",
+      "count": 3,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "dom_widget",
+      "count": 3,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "9088.e5b04ee7028204603d5e.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "display_market_status",
+      "count": 3,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "symbol-details.b77e4d320c1dbbfb0ea5.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "symbol_info",
+      "count": 3,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "trading_notifications",
+      "count": 3,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "trading_account_manager",
+      "count": 3,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_style_hilo",
+      "count": 3,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "1119.d9afdd012b225f041951.js",
+        "library.e8d44337c84d65489d2c.js",
+        "study-property-pages-with-definitions.12ebbd1ccbc8d7a778cd.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_style_hilo_last_price",
+      "count": 3,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "keep_object_tree_widget_in_right_toolbar",
+      "count": 3,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "drawing-toolbar.9f682ebb059580da885e.js",
+        "library.e8d44337c84d65489d2c.js",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "request_only_visible_range_on_reset",
+      "count": 3,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_symbol_logo_in_legend",
+      "count": 3,
+      "sourcesCount": 4,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "general-property-page.b2b045afa1ff86d18bcd.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "pre_post_market_sessions",
+      "count": 3,
+      "sourcesCount": 2,
+      "sources": [
+        "1119.d9afdd012b225f041951.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "fundamental_widget",
+      "count": 3,
+      "sourcesCount": 3,
+      "sources": [
+        "chart-bottom-toolbar.fd38479e975a1ac4fdd8.js",
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "image_drawingtool",
+      "count": 3,
+      "sourcesCount": 3,
+      "sources": [
+        "drawing-toolbar.9f682ebb059580da885e.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "align_dwm_bars_to_main_series",
+      "count": 3,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "use_symbol_name_for_header_toolbar",
+      "count": 3,
+      "sourcesCount": 1,
+      "sources": [
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "show_interval_dialog_on_key_press",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_fullscreen_button",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_resolutions",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_chart_type",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_settings",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_indicators",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_compare",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_undo_redo",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_saveload",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "left_toolbar",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "timeframes_toolbar",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_hide_button_in_legend",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "legend_inplace_edit",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "scales_context_menu",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "saveload_requires_authentication",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "volume_force_overlay",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "lean_chart_load",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "link_to_tradingview",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "study_templates",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "support_multicharts",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "drawing-toolbar.9f682ebb059580da885e.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "bugreport_button",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "text_notes",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "japanese_chart_styles",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "1119.d9afdd012b225f041951.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "timezone_menu",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "bars_marks",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "end_of_period_timescale_marks",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_order_panel_on_start",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "study_overlay_compare_legend_option",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "no_min_chart_width",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "compare_symbol_search_spread_operators",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "add-compare-dialog.5c5e616ea16bb43dcec2.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "studies_symbol_search_spread_operators",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "7000.21314dd7f29723dd7570.js",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_resolution_in_legend",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_zoom_and_move_buttons_on_touch",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "legend_last_day_change",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "accessible_keyboard_shortcuts",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "charting_library",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_property_page_scales",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "axis_pressed_mouse_move_scale",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_right_widgets_panel_by_default",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "update_timeframes_set_on_symbol_resolve",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "chart-bottom-toolbar.fd38479e975a1ac4fdd8.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "go_to_date",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "save_shortcut",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_symbol_logo_for_compare_studies",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "always_pass_called_order_to_modify",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_symbol_logo_in_account_manager",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "trading-account-manager.1b2c5c3fc6d9600dc0fb.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "prefer_quote_short_name",
+      "count": 2,
+      "sourcesCount": 3,
+      "sources": [
+        "2614 (base tree)",
+        "symbol-details.b77e4d320c1dbbfb0ea5.js",
+        "watchlist-widget.c7bd684646cd360803e2.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "allow_arbitrary_symbol_search_input",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "7335.f7017c32a7d4a05f3652.js",
+        "add-compare-dialog.5c5e616ea16bb43dcec2.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "hide_publish_button",
+      "count": 2,
+      "sourcesCount": 1,
+      "sources": [
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "hide_right_toolbar",
+      "count": 2,
+      "sourcesCount": 2,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "aria_detailed_chart_descriptions",
+      "count": 2,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "chart_drag_export",
+      "count": 2,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "charting_library_export_chart_data",
+      "count": 2,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "text-note-align-anchor-to-corner",
+      "count": 2,
+      "sourcesCount": 1,
+      "sources": [
+        "line-tool-text-note.84dddfb7b76a7bca47bb.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "hide_right_toolbar_tabs",
+      "count": 2,
+      "sourcesCount": 1,
+      "sources": [
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "show_community_feed_button",
+      "count": 2,
+      "sourcesCount": 1,
+      "sources": [
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "14851",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "custom_items_in_context_menu",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "countdown",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "graying_disabled_tools_enabled",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "study-market.958531c4a183b19a7315.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "update_study_formatter_on_symbol_resolve",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "symbol_search_hot_key",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_quick_search",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_screenshot",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "scales_date_format",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "scales_time_hours_format",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "legend_widget",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_left_toolbar_by_default",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "control_bar",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "object_tree_legend_mode",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "format_button_in_legend",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "study_buttons_in_legend",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "delete_button_in_legend",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "broker_button",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "pane_context_menu",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "legend_context_menu",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "save_chart_properties_to_local_storage",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "border_around_the_chart",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "create_volume_indicator_by_default",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "create_volume_indicator_by_default_once",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "star_some_intervals_by_default",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "move_logo_to_main_pane",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_animated_logo",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "logo_without_link",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "logo_always_maximized",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "right_bar_stays_on_scroll",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_content_overrides_by_defaults",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "allow_supported_resolutions_set_only",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "widgetbar_tabs",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "collapsible_header",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "side_toolbar_in_fullscreen_mode",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_in_fullscreen_mode",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "remove_library_container_border",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "display_data_mode",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "no_bars_status",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "clear_bars_on_series_error",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "seconds_resolution",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "dont_show_boolean_study_arguments",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_last_na_study_output",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "price_scale_always_last_bar_value",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_series_legend_item",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_study_overlay_legend_item",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_study_compare_legend_item",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "use_overrides_for_overlay",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "main_series_scale_menu",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "remove_img_from_rss",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_scroll",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_zoom",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "low_density_bars",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "open_account_manager",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "lock_visible_time_range_on_resize",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "pricescale_currency",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "cropped_tick_marks",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "disable_sameinterval_aligning",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "display_legend_on_all_charts",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "pricescale_unit",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_exponentiation_spread_operator",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "7335.f7017c32a7d4a05f3652.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_reciprocal_spread_operator",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "7335.f7017c32a7d4a05f3652.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "fix_left_edge",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "study_symbol_ticker_description",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "two_character_bar_marks_labels",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "tick_resolution",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_volume_ma",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "small_no_display",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "charting_library_single_symbol_request",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "use_ticker_on_symbol_info_update",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_main_series_symbol_from_indicator_legend",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_hide_close_position_button",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "6161.10c4a7de17f463d1d76e.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_hide_close_order_button",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "6161.10c4a7de17f463d1d76e.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_price_scale_global_last_bar_value",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_image_invalid_symbol",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "7335.f7017c32a7d4a05f3652.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_object_tree_and_price_scale_exchange_label",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "confirm_overwrite_if_chart_layout_with_name_exists",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "determine_first_data_request_size_using_visible_range",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "use_na_string_for_not_available_values",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_last_price_and_change_only_in_series_legend",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "iframe_loading_compatibility_mode",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "charting_library.standalone.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_percent_option_for_right_margin",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "watchlist_context_menu",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_property_page_trading",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_property_page_right_margin_editor",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "mouse_wheel_scale",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "pinch_scale",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "mouse_wheel_scroll",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "pressed_mouse_move_scroll",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "horz_touch_drag_scroll",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "vert_touch_drag_scroll",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "order_panel_close_button",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "order_panel_undock",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "order_info",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "order-widget.1d82e2e1e9cb3f946588.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "auto_enable_symbol_labels",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "charts_auto_save",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "alerts",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_layouttoggle",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "add_to_watchlist",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "global-search-dialog.be3beae2e53101d0e894.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "compare_recent_symbols_enabled",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "compare-model.17fcdaff82dd9646d47f.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "adaptive_logo",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "shift_visible_range_on_new_bar",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "insert_indicator_dialog_shortcut",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "clear_price_scale_on_error_or_empty_bars",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "library_custom_color_themes",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "watchlist_sections",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "watchlist-widget.c7bd684646cd360803e2.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "enable_dom_data_for_untradable_symbols",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "trading.5355aa53ba59846168ee.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "prefer_symbol_name_over_fullname",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "9088.e5b04ee7028204603d5e.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "watchlist_cross_tab_sync",
+      "count": 1,
+      "sourcesCount": 2,
+      "sources": [
+        "2614 (base tree)",
+        "symbol-list-service.ff72f86845c1d337fda3.js"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_exchange_logos",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "7335.f7017c32a7d4a05f3652.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "test_show_object_tree_debug",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "7415.6d9e5497dea3ae9ce05b.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "disable_legend_inplace_symbol_change",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "hide_legend_by_default",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "chart_template_storage",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "general-chart-properties-dialog.f1e0baa3f7c3ba8b7a81.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "symbol_info_long_description",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "hide_alert_referral_tool",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "hide_open_popup_button",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "charts_emoji_sync",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "extended_extrapolation_limit",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "studies_extend_time_scale",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "disable_pulse_animation",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "moving_average_study_changable_currency_unit",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "always_show_legend_values_on_mobile",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "atsv2s",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "bypass_chart_height_check",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "currency_menu_disabled",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "unit_menu_disabled",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "hide_price_scale_if_all_sources_hidden",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "lock_visible_range_when_adjusting_percentage_right_margin",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "symphony_embed",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "aria_crosshair_price_description",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "38914",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "tpo_summary",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "additional_multichart_layouts",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "options_details_widget",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "symbol-details.b77e4d320c1dbbfb0ea5.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "hide_ideas_page",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "hide_chats_page",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "hide_ideas_streams_page",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "iframe_loading_same_origin",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "charting_library.standalone.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "iframe_loading_root_path",
+      "count": 1,
+      "sourcesCount": 1,
+      "sources": [
+        "charting_library.standalone.js"
+      ],
+      "inBaseTree": false
+    },
+    {
+      "feature": "symbol_search_parser_mixin",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "constraint_dialogs_movement",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "phone_verification",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_interval_dialog_button",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "compare_symbol",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "chart_property_page",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "edit_buttons_in_legend",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "context_menus",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "handle_scale",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "handle_scroll",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "plain_studymarket",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "saved_charts_count_restriction",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "whotrades_auth_only",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "expand_symbolsearch_items",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "symbol_search_three_columns_exchanges",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "symbol_search_flags",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "symbol_search_limited_exchanges",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "footer_publish_idea_button",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_source_code",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "hide_loading_screen_on_series_error",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "study_dialog_fundamentals_economy_addons",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "linetoolpropertieswidget_template_button",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_login_dialog",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "mobile_app_action_open_details_webview",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "referral_program_for_widget_owners",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "mobile_trading",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "real_brokers",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "app_phone",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "app_tablet",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "mobile_app_hide_replay_toolbar",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "tv_production",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "bovespa_widget",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "charting_library_base",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "static_charts_service",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "header_widget_dom_node",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "objects_tree_context_menu",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "save_old_chart_before_save_as",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_saved_watchlists",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "watchlists_from_to_file",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_chart_warn_message",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "support_manage_drawings",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "marked_symbols",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "refresh_saved_charts_list_on_dialog_show",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    },
+    {
+      "feature": "show_dom_first_time",
+      "count": 0,
+      "sourcesCount": 1,
+      "sources": [
+        "2614 (base tree)"
+      ],
+      "inBaseTree": true
+    }
+  ]
+}

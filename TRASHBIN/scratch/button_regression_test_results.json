@@ -1,0 +1,302 @@
+{
+  "timestamp": "2026-09-11T08:04:03.435Z",
+  "tester": "Tester 1: Automated Button and UI Regression Tester",
+  "totalTests": 29,
+  "passedTests": 26,
+  "failedTests": 3,
+  "passRate": "89.7%",
+  "zeroNativeAlertsConfirmed": true,
+  "nativeDialogsCount": 0,
+  "results": [
+    {
+      "stepId": "TB-1",
+      "category": "Top Toolbar",
+      "feature": "Symbol Search Button",
+      "status": "PASS",
+      "elapsedMs": 2533,
+      "details": "Symbol search dialog open (hasInput=true)",
+      "screenshot": "01_top_toolbar_symbol_search.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\01_top_toolbar_symbol_search.png"
+    },
+    {
+      "stepId": "TB-2",
+      "category": "Top Toolbar",
+      "feature": "Interval Tabs (Timeframes)",
+      "status": "PASS",
+      "elapsedMs": 2483,
+      "details": "Active resolution: 5, symbol: XAUUSD.",
+      "screenshot": "02_top_toolbar_interval_tabs.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\02_top_toolbar_interval_tabs.png"
+    },
+    {
+      "stepId": "TB-3",
+      "category": "Top Toolbar",
+      "feature": "Candle Types Dropdown",
+      "status": "PASS",
+      "elapsedMs": 2149,
+      "details": "Candle styles dropdown opened and interactive",
+      "screenshot": "03_top_toolbar_candle_types.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\03_top_toolbar_candle_types.png"
+    },
+    {
+      "stepId": "TB-4",
+      "category": "Top Toolbar",
+      "feature": "fx Indicators Button",
+      "status": "PASS",
+      "elapsedMs": 2650,
+      "details": "Indicators & Strategies catalog modal successfully opened (element: tv_indicators_modal_backdrop)",
+      "screenshot": "04_top_toolbar_fx_indicators.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\04_top_toolbar_fx_indicators.png"
+    },
+    {
+      "stepId": "CL-1",
+      "category": "Chart Legend",
+      "feature": "Eye Button (Show/Hide Series)",
+      "status": "PASS",
+      "elapsedMs": 2676,
+      "details": "Main series visibility toggled via eye button",
+      "screenshot": "05_chart_legend_eye_button.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\05_chart_legend_eye_button.png"
+    },
+    {
+      "stepId": "CL-2",
+      "category": "Chart Legend",
+      "feature": "Gear Button (Settings Dialog)",
+      "status": "PASS",
+      "elapsedMs": 2576,
+      "details": "Chart properties / format dialog opened from legend settings gear",
+      "screenshot": "06_chart_legend_gear_button.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\06_chart_legend_gear_button.png"
+    },
+    {
+      "stepId": "CL-3",
+      "category": "Chart Legend",
+      "feature": "3-Dots Button (More Actions Menu)",
+      "status": "PASS",
+      "elapsedMs": 2303,
+      "details": "More actions menu opened and interactive",
+      "screenshot": "07_chart_legend_3dots_button.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\07_chart_legend_3dots_button.png"
+    },
+    {
+      "stepId": "BD-1",
+      "category": "Bottom Dock",
+      "feature": "Pine Editor Tab",
+      "status": "PASS",
+      "elapsedMs": 2619,
+      "details": "Pine Editor opened from bottom dock tab (dockOpen=true)",
+      "screenshot": "08_bottom_dock_pine_editor_tab.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\08_bottom_dock_pine_editor_tab.png"
+    },
+    {
+      "stepId": "BD-2",
+      "category": "Bottom Dock",
+      "feature": "Strategy Tester Tab",
+      "status": "PASS",
+      "elapsedMs": 2566,
+      "details": "Strategy Tester panel active (panelOpen=true, title=\"Strategy Tester:\n              No Strategy\")",
+      "screenshot": "09_bottom_dock_strategy_tester_tab.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\09_bottom_dock_strategy_tester_tab.png"
+    },
+    {
+      "stepId": "BD-3",
+      "category": "Bottom Dock",
+      "feature": "Account Manager Tab",
+      "status": "PASS",
+      "elapsedMs": 2639,
+      "details": "Account Manager tab selected and opened",
+      "screenshot": "10_bottom_dock_account_manager_tab.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\10_bottom_dock_account_manager_tab.png"
+    },
+    {
+      "stepId": "PE-3DOTS",
+      "category": "Pine Editor",
+      "feature": "3-Dots Button (All 7 Options Visibility)",
+      "status": "PASS",
+      "elapsedMs": 2302,
+      "details": "3-Dots menu open displaying all 7 sub-items: Editor settings... | New window | New tab | Profiler mode\n                  ? | Pine logs\n                  ? | Release notes | Help\n                \n                ›",
+      "screenshot": "11_pine_editor_3dots_menu.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\11_pine_editor_3dots_menu.png"
+    },
+    {
+      "stepId": "PE-OPT1",
+      "category": "Pine Editor (3-Dots)",
+      "feature": "Option 1: Editor settings...",
+      "status": "FAIL",
+      "elapsedMs": 2485,
+      "details": "Editor Settings modal opened with Theme & Font controls",
+      "screenshot": "12_pine_editor_settings_modal.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\12_pine_editor_settings_modal.png"
+    },
+    {
+      "stepId": "PE-OPT2",
+      "category": "Pine Editor (3-Dots)",
+      "feature": "Option 2: New window",
+      "status": "PASS",
+      "elapsedMs": 2618,
+      "details": "New window action executed cleanly without native popups",
+      "screenshot": "13_pine_editor_new_window.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\13_pine_editor_new_window.png"
+    },
+    {
+      "stepId": "PE-OPT3",
+      "category": "Pine Editor (3-Dots)",
+      "feature": "Option 3: New tab",
+      "status": "PASS",
+      "elapsedMs": 2056,
+      "details": "New tab action executed cleanly without native popups",
+      "screenshot": "14_pine_editor_new_tab.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\14_pine_editor_new_tab.png"
+    },
+    {
+      "stepId": "PE-OPT4",
+      "category": "Pine Editor (3-Dots)",
+      "feature": "Option 4: Profiler mode switch",
+      "status": "PASS",
+      "elapsedMs": 1423,
+      "details": "Profiler mode switch toggled (checked=true)",
+      "screenshot": "15_pine_editor_profiler_switch.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\15_pine_editor_profiler_switch.png"
+    },
+    {
+      "stepId": "PE-OPT5",
+      "category": "Pine Editor (3-Dots)",
+      "feature": "Option 5: Pine logs",
+      "status": "PASS",
+      "elapsedMs": 2298,
+      "details": "Pine logs console drawer displayed (display=block)",
+      "screenshot": "16_pine_editor_3dots_pine_logs.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\16_pine_editor_3dots_pine_logs.png"
+    },
+    {
+      "stepId": "PE-OPT6",
+      "category": "Pine Editor (3-Dots)",
+      "feature": "Option 6: Release notes",
+      "status": "PASS",
+      "elapsedMs": 1986,
+      "details": "Release notes action executed cleanly",
+      "screenshot": "17_pine_editor_release_notes.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\17_pine_editor_release_notes.png"
+    },
+    {
+      "stepId": "PE-OPT7",
+      "category": "Pine Editor (3-Dots)",
+      "feature": "Option 7: Help",
+      "status": "PASS",
+      "elapsedMs": 2145,
+      "details": "Help documentation reference triggered",
+      "screenshot": "18_pine_editor_help.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\18_pine_editor_help.png"
+    },
+    {
+      "stepId": "PE-ADD",
+      "category": "Pine Editor",
+      "feature": "Add to Chart Button",
+      "status": "FAIL",
+      "elapsedMs": 40124,
+      "details": "CDP Timeout for Runtime.evaluate",
+      "screenshot": "FAIL_19_pine_editor_add_to_chart.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\FAIL_19_pine_editor_add_to_chart.png"
+    },
+    {
+      "stepId": "PE-SAVE",
+      "category": "Pine Editor",
+      "feature": "Save Script Button",
+      "status": "PASS",
+      "elapsedMs": 2789,
+      "details": "Script saved cleanly to localStorage (saved count: 0)",
+      "screenshot": "20_pine_editor_save_script.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\20_pine_editor_save_script.png"
+    },
+    {
+      "stepId": "PE-PUB",
+      "category": "Pine Editor",
+      "feature": "Publish Script Button",
+      "status": "PASS",
+      "elapsedMs": 2114,
+      "details": "Publish Script custom modal opened (no native alert)",
+      "screenshot": "21_pine_editor_publish_script.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\21_pine_editor_publish_script.png"
+    },
+    {
+      "stepId": "PE-NEW",
+      "category": "Pine Editor",
+      "feature": "Create New Script Modal",
+      "status": "PASS",
+      "elapsedMs": 2110,
+      "details": "Create New Script modal opened with 3 script options",
+      "screenshot": "22_pine_editor_create_new_script_modal.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\22_pine_editor_create_new_script_modal.png"
+    },
+    {
+      "stepId": "PE-REN",
+      "category": "Pine Editor",
+      "feature": "Rename Script Modal",
+      "status": "PASS",
+      "elapsedMs": 2129,
+      "details": "Rename Script custom modal opened (title: \"Rename script\", val: \"Sessions [LuxAlgo] by LuxAlgo\")",
+      "screenshot": "23_pine_editor_rename_script_modal.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\23_pine_editor_rename_script_modal.png"
+    },
+    {
+      "stepId": "PE-SETT",
+      "category": "Pine Editor",
+      "feature": "Editor Settings Modal Detail",
+      "status": "FAIL",
+      "elapsedMs": 2048,
+      "details": "Editor Settings modal verified with all configuration dropdowns",
+      "screenshot": "24_pine_editor_settings_modal_detail.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\24_pine_editor_settings_modal_detail.png"
+    },
+    {
+      "stepId": "PE-WIN-MAX",
+      "category": "Pine Editor (Window Controls)",
+      "feature": "Maximize Button (□)",
+      "status": "PASS",
+      "elapsedMs": 1846,
+      "details": "Pine Editor maximized (width: 75vw)",
+      "screenshot": "25_pine_editor_window_maximize.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\25_pine_editor_window_maximize.png"
+    },
+    {
+      "stepId": "PE-WIN-MIN",
+      "category": "Pine Editor (Window Controls)",
+      "feature": "Minimize Button (_)",
+      "status": "PASS",
+      "elapsedMs": 1908,
+      "details": "Pine Editor dock minimized/collapsed cleanly",
+      "screenshot": "26_pine_editor_window_minimize.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\26_pine_editor_window_minimize.png"
+    },
+    {
+      "stepId": "PE-WIN-CLS",
+      "category": "Pine Editor (Window Controls)",
+      "feature": "Close Button (✕)",
+      "status": "PASS",
+      "elapsedMs": 1870,
+      "details": "Pine Editor dock cleanly closed via ✕ button",
+      "screenshot": "27_pine_editor_window_close.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\27_pine_editor_window_close.png"
+    },
+    {
+      "stepId": "PE-LOGS",
+      "category": "Pine Editor",
+      "feature": "Pine Logs Drawer Toggle",
+      "status": "PASS",
+      "elapsedMs": 2264,
+      "details": "Pine logs drawer open with 2 logged entries",
+      "screenshot": "28_pine_editor_logs_drawer.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\28_pine_editor_logs_drawer.png"
+    },
+    {
+      "stepId": "CONF-ZERO-ALERT",
+      "category": "Zero Native Dialogs",
+      "feature": "Confirm ZERO Native Alerts / Prompts Opened",
+      "status": "PASS",
+      "elapsedMs": 1231,
+      "details": "VERIFIED: 0 native browser alerts/prompts were opened across entire test session!",
+      "screenshot": "29_zero_native_dialogs_confirmed.png",
+      "screenshotPath": "C:\\Users\\gocha\\.gemini\\antigravity\\brain\\33ae35fd-c4b4-474e-a08a-28c2840b311f\\29_zero_native_dialogs_confirmed.png"
+    }
+  ]
+}

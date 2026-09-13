@@ -1,0 +1,441 @@
+{
+  "count": 109,
+  "studies": [
+    {
+      "description": "Compare",
+      "shortDescription": "Compare"
+    },
+    {
+      "description": "Overlay",
+      "shortDescription": "Overlay"
+    },
+    {
+      "description": "Volume",
+      "shortDescription": "Volume"
+    },
+    {
+      "description": "Zig Zag",
+      "shortDescription": "ZigZag"
+    },
+    {
+      "description": "SuperTrend",
+      "shortDescription": "SuperTrend"
+    },
+    {
+      "description": "Anchored VWAP",
+      "shortDescription": "Anchored VWAP"
+    },
+    {
+      "description": "Ratio",
+      "shortDescription": "Ratio"
+    },
+    {
+      "description": "Spread",
+      "shortDescription": "Spread"
+    },
+    {
+      "description": "Volume Profile Visible Range",
+      "shortDescription": "VPVR"
+    },
+    {
+      "description": "Accumulation/Distribution",
+      "shortDescription": "Accum/Dist"
+    },
+    {
+      "description": "Accumulative Swing Index",
+      "shortDescription": "ASI"
+    },
+    {
+      "description": "Advance/Decline",
+      "shortDescription": "AD"
+    },
+    {
+      "description": "Arnaud Legoux Moving Average",
+      "shortDescription": "ALMA"
+    },
+    {
+      "description": "Aroon",
+      "shortDescription": "Aroon"
+    },
+    {
+      "description": "Average Price",
+      "shortDescription": "Average Price"
+    },
+    {
+      "description": "Average Directional Index",
+      "shortDescription": "ADX"
+    },
+    {
+      "description": "Average True Range",
+      "shortDescription": "ATR"
+    },
+    {
+      "description": "Awesome Oscillator",
+      "shortDescription": "AO"
+    },
+    {
+      "description": "Accelerator Oscillator",
+      "shortDescription": "AO"
+    },
+    {
+      "description": "Balance of Power",
+      "shortDescription": "Balance of Power"
+    },
+    {
+      "description": "Bollinger Bands",
+      "shortDescription": "BB"
+    },
+    {
+      "description": "Bollinger Bands",
+      "shortDescription": "BB"
+    },
+    {
+      "description": "Bollinger Bands %B",
+      "shortDescription": "BB %B"
+    },
+    {
+      "description": "Bollinger Bands Width",
+      "shortDescription": "BBW"
+    },
+    {
+      "description": "Chaikin Money Flow",
+      "shortDescription": "CMF"
+    },
+    {
+      "description": "Chaikin Oscillator",
+      "shortDescription": "Chaikin Osc"
+    },
+    {
+      "description": "Chaikin Volatility",
+      "shortDescription": "Chaikin Volatility"
+    },
+    {
+      "description": "Chande Kroll Stop",
+      "shortDescription": "Chande Kroll Stop"
+    },
+    {
+      "description": "Chande Momentum Oscillator",
+      "shortDescription": "ChandeMO"
+    },
+    {
+      "description": "Chop Zone",
+      "shortDescription": "Chop Zone"
+    },
+    {
+      "description": "Choppiness Index",
+      "shortDescription": "CHOP"
+    },
+    {
+      "description": "Commodity Channel Index",
+      "shortDescription": "CCI"
+    },
+    {
+      "description": "Connors RSI",
+      "shortDescription": "CRSI"
+    },
+    {
+      "description": "Coppock Curve",
+      "shortDescription": "Coppock Curve"
+    },
+    {
+      "description": "Correlation Coefficient",
+      "shortDescription": "CC"
+    },
+    {
+      "description": "Correlation - Log",
+      "shortDescription": "Correlation - Log"
+    },
+    {
+      "description": "Detrended Price Oscillator",
+      "shortDescription": "DPO"
+    },
+    {
+      "description": "Directional Movement",
+      "shortDescription": "DMI"
+    },
+    {
+      "description": "Donchian Channels",
+      "shortDescription": "DC"
+    },
+    {
+      "description": "Double EMA",
+      "shortDescription": "DEMA"
+    },
+    {
+      "description": "Ease Of Movement",
+      "shortDescription": "EOM"
+    },
+    {
+      "description": "EMA Cross",
+      "shortDescription": "EMA Cross"
+    },
+    {
+      "description": "Envelopes",
+      "shortDescription": "Envelopes"
+    },
+    {
+      "description": "Standard Error",
+      "shortDescription": "Standard Error"
+    },
+    {
+      "description": "Standard Error Bands",
+      "shortDescription": "Standard Error Bands"
+    },
+    {
+      "description": "Fisher Transform",
+      "shortDescription": "Fisher"
+    },
+    {
+      "description": "Historical Volatility",
+      "shortDescription": "HV"
+    },
+    {
+      "description": "Hull Moving Average",
+      "shortDescription": "HMA"
+    },
+    {
+      "description": "Ichimoku Cloud",
+      "shortDescription": "Ichimoku"
+    },
+    {
+      "description": "Keltner Channels",
+      "shortDescription": "KC"
+    },
+    {
+      "description": "Klinger Oscillator",
+      "shortDescription": "Klinger Oscillator"
+    },
+    {
+      "description": "Know Sure Thing",
+      "shortDescription": "KST"
+    },
+    {
+      "description": "Least Squares Moving Average",
+      "shortDescription": "LSMA"
+    },
+    {
+      "description": "Linear Regression Curve",
+      "shortDescription": "LRC"
+    },
+    {
+      "description": "Linear Regression Slope",
+      "shortDescription": "Linear Regression Slope"
+    },
+    {
+      "description": "MA Cross",
+      "shortDescription": "MA Cross"
+    },
+    {
+      "description": "MA with EMA Cross",
+      "shortDescription": "MA/EMA Cross"
+    },
+    {
+      "description": "Mass Index",
+      "shortDescription": "Mass Index"
+    },
+    {
+      "description": "McGinley Dynamic",
+      "shortDescription": "McGinley Dynamic"
+    },
+    {
+      "description": "Median Price",
+      "shortDescription": "Median Price"
+    },
+    {
+      "description": "Momentum",
+      "shortDescription": "Mom"
+    },
+    {
+      "description": "Money Flow Index",
+      "shortDescription": "MFI"
+    },
+    {
+      "description": "Moving Average",
+      "shortDescription": "MA"
+    },
+    {
+      "description": "Moving Average Channel",
+      "shortDescription": "MAC"
+    },
+    {
+      "description": "MACD",
+      "shortDescription": "MACD"
+    },
+    {
+      "description": "Moving Average Exponential",
+      "shortDescription": "EMA"
+    },
+    {
+      "description": "Moving Average Weighted",
+      "shortDescription": "WMA"
+    },
+    {
+      "description": "Moving Average Double",
+      "shortDescription": "Moving Average Double"
+    },
+    {
+      "description": "Moving Average Triple",
+      "shortDescription": "Moving Average Triple"
+    },
+    {
+      "description": "Moving Average Adaptive",
+      "shortDescription": "Moving Average Adaptive"
+    },
+    {
+      "description": "Moving Average Hamming",
+      "shortDescription": "Moving Average Hamming"
+    },
+    {
+      "description": "Moving Average Multiple",
+      "shortDescription": "Moving Average Multiple"
+    },
+    {
+      "description": "Majority Rule",
+      "shortDescription": "Majority Rule"
+    },
+    {
+      "description": "Net Volume",
+      "shortDescription": "Net Volume"
+    },
+    {
+      "description": "On Balance Volume",
+      "shortDescription": "OBV"
+    },
+    {
+      "description": "Parabolic SAR",
+      "shortDescription": "SAR"
+    },
+    {
+      "description": "Price Channel",
+      "shortDescription": "PC"
+    },
+    {
+      "description": "Price Oscillator",
+      "shortDescription": "PPO"
+    },
+    {
+      "description": "Price Volume Trend",
+      "shortDescription": "PVT"
+    },
+    {
+      "description": "Rank Correlation Index",
+      "shortDescription": "RCI"
+    },
+    {
+      "description": "Rate Of Change",
+      "shortDescription": "ROC"
+    },
+    {
+      "description": "Relative Strength Index",
+      "shortDescription": "RSI"
+    },
+    {
+      "description": "Relative Vigor Index",
+      "shortDescription": "RVGI"
+    },
+    {
+      "description": "Relative Volatility Index",
+      "shortDescription": "RVI"
+    },
+    {
+      "description": "SMI Ergodic Indicator/Oscillator",
+      "shortDescription": "SMIIO"
+    },
+    {
+      "description": "Smoothed Moving Average",
+      "shortDescription": "SMMA"
+    },
+    {
+      "description": "Standard Deviation",
+      "shortDescription": "Standard Deviation"
+    },
+    {
+      "description": "Stochastic",
+      "shortDescription": "Stoch"
+    },
+    {
+      "description": "Stochastic RSI",
+      "shortDescription": "Stoch RSI"
+    },
+    {
+      "description": "TRIX",
+      "shortDescription": "TRIX"
+    },
+    {
+      "description": "Triple EMA",
+      "shortDescription": "TEMA"
+    },
+    {
+      "description": "True Strength Index",
+      "shortDescription": "True Strength Index"
+    },
+    {
+      "description": "Trend Strength Index",
+      "shortDescription": "Trend Strength Index"
+    },
+    {
+      "description": "Typical Price",
+      "shortDescription": "Typical Price"
+    },
+    {
+      "description": "Ultimate Oscillator",
+      "shortDescription": "UO"
+    },
+    {
+      "description": "Volatility Close-to-Close",
+      "shortDescription": "Volatility Close-to-Close"
+    },
+    {
+      "description": "Volatility Zero Trend Close-to-Close",
+      "shortDescription": "Volatility Zero Trend Close-to-Close"
+    },
+    {
+      "description": "Volatility O-H-L-C",
+      "shortDescription": "Volatility O-H-L-C"
+    },
+    {
+      "description": "Volatility Index",
+      "shortDescription": "Volatility Index"
+    },
+    {
+      "description": "VWAP",
+      "shortDescription": "VWAP"
+    },
+    {
+      "description": "VWMA",
+      "shortDescription": "VWMA"
+    },
+    {
+      "description": "Volume Oscillator",
+      "shortDescription": "Volume Osc"
+    },
+    {
+      "description": "Vortex Indicator",
+      "shortDescription": "VI"
+    },
+    {
+      "description": "Williams %R",
+      "shortDescription": "%R"
+    },
+    {
+      "description": "Williams Alligator",
+      "shortDescription": "Alligator"
+    },
+    {
+      "description": "Williams Fractal",
+      "shortDescription": "Fractals"
+    },
+    {
+      "description": "Guppy Multiple Moving Average",
+      "shortDescription": "GMMA"
+    },
+    {
+      "description": "52 Week High/Low",
+      "shortDescription": "52W H/L"
+    },
+    {
+      "description": "Moving Average",
+      "shortDescription": "MA"
+    }
+  ]
+}

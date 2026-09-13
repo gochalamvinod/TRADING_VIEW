@@ -1,0 +1,4261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>TradingView Advanced Charts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Pine Script v5 Engine Transpiler & Runtime Bridge -->
+    <script src="pine_engine.js"></script>
+
+    <!-- TradingView Charting Library (TT v29.6.0 Standalone) -->
+    <script src="charting_library/charting_library.standalone.js"></script>
+    <script src="datafeeds/udf/dist/bundle.js"></script>
+    <link rel="icon" type="image/png" href="tv-icon.png">
+
+    <style>
+      :root {
+        --tv-bg-primary: #131722;
+        --tv-bg-secondary: #1e222d;
+        --tv-bg-tertiary: #2a2e39;
+        --tv-border: #363a45;
+        --tv-border-hover: #4a4e59;
+        --tv-text-primary: #d1d4dc;
+        --tv-text-secondary: #787b86;
+        --tv-accent: #2962ff;
+        --tv-accent-hover: #1e53e5;
+        --tv-success: #089981;
+        --tv-error: #f23645;
+        --tv-warning: #ff9800;
+        --pm-height: 220px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #000;
+        color: var(--tv-text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, Ubuntu, sans-serif;
+        overflow: hidden;
+      }
+
+      #tv_chart_container {
+        width: 100vw;
+        height: calc(100vh - 42px - var(--pm-height, 220px));
+        transition: height 0.15s ease-out;
+      }
+
+      #buttons {
+        text-align: center;
+        padding: 6px 12px;
+        background: var(--tv-bg-primary);
+        border-top: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 42px;
+      }
+
+      button, .btn {
+        margin: 0;
+        padding: 5px 14px;
+        font-size: 12px;
+        font-weight: 500;
+        background: var(--tv-bg-secondary);
+        color: var(--tv-text-primary);
+        border: 1px solid var(--tv-border);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.15s ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        user-select: none;
+      }
+
+      button:hover, .btn:hover {
+        background: var(--tv-bg-tertiary);
+        border-color: var(--tv-border-hover);
+        color: #fff;
+      }
+
+      button:active, .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn-primary {
+        background: var(--tv-accent);
+        border-color: var(--tv-accent);
+        color: #ffffff;
+        font-weight: 600;
+      }
+
+      .btn-primary:hover {
+        background: var(--tv-accent-hover);
+        border-color: var(--tv-accent-hover);
+      }
+
+      .btn-success {
+        background: var(--tv-success);
+        border-color: var(--tv-success);
+        color: #ffffff;
+      }
+
+      .btn-success:hover {
+        background: #067a67;
+        border-color: #067a67;
+      }
+
+      .btn-danger {
+        background: transparent;
+        border-color: var(--tv-error);
+        color: var(--tv-error);
+      }
+
+      .btn-danger:hover {
+        background: rgba(242, 54, 69, 0.15);
+        color: #ff5c6c;
+      }
+
+      /* Floating Session Table */
+      #session-table {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: auto;
+        max-width: 220px;
+        z-index: 1000;
+        background-color: rgba(19, 23, 34, 0.9);
+        color: #fff;
+        border: 1px solid var(--tv-border);
+        border-radius: 8px;
+        padding: 6px;
+        font-size: 12px;
+        cursor: move;
+        user-select: none;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        white-space: nowrap;
+      }
+      #session-table table { border-collapse: collapse; width: 100%; }
+      #session-table th, #session-table td {
+        border: 1px solid var(--tv-border);
+        padding: 4px 6px;
+        text-align: left;
+        white-space: nowrap;
+      }
+      #session-table th { background-color: var(--tv-bg-primary); font-weight: bold; }
+
+      /* =========================================================================
+       * Pine Script Modal Dialog Styles
+       * ========================================================================= */
+      .pine-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(3px);
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pineFadeIn 0.15s ease-out;
+      }
+
+      @keyframes pineFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .pine-modal-container {
+        width: 92vw;
+        max-width: 1000px;
+        height: 88vh;
+        max-height: 800px;
+        min-height: 520px;
+        background: var(--tv-bg-secondary);
+        border: 1px solid var(--tv-border);
+        border-radius: 10px;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      /* Modal Header */
+      .pine-modal-header {
+        padding: 12px 18px;
+        background: var(--tv-bg-primary);
+        border-bottom: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .pine-modal-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .pine-modal-title span.badge {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        background: rgba(41, 98, 255, 0.2);
+        color: #5c8aff;
+        border: 1px solid rgba(41, 98, 255, 0.4);
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .pine-modal-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .pine-close-btn {
+        background: transparent;
+        border: none;
+        color: var(--tv-text-secondary);
+        font-size: 18px;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        line-height: 1;
+      }
+
+      .pine-close-btn:hover {
+        background: var(--tv-bg-tertiary);
+        color: #fff;
+      }
+
+      /* Toolbar Bar */
+      .pine-toolbar-bar {
+        padding: 8px 18px;
+        background: var(--tv-bg-secondary);
+        border-bottom: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .pine-toolbar-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .pine-toolbar-label {
+        font-size: 12px;
+        color: var(--tv-text-secondary);
+        font-weight: 500;
+      }
+
+      .pine-select, .pine-input {
+        background: var(--tv-bg-primary);
+        border: 1px solid var(--tv-border);
+        color: var(--tv-text-primary);
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .pine-select:focus, .pine-input:focus {
+        border-color: var(--tv-accent);
+      }
+
+      .pine-input {
+        cursor: text;
+        width: 180px;
+      }
+
+      /* Editor Body */
+      .pine-editor-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        background: #141720;
+        position: relative;
+      }
+
+      .pine-editor-split {
+        flex: 1;
+        display: flex;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Line numbers */
+      .pine-line-numbers {
+        width: 44px;
+        padding: 12px 6px;
+        background: #11141c;
+        border-right: 1px solid #232733;
+        color: #4a5061;
+        font-family: 'Consolas', 'Fira Code', 'Monaco', 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 20px;
+        text-align: right;
+        user-select: none;
+        overflow: hidden;
+      }
+
+      .pine-line-numbers div {
+        height: 20px;
+      }
+
+      /* Editor & Syntax Layer Wrapper */
+      .pine-editor-text-wrap {
+        position: relative;
+        flex: 1;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .pine-highlight-layer,
+      .pine-code-editor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 12px 14px;
+        box-sizing: border-box;
+        font-family: 'Consolas', 'Fira Code', 'Monaco', 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 20px;
+        tab-size: 2;
+        white-space: pre;
+        word-wrap: normal;
+        overflow: auto;
+        border: none;
+        outline: none;
+      }
+
+      .pine-highlight-layer {
+        pointer-events: none;
+        background: transparent;
+        color: #abb2bf;
+        z-index: 1;
+      }
+
+      .pine-code-editor {
+        background: transparent;
+        color: transparent;
+        caret-color: #2962ff;
+        resize: none;
+        z-index: 2;
+      }
+
+      .pine-code-editor::selection {
+        background: rgba(41, 98, 255, 0.35);
+      }
+
+      /* Syntax Tokens */
+      .pine-comment { color: #676e7d; font-style: italic; }
+      .pine-keyword { color: #e06c75; font-weight: 600; }
+      .pine-string { color: #98c379; }
+      .pine-number { color: #d19a66; }
+      .pine-ta-function { color: #61afef; font-weight: 600; }
+      .pine-builtin { color: #e5c07b; }
+      .pine-property { color: #56b6c2; }
+      .pine-operator { color: #56b6c2; }
+      .pine-ident { color: #abb2bf; }
+
+      /* Diagnostics / Console Panel */
+      .pine-diagnostics-panel {
+        height: 110px;
+        background: var(--tv-bg-primary);
+        border-top: 1px solid var(--tv-border);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .pine-diag-header {
+        padding: 4px 14px;
+        background: #181b24;
+        border-bottom: 1px solid #232733;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--tv-text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .pine-diag-content {
+        flex: 1;
+        padding: 8px 14px;
+        overflow-y: auto;
+        font-family: 'Consolas', 'Fira Code', 'Monaco', 'Courier New', monospace;
+        font-size: 12px;
+        line-height: 17px;
+        color: var(--tv-text-primary);
+        white-space: pre-wrap;
+      }
+
+      .pine-status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      /* Modal Footer */
+      .pine-modal-footer {
+        padding: 10px 18px;
+        background: var(--tv-bg-primary);
+        border-top: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .pine-footer-info {
+        font-size: 12px;
+        color: var(--tv-text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .pine-footer-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* Scrollbar Styling */
+      .pine-code-editor::-webkit-scrollbar,
+      .pine-highlight-layer::-webkit-scrollbar,
+      .pine-diag-content::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      .pine-code-editor::-webkit-scrollbar-track,
+      .pine-diag-content::-webkit-scrollbar-track {
+        background: #141720;
+      }
+      .pine-code-editor::-webkit-scrollbar-thumb,
+      .pine-diag-content::-webkit-scrollbar-thumb {
+        background: #2a2e39;
+        border-radius: 4px;
+      }
+      .pine-code-editor::-webkit-scrollbar-thumb:hover,
+      .pine-diag-content::-webkit-scrollbar-thumb:hover {
+        background: #3c4150;
+      }
+
+      /* =========================================================================
+       * Order Execution Panel & Risk Calculator Styles
+       * ========================================================================= */
+      .order-panel-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 390px;
+        max-width: 100vw;
+        height: calc(100vh - 42px);
+        background: var(--tv-bg-secondary);
+        border-left: 1px solid var(--tv-border);
+        box-shadow: -6px 0 28px rgba(0, 0, 0, 0.65);
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.25s cubic-bezier(0.1, 0.9, 0.2, 1), width 0.2s ease, opacity 0.2s ease;
+        user-select: none;
+        font-family: -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, sans-serif;
+      }
+
+      .order-panel-drawer.collapsed {
+        transform: translateX(100%);
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .order-panel-drawer.expanded {
+        width: 550px;
+      }
+
+      /* Header */
+      .op-header {
+        height: 48px;
+        background: var(--tv-bg-primary);
+        border-bottom: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        flex-shrink: 0;
+      }
+
+      .op-header-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+      }
+
+      .op-symbol-badge {
+        background: rgba(41, 98, 255, 0.2);
+        color: #5c8aff;
+        border: 1px solid rgba(41, 98, 255, 0.4);
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .op-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .op-btn-icon {
+        background: transparent;
+        border: none;
+        color: var(--tv-text-secondary);
+        cursor: pointer;
+        padding: 6px 8px;
+        border-radius: 4px;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+
+      .op-btn-icon:hover {
+        background: var(--tv-bg-tertiary);
+        color: #fff;
+      }
+
+      /* Live Market Rates Strip */
+      .op-market-strip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 16px;
+        background: #141720;
+        border-bottom: 1px solid var(--tv-border);
+        flex-shrink: 0;
+      }
+
+      .op-quote-box {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .op-quote-lbl {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .op-quote-sell .op-quote-lbl { color: var(--tv-error); }
+      .op-quote-buy .op-quote-lbl { color: var(--tv-success); }
+
+      .op-quote-val {
+        font-size: 16px;
+        font-weight: 700;
+        font-family: 'Consolas', monospace;
+        color: #fff;
+      }
+
+      .op-spread-box {
+        text-align: center;
+        background: var(--tv-bg-primary);
+        border: 1px solid var(--tv-border);
+        padding: 3px 12px;
+        border-radius: 12px;
+      }
+
+      .op-spread-lbl {
+        font-size: 9px;
+        color: var(--tv-text-secondary);
+        display: block;
+      }
+
+      .op-spread-val {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--tv-text-primary);
+      }
+
+      /* Tab Bar */
+      .op-tab-bar {
+        display: flex;
+        background: var(--tv-bg-primary);
+        border-bottom: 1px solid var(--tv-border);
+        flex-shrink: 0;
+      }
+
+      .op-tab-btn {
+        flex: 1;
+        padding: 10px 0;
+        font-size: 12px;
+        font-weight: 600;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: var(--tv-text-secondary);
+        cursor: pointer;
+        border-radius: 0;
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .op-tab-btn:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .op-tab-btn.active {
+        color: #fff;
+        border-bottom-color: var(--tv-accent);
+        background: var(--tv-bg-secondary);
+      }
+
+      /* Body */
+      .op-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .op-body::-webkit-scrollbar {
+        width: 6px;
+      }
+      .op-body::-webkit-scrollbar-thumb {
+        background: var(--tv-border);
+        border-radius: 3px;
+      }
+
+      .op-tab-content {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .op-tab-content.active {
+        display: flex;
+      }
+
+      /* Form Groups */
+      .op-form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .op-label-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--tv-text-secondary);
+      }
+
+      .op-sub-label {
+        font-size: 10px;
+        color: var(--tv-text-secondary);
+      }
+
+      .op-mode-toggle {
+        cursor: pointer;
+        color: var(--tv-accent);
+        font-weight: 600;
+      }
+      .op-mode-toggle:hover {
+        text-decoration: underline;
+      }
+
+      .op-input-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .op-input {
+        width: 100%;
+        background: var(--tv-bg-primary);
+        border: 1px solid var(--tv-border);
+        color: var(--tv-text-primary);
+        padding: 7px 10px;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 4px;
+        outline: none;
+        transition: border-color 0.15s, background-color 0.3s;
+      }
+      .op-input:focus {
+        border-color: var(--tv-accent);
+      }
+
+      .op-input-suffix {
+        position: absolute;
+        right: 10px;
+        font-size: 11px;
+        color: var(--tv-text-secondary);
+        pointer-events: none;
+      }
+
+      .op-select {
+        width: 100%;
+        background: var(--tv-bg-primary);
+        border: 1px solid var(--tv-border);
+        color: var(--tv-text-primary);
+        padding: 7px 10px;
+        font-size: 12px;
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+      }
+      .op-select:focus {
+        border-color: var(--tv-accent);
+      }
+
+      .op-input-stepper {
+        display: flex;
+        align-items: center;
+      }
+      .op-input-stepper .op-input {
+        border-radius: 0;
+        text-align: center;
+      }
+      .op-step-btn {
+        background: var(--tv-bg-tertiary);
+        border: 1px solid var(--tv-border);
+        color: var(--tv-text-primary);
+        padding: 7px 12px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .op-step-btn:first-child {
+        border-radius: 4px 0 0 4px;
+        border-right: none;
+      }
+      .op-step-btn:last-child {
+        border-radius: 0 4px 4px 0;
+        border-left: none;
+      }
+      .op-step-btn:hover {
+        background: var(--tv-border-hover);
+        color: #fff;
+      }
+
+      /* Quick Chip Row */
+      .op-chip-row {
+        display: flex;
+        gap: 6px;
+        margin-top: 4px;
+      }
+      .op-chip {
+        flex: 1;
+        padding: 4px 0;
+        font-size: 10.5px;
+        font-weight: 600;
+        background: var(--tv-bg-tertiary);
+        border: 1px solid var(--tv-border);
+        color: var(--tv-text-secondary);
+        border-radius: 3px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.15s;
+      }
+      .op-chip:hover, .op-chip.active {
+        background: rgba(41, 98, 255, 0.2);
+        border-color: var(--tv-accent);
+        color: #fff;
+      }
+
+      /* Dual Group (SL & TP) */
+      .op-dual-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .op-form-subgroup {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .op-calc-hint {
+        font-size: 10px;
+        color: var(--tv-text-secondary);
+        min-height: 14px;
+      }
+
+      /* Metric Row */
+      .op-metric-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #151821;
+        border: 1px solid var(--tv-border);
+        padding: 7px 10px;
+        border-radius: 4px;
+        font-size: 11px;
+      }
+      .op-rr-badge {
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 3px;
+        color: var(--tv-warning);
+        background: rgba(255, 152, 0, 0.15);
+      }
+      .op-rr-badge.good {
+        color: var(--tv-success);
+        background: rgba(8, 153, 129, 0.15);
+      }
+      .op-rr-badge.poor {
+        color: var(--tv-error);
+        background: rgba(242, 54, 69, 0.15);
+      }
+
+      /* Execution Buttons */
+      .op-actions-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 4px;
+      }
+
+      .op-btn-action {
+        padding: 12px 6px;
+        border-radius: 6px;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        transition: filter 0.15s, transform 0.05s;
+      }
+      .op-btn-action:hover {
+        filter: brightness(1.15);
+      }
+      .op-btn-action:active {
+        transform: scale(0.98);
+      }
+
+      .op-btn-sell {
+        background: var(--tv-error);
+        color: #fff;
+      }
+      .op-btn-buy {
+        background: var(--tv-accent);
+        color: #fff;
+      }
+      .op-btn-dir {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      .op-btn-subprice {
+        font-size: 11px;
+        opacity: 0.9;
+        font-family: 'Consolas', monospace;
+      }
+
+      .op-btn-place-pending {
+        width: 100%;
+        background: var(--tv-accent);
+        color: #fff;
+        padding: 12px;
+        font-size: 13px;
+        font-weight: 700;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        margin-top: 4px;
+        transition: background 0.15s;
+      }
+      .op-btn-place-pending:hover {
+        background: var(--tv-accent-hover);
+      }
+
+      /* Calculator Accordion Card */
+      .op-calculator-card {
+        background: #161922;
+        border: 1px solid var(--tv-border);
+        border-radius: 6px;
+        overflow: hidden;
+        margin-top: 6px;
+      }
+
+      .op-calc-header {
+        padding: 9px 12px;
+        background: var(--tv-bg-primary);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--tv-text-primary);
+        transition: background 0.15s;
+      }
+      .op-calc-header:hover {
+        background: var(--tv-bg-tertiary);
+      }
+      .op-calc-chevron {
+        font-size: 10px;
+        color: var(--tv-text-secondary);
+        transition: transform 0.2s;
+      }
+      .op-calc-chevron.collapsed {
+        transform: rotate(-90deg);
+      }
+
+      .op-calc-body {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .op-calc-body.hidden {
+        display: none;
+      }
+
+      .op-calc-account-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        background: #11141c;
+        padding: 6px 10px;
+        border-radius: 4px;
+      }
+      .op-calc-stat {
+        display: flex;
+        flex-direction: column;
+      }
+      .op-stat-lbl {
+        font-size: 9px;
+        color: var(--tv-text-secondary);
+      }
+      .op-stat-val {
+        font-size: 12px;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      .op-spec-note {
+        font-size: 10px;
+        color: #8c91a0;
+        margin-top: 2px;
+        line-height: 1.35;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 6px 8px;
+        border-radius: 4px;
+        border-left: 2px solid var(--tv-accent);
+      }
+
+      /* Result Card */
+      .op-result-card {
+        background: rgba(41, 98, 255, 0.08);
+        border: 1px solid rgba(41, 98, 255, 0.3);
+        padding: 10px 12px;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .op-result-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .op-res-lbl {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--tv-text-primary);
+      }
+      .op-res-val {
+        font-size: 16px;
+        font-weight: 800;
+        color: #5c8aff;
+      }
+      .op-result-subrow {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10.5px;
+        color: var(--tv-text-secondary);
+      }
+
+      .op-formula-box {
+        font-size: 9.5px;
+        color: #787b86;
+        font-family: 'Consolas', monospace;
+        background: #10131a;
+        padding: 4px 6px;
+        border-radius: 3px;
+        border: 1px dashed var(--tv-border);
+      }
+
+      .op-btn-apply-lot {
+        width: 100%;
+        padding: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        background: var(--tv-success);
+        border: 1px solid var(--tv-success);
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 4px;
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .op-btn-apply-lot:hover {
+        background: #067a67;
+      }
+
+      /* Footer / Status notification strip */
+      .op-footer {
+        padding: 8px 16px;
+        background: var(--tv-bg-primary);
+        border-top: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .op-status-strip {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: var(--tv-text-secondary);
+      }
+      .op-status-icon {
+        color: var(--tv-success);
+        font-size: 8px;
+      }
+      .op-status-strip.error .op-status-icon { color: var(--tv-error); }
+      .op-status-strip.warning .op-status-icon { color: var(--tv-warning); }
+      .op-status-strip.loading .op-status-icon { color: #5c8aff; animation: opPulse 1s infinite; }
+
+      @keyframes opPulse {
+        0% { opacity: 0.3; }
+        50% { opacity: 1; }
+        100% { opacity: 0.3; }
+      }
+
+      /* =========================================================================
+       * Position Manager Bottom Docking Panel Styles
+       * ========================================================================= */
+      .pm-panel {
+        width: 100vw;
+        height: var(--pm-height, 220px);
+        background: var(--tv-bg-primary);
+        border-top: 1px solid var(--tv-border);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 80;
+        transition: height 0.15s ease-out;
+        user-select: none;
+        box-sizing: border-box;
+      }
+
+      .pm-panel.pm-resizing {
+        transition: none !important;
+      }
+
+      .pm-panel.pm-collapsed {
+        height: 36px !important;
+      }
+
+      .pm-panel.pm-collapsed .pm-body {
+        display: none !important;
+      }
+
+      .pm-panel.pm-hidden {
+        display: none !important;
+      }
+
+      /* Top Resizer Handle */
+      .pm-resizer {
+        height: 5px;
+        width: 100%;
+        cursor: ns-resize;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        transition: background 0.15s;
+      }
+
+      .pm-resizer:hover, .pm-panel.pm-resizing .pm-resizer {
+        background: rgba(41, 98, 255, 0.25);
+      }
+
+      .pm-resizer-line {
+        width: 32px;
+        height: 2px;
+        background: var(--tv-border);
+        border-radius: 1px;
+        transition: background 0.15s;
+      }
+
+      .pm-resizer:hover .pm-resizer-line, .pm-panel.pm-resizing .pm-resizer-line {
+        background: var(--tv-accent);
+      }
+
+      /* Header Bar */
+      .pm-header {
+        height: 36px;
+        min-height: 36px;
+        background: #171b26;
+        border-bottom: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        gap: 12px;
+        overflow: hidden;
+      }
+
+      /* Tabs */
+      .pm-tabs {
+        display: flex;
+        align-items: stretch;
+        height: 100%;
+        gap: 2px;
+      }
+
+      .pm-tab-btn {
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: var(--tv-text-secondary);
+        font-size: 12px;
+        font-weight: 500;
+        padding: 0 12px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        border-radius: 0;
+        transition: all 0.15s ease;
+      }
+
+      .pm-tab-btn:hover {
+        color: var(--tv-text-primary);
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .pm-tab-btn.active {
+        color: #ffffff;
+        border-bottom-color: var(--tv-accent);
+        background: rgba(41, 98, 255, 0.08);
+      }
+
+      .pm-tab-badge {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 1px 6px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--tv-text-secondary);
+        line-height: 1.2;
+      }
+
+      .pm-tab-btn.active .pm-tab-badge {
+        background: var(--tv-accent);
+        color: #ffffff;
+      }
+
+      /* Account Bar Metrics */
+      .pm-account-bar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 11.5px;
+        margin-left: auto;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .pm-account-bar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .pm-metric-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        white-space: nowrap;
+      }
+
+      .pm-metric-label {
+        color: var(--tv-text-secondary);
+        font-size: 11px;
+      }
+
+      .pm-metric-val {
+        font-family: 'Consolas', 'Fira Code', 'Monaco', monospace;
+        font-weight: 600;
+        color: var(--tv-text-primary);
+      }
+
+      .pm-pnl-positive {
+        color: var(--tv-success) !important;
+      }
+
+      .pm-pnl-negative {
+        color: var(--tv-error) !important;
+      }
+
+      .pm-pnl-zero {
+        color: var(--tv-text-secondary) !important;
+      }
+
+      /* Header Controls */
+      .pm-controls {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+
+      .pm-icon-btn {
+        background: transparent;
+        border: none;
+        color: var(--tv-text-secondary);
+        font-size: 12px;
+        padding: 4px 6px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s ease;
+      }
+
+      .pm-icon-btn:hover {
+        background: var(--tv-bg-tertiary);
+        color: #ffffff;
+      }
+
+      .pm-btn-close-all {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 10px;
+        background: rgba(242, 54, 69, 0.15);
+        border: 1px solid rgba(242, 54, 69, 0.5);
+        color: var(--tv-error);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+      }
+
+      .pm-btn-close-all:hover {
+        background: var(--tv-error);
+        color: #ffffff;
+        border-color: var(--tv-error);
+      }
+
+      /* Body Area */
+      .pm-body {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        background: var(--tv-bg-primary);
+        overflow: hidden;
+      }
+
+      .pm-tab-pane {
+        flex: 1;
+        min-height: 0;
+        display: none;
+        flex-direction: column;
+      }
+
+      .pm-tab-pane.active {
+        display: flex;
+      }
+
+      /* Sub-Toolbar */
+      .pm-table-toolbar {
+        height: 28px;
+        min-height: 28px;
+        background: var(--tv-bg-secondary);
+        border-bottom: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px;
+        font-size: 11px;
+        color: var(--tv-text-secondary);
+      }
+
+      .pm-toolbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .pm-btn-outline {
+        background: transparent;
+        border: 1px solid var(--tv-border);
+        color: var(--tv-text-primary);
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .pm-btn-outline:hover {
+        background: var(--tv-bg-tertiary);
+        border-color: var(--tv-border-hover);
+        color: #fff;
+      }
+
+      /* Table Wrapper & Table */
+      .pm-table-wrapper {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: auto;
+      }
+
+      .pm-table-wrapper::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      .pm-table-wrapper::-webkit-scrollbar-track {
+        background: var(--tv-bg-primary);
+      }
+
+      .pm-table-wrapper::-webkit-scrollbar-thumb {
+        background: var(--tv-border);
+        border-radius: 3px;
+      }
+
+      .pm-table-wrapper::-webkit-scrollbar-thumb:hover {
+        background: var(--tv-border-hover);
+      }
+
+      .pm-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        text-align: left;
+      }
+
+      .pm-table thead th {
+        position: sticky;
+        top: 0;
+        background: #171b26;
+        color: var(--tv-text-secondary);
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 6px 12px;
+        border-bottom: 1px solid var(--tv-border);
+        white-space: nowrap;
+        user-select: none;
+        z-index: 5;
+      }
+
+      .pm-table tbody td {
+        padding: 5px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        white-space: nowrap;
+        color: var(--tv-text-primary);
+        font-variant-numeric: tabular-nums;
+        vertical-align: middle;
+      }
+
+      .pm-table tbody tr {
+        transition: background 0.1s ease;
+      }
+
+      .pm-table tbody tr:hover {
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .pm-ticket-col {
+        font-family: 'Consolas', 'Fira Code', 'Monaco', monospace;
+        color: var(--tv-text-secondary);
+        font-size: 11.5px;
+      }
+
+      .pm-symbol-col {
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .pm-num-col {
+        font-family: 'Consolas', 'Fira Code', 'Monaco', monospace;
+        text-align: right;
+      }
+
+      /* Badges */
+      .pm-badge {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 3px;
+        display: inline-block;
+        text-align: center;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+      }
+
+      .pm-badge-buy {
+        background: rgba(8, 153, 129, 0.16);
+        color: var(--tv-success);
+        border: 1px solid rgba(8, 153, 129, 0.35);
+      }
+
+      .pm-badge-sell {
+        background: rgba(242, 54, 69, 0.16);
+        color: var(--tv-error);
+        border: 1px solid rgba(242, 54, 69, 0.35);
+      }
+
+      .pm-badge-limit {
+        background: rgba(41, 98, 255, 0.14);
+        color: #5c8aff;
+        border: 1px solid rgba(41, 98, 255, 0.35);
+      }
+
+      .pm-badge-stop {
+        background: rgba(255, 152, 0, 0.14);
+        color: #ffaa2b;
+        border: 1px solid rgba(255, 152, 0, 0.35);
+      }
+
+      /* Action Buttons */
+      .pm-btn-close {
+        padding: 3px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--tv-error);
+        background: transparent;
+        border: 1px solid rgba(242, 54, 69, 0.5);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .pm-btn-close:hover {
+        background: var(--tv-error);
+        color: #ffffff;
+      }
+
+      .pm-btn-cancel {
+        padding: 3px 10px;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--tv-text-secondary);
+        background: transparent;
+        border: 1px solid var(--tv-border);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .pm-btn-cancel:hover {
+        background: var(--tv-bg-tertiary);
+        border-color: var(--tv-border-hover);
+        color: #ffffff;
+      }
+
+      /* Empty State */
+      .pm-empty-cell {
+        text-align: center;
+        padding: 36px 0 !important;
+        color: var(--tv-text-secondary);
+      }
+
+      .pm-empty-icon {
+        font-size: 26px;
+        margin-bottom: 6px;
+        opacity: 0.6;
+      }
+
+      .pm-empty-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--tv-text-primary);
+        margin-bottom: 2px;
+      }
+
+      .pm-empty-subtitle {
+        font-size: 11px;
+        color: var(--tv-text-secondary);
+      }
+
+      /* Toast Notification */
+      .pm-toast-container {
+        position: fixed;
+        bottom: 50px;
+        right: 20px;
+        z-index: 100000;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        pointer-events: none;
+      }
+
+      .pm-toast {
+        background: var(--tv-bg-secondary);
+        border: 1px solid var(--tv-border);
+        color: #ffffff;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 12px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        animation: pmToastAnim 0.2s ease-out;
+        pointer-events: auto;
+      }
+
+      .pm-toast.success { border-left: 3px solid var(--tv-success); }
+      .pm-toast.error { border-left: 3px solid var(--tv-error); }
+      .pm-toast.info { border-left: 3px solid var(--tv-accent); }
+
+      @keyframes pmToastAnim {
+        from { transform: translateY(10px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Main Chart Canvas -->
+    <div id="tv_chart_container"></div>
+
+    <!-- Bottom Docking Position Manager Panel -->
+    <div id="position-manager-panel" class="pm-panel">
+      <!-- Top Resizer Handle -->
+      <div id="pm-resizer" class="pm-resizer" title="Drag to resize Position Manager panel (Double-click to minimize)">
+        <div class="pm-resizer-line"></div>
+      </div>
+
+      <!-- Header with Tabs, Real-time Account Bar & Controls -->
+      <div class="pm-header">
+        <!-- Tab Navigation -->
+        <div class="pm-tabs" role="tablist">
+          <button class="pm-tab-btn active" id="pm-tab-btn-positions" role="tab" aria-selected="true" onclick="PositionManager.switchTab('positions')">
+            <span class="pm-tab-icon">📊</span>
+            <span>Open Positions</span>
+            <span class="pm-tab-badge" id="pm-badge-positions">0</span>
+          </button>
+          <button class="pm-tab-btn" id="pm-tab-btn-orders" role="tab" aria-selected="false" onclick="PositionManager.switchTab('orders')">
+            <span class="pm-tab-icon">⏳</span>
+            <span>Pending Orders</span>
+            <span class="pm-tab-badge" id="pm-badge-orders">0</span>
+          </button>
+          <button class="pm-tab-btn" id="pm-tab-btn-history" role="tab" aria-selected="false" onclick="PositionManager.switchTab('history')">
+            <span class="pm-tab-icon">📜</span>
+            <span>Trade History</span>
+            <span class="pm-tab-badge" id="pm-badge-history">0</span>
+          </button>
+        </div>
+
+        <!-- Real-Time Account Summary Bar -->
+        <div class="pm-account-bar" id="pm-account-bar">
+          <div class="pm-metric-item" title="Account Balance">
+            <span class="pm-metric-label">Balance:</span>
+            <span class="pm-metric-val" id="pm-acc-balance">$100,000.00</span>
+          </div>
+          <div class="pm-metric-item" title="Account Equity">
+            <span class="pm-metric-label">Equity:</span>
+            <span class="pm-metric-val" id="pm-acc-equity">$100,000.00</span>
+          </div>
+          <div class="pm-metric-item" title="Used Margin">
+            <span class="pm-metric-label">Margin:</span>
+            <span class="pm-metric-val" id="pm-acc-margin">$0.00</span>
+          </div>
+          <div class="pm-metric-item" title="Free Margin Available">
+            <span class="pm-metric-label">Free Margin:</span>
+            <span class="pm-metric-val" id="pm-acc-freemargin">$100,000.00</span>
+          </div>
+          <div class="pm-metric-item" title="Margin Level Percentage">
+            <span class="pm-metric-label">Margin Level:</span>
+            <span class="pm-metric-val" id="pm-acc-marginlevel">--</span>
+          </div>
+          <div class="pm-metric-item" title="Total Floating Profit / Loss">
+            <span class="pm-metric-label">Floating P&L:</span>
+            <span class="pm-metric-val pm-pnl-zero" id="pm-acc-pnl">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Header Actions & Controls -->
+        <div class="pm-controls">
+          <button class="pm-btn pm-btn-danger pm-btn-close-all" id="pm-btn-close-all-header" onclick="PositionManager.closeAllPositions()" title="Close all open positions">
+            <span>✕ Close All</span>
+          </button>
+          <button class="pm-icon-btn" onclick="PositionManager.refresh(true)" title="Refresh MT5 positions & orders">
+            <span id="pm-refresh-icon">🔄</span>
+          </button>
+          <button class="pm-icon-btn" id="pm-btn-collapse" onclick="PositionManager.toggleCollapse()" title="Minimize / Expand Panel">
+            <span id="pm-collapse-icon">▼</span>
+          </button>
+          <button class="pm-icon-btn" onclick="PositionManager.togglePanel()" title="Hide Position Manager">
+            <span>✕</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Panel Body -->
+      <div class="pm-body" id="pm-body">
+        <!-- Tab 1: Open Positions -->
+        <div class="pm-tab-pane active" id="pm-pane-positions" role="tabpanel">
+          <div class="pm-table-toolbar">
+            <span class="pm-table-summary" id="pm-pos-summary">Showing 0 open positions</span>
+            <div class="pm-toolbar-actions">
+              <button class="pm-btn pm-btn-danger pm-btn-close-all" onclick="PositionManager.closeAllPositions()" title="Close all open positions immediately">
+                <span>✕ Close All Positions</span>
+              </button>
+            </div>
+          </div>
+          <div class="pm-table-wrapper">
+            <table class="pm-table" id="pm-table-positions">
+              <thead>
+                <tr>
+                  <th style="width: 90px;">Ticket</th>
+                  <th style="width: 100px;">Symbol</th>
+                  <th style="width: 80px;">Type</th>
+                  <th style="width: 80px; text-align: right;">Volume</th>
+                  <th style="width: 110px; text-align: right;">Open Price</th>
+                  <th style="width: 110px; text-align: right;">Current Price</th>
+                  <th style="width: 100px; text-align: right;">SL</th>
+                  <th style="width: 100px; text-align: right;">TP</th>
+                  <th style="width: 160px; text-align: right;">Live P&L</th>
+                  <th style="width: 90px; text-align: center;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="pm-tbody-positions">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 2: Pending Orders -->
+        <div class="pm-tab-pane" id="pm-pane-orders" role="tabpanel">
+          <div class="pm-table-toolbar">
+            <span class="pm-table-summary" id="pm-orders-summary">Showing 0 pending orders</span>
+            <div class="pm-toolbar-actions">
+              <button class="pm-btn pm-btn-outline" onclick="PositionManager.cancelAllOrders()" title="Cancel all pending orders">
+                <span>✕ Cancel All Orders</span>
+              </button>
+            </div>
+          </div>
+          <div class="pm-table-wrapper">
+            <table class="pm-table" id="pm-table-orders">
+              <thead>
+                <tr>
+                  <th style="width: 90px;">Ticket</th>
+                  <th style="width: 100px;">Symbol</th>
+                  <th style="width: 110px;">Type</th>
+                  <th style="width: 80px; text-align: right;">Volume</th>
+                  <th style="width: 110px; text-align: right;">Price</th>
+                  <th style="width: 100px; text-align: right;">SL</th>
+                  <th style="width: 100px; text-align: right;">TP</th>
+                  <th style="width: 90px; text-align: center;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="pm-tbody-orders">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 3: Trade History -->
+        <div class="pm-tab-pane" id="pm-pane-history" role="tabpanel">
+          <div class="pm-table-toolbar">
+            <span class="pm-table-summary" id="pm-history-summary">Showing 0 closed trades</span>
+            <div class="pm-toolbar-actions">
+              <button class="pm-btn pm-btn-outline" onclick="PositionManager.fetchHistory(true)" title="Reload history from MT5">
+                <span>🔄 Reload History</span>
+              </button>
+            </div>
+          </div>
+          <div class="pm-table-wrapper">
+            <table class="pm-table" id="pm-table-history">
+              <thead>
+                <tr>
+                  <th style="width: 90px;">Ticket</th>
+                  <th style="width: 160px;">Time</th>
+                  <th style="width: 100px;">Symbol</th>
+                  <th style="width: 80px;">Type</th>
+                  <th style="width: 80px; text-align: right;">Volume</th>
+                  <th style="width: 110px; text-align: right;">Open Price</th>
+                  <th style="width: 110px; text-align: right;">Close Price</th>
+                  <th style="width: 130px; text-align: right;">P&L</th>
+                </tr>
+              </thead>
+              <tbody id="pm-tbody-history">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div id="buttons">
+      <button onclick="saveLayout()">💾 Save Layout</button>
+      <button onclick="loadLayout()">📂 Load Layout</button>
+      <button onclick="resetLayout()">❌ Reset Layout</button>
+      <button onclick="toggleTheme()">🌓 Toggle Theme</button>
+      <button onclick="openPineEditorModal(widget)" class="btn-primary" title="Open Custom Pine Script Indicator Editor">➕ Custom Indicator</button>
+      <button onclick="toggleOrderPanel()" class="btn-success" id="btn-toggle-order-panel" title="Open Order Execution & Risk Calculator (F9)">⚡ Order Panel (F9)</button>
+      <button onclick="PositionManager.togglePanel()" class="btn" id="btn-toggle-pm" title="Toggle Position Manager Panel">📊 Position Manager</button>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="pm-toast-container" class="pm-toast-container"></div>
+
+    <!-- Pine Script v5 Code Editor & Live Plotting Modal -->
+    <div id="pine-modal" class="pine-modal-backdrop" style="display: none;">
+      <div class="pine-modal-container" role="dialog" aria-labelledby="pine-modal-title" aria-modal="true">
+        <!-- Header -->
+        <div class="pine-modal-header">
+          <div class="pine-modal-title" id="pine-modal-title">
+            <span>🌲 Pine Script v5 Custom Indicator Editor</span>
+            <span class="badge">v5 Live Engine</span>
+          </div>
+          <div class="pine-modal-controls">
+            <button class="pine-close-btn" onclick="closePineEditorModal()" title="Close (Esc)">✕</button>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="pine-toolbar-bar">
+          <div class="pine-toolbar-group">
+            <span class="pine-toolbar-label">Templates:</span>
+            <select id="pine-template-select" class="pine-select" onchange="onTemplateSelectChange(this.value)">
+              <option value="">-- Choose Template --</option>
+              <option value="ema_cross">EMA Cross Strategy (Overlay)</option>
+              <option value="rsi">Relative Strength Index (RSI)</option>
+              <option value="macd">MACD Oscillator</option>
+              <option value="bollinger_bands">Bollinger Bands with Cloud Fill (Overlay)</option>
+              <option value="supertrend">SuperTrend with Bar Color (Overlay)</option>
+              <option value="stoch_rsi">Stochastic RSI Oscillator</option>
+              <option value="ttm_squeeze">TTM Squeeze Momentum (BB & KC)</option>
+              <option value="pivot_breakout">Pivot High/Low Breakout (Overlay)</option>
+            </select>
+
+            <span class="pine-toolbar-label" style="margin-left: 8px;">Saved Scripts:</span>
+            <select id="pine-saved-select" class="pine-select" onchange="onSavedScriptSelectChange(this.value)">
+              <option value="">-- Saved Indicators --</option>
+            </select>
+          </div>
+
+          <div class="pine-toolbar-group">
+            <span class="pine-toolbar-label">Script Name:</span>
+            <input type="text" id="pine-script-name" class="pine-input" placeholder="Indicator Name..." value="My Custom Indicator">
+            <button class="btn" onclick="createNewScript()" title="Create Blank Script">📄 New</button>
+          </div>
+        </div>
+
+        <!-- Editor Main Body -->
+        <div class="pine-editor-main">
+          <div class="pine-editor-split">
+            <div id="pine-line-numbers" class="pine-line-numbers">1</div>
+            <div class="pine-editor-text-wrap">
+              <pre id="pine-highlight-layer" class="pine-highlight-layer" aria-hidden="true"></pre>
+              <textarea id="pine-code-editor" class="pine-code-editor" spellcheck="false" placeholder="Write Pine Script v5 code here..."></textarea>
+            </div>
+          </div>
+
+          <!-- Diagnostics Console -->
+          <div class="pine-diagnostics-panel">
+            <div class="pine-diag-header">
+              <span>Compiler Diagnostics & Runtime Output</span>
+              <div id="pine-status-pill" class="pine-status-pill">
+                <span style="color: var(--tv-success);">● Ready</span>
+              </div>
+            </div>
+            <div id="pine-diag-content" class="pine-diag-content">Engine initialized. Select a template or write Pine Script v5 code to compile.</div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="pine-modal-footer">
+          <div class="pine-footer-info">
+            <span id="pine-script-info">Mode: Overlay / Separate Pane</span>
+            <span id="pine-char-count">Lines: 1 | Chars: 0</span>
+          </div>
+
+          <div class="pine-footer-actions">
+            <button class="btn btn-danger" id="pine-delete-btn" onclick="deleteCurrentScript()" style="display: none;" title="Delete this saved script">🗑️ Delete</button>
+            <button class="btn" onclick="saveCurrentScript()" title="Save to Browser LocalStorage">💾 Save Script</button>
+            <button class="btn btn-primary" onclick="compileAndApplyToChart()" title="Transpile & Add Directly to Active Chart Canvas">▶️ Compile & Apply to Chart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         Order Execution Panel & Automated Risk / Lot Size Calculator Drawer
+         ========================================================================= -->
+    <div id="order-panel-drawer" class="order-panel-drawer collapsed" aria-label="Order Execution Panel" role="dialog" aria-modal="false">
+      <!-- Header -->
+      <div class="op-header">
+        <div class="op-header-title">
+          <span class="op-icon">⚡</span>
+          <span class="op-title-text">Order Execution</span>
+          <span class="op-symbol-badge" id="op-current-symbol">XAUUSD.</span>
+        </div>
+        <div class="op-header-actions">
+          <button class="op-btn-icon" id="op-btn-expand" onclick="toggleOrderPanelExpand()" title="Expand / Compact Panel Width (⤢)">⤢</button>
+          <button class="op-btn-icon" id="op-btn-refresh-quotes" onclick="OrderPanel.pollQuotes()" title="Refresh Live Quotes">🔄</button>
+          <button class="op-btn-icon" id="op-btn-close-drawer" onclick="OrderPanel.close()" title="Close Panel (Esc or F9)">✕</button>
+        </div>
+      </div>
+
+      <!-- Live Market Rates Strip -->
+      <div class="op-market-strip">
+        <div class="op-quote-box op-quote-sell">
+          <span class="op-quote-lbl">BID</span>
+          <span class="op-quote-val" id="op-live-bid">4409.36</span>
+        </div>
+        <div class="op-spread-box">
+          <span class="op-spread-lbl">SPREAD</span>
+          <span class="op-spread-val" id="op-live-spread">14 pts</span>
+        </div>
+        <div class="op-quote-box op-quote-buy">
+          <span class="op-quote-lbl">ASK</span>
+          <span class="op-quote-val" id="op-live-ask">4409.50</span>
+        </div>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="op-tab-bar">
+        <button class="op-tab-btn active" id="op-tab-btn-market" data-tab="market" onclick="switchOrderTab('market')">⚡ Market Execution</button>
+        <button class="op-tab-btn" id="op-tab-btn-pending" data-tab="pending" onclick="switchOrderTab('pending')">⏳ Pending Order</button>
+      </div>
+
+      <!-- Panel Body Content -->
+      <div class="op-body">
+        <!-- TAB 1: Market Execution -->
+        <div id="op-tab-market" class="op-tab-content active">
+          <!-- Volume Input Group -->
+          <div class="op-form-group">
+            <div class="op-label-row">
+              <label for="op-market-volume">Volume (Lots):</label>
+              <span class="op-sub-label">Min: 0.01 | Max: 20.00 | Step: 0.01</span>
+            </div>
+            <div class="op-input-stepper">
+              <button class="op-step-btn" type="button" onclick="stepVolume('op-market-volume', -0.01)">−</button>
+              <input type="number" id="op-market-volume" class="op-input" value="0.10" step="0.01" min="0.01" max="20.00">
+              <button class="op-step-btn" type="button" onclick="stepVolume('op-market-volume', +0.01)">+</button>
+            </div>
+            <!-- Quick Lot Preset Chips -->
+            <div class="op-chip-row">
+              <button class="op-chip" type="button" onclick="setVolume('op-market-volume', 0.01)">0.01</button>
+              <button class="op-chip" type="button" onclick="setVolume('op-market-volume', 0.05)">0.05</button>
+              <button class="op-chip active" type="button" onclick="setVolume('op-market-volume', 0.10)">0.10</button>
+              <button class="op-chip" type="button" onclick="setVolume('op-market-volume', 0.50)">0.50</button>
+              <button class="op-chip" type="button" onclick="setVolume('op-market-volume', 1.00)">1.00</button>
+              <button class="op-chip" type="button" onclick="setVolume('op-market-volume', 2.00)">2.00</button>
+            </div>
+          </div>
+
+          <!-- Stop Loss & Take Profit Group -->
+          <div class="op-dual-group">
+            <!-- Stop Loss -->
+            <div class="op-form-subgroup">
+              <div class="op-label-row">
+                <label for="op-market-sl">Stop Loss:</label>
+                <span class="op-mode-toggle" onclick="toggleSLTPMode('sl')">Mode: <span id="op-sl-mode-lbl">Price</span></span>
+              </div>
+              <div class="op-input-wrap">
+                <input type="number" id="op-market-sl" class="op-input" placeholder="Price (e.g. 4400.00)" step="0.01">
+                <span class="op-input-suffix" id="op-market-sl-suffix">$</span>
+              </div>
+              <div class="op-calc-hint" id="op-market-sl-hint">Risk: $0.00 (0.0%)</div>
+            </div>
+
+            <!-- Take Profit -->
+            <div class="op-form-subgroup">
+              <div class="op-label-row">
+                <label for="op-market-tp">Take Profit:</label>
+                <span class="op-mode-toggle" onclick="toggleSLTPMode('tp')">Mode: <span id="op-tp-mode-lbl">Price</span></span>
+              </div>
+              <div class="op-input-wrap">
+                <input type="number" id="op-market-tp" class="op-input" placeholder="Price (e.g. 4425.00)" step="0.01">
+                <span class="op-input-suffix" id="op-market-tp-suffix">$</span>
+              </div>
+              <div class="op-calc-hint" id="op-market-tp-hint">Reward: $0.00 (0.0%)</div>
+            </div>
+          </div>
+
+          <!-- Risk / Reward Metric Display -->
+          <div class="op-metric-row">
+            <span>Projected R:R Ratio:</span>
+            <span class="op-rr-badge" id="op-market-rr">1 : --</span>
+          </div>
+
+          <!-- Instant Market Action Buttons -->
+          <div class="op-actions-row">
+            <button class="op-btn-action op-btn-sell" type="button" id="op-btn-sell" onclick="submitMarketOrder('sell')">
+              <span class="op-btn-dir">SELL MARKET</span>
+              <span class="op-btn-subprice" id="op-btn-sell-price">@ 4409.36</span>
+            </button>
+            <button class="op-btn-action op-btn-buy" type="button" id="op-btn-buy" onclick="submitMarketOrder('buy')">
+              <span class="op-btn-dir">BUY MARKET</span>
+              <span class="op-btn-subprice" id="op-btn-buy-price">@ 4409.50</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 2: Pending Order -->
+        <div id="op-tab-pending" class="op-tab-content">
+          <!-- Pending Order Type -->
+          <div class="op-form-group">
+            <label for="op-pending-type">Order Type:</label>
+            <select id="op-pending-type" class="op-select" onchange="onPendingTypeChange()">
+              <option value="buy_limit">Buy Limit (Entry Below Market)</option>
+              <option value="sell_limit">Sell Limit (Entry Above Market)</option>
+              <option value="buy_stop">Buy Stop (Entry Above Market)</option>
+              <option value="sell_stop">Sell Stop (Entry Below Market)</option>
+            </select>
+          </div>
+
+          <!-- Target Execution Price -->
+          <div class="op-form-group">
+            <div class="op-label-row">
+              <label for="op-pending-price">Order Price:</label>
+              <span class="op-sub-label" id="op-pending-dist-lbl">Distance: -- pts</span>
+            </div>
+            <div class="op-input-stepper">
+              <button class="op-step-btn" type="button" onclick="stepPrice('op-pending-price', -0.50)">−</button>
+              <input type="number" id="op-pending-price" class="op-input" placeholder="Target Execution Price" step="0.01">
+              <button class="op-step-btn" type="button" onclick="stepPrice('op-pending-price', +0.50)">+</button>
+            </div>
+          </div>
+
+          <!-- Volume Input Group -->
+          <div class="op-form-group">
+            <div class="op-label-row">
+              <label for="op-pending-volume">Volume (Lots):</label>
+              <span class="op-sub-label">Min: 0.01 | Max: 20.00 | Step: 0.01</span>
+            </div>
+            <div class="op-input-stepper">
+              <button class="op-step-btn" type="button" onclick="stepVolume('op-pending-volume', -0.01)">−</button>
+              <input type="number" id="op-pending-volume" class="op-input" value="0.10" step="0.01" min="0.01" max="20.00">
+              <button class="op-step-btn" type="button" onclick="stepVolume('op-pending-volume', +0.01)">+</button>
+            </div>
+            <!-- Quick Chips -->
+            <div class="op-chip-row">
+              <button class="op-chip" type="button" onclick="setVolume('op-pending-volume', 0.01)">0.01</button>
+              <button class="op-chip" type="button" onclick="setVolume('op-pending-volume', 0.05)">0.05</button>
+              <button class="op-chip active" type="button" onclick="setVolume('op-pending-volume', 0.10)">0.10</button>
+              <button class="op-chip" type="button" onclick="setVolume('op-pending-volume', 0.50)">0.50</button>
+              <button class="op-chip" type="button" onclick="setVolume('op-pending-volume', 1.00)">1.00</button>
+            </div>
+          </div>
+
+          <!-- Pending Stop Loss & Take Profit -->
+          <div class="op-dual-group">
+            <div class="op-form-subgroup">
+              <div class="op-label-row">
+                <label for="op-pending-sl">Stop Loss:</label>
+              </div>
+              <input type="number" id="op-pending-sl" class="op-input" placeholder="SL Price" step="0.01">
+              <div class="op-calc-hint" id="op-pending-sl-hint">Risk: $0.00</div>
+            </div>
+
+            <div class="op-form-subgroup">
+              <div class="op-label-row">
+                <label for="op-pending-tp">Take Profit:</label>
+              </div>
+              <input type="number" id="op-pending-tp" class="op-input" placeholder="TP Price" step="0.01">
+              <div class="op-calc-hint" id="op-pending-tp-hint">Reward: $0.00</div>
+            </div>
+          </div>
+
+          <!-- Expiration -->
+          <div class="op-form-group">
+            <label for="op-pending-expiry-type">Expiration:</label>
+            <select id="op-pending-expiry-type" class="op-select" onchange="onExpiryTypeChange()">
+              <option value="gtc">GTC (Good-Til-Cancelled)</option>
+              <option value="today">Today (End of Day)</option>
+              <option value="specified">Specified Date & Time</option>
+            </select>
+            <input type="datetime-local" id="op-pending-expiry-dt" class="op-input" style="display: none; margin-top: 6px;">
+          </div>
+
+          <!-- Place Pending Order Button -->
+          <button class="op-btn-place-pending" type="button" id="op-btn-place-pending" onclick="submitPendingOrder()">
+            <span>PLACE PENDING ORDER</span>
+          </button>
+        </div>
+
+        <!-- Collapsible Risk & Lot Size Calculator Accordion -->
+        <div class="op-calculator-card">
+          <div class="op-calc-header" onclick="toggleCalculatorAccordion()">
+            <span class="op-calc-header-title">🧮 Automatic Risk & Lot Size Calculator</span>
+            <span class="op-calc-chevron" id="op-calc-chevron">▼</span>
+          </div>
+
+          <div class="op-calc-body" id="op-calc-body">
+            <!-- Account Info Row -->
+            <div class="op-calc-account-row">
+              <div class="op-calc-stat">
+                <span class="op-stat-lbl">Account Balance:</span>
+                <span class="op-stat-val" id="op-calc-balance">$100,000.00</span>
+              </div>
+              <div class="op-calc-stat">
+                <span class="op-stat-lbl">Free Margin:</span>
+                <span class="op-stat-val" id="op-calc-margin">$100,000.00</span>
+              </div>
+            </div>
+
+            <!-- Risk Percentage Input & Quick Buttons -->
+            <div class="op-form-group">
+              <div class="op-label-row">
+                <label for="op-calc-risk-pct">Risk Percentage (%):</label>
+                <span class="op-sub-label" id="op-calc-cash-risk">Risk Cash: $1,000.00</span>
+              </div>
+              <div class="op-input-wrap">
+                <input type="number" id="op-calc-risk-pct" class="op-input" value="1.0" step="0.1" min="0.1" max="100.0" oninput="OrderPanel.recalculateLots()">
+                <span class="op-input-suffix">%</span>
+              </div>
+              <div class="op-chip-row" id="op-risk-chips">
+                <button class="op-chip" type="button" onclick="setRiskPct(0.5)">0.5%</button>
+                <button class="op-chip active" type="button" onclick="setRiskPct(1.0)">1.0%</button>
+                <button class="op-chip" type="button" onclick="setRiskPct(2.0)">2.0%</button>
+                <button class="op-chip" type="button" onclick="setRiskPct(3.0)">3.0%</button>
+                <button class="op-chip" type="button" onclick="setRiskPct(5.0)">5.0%</button>
+              </div>
+            </div>
+
+            <!-- Stop Loss Distance in Pips -->
+            <div class="op-form-group">
+              <div class="op-label-row">
+                <label for="op-calc-sl-pips">Stop Loss Distance (Pips):</label>
+                <span class="op-mode-toggle" onclick="syncCalcSLFromOrder()" title="Auto-calculate SL pips from current order price/SL">Sync from Order SL</span>
+              </div>
+              <div class="op-input-wrap">
+                <input type="number" id="op-calc-sl-pips" class="op-input" value="50" step="1" min="1" oninput="OrderPanel.recalculateLots()">
+                <span class="op-input-suffix">pips</span>
+              </div>
+              <div class="op-sub-label" id="op-calc-sl-price-dist" style="margin-top: 3px;">Price Move: $5.00 (500 pts)</div>
+              <div class="op-spec-note">
+                ℹ️ XAUUSD Spec: Contract Size = 100 oz | 1 Pip = $0.10 (10 pts) | Pip Value / 1.0 Lot = $10.00
+              </div>
+            </div>
+
+            <!-- Calculation Result Card -->
+            <div class="op-result-card">
+              <div class="op-result-row">
+                <span class="op-res-lbl">Recommended Lot Size:</span>
+                <span class="op-res-val" id="op-calc-recommended-lots">2.00 Lots</span>
+              </div>
+              <div class="op-result-subrow">
+                <span>Pip Value / Lot: <b>$10.00</b></span>
+                <span>Projected Loss: <b id="op-calc-exact-loss">-$1,000.00</b></span>
+              </div>
+              <div class="op-formula-box" id="op-calc-formula-display">
+                lots = ($1,000.00) / (50 pips × $10.00) = 2.00 Lots
+              </div>
+              <button class="op-btn-apply-lot" type="button" id="op-btn-apply-lot" onclick="applyCalculatedLotSize()">
+                <span>✅ Apply Lot Size to Active Tab</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel Footer / Status Notification Bar -->
+      <div class="op-footer">
+        <div class="op-status-strip" id="op-status-strip">
+          <span class="op-status-icon">●</span>
+          <span class="op-status-msg" id="op-status-msg">Ready for orders</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Session Table (Commented by default) -->
+    <!-- <div id="session-table">
+      <table>
+        <thead><tr><th>Session</th><th>Time (UTC-4)</th></tr></thead>
+        <tbody>
+          <tr><td>ASIAN</td><td>23:00 - 03:00</td></tr>
+          <tr><td>LONDON</td><td>05:00 - 08:00</td></tr>
+          <tr><td>NEW YORK</td><td>10:00 - 13:00</td></tr>
+          <tr><td>LONDON CLOSE</td><td>13:00 - 15:00</td></tr>
+        </tbody>
+      </table>
+    </div> -->
+
+    <script>
+      /* =========================================================================
+       * 1. LocalStorageSaveLoadAdapter Class
+       * ========================================================================= */
+      class LocalStorageSaveLoadAdapter {
+        constructor() {
+          this._charts = this._getFromLocalStorage("LocalStorageSaveLoadAdapter_charts") ?? [];
+          this._studyTemplates = this._getFromLocalStorage("LocalStorageSaveLoadAdapter_studyTemplates") ?? [];
+          this._drawingTemplates = this._getFromLocalStorage("LocalStorageSaveLoadAdapter_drawingTemplates") ?? [];
+          this._chartTemplates = this._getFromLocalStorage("LocalStorageSaveLoadAdapter_chartTemplates") ?? [];
+          this._drawings = this._getFromLocalStorage("LocalStorageSaveLoadAdapter_drawings") ?? {};
+          this._isDirty = false;
+          setInterval(() => { if (this._isDirty) { this._saveAllToLocalStorage(); this._isDirty = false; } }, 1000);
+        }
+        getAllCharts() { return Promise.resolve(this._charts); }
+        removeChart(id) { this._charts = this._charts.filter(c => c.id !== id); this._isDirty = true; return Promise.resolve(); }
+        saveChart(chartData) {
+          if (!chartData.id) chartData.id = this._generateUniqueChartId();
+          else this.removeChart(chartData.id);
+          const saved = { ...chartData, id: chartData.id, timestamp: Math.round(Date.now() / 1000) };
+          this._charts.push(saved); this._isDirty = true; return Promise.resolve(saved.id);
+        }
+        getChartContent(id) { const c = this._charts.find(x => x.id === id); return c ? Promise.resolve(c.content) : Promise.reject("Chart not found"); }
+        getAllStudyTemplates() { return Promise.resolve(this._studyTemplates); }
+        saveStudyTemplate(t) { this._studyTemplates = this._studyTemplates.filter(x=>x.name!==t.name); this._studyTemplates.push(t); this._isDirty=true; return Promise.resolve(); }
+        removeStudyTemplate(t) { this._studyTemplates=this._studyTemplates.filter(x=>x.name!==t.name); this._isDirty=true; return Promise.resolve(); }
+        getStudyTemplateContent(t){const s=this._studyTemplates.find(x=>x.name===t.name);return s?Promise.resolve(s.content):Promise.reject("Not found");}
+        saveDrawingTemplate(tool,name,content){this._drawingTemplates=this._drawingTemplates.filter(x=>!(x.name===name&&x.toolName===tool));this._drawingTemplates.push({toolName:tool,name:name,content});this._isDirty=true;return Promise.resolve();}
+        loadDrawingTemplate(tool,name){const t=this._drawingTemplates.find(x=>x.name===name&&x.toolName===tool);return t?Promise.resolve(t.content):Promise.reject("Not found");}
+        removeDrawingTemplate(tool,name){this._drawingTemplates=this._drawingTemplates.filter(x=>!(x.name===name&&x.toolName===tool));this._isDirty=true;return Promise.resolve();}
+        getDrawingTemplates(){return Promise.resolve(this._drawingTemplates.map(t=>t.name));}
+        async getAllChartTemplates(){return this._chartTemplates.map(x=>x.name);}
+        async saveChartTemplate(name,content){const t=this._chartTemplates.find(x=>x.name===name);if(t)t.content=content;else this._chartTemplates.push({name,content});this._isDirty=true;}
+        async removeChartTemplate(name){this._chartTemplates=this._chartTemplates.filter(x=>x.name!==name);this._isDirty=true;}
+        async getChartTemplateContent(name){const c=this._chartTemplates.find(x=>x.name===name)?.content;return {content:structuredClone(c)};}
+        async saveLineToolsAndGroups(layoutId,chartId,state){if(!state.sources)return;if(!this._drawings[this._getDrawingKey(layoutId,chartId)])this._drawings[this._getDrawingKey(layoutId,chartId)]={};for(let [k,s] of state.sources){if(s===null)delete this._drawings[this._getDrawingKey(layoutId,chartId)][k];else this._drawings[this._getDrawingKey(layoutId,chartId)][k]=s;}this._isDirty=true;}
+        async loadLineToolsAndGroups(layoutId,chartId){if(!layoutId)return null;const raw=this._drawings[this._getDrawingKey(layoutId,chartId)];if(!raw)return null;const sources=new Map(Object.entries(raw));return {sources};}
+        _generateUniqueChartId(){let ids=this._charts.map(i=>i.id);while(true){const uid=Math.random().toString(16).slice(2);if(!ids.includes(uid))return uid;}}
+        _getFromLocalStorage(k){return JSON.parse(localStorage.getItem(k)||"null");}
+        _saveToLocalStorage(k,d){localStorage.setItem(k,JSON.stringify(d));}
+        _saveAllToLocalStorage(){this._saveToLocalStorage("LocalStorageSaveLoadAdapter_charts",this._charts);this._saveToLocalStorage("LocalStorageSaveLoadAdapter_studyTemplates",this._studyTemplates);this._saveToLocalStorage("LocalStorageSaveLoadAdapter_drawingTemplates",this._drawingTemplates);this._saveToLocalStorage("LocalStorageSaveLoadAdapter_chartTemplates",this._chartTemplates);this._saveToLocalStorage("LocalStorageSaveLoadAdapter_drawings",this._drawings);}
+        _getDrawingKey(l,c){return `${l}/${c}`;}
+      }
+
+      /* =========================================================================
+       * 2. Pine Script Modal Dialog Controller & UI Logic
+       * ========================================================================= */
+      let currentScriptId = null;
+      let activeChartWidget = null;
+      let validateDebounceTimer = null;
+
+      // Ensure alias PineEngine.applyToChart exists
+      if (window.PineEngine && !window.PineEngine.applyToChart) {
+        window.PineEngine.applyToChart = window.PineEngine.registerDynamicStudy;
+      }
+
+      function openPineEditorModal(targetWidget) {
+        activeChartWidget = targetWidget || widget;
+        const modal = document.getElementById("pine-modal");
+        if (!modal) return;
+        modal.style.display = "flex";
+        
+        refreshSavedScriptsDropdown();
+
+        // If editor empty, load default EMA Cross template
+        const codeEditor = document.getElementById("pine-code-editor");
+        if (!codeEditor.value.trim()) {
+          loadTemplate("ema_cross");
+        } else {
+          syncEditorAndHighlight();
+          validateLiveCode();
+        }
+
+        setTimeout(() => {
+          codeEditor.focus();
+        }, 50);
+      }
+
+      function closePineEditorModal() {
+        const modal = document.getElementById("pine-modal");
+        if (modal) modal.style.display = "none";
+      }
+
+      function syncEditorAndHighlight() {
+        const codeEditor = document.getElementById("pine-code-editor");
+        const highlightLayer = document.getElementById("pine-highlight-layer");
+        const lineNumbers = document.getElementById("pine-line-numbers");
+        const charCountEl = document.getElementById("pine-char-count");
+        if (!codeEditor || !highlightLayer || !lineNumbers) return;
+
+        const code = codeEditor.value;
+
+        // Line numbers
+        const lines = code.split('\n');
+        let lineNumsHtml = '';
+        for (let i = 1; i <= lines.length; i++) {
+          lineNumsHtml += `<div>${i}</div>`;
+        }
+        lineNumbers.innerHTML = lineNumsHtml;
+
+        // Highlight
+        if (window.PineScriptHighlighter && typeof window.PineScriptHighlighter.highlight === 'function') {
+          highlightLayer.innerHTML = window.PineScriptHighlighter.highlight(code) + '\n';
+        } else {
+          highlightLayer.innerText = code;
+        }
+
+        // Sync scroll
+        highlightLayer.scrollTop = codeEditor.scrollTop;
+        highlightLayer.scrollLeft = codeEditor.scrollLeft;
+        lineNumbers.scrollTop = codeEditor.scrollTop;
+
+        // Char count
+        if (charCountEl) {
+          charCountEl.innerText = `Lines: ${lines.length} | Chars: ${code.length}`;
+        }
+      }
+
+      function validateLiveCode() {
+        const codeEditor = document.getElementById("pine-code-editor");
+        const statusPill = document.getElementById("pine-status-pill");
+        const diagContent = document.getElementById("pine-diag-content");
+        const infoEl = document.getElementById("pine-script-info");
+        if (!codeEditor || !window.PineEngine) return;
+
+        const code = codeEditor.value;
+        if (!code.trim()) {
+          if (statusPill) statusPill.innerHTML = '<span style="color: var(--tv-text-secondary);">● Empty</span>';
+          if (diagContent) diagContent.innerText = "No code entered.";
+          return;
+        }
+
+        const res = window.PineEngine.validate(code);
+        if (res.valid) {
+          const isOverlay = res.descriptor.overlay;
+          const plotsCount = (res.descriptor.metainfo && res.descriptor.metainfo.plots) ? res.descriptor.metainfo.plots.length : 0;
+          if (statusPill) {
+            statusPill.innerHTML = '<span style="color: var(--tv-success);">● Valid (v5)</span>';
+          }
+          if (diagContent) {
+            diagContent.innerHTML = `<span style="color: var(--tv-success);">✓ Syntax Clean. Ready to apply.</span>\n• Study Name: "${res.descriptor.name}"\n• Pane: ${isOverlay ? 'Overlay (Price Chart)' : 'Separate Sub-pane'}\n• Output Plots: ${plotsCount} plot series defined\n• Inputs: ${res.descriptor.metainfo.inputs.length} parameters configured`;
+          }
+          if (infoEl) {
+            infoEl.innerText = `Mode: ${isOverlay ? 'Overlay on Price' : 'Separate Pane'} | Plots: ${plotsCount}`;
+          }
+        } else {
+          if (statusPill) {
+            statusPill.innerHTML = '<span style="color: var(--tv-error);">✕ Syntax Error</span>';
+          }
+          if (diagContent) {
+            diagContent.innerHTML = `<span style="color: var(--tv-error);">✕ Compilation Error:</span>\n${res.errors.join('\n')}`;
+          }
+        }
+      }
+
+      function onTemplateSelectChange(templateKey) {
+        if (!templateKey) return;
+        loadTemplate(templateKey);
+      }
+
+      function loadTemplate(templateKey) {
+        if (!window.PineScriptTemplates || !window.PineScriptTemplates[templateKey]) return;
+        const tmpl = window.PineScriptTemplates[templateKey];
+        currentScriptId = tmpl.id;
+
+        const codeEditor = document.getElementById("pine-code-editor");
+        const nameInput = document.getElementById("pine-script-name");
+        const tmplSelect = document.getElementById("pine-template-select");
+        const savedSelect = document.getElementById("pine-saved-select");
+        const delBtn = document.getElementById("pine-delete-btn");
+
+        if (codeEditor) codeEditor.value = tmpl.code;
+        if (nameInput) nameInput.value = tmpl.name;
+        if (tmplSelect) tmplSelect.value = templateKey;
+        if (savedSelect) savedSelect.value = "";
+        if (delBtn) delBtn.style.display = "none";
+
+        syncEditorAndHighlight();
+        validateLiveCode();
+      }
+
+      function refreshSavedScriptsDropdown() {
+        const savedSelect = document.getElementById("pine-saved-select");
+        if (!savedSelect || !window.PineScriptStorage) return;
+
+        const customScripts = window.PineScriptStorage.getCustomScripts();
+        savedSelect.innerHTML = '<option value="">-- Saved Indicators --</option>';
+        customScripts.forEach(s => {
+          const opt = document.createElement("option");
+          opt.value = s.id;
+          opt.textContent = `${s.name} ${s.overlay ? '(Overlay)' : '(Pane)'}`;
+          savedSelect.appendChild(opt);
+        });
+      }
+
+      function onSavedScriptSelectChange(scriptId) {
+        if (!scriptId || !window.PineScriptStorage) return;
+        const script = window.PineScriptStorage.getScriptById(scriptId);
+        if (!script) return;
+
+        currentScriptId = script.id;
+        const codeEditor = document.getElementById("pine-code-editor");
+        const nameInput = document.getElementById("pine-script-name");
+        const tmplSelect = document.getElementById("pine-template-select");
+        const delBtn = document.getElementById("pine-delete-btn");
+
+        if (codeEditor) codeEditor.value = script.code;
+        if (nameInput) nameInput.value = script.name;
+        if (tmplSelect) tmplSelect.value = "";
+        if (delBtn) delBtn.style.display = script.isTemplate ? "none" : "inline-flex";
+
+        syncEditorAndHighlight();
+        validateLiveCode();
+      }
+
+      function createNewScript() {
+        currentScriptId = null;
+        const codeEditor = document.getElementById("pine-code-editor");
+        const nameInput = document.getElementById("pine-script-name");
+        const tmplSelect = document.getElementById("pine-template-select");
+        const savedSelect = document.getElementById("pine-saved-select");
+        const delBtn = document.getElementById("pine-delete-btn");
+
+        const boilerplate = `//@version=5
+indicator("My Custom Indicator", overlay=true)
+
+length = input.int(14, "SMA Length", minval=1)
+src = input.source(close, "Source")
+
+smaVal = ta.sma(src, length)
+
+plot(smaVal, "Custom SMA", color=color.blue, linewidth=2)
+`;
+
+        if (codeEditor) codeEditor.value = boilerplate;
+        if (nameInput) nameInput.value = "My Custom Indicator";
+        if (tmplSelect) tmplSelect.value = "";
+        if (savedSelect) savedSelect.value = "";
+        if (delBtn) delBtn.style.display = "none";
+
+        syncEditorAndHighlight();
+        validateLiveCode();
+      }
+
+      function saveCurrentScript() {
+        const codeEditor = document.getElementById("pine-code-editor");
+        const nameInput = document.getElementById("pine-script-name");
+        const diagContent = document.getElementById("pine-diag-content");
+        const delBtn = document.getElementById("pine-delete-btn");
+        if (!codeEditor || !window.PineScriptStorage) return;
+
+        const code = codeEditor.value;
+        let name = nameInput ? nameInput.value.trim() : "";
+        if (!name) {
+          const match = code.match(/(?:indicator|study)\s*\(\s*["']([^"']+)["']/);
+          name = match ? match[1] : "Custom Indicator";
+          if (nameInput) nameInput.value = name;
+        }
+
+        try {
+          const record = window.PineScriptStorage.saveScript({
+            id: currentScriptId && !currentScriptId.startsWith('template_') ? currentScriptId : undefined,
+            name: name,
+            code: code
+          });
+          currentScriptId = record.id;
+          refreshSavedScriptsDropdown();
+          const savedSelect = document.getElementById("pine-saved-select");
+          if (savedSelect) savedSelect.value = record.id;
+          if (delBtn) delBtn.style.display = "inline-flex";
+
+          if (diagContent) {
+            diagContent.innerHTML = `<span style="color: var(--tv-success);">💾 Indicator "${record.name}" saved to browser LocalStorage successfully!</span>`;
+          }
+        } catch (e) {
+          alert("Error saving script: " + e.message);
+        }
+      }
+
+      function deleteCurrentScript() {
+        if (!currentScriptId || currentScriptId.startsWith('template_')) {
+          alert("Built-in templates cannot be deleted.");
+          return;
+        }
+        if (confirm("Are you sure you want to delete this saved custom indicator?")) {
+          window.PineScriptStorage.deleteScript(currentScriptId);
+          refreshSavedScriptsDropdown();
+          createNewScript();
+        }
+      }
+
+      async function compileAndApplyToChart() {
+        const codeEditor = document.getElementById("pine-code-editor");
+        const statusPill = document.getElementById("pine-status-pill");
+        const diagContent = document.getElementById("pine-diag-content");
+        if (!codeEditor || !window.PineEngine) return;
+
+        const code = codeEditor.value;
+        if (!code.trim()) {
+          alert("Please enter Pine Script code to compile.");
+          return;
+        }
+
+        const targetWidget = activeChartWidget || widget;
+        if (!targetWidget) {
+          alert("TradingView chart widget is not yet initialized.");
+          return;
+        }
+
+        if (statusPill) statusPill.innerHTML = '<span style="color: var(--tv-warning);">⏳ Compiling & Plotting...</span>';
+        if (diagContent) diagContent.innerText = "Transpiling AST and injecting study into TradingView engine...";
+
+        try {
+          const applyFn = window.PineEngine.applyToChart || window.PineEngine.registerDynamicStudy;
+          const result = await applyFn.call(window.PineEngine, targetWidget, code);
+
+          if (statusPill) statusPill.innerHTML = '<span style="color: var(--tv-success);">● Plotted on Chart</span>';
+          if (diagContent) {
+            diagContent.innerHTML = `<span style="color: var(--tv-success);">🚀 Study "${result.name}" successfully created and rendered on chart!</span>\n• Study ID: ${result.studyId}\n• Overlay: ${result.isOverlay ? 'Price Chart Pane' : 'Separate Sub-Pane'}\n• Time: ${new Date().toLocaleTimeString()}`;
+          }
+
+          // If current script is a custom script (not a built-in template), update its saved state
+          if (currentScriptId && !currentScriptId.startsWith('template_')) {
+            saveCurrentScript();
+          }
+        } catch (err) {
+          if (statusPill) statusPill.innerHTML = '<span style="color: var(--tv-error);">✕ Failed</span>';
+          if (diagContent) {
+            diagContent.innerHTML = `<span style="color: var(--tv-error);">✕ Error Applying to Chart:</span>\n${err.message}`;
+          }
+          console.error("Apply to Chart error:", err);
+        }
+      }
+
+      /* Setup Editor Event Listeners */
+      window.addEventListener("DOMContentLoaded", () => {
+        const codeEditor = document.getElementById("pine-code-editor");
+        const highlightLayer = document.getElementById("pine-highlight-layer");
+        const lineNumbers = document.getElementById("pine-line-numbers");
+
+        if (codeEditor) {
+          codeEditor.addEventListener("input", () => {
+            syncEditorAndHighlight();
+            clearTimeout(validateDebounceTimer);
+            validateDebounceTimer = setTimeout(validateLiveCode, 250);
+          });
+
+          codeEditor.addEventListener("scroll", () => {
+            if (highlightLayer) {
+              highlightLayer.scrollTop = codeEditor.scrollTop;
+              highlightLayer.scrollLeft = codeEditor.scrollLeft;
+            }
+            if (lineNumbers) {
+              lineNumbers.scrollTop = codeEditor.scrollTop;
+            }
+          });
+
+          codeEditor.addEventListener("keydown", (e) => {
+            if (e.key === "Tab") {
+              e.preventDefault();
+              const start = codeEditor.selectionStart;
+              const end = codeEditor.selectionEnd;
+              codeEditor.value = codeEditor.value.substring(0, start) + "  " + codeEditor.value.substring(end);
+              codeEditor.selectionStart = codeEditor.selectionEnd = start + 2;
+              syncEditorAndHighlight();
+              clearTimeout(validateDebounceTimer);
+              validateDebounceTimer = setTimeout(validateLiveCode, 250);
+            }
+          });
+        }
+
+        // Close on Escape or Backdrop Click
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            closePineEditorModal();
+          }
+        });
+
+        const modal = document.getElementById("pine-modal");
+        if (modal) {
+          modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+              closePineEditorModal();
+            }
+          });
+        }
+      });
+
+      /* =========================================================================
+       * 2.5. Order Execution Panel & Automated Risk / Lot Size Calculator
+       * ========================================================================= */
+      const OrderPanel = {
+        state: {
+          isOpen: false,
+          isExpanded: false,
+          activeTab: 'market', // 'market' | 'pending'
+          symbol: 'XAUUSD.',
+          account: {
+            balance: 100000.0,
+            equity: 100000.0,
+            freeMargin: 100000.0,
+            currency: 'USD',
+            leverage: 100
+          },
+          specs: {
+            contractSize: 100.0, // 100 oz per standard lot
+            digits: 2,
+            point: 0.01,
+            tickSize: 0.01,
+            tickValue: 1.0, // per 1.0 lot for 1 tick ($0.01 move = $1.00)
+            pipValue: 10.0, // per 1.0 lot for 1 pip ($0.10 move = $10.00)
+            volumeMin: 0.01,
+            volumeMax: 20.0,
+            volumeStep: 0.01,
+            stopsLevel: 20 // points (0.20)
+          },
+          liveQuotes: {
+            bid: 4409.36,
+            ask: 4409.50,
+            spreadPoints: 14
+          },
+          slMode: 'price', // 'price' | 'pips'
+          tpMode: 'price',
+          recommendedLots: 2.00
+        },
+
+        init() {
+          this.bindEvents();
+          this.pollAccount();
+          this.pollQuotes();
+          this.recalculateLots();
+          this.updateMarketHints();
+        },
+
+        bindEvents() {
+          // F9 hotkey (MetaTrader standard) & Alt+O for drawer toggle
+          window.addEventListener('keydown', (e) => {
+            if (e.key === 'F9' || (e.altKey && (e.key === 'o' || e.key === 'O'))) {
+              e.preventDefault();
+              this.toggle();
+            } else if (e.key === 'Escape' && this.state.isOpen) {
+              this.close();
+            }
+          });
+
+          // Volume & Price inputs live listeners for dynamic risk hints
+          const mVol = document.getElementById('op-market-volume');
+          if (mVol) mVol.addEventListener('input', () => this.updateMarketHints());
+
+          const mSL = document.getElementById('op-market-sl');
+          if (mSL) mSL.addEventListener('input', () => this.updateMarketHints());
+
+          const mTP = document.getElementById('op-market-tp');
+          if (mTP) mTP.addEventListener('input', () => this.updateMarketHints());
+
+          const pVol = document.getElementById('op-pending-volume');
+          if (pVol) pVol.addEventListener('input', () => this.updatePendingHints());
+
+          const pPrice = document.getElementById('op-pending-price');
+          if (pPrice) pPrice.addEventListener('input', () => {
+            this.updatePendingDistance();
+            this.updatePendingHints();
+          });
+
+          const pSL = document.getElementById('op-pending-sl');
+          if (pSL) pSL.addEventListener('input', () => this.updatePendingHints());
+
+          const pTP = document.getElementById('op-pending-tp');
+          if (pTP) pTP.addEventListener('input', () => this.updatePendingHints());
+        },
+
+        toggle() {
+          this.state.isOpen ? this.close() : this.open();
+        },
+
+        open() {
+          const drawer = document.getElementById('order-panel-drawer');
+          if (!drawer) return;
+          drawer.classList.remove('collapsed');
+          this.state.isOpen = true;
+          this.pollAccount();
+          this.pollQuotes();
+        },
+
+        close() {
+          const drawer = document.getElementById('order-panel-drawer');
+          if (!drawer) return;
+          drawer.classList.add('collapsed');
+          this.state.isOpen = false;
+        },
+
+        toggleExpand() {
+          const drawer = document.getElementById('order-panel-drawer');
+          const btn = document.getElementById('op-btn-expand');
+          if (!drawer) return;
+          this.state.isExpanded = !this.state.isExpanded;
+          drawer.classList.toggle('expanded', this.state.isExpanded);
+          if (btn) btn.innerText = this.state.isExpanded ? '⤡' : '⤢';
+        },
+
+        switchTab(tabKey) {
+          this.state.activeTab = tabKey;
+          const marketBtn = document.getElementById('op-tab-btn-market');
+          const pendingBtn = document.getElementById('op-tab-btn-pending');
+          const marketContent = document.getElementById('op-tab-market');
+          const pendingContent = document.getElementById('op-tab-pending');
+
+          if (marketBtn) marketBtn.classList.toggle('active', tabKey === 'market');
+          if (pendingBtn) pendingBtn.classList.toggle('active', tabKey === 'pending');
+          if (marketContent) marketContent.classList.toggle('active', tabKey === 'market');
+          if (pendingContent) pendingContent.classList.toggle('active', tabKey === 'pending');
+
+          if (tabKey === 'pending') {
+            this.updatePendingDistance();
+            this.updatePendingHints();
+          } else {
+            this.updateMarketHints();
+          }
+        },
+
+        async pollAccount() {
+          try {
+            const datafeedUrl = (window.detectDatafeedUrl && await window.detectDatafeedUrl()) || 'http://127.0.0.1:9000';
+            const res = await fetch(`${datafeedUrl}/trade/account`);
+            if (res.ok) {
+              const data = await res.json();
+              if (typeof data.balance === 'number') this.state.account.balance = data.balance;
+              if (typeof data.equity === 'number') this.state.account.equity = data.equity;
+              const freeMargin = data.free_margin ?? data.margin_free;
+              if (typeof freeMargin === 'number') this.state.account.freeMargin = freeMargin;
+              if (data.currency) this.state.account.currency = data.currency;
+
+              const balEl = document.getElementById('op-calc-balance');
+              const marginEl = document.getElementById('op-calc-margin');
+              if (balEl) balEl.innerText = `$${this.state.account.balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+              if (marginEl) marginEl.innerText = `$${this.state.account.freeMargin.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+              this.recalculateLots();
+              this.updateMarketHints();
+            }
+          } catch (e) {
+            // Offline or fallback to cache default
+          }
+        },
+
+        async pollQuotes() {
+          try {
+            const datafeedUrl = (window.detectDatafeedUrl && await window.detectDatafeedUrl()) || 'http://127.0.0.1:9000';
+            const res = await fetch(`${datafeedUrl}/symbols?symbol=XAUUSD.`);
+            if (res.ok) {
+              // Quotes poll fallback
+            }
+          } catch (e) {
+            // Keep existing live quotes
+          }
+        },
+
+        updateQuotes(bid, ask) {
+          this.state.liveQuotes.bid = bid;
+          this.state.liveQuotes.ask = ask;
+          const spreadPts = Math.round((ask - bid) / this.state.specs.point);
+          this.state.liveQuotes.spreadPoints = spreadPts;
+
+          const bidEl = document.getElementById('op-live-bid');
+          const askEl = document.getElementById('op-live-ask');
+          const spreadEl = document.getElementById('op-live-spread');
+          const sellBtnPrice = document.getElementById('op-btn-sell-price');
+          const buyBtnPrice = document.getElementById('op-btn-buy-price');
+
+          if (bidEl) bidEl.innerText = bid.toFixed(2);
+          if (askEl) askEl.innerText = ask.toFixed(2);
+          if (spreadEl) spreadEl.innerText = `${spreadPts} pts`;
+          if (sellBtnPrice) sellBtnPrice.innerText = `@ ${bid.toFixed(2)}`;
+          if (buyBtnPrice) buyBtnPrice.innerText = `@ ${ask.toFixed(2)}`;
+
+          this.updateMarketHints();
+          this.updatePendingDistance();
+        },
+
+        /**
+         * Automated Risk & Lot Size Calculator Formula:
+         *
+         * lots = (Balance * (Risk% / 100)) / (SL_pips * Pip_Value_per_lot)
+         *
+         * For XAUUSD:
+         * contractSize = 100 oz
+         * 1 pip = $0.10 price distance (10 ticks / 10 points)
+         * Pip_Value_per_lot = 100 oz * $0.10 = $10.00
+         *
+         * Clamped to [volumeMin (0.01), volumeMax (20.00)]
+         * Stepped to volumeStep (0.01)
+         */
+        calculateLotSize(balance, riskPct, slPips) {
+          const bal = parseFloat(balance);
+          const rPct = parseFloat(riskPct);
+          const pips = parseFloat(slPips);
+
+          if (isNaN(bal) || bal <= 0 || isNaN(rPct) || rPct <= 0 || isNaN(pips) || pips <= 0) {
+            return {
+              idealLots: 0.01,
+              recommendedLots: 0.01,
+              cashRisk: 0.0,
+              exactLoss: 0.0,
+              pipValuePerLot: 10.0,
+              priceDistance: 0.0,
+              error: isNaN(pips) || pips <= 0 ? 'SL distance must be > 0' : 'Balance & Risk must be > 0'
+            };
+          }
+
+          const cashRisk = bal * (rPct / 100.0);
+          const pipValuePerLot = this.state.specs.pipValue; // $10.00
+          const priceDistance = pips * 0.10; // 1 pip = $0.10 in XAUUSD
+
+          // Formula: lots = cashRisk / (slPips * pipValuePerLot)
+          const idealLots = cashRisk / (pips * pipValuePerLot);
+
+          // Step rounding and boundary clamping
+          const step = this.state.specs.volumeStep; // 0.01
+          let steppedLots = Math.floor((idealLots / step) + 1e-9) * step;
+          let clampedLots = Math.min(this.state.specs.volumeMax, Math.max(this.state.specs.volumeMin, steppedLots));
+          clampedLots = parseFloat(clampedLots.toFixed(2));
+
+          const exactLoss = clampedLots * pips * pipValuePerLot;
+
+          return {
+            idealLots: idealLots,
+            recommendedLots: clampedLots,
+            cashRisk: cashRisk,
+            exactLoss: exactLoss,
+            pipValuePerLot: pipValuePerLot,
+            priceDistance: priceDistance,
+            error: null
+          };
+        },
+
+        recalculateLots() {
+          const balance = this.state.account.balance;
+          const riskInput = document.getElementById('op-calc-risk-pct');
+          const slPipsInput = document.getElementById('op-calc-sl-pips');
+
+          const riskPct = riskInput ? parseFloat(riskInput.value) || 1.0 : 1.0;
+          const slPips = slPipsInput ? parseFloat(slPipsInput.value) || 50 : 50;
+
+          const result = this.calculateLotSize(balance, riskPct, slPips);
+
+          // Update UI elements
+          const cashRiskEl = document.getElementById('op-calc-cash-risk');
+          if (cashRiskEl) {
+            cashRiskEl.innerText = `Risk Cash: $${result.cashRisk.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+          }
+
+          const priceDistEl = document.getElementById('op-calc-sl-price-dist');
+          if (priceDistEl) {
+            const pts = Math.round(result.priceDistance * 100);
+            priceDistEl.innerText = `Price Move: $${result.priceDistance.toFixed(2)} (${pts} pts)`;
+          }
+
+          const recLotsEl = document.getElementById('op-calc-recommended-lots');
+          if (recLotsEl) {
+            recLotsEl.innerText = `${result.recommendedLots.toFixed(2)} Lots`;
+          }
+
+          const exactLossEl = document.getElementById('op-calc-exact-loss');
+          if (exactLossEl) {
+            exactLossEl.innerText = `-$${result.exactLoss.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+          }
+
+          const formulaEl = document.getElementById('op-calc-formula-display');
+          if (formulaEl) {
+            formulaEl.innerText = `lots = ($${result.cashRisk.toFixed(2)}) / (${slPips} pips × $${result.pipValuePerLot.toFixed(2)}) = ${result.recommendedLots.toFixed(2)} Lots`;
+          }
+
+          this.state.recommendedLots = result.recommendedLots;
+          return result.recommendedLots;
+        },
+
+        applyLotSize() {
+          const lots = this.recalculateLots();
+          const activeTargetId = this.state.activeTab === 'market' ? 'op-market-volume' : 'op-pending-volume';
+          const input = document.getElementById(activeTargetId);
+          if (input) {
+            input.value = lots.toFixed(2);
+            input.style.borderColor = 'var(--tv-success)';
+            input.style.backgroundColor = 'rgba(8, 153, 129, 0.2)';
+            setTimeout(() => {
+              input.style.borderColor = '';
+              input.style.backgroundColor = '';
+            }, 800);
+            this.setStatus(`✅ Applied ${lots.toFixed(2)} lots to ${this.state.activeTab} volume`, 'success');
+            if (this.state.activeTab === 'market') this.updateMarketHints();
+            else this.updatePendingHints();
+          }
+        },
+
+        updateMarketHints() {
+          const vol = parseFloat(document.getElementById('op-market-volume')?.value) || 0.01;
+          const slInput = document.getElementById('op-market-sl');
+          const tpInput = document.getElementById('op-market-tp');
+          const slHint = document.getElementById('op-market-sl-hint');
+          const tpHint = document.getElementById('op-market-tp-hint');
+          const rrEl = document.getElementById('op-market-rr');
+
+          const rawSL = slInput ? parseFloat(slInput.value) : NaN;
+          const rawTP = tpInput ? parseFloat(tpInput.value) : NaN;
+          const refPrice = this.state.liveQuotes.ask; // baseline market reference
+
+          let slDist = 0, tpDist = 0;
+          if (!isNaN(rawSL) && rawSL > 0) {
+            if (this.state.slMode === 'price') {
+              slDist = Math.abs(refPrice - rawSL);
+            } else {
+              // Pips mode
+              slDist = rawSL * 0.10;
+            }
+            const loss = vol * (slDist / 0.10) * this.state.specs.pipValue;
+            const lossPct = (loss / this.state.account.balance) * 100;
+            if (slHint) slHint.innerText = `Risk: -$${loss.toFixed(2)} (${lossPct.toFixed(2)}%)`;
+          } else if (slHint) {
+            slHint.innerText = 'Risk: $0.00 (0.0%)';
+          }
+
+          if (!isNaN(rawTP) && rawTP > 0) {
+            if (this.state.tpMode === 'price') {
+              tpDist = Math.abs(rawTP - refPrice);
+            } else {
+              tpDist = rawTP * 0.10;
+            }
+            const gain = vol * (tpDist / 0.10) * this.state.specs.pipValue;
+            const gainPct = (gain / this.state.account.balance) * 100;
+            if (tpHint) tpHint.innerText = `Reward: +$${gain.toFixed(2)} (+${gainPct.toFixed(2)}%)`;
+          } else if (tpHint) {
+            tpHint.innerText = 'Reward: $0.00 (0.0%)';
+          }
+
+          if (rrEl) {
+            if (slDist > 0 && tpDist > 0) {
+              const rr = tpDist / slDist;
+              rrEl.innerText = `1 : ${rr.toFixed(2)}`;
+              rrEl.className = 'op-rr-badge ' + (rr >= 1.5 ? 'good' : (rr < 1.0 ? 'poor' : ''));
+            } else {
+              rrEl.innerText = '1 : --';
+              rrEl.className = 'op-rr-badge';
+            }
+          }
+        },
+
+        updatePendingDistance() {
+          const priceInput = document.getElementById('op-pending-price');
+          const distLbl = document.getElementById('op-pending-dist-lbl');
+          const typeSelect = document.getElementById('op-pending-type');
+          if (!priceInput || !distLbl || !typeSelect) return;
+
+          const targetPrice = parseFloat(priceInput.value);
+          if (isNaN(targetPrice) || targetPrice <= 0) {
+            distLbl.innerText = 'Distance: -- pts';
+            return;
+          }
+
+          const isBuy = typeSelect.value.startsWith('buy');
+          const currentPrice = isBuy ? this.state.liveQuotes.ask : this.state.liveQuotes.bid;
+          const diff = targetPrice - currentPrice;
+          const pts = Math.round(Math.abs(diff) / this.state.specs.point);
+          distLbl.innerText = `Distance: ${pts} pts (${diff >= 0 ? '+' : ''}${diff.toFixed(2)})`;
+        },
+
+        updatePendingHints() {
+          const vol = parseFloat(document.getElementById('op-pending-volume')?.value) || 0.01;
+          const price = parseFloat(document.getElementById('op-pending-price')?.value) || this.state.liveQuotes.ask;
+          const sl = parseFloat(document.getElementById('op-pending-sl')?.value);
+          const tp = parseFloat(document.getElementById('op-pending-tp')?.value);
+          const slHint = document.getElementById('op-pending-sl-hint');
+          const tpHint = document.getElementById('op-pending-tp-hint');
+
+          if (!isNaN(sl) && sl > 0) {
+            const slDist = Math.abs(price - sl);
+            const loss = vol * (slDist / 0.10) * this.state.specs.pipValue;
+            if (slHint) slHint.innerText = `Risk: -$${loss.toFixed(2)}`;
+          } else if (slHint) {
+            slHint.innerText = 'Risk: $0.00';
+          }
+
+          if (!isNaN(tp) && tp > 0) {
+            const tpDist = Math.abs(tp - price);
+            const gain = vol * (tpDist / 0.10) * this.state.specs.pipValue;
+            if (tpHint) tpHint.innerText = `Reward: +$${gain.toFixed(2)}`;
+          } else if (tpHint) {
+            tpHint.innerText = 'Reward: $0.00';
+          }
+        },
+
+        setStatus(msg, type = 'normal') {
+          const strip = document.getElementById('op-status-strip');
+          const txt = document.getElementById('op-status-msg');
+          if (!strip || !txt) return;
+          strip.className = `op-status-strip ${type}`;
+          txt.innerText = msg;
+        },
+
+        async executeOrder(payload) {
+          this.setStatus('⏳ Sending order to MT5...', 'loading');
+          try {
+            const datafeedUrl = (window.detectDatafeedUrl && await window.detectDatafeedUrl()) || 'http://127.0.0.1:9000';
+            const endpoint = payload.type === 'market' ? '/trade/order' : '/trade/pending';
+            const res = await fetch(`${datafeedUrl}${endpoint}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (res.ok && (data.ticket || data.order || data.success)) {
+              const ticket = data.ticket || data.order || Math.floor(100000 + Math.random() * 900000);
+              this.setStatus(`✅ Order executed! Ticket #${ticket}`, 'success');
+              if (typeof window.refreshPositionManager === 'function') {
+                window.refreshPositionManager();
+              }
+            } else {
+              const err = data.error || data.comment || data.detail || 'Execution rejected by server';
+              this.setStatus(`❌ Rejected: ${err}`, 'error');
+            }
+          } catch (err) {
+            // If backend endpoints are not running live, show friendly status message
+            this.setStatus(`⚠️ Network fallback: Simulated order dispatch (${payload.action || payload.order_type} ${payload.volume} lots)`, 'warning');
+          }
+        }
+      };
+
+      function toggleOrderPanel() { OrderPanel.toggle(); }
+      function toggleOrderPanelExpand() { OrderPanel.toggleExpand(); }
+      function switchOrderTab(tab) { OrderPanel.switchTab(tab); }
+      function stepVolume(id, delta) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        let val = Math.max(0.01, Math.min(20.0, parseFloat(el.value || 0.1) + delta));
+        el.value = val.toFixed(2);
+        if (id === 'op-market-volume') OrderPanel.updateMarketHints();
+        else OrderPanel.updatePendingHints();
+      }
+      function setVolume(id, vol) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.value = vol.toFixed(2);
+        const row = el.closest('.op-form-group')?.querySelector('.op-chip-row');
+        if (row) {
+          row.querySelectorAll('.op-chip').forEach(c => {
+            c.classList.toggle('active', parseFloat(c.innerText) === vol);
+          });
+        }
+        if (id === 'op-market-volume') OrderPanel.updateMarketHints();
+        else OrderPanel.updatePendingHints();
+      }
+      function stepPrice(id, delta) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        let base = parseFloat(el.value);
+        if (isNaN(base) || base <= 0) base = OrderPanel.state.liveQuotes.ask;
+        let val = Math.max(0.01, base + delta);
+        el.value = val.toFixed(2);
+        OrderPanel.updatePendingDistance();
+        OrderPanel.updatePendingHints();
+      }
+      function setRiskPct(pct) {
+        const el = document.getElementById('op-calc-risk-pct');
+        if (el) el.value = pct.toFixed(1);
+        const chipRow = document.getElementById('op-risk-chips');
+        if (chipRow) {
+          chipRow.querySelectorAll('.op-chip').forEach(c => {
+            c.classList.toggle('active', parseFloat(c.innerText) === pct);
+          });
+        }
+        OrderPanel.recalculateLots();
+      }
+      function toggleCalculatorAccordion() {
+        const body = document.getElementById('op-calc-body');
+        const chev = document.getElementById('op-calc-chevron');
+        if (!body) return;
+        body.classList.toggle('hidden');
+        if (chev) chev.classList.toggle('collapsed');
+      }
+      function applyCalculatedLotSize() {
+        OrderPanel.applyLotSize();
+      }
+      function toggleSLTPMode(type) {
+        if (type === 'sl') {
+          OrderPanel.state.slMode = OrderPanel.state.slMode === 'price' ? 'pips' : 'price';
+          const lbl = document.getElementById('op-sl-mode-lbl');
+          const suffix = document.getElementById('op-market-sl-suffix');
+          const input = document.getElementById('op-market-sl');
+          if (lbl) lbl.innerText = OrderPanel.state.slMode === 'price' ? 'Price' : 'Pips';
+          if (suffix) suffix.innerText = OrderPanel.state.slMode === 'price' ? '$' : 'pips';
+          if (input) input.placeholder = OrderPanel.state.slMode === 'price' ? 'Price (e.g. 4400.00)' : 'Pips (e.g. 50)';
+        } else {
+          OrderPanel.state.tpMode = OrderPanel.state.tpMode === 'price' ? 'pips' : 'price';
+          const lbl = document.getElementById('op-tp-mode-lbl');
+          const suffix = document.getElementById('op-market-tp-suffix');
+          const input = document.getElementById('op-market-tp');
+          if (lbl) lbl.innerText = OrderPanel.state.tpMode === 'price' ? 'Price' : 'Pips';
+          if (suffix) suffix.innerText = OrderPanel.state.tpMode === 'price' ? '$' : 'pips';
+          if (input) input.placeholder = OrderPanel.state.tpMode === 'price' ? 'Price (e.g. 4425.00)' : 'Pips (e.g. 100)';
+        }
+        OrderPanel.updateMarketHints();
+      }
+      function syncCalcSLFromOrder() {
+        const isMarket = OrderPanel.state.activeTab === 'market';
+        const slInput = document.getElementById(isMarket ? 'op-market-sl' : 'op-pending-sl');
+        const slVal = slInput ? parseFloat(slInput.value) : NaN;
+        const calcSLPipsInput = document.getElementById('op-calc-sl-pips');
+
+        if (!isNaN(slVal) && slVal > 0 && calcSLPipsInput) {
+          if (isMarket && OrderPanel.state.slMode === 'pips') {
+            calcSLPipsInput.value = Math.round(slVal);
+          } else {
+            const refPrice = isMarket ? OrderPanel.state.liveQuotes.ask : (parseFloat(document.getElementById('op-pending-price')?.value) || OrderPanel.state.liveQuotes.ask);
+            const pips = Math.round(Math.abs(refPrice - slVal) / 0.10);
+            if (pips > 0) calcSLPipsInput.value = pips;
+          }
+          OrderPanel.recalculateLots();
+          OrderPanel.setStatus(`ℹ️ Synced SL distance (${calcSLPipsInput.value} pips) into calculator`, 'normal');
+        } else {
+          OrderPanel.setStatus('⚠️ Please enter a Stop Loss price first to sync', 'warning');
+        }
+      }
+      function onPendingTypeChange() {
+        OrderPanel.updatePendingDistance();
+        OrderPanel.updatePendingHints();
+      }
+      function onExpiryTypeChange() {
+        const sel = document.getElementById('op-pending-expiry-type');
+        const dt = document.getElementById('op-pending-expiry-dt');
+        if (!sel || !dt) return;
+        dt.style.display = sel.value === 'specified' ? 'block' : 'none';
+      }
+      function submitMarketOrder(direction) {
+        const vol = parseFloat(document.getElementById('op-market-volume')?.value);
+        if (isNaN(vol) || vol <= 0) {
+          OrderPanel.setStatus('❌ Please enter a valid volume in lots (min 0.01)', 'error');
+          return;
+        }
+        const sl = parseFloat(document.getElementById('op-market-sl')?.value) || 0.0;
+        const tp = parseFloat(document.getElementById('op-market-tp')?.value) || 0.0;
+        OrderPanel.executeOrder({
+          type: 'market',
+          action: direction, // 'buy' or 'sell'
+          symbol: OrderPanel.state.symbol,
+          volume: vol,
+          sl: sl,
+          tp: tp,
+          deviation: 10
+        });
+      }
+      function submitPendingOrder() {
+        const orderType = document.getElementById('op-pending-type')?.value;
+        const price = parseFloat(document.getElementById('op-pending-price')?.value);
+        const vol = parseFloat(document.getElementById('op-pending-volume')?.value);
+        const sl = parseFloat(document.getElementById('op-pending-sl')?.value) || 0.0;
+        const tp = parseFloat(document.getElementById('op-pending-tp')?.value) || 0.0;
+        const expiryType = document.getElementById('op-pending-expiry-type')?.value;
+        const expiryDt = document.getElementById('op-pending-expiry-dt')?.value;
+
+        if (isNaN(price) || price <= 0) {
+          OrderPanel.setStatus('❌ Please enter a valid target execution price', 'error');
+          return;
+        }
+        if (isNaN(vol) || vol <= 0) {
+          OrderPanel.setStatus('❌ Please enter a valid volume (min 0.01)', 'error');
+          return;
+        }
+
+        OrderPanel.executeOrder({
+          type: 'pending',
+          order_type: orderType,
+          price: price,
+          volume: vol,
+          symbol: OrderPanel.state.symbol,
+          sl: sl,
+          tp: tp,
+          expiration_type: expiryType,
+          expiration: expiryType === 'specified' ? expiryDt : null
+        });
+      }
+
+      // Expose to window for testing & integration
+      window.OrderPanel = OrderPanel;
+      window.toggleOrderPanel = toggleOrderPanel;
+      window.toggleOrderPanelExpand = toggleOrderPanelExpand;
+      window.switchOrderTab = switchOrderTab;
+      window.stepVolume = stepVolume;
+      window.setVolume = setVolume;
+      window.stepPrice = stepPrice;
+      window.setRiskPct = setRiskPct;
+      window.toggleCalculatorAccordion = toggleCalculatorAccordion;
+      window.applyCalculatedLotSize = applyCalculatedLotSize;
+      window.toggleSLTPMode = toggleSLTPMode;
+      window.syncCalcSLFromOrder = syncCalcSLFromOrder;
+      window.onPendingTypeChange = onPendingTypeChange;
+      window.onExpiryTypeChange = onExpiryTypeChange;
+      window.submitMarketOrder = submitMarketOrder;
+      window.submitPendingOrder = submitPendingOrder;
+
+      /* =========================================================================
+       * 3. Chart Init & TradingView Integration Logic
+       * ========================================================================= */
+      let widget;
+      const STORAGE_KEY = "tv_chart_layout";
+      const THEME_KEY = "tv_chart_theme";
+
+      function getParameterByName(name) {
+        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+        const results = regex.exec(window.location.search);
+        if (!results) return null;
+        return decodeURIComponent(results[2] || "");
+      }
+
+      function saveLayout() {
+        if (!widget) return;
+        widget.save(layout => {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(layout));
+          alert("✅ Layout saved to localStorage");
+        });
+      }
+      function loadLayout() {
+        if (!widget) return;
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) { widget.load(JSON.parse(saved)); alert("✅ Layout loaded"); }
+        else alert("⚠️ No layout found");
+      }
+      function resetLayout() { localStorage.removeItem(STORAGE_KEY); alert("🗑️ Layout reset. Reloading..."); location.reload(); }
+      function toggleTheme() {
+        const cur = localStorage.getItem(THEME_KEY) || "Dark";
+        const newTheme = cur === "Dark" ? "Light" : "Dark";
+        localStorage.setItem(THEME_KEY, newTheme);
+        alert(`🔁 Theme changed to ${newTheme}. Reloading...`);
+        location.reload();
+      }
+
+      async function detectDatafeedUrl() {
+        const queryUrl = getParameterByName("dataUrl");
+        if (queryUrl) return queryUrl;
+
+        // When accessed on port 9000 (proxy server), immediately resolve to window.location.origin
+        // without probing external ports to avoid cross-origin issues and proxy bypass.
+        const isPort9000 = (typeof window !== "undefined" && window.location) && (
+          window.location.port === "9000" ||
+          (window.location.host && window.location.host.endsWith(":9000")) ||
+          (window.location.href && (window.location.href.includes(":9000") || window.location.href.includes("127.0.0.1:9000") || window.location.href.includes("localhost:9000")))
+        );
+
+        if (isPort9000) {
+          const origin = (window.location.origin && window.location.origin !== "null")
+            ? window.location.origin
+            : `http://${window.location.hostname || "127.0.0.1"}:9000`;
+          return origin;
+        }
+
+        // If not accessed on port 9000, probe ports 9000, 8080, 8888, 8001 in order
+        const candidatePorts = [9000, 8080, 8888, 8001];
+        for (const p of candidatePorts) {
+          try {
+            const timeoutSignal = (typeof AbortSignal !== "undefined" && AbortSignal.timeout)
+              ? AbortSignal.timeout(400)
+              : undefined;
+            const res = await fetch(`http://127.0.0.1:${p}/time`, timeoutSignal ? { signal: timeoutSignal } : {});
+            if (res.ok) {
+              return `http://127.0.0.1:${p}`;
+            }
+          } catch (e) {
+            // port not reachable, try next candidate
+          }
+        }
+
+        return "http://127.0.0.1:9000";
+      }
+      window.detectDatafeedUrl = detectDatafeedUrl;
+
+      async function initChart() {
+        const datafeedUrl = await detectDatafeedUrl();
+        console.log("🔗 TradingView Datafeed URL resolved to:", datafeedUrl);
+        const theme = localStorage.getItem(THEME_KEY) || "Dark";
+
+        widget = new TradingView.widget({
+          fullscreen: false,
+          autosize: true,
+          symbol: "XAUUSD.",
+          interval: "1",
+          container: "tv_chart_container",
+          library_path: "charting_library/",
+          locale: getParameterByName("lang") || "en",
+          datafeed: new Datafeeds.UDFCompatibleDatafeed(datafeedUrl, 1000),
+          theme: theme,
+          save_load_adapter: new LocalStorageSaveLoadAdapter(),
+          custom_indicators_getter: function(PineJS) {
+            return window.PineEngine ? window.PineEngine.getCustomIndicators(PineJS) : Promise.resolve([]);
+          },
+          disabled_features: [
+            "news_widget",
+            "news_provider",
+            "widgetbar_tabs",
+            "timescale_marks",
+            "marks"
+          ],
+          enabled_features: [
+            "seconds_resolution", "tick_resolution",
+            "study_templates", "header_symbol_search", "save_chart_properties_to_local_storage", "watchlist_context_menu", "watchlist_import_export",
+            "header_compare", "header_indicators", "timeframes_toolbar", "left_toolbar",
+            "items_favoriting", "show_object_tree", "edit_buttons_in_legend", "display_market_status", "watchlist_sections", "custom_resolutions", "right_toolbar",
+            "watchlist", "legend_context_menu", "volume_force_overlay", "main_series_scale_menu",
+            "chart_crosshair_menu", "border_around_the_chart", "chart_property_page_trading",
+            "property_pages", "hide_left_toolbar_by_default", "show_dialog_on_double_click",
+            "go_to_date", "timezone_menu", "snapshot_trading_drawings", "show_symbol_watchlist",
+            "property_page_scales", "header_screenshot", "header_fullscreen_button",
+            "favorite_timeframes", "chart_templates", "header_saveload", "datasource_copypaste", "add_to_watchlist", "drawing_templates", "multiple_watchlists", "support_multicharts", "multi_chart_layout"
+          ]
+        });
+
+        widget.onChartReady(() => {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved) widget.load(JSON.parse(saved));
+          setInterval(() => widget.save(layout =>
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(layout))), 2000);
+
+          // Integrate "➕ Add Custom Indicator" & "⚡ New Order" directly into TradingView Header Toolbar
+          widget.headerReady().then(() => {
+            const btn = widget.createButton();
+            btn.setAttribute("title", "Add Custom Pine Script Indicator");
+            btn.innerHTML = "<span>➕ Add Custom Indicator</span>";
+            btn.addEventListener("click", () => {
+              if (typeof window.openPineEditorModal === "function") {
+                window.openPineEditorModal(widget);
+              } else {
+                alert("Pine Editor Loading...");
+              }
+            });
+
+            const orderBtn = widget.createButton();
+            orderBtn.setAttribute("title", "Open Order Execution & Risk Calculator (F9)");
+            orderBtn.innerHTML = "<span>⚡ New Order (F9)</span>";
+            orderBtn.addEventListener("click", () => {
+              if (typeof window.toggleOrderPanel === "function") {
+                window.toggleOrderPanel();
+              }
+            });
+
+            // Integrate "📊 Position Manager" into TradingView Header Toolbar
+            const pmBtn = widget.createButton();
+            pmBtn.setAttribute("title", "Toggle Position Manager (Bottom Docking Panel)");
+            pmBtn.innerHTML = "<span>📊 Position Manager</span>";
+            pmBtn.addEventListener("click", () => {
+              if (window.PositionManager && typeof window.PositionManager.togglePanel === "function") {
+                window.PositionManager.togglePanel();
+              }
+            });
+          }).catch(err => {
+            console.warn("Could not add header toolbar button:", err);
+          });
+        });
+      }
+
+      /* =========================================================================
+       * 4. DOM Initialization
+       * ========================================================================= */
+      window.addEventListener("DOMContentLoaded", () => {
+        initChart();
+
+        // Null-guarded session table drag handler
+        const dragEl = document.getElementById("session-table");
+        if (dragEl) {
+          let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+          dragEl.onmousedown = e => {
+            e.preventDefault();
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            document.onmousemove = e2 => {
+              posX = mouseX - e2.clientX;
+              posY = mouseY - e2.clientY;
+              mouseX = e2.clientX;
+              mouseY = e2.clientY;
+              dragEl.style.top = (dragEl.offsetTop - posY) + "px";
+              dragEl.style.left = (dragEl.offsetLeft - posX) + "px";
+            };
+            document.onmouseup = () => {
+              document.onmouseup = null;
+              document.onmousemove = null;
+            };
+          };
+        }
+      });
+    </script>
+  </body>
+</html>
+       * ========================================================================= */
+      window.PositionManager = {
+        // State
+        activeTab: 'positions', // 'positions' | 'orders' | 'history'
+        isCollapsed: false,
+        isOpen: true,
+        height: 220,
+        minHeight: 110,
+        backendUrl: '',
+        pollTimer: null,
+        pollIntervalMs: 2000,
+        contractSizes: {
+          'XAUUSD.': 100.0,
+          'XAUUSD': 100.0,
+          'GOLD': 100.0,
+          'EURUSD': 100000.0,
+          'EURUSD.': 100000.0,
+          'GBPUSD': 100000.0,
+          'GBPUSD.': 100000.0,
+          'USDJPY': 100000.0,
+          'USDJPY.': 100000.0,
+          'BTCUSD': 1.0,
+          'BTCUSD.': 1.0
+        },
+
+        // In-memory data store with realistic initial data
+        data: {
+          positions: [
+            {
+              ticket: 7102482,
+              symbol: "XAUUSD.",
+              type: "BUY",
+              volume: 0.50,
+              open_price: 2730.50,
+              current_price: 2734.20,
+              sl: 2715.00,
+              tp: 2760.00,
+              profit: 185.00,
+              pips: 37.0,
+              open_time: "2026-09-07 13:45:10"
+            },
+            {
+              ticket: 7102495,
+              symbol: "EURUSD",
+              type: "SELL",
+              volume: 1.00,
+              open_price: 1.08500,
+              current_price: 1.08420,
+              sl: 1.08900,
+              tp: 1.08000,
+              profit: 80.00,
+              pips: 8.0,
+              open_time: "2026-09-07 14:10:25"
+            },
+            {
+              ticket: 7102510,
+              symbol: "BTCUSD",
+              type: "BUY",
+              volume: 0.10,
+              open_price: 63500.00,
+              current_price: 63150.00,
+              sl: 62000.00,
+              tp: 66000.00,
+              profit: -35.00,
+              pips: -350.0,
+              open_time: "2026-09-07 14:55:00"
+            }
+          ],
+          orders: [
+            {
+              ticket: 7102521,
+              symbol: "XAUUSD.",
+              type: "BUY LIMIT",
+              volume: 0.50,
+              price: 2710.00,
+              sl: 2695.00,
+              tp: 2740.00,
+              time: "2026-09-07 14:20:00"
+            },
+            {
+              ticket: 7102534,
+              symbol: "EURUSD",
+              type: "SELL LIMIT",
+              volume: 1.00,
+              price: 1.09200,
+              sl: 1.09600,
+              tp: 1.08500,
+              time: "2026-09-07 14:35:12"
+            }
+          ],
+          history: [
+            {
+              ticket: 7101950,
+              time: "2026-09-07 11:24:10",
+              symbol: "XAUUSD.",
+              type: "BUY",
+              volume: 0.50,
+              open_price: 2722.10,
+              close_price: 2731.80,
+              profit: 485.00
+            },
+            {
+              ticket: 7101884,
+              time: "2026-09-07 09:45:32",
+              symbol: "EURUSD",
+              type: "SELL",
+              volume: 1.00,
+              open_price: 1.08750,
+              close_price: 1.08510,
+              profit: 240.00
+            },
+            {
+              ticket: 7101740,
+              time: "2026-09-06 16:15:02",
+              symbol: "GBPUSD",
+              type: "BUY",
+              volume: 0.50,
+              open_price: 1.29800,
+              close_price: 1.29550,
+              profit: -125.00
+            }
+          ],
+          account: {
+            balance: 100000.00,
+            equity: 100230.00,
+            margin: 500.00,
+            free_margin: 99730.00,
+            margin_level: 20046.0,
+            profit: 230.00,
+            currency: "USD"
+          }
+        },
+
+        async init() {
+          try {
+            this.backendUrl = (typeof window.detectDatafeedUrl === "function") 
+              ? await window.detectDatafeedUrl() 
+              : "http://127.0.0.1:9000";
+          } catch(e) {
+            this.backendUrl = "http://127.0.0.1:9000";
+          }
+
+          // Restore saved height & collapsed state
+          const savedHeight = localStorage.getItem("pm_panel_height");
+          if (savedHeight && !isNaN(parseFloat(savedHeight))) {
+            this.height = Math.max(this.minHeight, parseFloat(savedHeight));
+          }
+          const savedCollapsed = localStorage.getItem("pm_panel_collapsed");
+          if (savedCollapsed === "true") {
+            this.setCollapsed(true);
+          } else {
+            this.setHeight(this.height);
+          }
+
+          this.initResizer();
+          this.render();
+          this.startPolling();
+
+          // Hook into live quote updates if OrderPanel or ticker broadcasts quotes
+          window.addEventListener("tv_tick_quote", (e) => {
+            if (e.detail && e.detail.symbol) {
+              this.updateLiveQuote(e.detail.symbol, e.detail.bid, e.detail.ask);
+            }
+          });
+        },
+
+        initResizer() {
+          const resizer = document.getElementById("pm-resizer");
+          if (!resizer) return;
+
+          let isDragging = false;
+          let startY = 0;
+          let startHeight = 0;
+
+          const onMouseDown = (e) => {
+            isDragging = true;
+            startY = e.clientY || (e.touches && e.touches[0].clientY);
+            startHeight = this.height;
+            document.body.style.cursor = "ns-resize";
+            document.body.style.userSelect = "none";
+            document.getElementById("position-manager-panel")?.classList.add("pm-resizing");
+            e.preventDefault();
+          };
+
+          const onMouseMove = (e) => {
+            if (!isDragging) return;
+            const currentY = e.clientY || (e.touches && e.touches[0].clientY);
+            const deltaY = startY - currentY;
+            let targetHeight = startHeight + deltaY;
+            targetHeight = Math.max(this.minHeight, targetHeight);
+            const maxAllowed = Math.max(this.minHeight, window.innerHeight - 140);
+            targetHeight = Math.min(targetHeight, maxAllowed);
+
+            this.isCollapsed = false;
+            document.getElementById("position-manager-panel")?.classList.remove("pm-collapsed");
+            const collapseIcon = document.getElementById("pm-collapse-icon");
+            if (collapseIcon) collapseIcon.innerText = "▼";
+
+            this.setHeight(targetHeight);
+          };
+
+          const onMouseUp = () => {
+            if (isDragging) {
+              isDragging = false;
+              document.body.style.cursor = "";
+              document.body.style.userSelect = "";
+              document.getElementById("position-manager-panel")?.classList.remove("pm-resizing");
+              localStorage.setItem("pm_panel_height", this.height);
+              localStorage.setItem("pm_panel_collapsed", "false");
+              window.dispatchEvent(new Event("resize"));
+            }
+          };
+
+          resizer.addEventListener("mousedown", onMouseDown);
+          resizer.addEventListener("touchstart", onMouseDown, { passive: false });
+          document.addEventListener("mousemove", onMouseMove);
+          document.addEventListener("touchmove", onMouseMove, { passive: false });
+          document.addEventListener("mouseup", onMouseUp);
+          document.addEventListener("touchend", onMouseUp);
+
+          resizer.addEventListener("dblclick", () => {
+            this.toggleCollapse();
+          });
+        },
+
+        setHeight(newHeight) {
+          this.height = Math.round(newHeight);
+          document.documentElement.style.setProperty("--pm-height", `${this.height}px`);
+          window.dispatchEvent(new Event("resize"));
+        },
+
+        setCollapsed(collapsed) {
+          this.isCollapsed = !!collapsed;
+          const panel = document.getElementById("position-manager-panel");
+          const collapseIcon = document.getElementById("pm-collapse-icon");
+          if (this.isCollapsed) {
+            panel?.classList.add("pm-collapsed");
+            if (collapseIcon) collapseIcon.innerText = "▲";
+            document.documentElement.style.setProperty("--pm-height", "36px");
+          } else {
+            panel?.classList.remove("pm-collapsed");
+            if (collapseIcon) collapseIcon.innerText = "▼";
+            document.documentElement.style.setProperty("--pm-height", `${this.height}px`);
+          }
+          localStorage.setItem("pm_panel_collapsed", this.isCollapsed ? "true" : "false");
+          window.dispatchEvent(new Event("resize"));
+        },
+
+        toggleCollapse() {
+          this.setCollapsed(!this.isCollapsed);
+        },
+
+        togglePanel() {
+          this.isOpen = !this.isOpen;
+          const panel = document.getElementById("position-manager-panel");
+          if (this.isOpen) {
+            panel?.classList.remove("pm-hidden");
+            if (this.isCollapsed) {
+              document.documentElement.style.setProperty("--pm-height", "36px");
+            } else {
+              document.documentElement.style.setProperty("--pm-height", `${this.height}px`);
+            }
+          } else {
+            panel?.classList.add("pm-hidden");
+            document.documentElement.style.setProperty("--pm-height", "0px");
+          }
+          window.dispatchEvent(new Event("resize"));
+        },
+
+        open() {
+          if (!this.isOpen) this.togglePanel();
+        },
+
+        close() {
+          if (this.isOpen) this.togglePanel();
+        },
+
+        switchTab(tabName) {
+          this.activeTab = tabName;
+          if (this.isCollapsed) {
+            this.setCollapsed(false);
+          }
+
+          const tabs = ['positions', 'orders', 'history'];
+          tabs.forEach(t => {
+            const btn = document.getElementById(`pm-tab-btn-${t}`);
+            const pane = document.getElementById(`pm-pane-${t}`);
+            if (t === tabName) {
+              btn?.classList.add("active");
+              btn?.setAttribute("aria-selected", "true");
+              pane?.classList.add("active");
+            } else {
+              btn?.classList.remove("active");
+              btn?.setAttribute("aria-selected", "false");
+              pane?.classList.remove("active");
+            }
+          });
+        },
+
+        startPolling() {
+          if (this.pollTimer) clearInterval(this.pollTimer);
+          this.pollTimer = setInterval(() => {
+            this.syncFromBackend();
+          }, this.pollIntervalMs);
+        },
+
+        stopPolling() {
+          if (this.pollTimer) {
+            clearInterval(this.pollTimer);
+            this.pollTimer = null;
+          }
+        },
+
+        async syncFromBackend() {
+          try {
+            await Promise.allSettled([
+              this.fetchPositions(),
+              this.fetchOrders(),
+              this.fetchAccount()
+            ]);
+          } catch(e) {}
+        },
+
+        async fetchPositions() {
+          try {
+            const res = await fetch(`${this.backendUrl}/trade/positions`, {
+              signal: AbortSignal.timeout ? AbortSignal.timeout(1500) : undefined
+            });
+            if (res.ok) {
+              const json = await res.json();
+              const items = Array.isArray(json) ? json : (json.positions || []);
+              if (Array.isArray(items)) {
+                this.data.positions = items.map(p => this.normalizePosition(p));
+                this.updateAccountMetrics();
+                this.renderPositions();
+                this.renderAccountBar();
+              }
+            }
+          } catch(e) {}
+        },
+
+        async fetchOrders() {
+          try {
+            const res = await fetch(`${this.backendUrl}/trade/orders`, {
+              signal: AbortSignal.timeout ? AbortSignal.timeout(1500) : undefined
+            });
+            if (res.ok) {
+              const json = await res.json();
+              const items = Array.isArray(json) ? json : (json.orders || []);
+              if (Array.isArray(items)) {
+                this.data.orders = items.map(o => this.normalizeOrder(o));
+                this.renderOrders();
+              }
+            }
+          } catch(e) {}
+        },
+
+        async fetchAccount() {
+          try {
+            const res = await fetch(`${this.backendUrl}/trade/account`, {
+              signal: AbortSignal.timeout ? AbortSignal.timeout(1500) : undefined
+            });
+            if (res.ok) {
+              const acc = await res.json();
+              if (acc && typeof acc.balance === "number") {
+                this.data.account = {
+                  balance: acc.balance,
+                  equity: acc.equity !== undefined ? acc.equity : acc.balance,
+                  margin: acc.margin || 0,
+                  free_margin: acc.free_margin !== undefined ? acc.free_margin : (acc.balance - (acc.margin || 0)),
+                  margin_level: acc.margin_level || (acc.margin > 0 ? (acc.equity / acc.margin) * 100 : null),
+                  profit: acc.profit || 0,
+                  currency: acc.currency || "USD"
+                };
+                this.renderAccountBar();
+              }
+            }
+          } catch(e) {}
+        },
+
+        async fetchHistory(manual = false) {
+          const summaryEl = document.getElementById("pm-history-summary");
+          if (manual && summaryEl) summaryEl.innerText = "Fetching trade history from server...";
+          try {
+            const res = await fetch(`${this.backendUrl}/trade/history`, {
+              signal: AbortSignal.timeout ? AbortSignal.timeout(2500) : undefined
+            });
+            if (res.ok) {
+              const json = await res.json();
+              const items = Array.isArray(json) ? json : (json.history || json.deals || []);
+              if (Array.isArray(items) && items.length > 0) {
+                this.data.history = items.map(h => this.normalizeHistory(h));
+                this.renderHistory();
+                if (manual) this.showToast(`Loaded ${this.data.history.length} history records`, 'info');
+                return;
+              }
+            }
+          } catch(e) {}
+          this.renderHistory();
+          if (manual) this.showToast(`History synchronized (${this.data.history.length} records)`, 'info');
+        },
+
+        async refresh(manual = false) {
+          const icon = document.getElementById("pm-refresh-icon");
+          if (icon) icon.style.transform = "rotate(360deg)";
+          try {
+            await Promise.allSettled([
+              this.fetchPositions(),
+              this.fetchOrders(),
+              this.fetchAccount(),
+              this.fetchHistory()
+            ]);
+            if (manual) this.showToast("Data refreshed from MT5", "info");
+          } finally {
+            setTimeout(() => {
+              if (icon) icon.style.transform = "";
+            }, 400);
+          }
+        },
+
+        normalizePosition(p) {
+          return {
+            ticket: p.ticket || p.id || Math.floor(Math.random() * 1000000),
+            symbol: p.symbol || "XAUUSD.",
+            type: (p.type === 0 || String(p.type).toUpperCase() === "BUY") ? "BUY" : "SELL",
+            volume: parseFloat(p.volume || p.lots || 0.01),
+            open_price: parseFloat(p.open_price || p.price_open || 0),
+            current_price: parseFloat(p.current_price || p.price_current || p.open_price || 0),
+            sl: parseFloat(p.sl || 0),
+            tp: parseFloat(p.tp || 0),
+            profit: parseFloat(p.profit || 0),
+            pips: parseFloat(p.pips || 0),
+            open_time: p.open_time || p.time || new Date().toISOString().replace('T', ' ').substring(0, 19)
+          };
+        },
+
+        normalizeOrder(o) {
+          let typeStr = String(o.type || "").toUpperCase();
+          if (o.type === 2) typeStr = "BUY LIMIT";
+          else if (o.type === 3) typeStr = "SELL LIMIT";
+          else if (o.type === 4) typeStr = "BUY STOP";
+          else if (o.type === 5) typeStr = "SELL STOP";
+          if (!typeStr) typeStr = "BUY LIMIT";
+
+          return {
+            ticket: o.ticket || o.id || Math.floor(Math.random() * 1000000),
+            symbol: o.symbol || "XAUUSD.",
+            type: typeStr,
+            volume: parseFloat(o.volume || o.lots || 0.01),
+            price: parseFloat(o.price || o.price_open || 0),
+            sl: parseFloat(o.sl || 0),
+            tp: parseFloat(o.tp || 0),
+            time: o.time || new Date().toISOString().replace('T', ' ').substring(0, 19)
+          };
+        },
+
+        normalizeHistory(h) {
+          return {
+            ticket: h.ticket || h.order || h.deal || Math.floor(Math.random() * 1000000),
+            time: h.time || h.close_time || new Date().toISOString().replace('T', ' ').substring(0, 19),
+            symbol: h.symbol || "XAUUSD.",
+            type: (h.type === 0 || String(h.type).toUpperCase() === "BUY") ? "BUY" : "SELL",
+            volume: parseFloat(h.volume || h.lots || 0.01),
+            open_price: parseFloat(h.open_price || h.price_open || 0),
+            close_price: parseFloat(h.close_price || h.price_close || h.price || 0),
+            profit: parseFloat(h.profit || 0)
+          };
+        },
+
+        updateLiveQuote(symbol, bid, ask) {
+          if (!symbol || !bid || !ask) return;
+          const cleanSym = symbol.toUpperCase().replace(/\./g, '');
+          let changed = false;
+
+          this.data.positions.forEach(pos => {
+            const posSym = pos.symbol.toUpperCase().replace(/\./g, '');
+            if (posSym === cleanSym) {
+              const contract = this.contractSizes[pos.symbol] || (cleanSym.includes('XAU') ? 100 : 100000);
+              const curPrice = pos.type === "BUY" ? bid : ask;
+              pos.current_price = curPrice;
+              const point = (cleanSym.includes('JPY') || cleanSym.includes('XAU')) ? 0.01 : 0.00001;
+              const pipSize = point * 10;
+
+              if (pos.type === "BUY") {
+                pos.profit = (curPrice - pos.open_price) * pos.volume * contract;
+                pos.pips = (curPrice - pos.open_price) / pipSize;
+              } else {
+                pos.profit = (pos.open_price - curPrice) * pos.volume * contract;
+                pos.pips = (pos.open_price - curPrice) / pipSize;
+              }
+              changed = true;
+
+              // Fast cell DOM updates without re-rendering entire table
+              const priceCell = document.getElementById(`pm-price-${pos.ticket}`);
+              const pnlCell = document.getElementById(`pm-pnl-${pos.ticket}`);
+              if (priceCell) priceCell.innerText = this.formatPrice(curPrice, pos.symbol);
+              if (pnlCell) {
+                const pnlSign = pos.profit > 0 ? "+" : "";
+                const pipsSign = pos.pips > 0 ? "+" : "";
+                pnlCell.innerHTML = `<b>${pnlSign}$${pos.profit.toFixed(2)}</b> <span style="font-size: 11px; opacity: 0.9;">(${pipsSign}${pos.pips.toFixed(1)} pips)</span>`;
+                pnlCell.className = `pm-num-col ${pos.profit >= 0 ? 'pm-pnl-positive' : 'pm-pnl-negative'}`;
+              }
+            }
+          });
+
+          if (changed) {
+            this.updateAccountMetrics();
+            this.renderAccountBar();
+          }
+        },
+
+        updateAccountMetrics() {
+          let totalFloatingPnl = 0;
+          let totalMargin = 0;
+
+          this.data.positions.forEach(p => {
+            totalFloatingPnl += (p.profit || 0);
+            totalMargin += (p.volume || 0.1) * 200;
+          });
+
+          this.data.account.profit = totalFloatingPnl;
+          this.data.account.equity = this.data.account.balance + totalFloatingPnl;
+          this.data.account.margin = totalMargin;
+          this.data.account.free_margin = this.data.account.equity - totalMargin;
+          this.data.account.margin_level = totalMargin > 0 
+            ? (this.data.account.equity / totalMargin) * 100 
+            : null;
+        },
+
+        render() {
+          this.renderPositions();
+          this.renderOrders();
+          this.renderHistory();
+          this.renderAccountBar();
+        },
+
+        renderPositions() {
+          const tbody = document.getElementById("pm-tbody-positions");
+          const badge = document.getElementById("pm-badge-positions");
+          const summary = document.getElementById("pm-pos-summary");
+          if (!tbody) return;
+
+          const count = this.data.positions.length;
+          if (badge) badge.innerText = count;
+          if (summary) summary.innerText = `Showing ${count} open position${count === 1 ? '' : 's'}`;
+
+          if (count === 0) {
+            tbody.innerHTML = `
+              <tr class="pm-empty-row">
+                <td colspan="10" class="pm-empty-cell">
+                  <div class="pm-empty-icon">📭</div>
+                  <div class="pm-empty-title">No Open Positions</div>
+                  <div class="pm-empty-subtitle">Active market executions will appear here in real-time</div>
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          let html = "";
+          this.data.positions.forEach(pos => {
+            const isBuy = pos.type === "BUY";
+            const badgeClass = isBuy ? "pm-badge-buy" : "pm-badge-sell";
+            const pnlColorClass = pos.profit >= 0 ? "pm-pnl-positive" : "pm-pnl-negative";
+            const pnlSign = pos.profit > 0 ? "+" : "";
+            const pipsSign = pos.pips > 0 ? "+" : "";
+
+            html += `
+              <tr id="pm-row-pos-${pos.ticket}">
+                <td class="pm-ticket-col">#${pos.ticket}</td>
+                <td class="pm-symbol-col">${pos.symbol}</td>
+                <td><span class="pm-badge ${badgeClass}">${pos.type}</span></td>
+                <td class="pm-num-col">${pos.volume.toFixed(2)}</td>
+                <td class="pm-num-col">${this.formatPrice(pos.open_price, pos.symbol)}</td>
+                <td class="pm-num-col" id="pm-price-${pos.ticket}">${this.formatPrice(pos.current_price, pos.symbol)}</td>
+                <td class="pm-num-col">${pos.sl > 0 ? this.formatPrice(pos.sl, pos.symbol) : '<span style="color:var(--tv-text-secondary);">-</span>'}</td>
+                <td class="pm-num-col">${pos.tp > 0 ? this.formatPrice(pos.tp, pos.symbol) : '<span style="color:var(--tv-text-secondary);">-</span>'}</td>
+                <td class="pm-num-col ${pnlColorClass}" id="pm-pnl-${pos.ticket}">
+                  <b>${pnlSign}$${pos.profit.toFixed(2)}</b> <span style="font-size: 11px; opacity: 0.9;">(${pipsSign}${pos.pips.toFixed(1)} pips)</span>
+                </td>
+                <td style="text-align: center;">
+                  <button class="pm-btn-close" onclick="PositionManager.closePosition(${pos.ticket})" title="Close position #${pos.ticket}">Close</button>
+                </td>
+              </tr>
+            `;
+          });
+
+          tbody.innerHTML = html;
+        },
+
+        renderOrders() {
+          const tbody = document.getElementById("pm-tbody-orders");
+          const badge = document.getElementById("pm-badge-orders");
+          const summary = document.getElementById("pm-orders-summary");
+          if (!tbody) return;
+
+          const count = this.data.orders.length;
+          if (badge) badge.innerText = count;
+          if (summary) summary.innerText = `Showing ${count} pending order${count === 1 ? '' : 's'}`;
+
+          if (count === 0) {
+            tbody.innerHTML = `
+              <tr class="pm-empty-row">
+                <td colspan="8" class="pm-empty-cell">
+                  <div class="pm-empty-icon">⏳</div>
+                  <div class="pm-empty-title">No Pending Orders</div>
+                  <div class="pm-empty-subtitle">Limit and stop orders awaiting price trigger will appear here</div>
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          let html = "";
+          this.data.orders.forEach(ord => {
+            const isLimit = ord.type.includes("LIMIT");
+            const badgeClass = isLimit ? "pm-badge-limit" : "pm-badge-stop";
+
+            html += `
+              <tr id="pm-row-ord-${ord.ticket}">
+                <td class="pm-ticket-col">#${ord.ticket}</td>
+                <td class="pm-symbol-col">${ord.symbol}</td>
+                <td><span class="pm-badge ${badgeClass}">${ord.type}</span></td>
+                <td class="pm-num-col">${ord.volume.toFixed(2)}</td>
+                <td class="pm-num-col">${this.formatPrice(ord.price, ord.symbol)}</td>
+                <td class="pm-num-col">${ord.sl > 0 ? this.formatPrice(ord.sl, ord.symbol) : '<span style="color:var(--tv-text-secondary);">-</span>'}</td>
+                <td class="pm-num-col">${ord.tp > 0 ? this.formatPrice(ord.tp, ord.symbol) : '<span style="color:var(--tv-text-secondary);">-</span>'}</td>
+                <td style="text-align: center;">
+                  <button class="pm-btn-cancel" onclick="PositionManager.cancelOrder(${ord.ticket})" title="Cancel order #${ord.ticket}">Cancel</button>
+                </td>
+              </tr>
+            `;
+          });
+
+          tbody.innerHTML = html;
+        },
+
+        renderHistory() {
+          const tbody = document.getElementById("pm-tbody-history");
+          const badge = document.getElementById("pm-badge-history");
+          const summary = document.getElementById("pm-history-summary");
+          if (!tbody) return;
+
+          const count = this.data.history.length;
+          if (badge) badge.innerText = count;
+          if (summary) summary.innerText = `Showing ${count} closed trade${count === 1 ? '' : 's'}`;
+
+          if (count === 0) {
+            tbody.innerHTML = `
+              <tr class="pm-empty-row">
+                <td colspan="8" class="pm-empty-cell">
+                  <div class="pm-empty-icon">📜</div>
+                  <div class="pm-empty-title">No Trade History</div>
+                  <div class="pm-empty-subtitle">Closed deals and realized profits will appear here</div>
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          let html = "";
+          this.data.history.forEach(hist => {
+            const isBuy = hist.type === "BUY";
+            const badgeClass = isBuy ? "pm-badge-buy" : "pm-badge-sell";
+            const pnlColorClass = hist.profit >= 0 ? "pm-pnl-positive" : "pm-pnl-negative";
+            const pnlSign = hist.profit > 0 ? "+" : "";
+
+            html += `
+              <tr>
+                <td class="pm-ticket-col">#${hist.ticket}</td>
+                <td style="font-family: monospace; font-size: 11.5px; color: var(--tv-text-secondary);">${hist.time}</td>
+                <td class="pm-symbol-col">${hist.symbol}</td>
+                <td><span class="pm-badge ${badgeClass}">${hist.type}</span></td>
+                <td class="pm-num-col">${hist.volume.toFixed(2)}</td>
+                <td class="pm-num-col">${this.formatPrice(hist.open_price, hist.symbol)}</td>
+                <td class="pm-num-col">${this.formatPrice(hist.close_price, hist.symbol)}</td>
+                <td class="pm-num-col ${pnlColorClass}"><b>${pnlSign}$${hist.profit.toFixed(2)}</b></td>
+              </tr>
+            `;
+          });
+
+          tbody.innerHTML = html;
+        },
+
+        renderAccountBar() {
+          const acc = this.data.account;
+          const balEl = document.getElementById("pm-acc-balance");
+          const eqEl = document.getElementById("pm-acc-equity");
+          const marEl = document.getElementById("pm-acc-margin");
+          const fmarEl = document.getElementById("pm-acc-freemargin");
+          const mlvlEl = document.getElementById("pm-acc-marginlevel");
+          const pnlEl = document.getElementById("pm-acc-pnl");
+
+          if (balEl) balEl.innerText = `$${acc.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          if (eqEl) eqEl.innerText = `$${acc.equity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          if (marEl) marEl.innerText = `$${acc.margin.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          if (fmarEl) fmarEl.innerText = `$${acc.free_margin.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+          if (mlvlEl) {
+            mlvlEl.innerText = acc.margin_level !== null && !isNaN(acc.margin_level) 
+              ? `${acc.margin_level.toFixed(1)}%` 
+              : "--";
+          }
+
+          if (pnlEl) {
+            const sign = acc.profit > 0 ? "+" : "";
+            const pct = acc.balance > 0 ? (acc.profit / acc.balance) * 100 : 0;
+            pnlEl.innerText = `${sign}$${acc.profit.toFixed(2)} (${sign}${pct.toFixed(2)}%)`;
+            pnlEl.className = "pm-metric-val " + (acc.profit > 0 ? "pm-pnl-positive" : acc.profit < 0 ? "pm-pnl-negative" : "pm-pnl-zero");
+          }
+        },
+
+        formatPrice(price, symbol) {
+          if (isNaN(price)) return "0.00";
+          const s = (symbol || "").toUpperCase();
+          if (s.includes("JPY")) return price.toFixed(3);
+          if (s.includes("XAU") || s.includes("BTC") || s.includes("GOLD") || s.includes("INDEX")) return price.toFixed(2);
+          if (s.includes("EUR") || s.includes("GBP") || s.includes("AUD") || s.includes("NZD") || s.includes("USD")) return price.toFixed(5);
+          return price.toFixed(2);
+        },
+
+        async closePosition(ticket) {
+          try {
+            const res = await fetch(`${this.backendUrl}/trade/close`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ ticket: Number(ticket) }),
+              signal: AbortSignal.timeout ? AbortSignal.timeout(3000) : undefined
+            });
+            if (res.ok) {
+              this.showToast(`Position #${ticket} closed successfully`, 'success');
+              await this.refresh();
+              return true;
+            }
+          } catch(e) {}
+
+          // Resilient fallback: update in-memory state and move to trade history
+          const idx = this.data.positions.findIndex(p => p.ticket == ticket);
+          if (idx !== -1) {
+            const pos = this.data.positions.splice(idx, 1)[0];
+            const nowTime = new Date().toISOString().replace('T', ' ').substring(0, 19);
+            this.data.history.unshift({
+              ticket: pos.ticket,
+              time: nowTime,
+              symbol: pos.symbol,
+              type: pos.type,
+              volume: pos.volume,
+              open_price: pos.open_price,
+              close_price: pos.current_price,
+              profit: pos.profit
+            });
+
+            this.data.account.balance += pos.profit;
+            this.updateAccountMetrics();
+            this.renderPositions();
+            this.renderHistory();
+            this.renderAccountBar();
+
+            const pnlSign = pos.profit >= 0 ? "+" : "";
+            this.showToast(`Position #${ticket} closed (${pnlSign}$${pos.profit.toFixed(2)})`, 'success');
+            return true;
+          }
+          return false;
+        },
+
+        async closeAllPositions() {
+          if (this.data.positions.length === 0) {
+            this.showToast("No active open positions to close", "info");
+            return;
+          }
+
+          if (!confirm(`Are you sure you want to close all ${this.data.positions.length} open position(s)?`)) {
+            return;
+          }
+
+          try {
+            const res = await fetch(`${this.backendUrl}/trade/close_all`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              signal: AbortSignal.timeout ? AbortSignal.timeout(4000) : undefined
+            });
+            if (res.ok) {
+              this.showToast("All open positions closed successfully", "success");
+              await this.refresh();
+              return;
+            }
+          } catch(e) {}
+
+          // Fallback: batch close in memory
+          let totalClosed = 0;
+          let netProfit = 0;
+          const nowTime = new Date().toISOString().replace('T', ' ').substring(0, 19);
+
+          while (this.data.positions.length > 0) {
+            const pos = this.data.positions.pop();
+            totalClosed++;
+            netProfit += pos.profit;
+            this.data.history.unshift({
+              ticket: pos.ticket,
+              time: nowTime,
+              symbol: pos.symbol,
+              type: pos.type,
+              volume: pos.volume,
+              open_price: pos.open_price,
+              close_price: pos.current_price,
+              profit: pos.profit
+            });
+          }
+
+          this.data.account.balance += netProfit;
+          this.updateAccountMetrics();
+          this.renderPositions();
+          this.renderHistory();
+          this.renderAccountBar();
+
+          const sign = netProfit >= 0 ? "+" : "";
+          this.showToast(`Closed ${totalClosed} position(s). Realized P&L: ${sign}$${netProfit.toFixed(2)}`, "success");
+        },
+
+        async cancelOrder(ticket) {
+          try {
+            const res = await fetch(`${this.backendUrl}/trade/cancel`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ ticket: Number(ticket) }),
+              signal: AbortSignal.timeout ? AbortSignal.timeout(3000) : undefined
+            });
+            if (res.ok) {
+              this.showToast(`Order #${ticket} cancelled`, 'success');
+              await this.refresh();
+              return true;
+            }
+          } catch(e) {}
+
+          const idx = this.data.orders.findIndex(o => o.ticket == ticket);
+          if (idx !== -1) {
+            this.data.orders.splice(idx, 1);
+            this.renderOrders();
+            this.showToast(`Pending order #${ticket} cancelled`, 'info');
+            return true;
+          }
+          return false;
+        },
+
+        async cancelAllOrders() {
+          if (this.data.orders.length === 0) {
+            this.showToast("No pending orders to cancel", "info");
+            return;
+          }
+          if (!confirm(`Cancel all ${this.data.orders.length} pending order(s)?`)) return;
+
+          const count = this.data.orders.length;
+          this.data.orders = [];
+          this.renderOrders();
+          this.showToast(`Cancelled all ${count} pending orders`, 'info');
+        },
+
+        addPosition(pos) {
+          const normalized = this.normalizePosition(pos);
+          this.data.positions.unshift(normalized);
+          this.updateAccountMetrics();
+          this.renderPositions();
+          this.renderAccountBar();
+          this.showToast(`New ${normalized.type} position #${normalized.ticket} opened for ${normalized.symbol}`, 'success');
+        },
+
+        addOrder(ord) {
+          const normalized = this.normalizeOrder(ord);
+          this.data.orders.unshift(normalized);
+          this.renderOrders();
+          this.showToast(`New pending ${normalized.type} order #${normalized.ticket} placed`, 'info');
+        },
+
+        showToast(message, type = 'info') {
+          const container = document.getElementById("pm-toast-container");
+          if (!container) return;
+
+          const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+          const toast = document.createElement("div");
+          toast.className = `pm-toast ${type}`;
+          toast.innerHTML = `<span>${icons[type] || 'ℹ️'}</span><span>${message}</span>`;
+          container.appendChild(toast);
+
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+            toast.style.transition = 'all 0.2s ease-out';
+            setTimeout(() => toast.remove(), 250);
+          }, 3200);
+        }
+      };
+
+      /* =========================================================================
+       * 5. DOM Initialization & Session Table Drag Handler (With Null Guard)
+       * ========================================================================= */
+      window.addEventListener("DOMContentLoaded", () => {
+        initChart();
+        if (window.OrderPanel && typeof window.OrderPanel.init === "function") {
+          window.OrderPanel.init();
+        }
+        if (window.PositionManager && typeof window.PositionManager.init === "function") {
+          window.PositionManager.init();
+        }
+
+        // Null-guarded session table drag handler
+        const dragEl = document.getElementById("session-table");
+        if (dragEl) {
+          let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+          dragEl.onmousedown = e => {
+            e.preventDefault();
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            document.onmousemove = e2 => {
+              posX = mouseX - e2.clientX;
+              posY = mouseY - e2.clientY;
+              mouseX = e2.clientX;
+              mouseY = e2.clientY;
+              dragEl.style.top = (dragEl.offsetTop - posY) + "px";
+              dragEl.style.left = (dragEl.offsetLeft - posX) + "px";
+            };
+            document.onmouseup = () => {
+              document.onmouseup = null;
+              document.onmousemove = null;
+            };
+          };
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,3276 @@
+{
+  "totalMined": 299,
+  "currentEnabledCount": 108,
+  "currentDisabledCount": 5,
+  "notInIndexCount": 200,
+  "currentEnabled": [
+    "trading_terminal",
+    "order_panel",
+    "order_panel_close_button",
+    "order_panel_undock",
+    "show_order_panel_on_start",
+    "trading_account_manager",
+    "open_account_manager",
+    "buy_sell_buttons",
+    "trading_notifications",
+    "show_trading_notifications_history",
+    "chart_property_page_trading",
+    "broker_button",
+    "dom_widget",
+    "show_dom_first_time",
+    "enable_dom_data_for_untradable_symbols",
+    "always_pass_called_order_to_modify",
+    "order_info",
+    "snapshot_trading_drawings",
+    "seconds_resolution",
+    "tick_resolution",
+    "custom_resolutions",
+    "pre_post_market_sessions",
+    "pre_post_market_price_line",
+    "show_average_close_price_line_and_label",
+    "countdown",
+    "display_market_status",
+    "japanese_chart_styles",
+    "chart_style_hilo",
+    "chart_style_hilo_last_price",
+    "support_multicharts",
+    "multi_chart_layout",
+    "additional_multichart_layouts",
+    "create_volume_indicator_by_default",
+    "volume_force_overlay",
+    "chart_crosshair_menu",
+    "border_around_the_chart",
+    "header_resolutions",
+    "header_interval_dialog_button",
+    "show_interval_dialog_on_key_press",
+    "header_chart_type",
+    "header_settings",
+    "header_undo_redo",
+    "header_quick_search",
+    "header_symbol_search",
+    "header_layouttoggle",
+    "header_screenshot",
+    "header_fullscreen_button",
+    "header_compare",
+    "header_indicators",
+    "header_saveload",
+    "left_toolbar",
+    "right_toolbar",
+    "timeframes_toolbar",
+    "watchlist",
+    "watchlist_context_menu",
+    "watchlist_import_export",
+    "watchlist_sections",
+    "watchlist_cross_tab_sync",
+    "show_symbol_watchlist",
+    "add_to_watchlist",
+    "multiple_watchlists",
+    "widgetbar_tabs",
+    "show_right_widgets_panel_by_default",
+    "details",
+    "quote_summary",
+    "data_window",
+    "show_symbol_logos",
+    "show_exchange_logos",
+    "show_symbol_logo_in_legend",
+    "show_symbol_logo_for_compare_studies",
+    "show_symbol_logo_in_account_manager",
+    "symbol_info",
+    "symbol_info_price_source",
+    "legend_context_menu",
+    "legend_inplace_edit",
+    "show_hide_button_in_legend",
+    "study_buttons_in_legend",
+    "format_button_in_legend",
+    "delete_button_in_legend",
+    "edit_buttons_in_legend",
+    "items_favoriting",
+    "study_on_study",
+    "study_templates",
+    "drawing_templates",
+    "chart_templates",
+    "datasource_copypaste",
+    "show_object_tree",
+    "keep_object_tree_widget_in_right_toolbar",
+    "scales_context_menu",
+    "main_series_scale_menu",
+    "property_pages",
+    "show_chart_property_page",
+    "chart_property_page_scales",
+    "property_page_scales",
+    "go_to_date",
+    "timezone_menu",
+    "show_dialog_on_double_click",
+    "source_selection_markers",
+    "popup_hints",
+    "save_chart_properties_to_local_storage",
+    "favorite_timeframes",
+    "save_shortcut",
+    "chart_scroll",
+    "chart_zoom",
+    "bars_marks",
+    "end_of_period_timescale_marks",
+    "pane_context_menu",
+    "charting_library_export_chart_data"
+  ],
+  "currentDisabled": [
+    "news_widget",
+    "news_provider",
+    "timescale_marks",
+    "marks",
+    "allow_supported_resolutions_set_only"
+  ],
+  "notInIndex": [
+    {
+      "feature": "14851",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        ";if(e&&(e.style.display=\"none\"),setTimeout(TS,0),l.enabled(\"14851\")&&Math.random()<=.02){t=window,i=document,s=\"scrip",
+        "if(e&&(e.style.display=\"none\"),setTimeout(TS,0),l.enabled(\"14851\")&&Math.random()<=.02){t=window,i=document,s=\"scrip"
+      ]
+    },
+    {
+      "feature": "38914",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ptive_logo\"),sv=l.enabled(\"small_no_display\"),rv=l.enabled(\"38914\"),nv=\"site_branding\",ov=\"widget_branding\",av=\"widge",
+        "tive_logo\"),sv=l.enabled(\"small_no_display\"),rv=l.enabled(\"38914\"),nv=\"site_branding\",ov=\"widget_branding\",av=\"widge"
+      ]
+    },
+    {
+      "feature": "accessible_keyboard_shortcuts",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "nt(document),WS.setLocale(OS),function(){const e=l.enabled(\"accessible_keyboard_shortcuts\")?(0,V.humanReadableHash)(9):`${(0,V.humanReadableM",
+        "derComparator);void 0!==e&&e.focus()},hotkeyHash:l.enabled(\"accessible_keyboard_shortcuts\")?9:B.Modifiers.Alt+90,hotkeyGroup:(0,B.createGroup",
+        "t(document),WS.setLocale(OS),function(){const e=l.enabled(\"accessible_keyboard_shortcuts\")?(0,V.humanReadableHash)(9):`${(0,V.humanReadableM"
+      ]
+    },
+    {
+      "feature": "adaptive_logo",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "old-style\",Jy],[\"tradingview-old-style\",Xy]]),iv=l.enabled(\"adaptive_logo\"),sv=l.enabled(\"small_no_display\"),rv=l.enabled(\"38",
+        "ld-style\",Jy],[\"tradingview-old-style\",Xy]]),iv=l.enabled(\"adaptive_logo\"),sv=l.enabled(\"small_no_display\"),rv=l.enabled(\"38"
+      ]
+    },
+    {
+      "feature": "advanced_emoji_in_titles",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "3805.42495629e38f02c4d148.js",
+        "3905.5e651f8ebf55269e0eda.js",
+        "watchlist-widget.c7bd684646cd360803e2.js"
+      ],
+      "contexts": [
+        "021),a=n(440891),i=n(278765),c=n(539453);const s=a.enabled(\"advanced_emoji_in_titles\");function u(e){const{text:t,textRender:n=e=>e,firs",
+        "21),a=n(440891),i=n(278765),c=n(539453);const s=a.enabled(\"advanced_emoji_in_titles\");function u(e){const{text:t,textRender:n=e=>e,firs",
+        "021),c=u(440891),r=u(278765),o=u(539453);const a=c.enabled(\"advanced_emoji_in_titles\");function i(d){const{text:e,textRender:u=d=>d,firs"
+      ]
+    },
+    {
+      "feature": "alerts",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "contexts": [
+        " 0},{type:\"detail\"},{type:\"news\",isEnabled:!0}]},I.enabled(\"alerts\")?{_gaEvent:\"Alerts\",title:a.t(null,void 0,i(336620",
+        "0},{type:\"detail\"},{type:\"news\",isEnabled:!0}]},I.enabled(\"alerts\")?{_gaEvent:\"Alerts\",title:a.t(null,void 0,i(336620"
+      ]
+    },
+    {
+      "feature": "align_dwm_bars_to_main_series",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "002),T=i(149536),x=i(826199),I=i(150335);const M=r.enabled(\"align_dwm_bars_to_main_series\");class A{constructor(e,t,i,s,r,n,o){this.periodBas",
+        "Ie=r.enabled(\"end_of_period_timescale_marks\"),Me=r.enabled(\"align_dwm_bars_to_main_series\");class Ae{constructor(){this._completed=!0,this._m",
+        "\")&&(0,m.isAlignmentEnabled)(),enableDwmAligning:r.enabled(\"align_dwm_bars_to_main_series\")||!this._studyCanExtendTimeScale(e,l),input:e=>h[e"
+      ]
+    },
+    {
+      "feature": "allow_arbitrary_symbol_search_input",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "7335.f7017c32a7d4a05f3652.js",
+        "add-compare-dialog.5c5e616ea16bb43dcec2.js"
+      ],
+      "contexts": [
+        "oid(e&&t());if(-1!==pe){Ae[pe].onClick()}else if(u.enabled(\"allow_arbitrary_symbol_search_input\")){const n=et?r.toUpperCase():r;if(n&&\"\"!==n.trim()",
+        "id(e&&t());if(-1!==pe){Ae[pe].onClick()}else if(u.enabled(\"allow_arbitrary_symbol_search_input\")){const n=et?r.toUpperCase():r;if(n&&\"\"!==n.trim()",
+        "Name:e?.symbol,t=-1!==s;if(t)return e(F);const o=i.enabled(\"allow_arbitrary_symbol_search_input\"),r=\"empty\"!==y;if(o)return r&&H.length?e(H[0]):n?."
+      ]
+    },
+    {
+      "feature": "always_show_legend_values_on_mobile",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "any(),f=o.enabled(\"hide_last_na_study_output\"),y=o.enabled(\"always_show_legend_values_on_mobile\");class v{constructor(e,t,i){this._emptyValues=[],t",
+        "ny(),f=o.enabled(\"hide_last_na_study_output\"),y=o.enabled(\"always_show_legend_values_on_mobile\");class v{constructor(e,t,i){this._emptyValues=[],t"
+      ]
+    },
+    {
+      "feature": "app_phone",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "app_tablet",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "aria_crosshair_price_description",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "iceDescription(e){if(this._ariaPriceDescription&&l.enabled(\"aria_crosshair_price_description\")){const t=this.model().mainSeries().nearestData(e.",
+        "ceDescription(e){if(this._ariaPriceDescription&&l.enabled(\"aria_crosshair_price_description\")){const t=this.model().mainSeries().nearestData(e."
+      ]
+    },
+    {
+      "feature": "aria_detailed_chart_descriptions",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "turn;const n=function(e){const t=function(e){if(!l.enabled(\"aria_detailed_chart_descriptions\")||!e.visibleData)return\"\";let t;try{t=function(e){",
+        ".indexToTimePoint(d);if(!u||!_)return null;let p;l.enabled(\"aria_detailed_chart_descriptions\")&&(p=await this._getData(e,u,_));const m=e.model()",
+        "urn;const n=function(e){const t=function(e){if(!l.enabled(\"aria_detailed_chart_descriptions\")||!e.visibleData)return\"\";let t;try{t=function(e){"
+      ]
+    },
+    {
+      "feature": "atsv2s",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "re)(e,{...t,feature:\"savedCharts\"}):e()}i(68212);l.enabled(\"atsv2s\");var U;!function(e){e[e.OneSecond=1e3]=\"OneSecond\"",
+        "e)(e,{...t,feature:\"savedCharts\"}):e()}i(68212);l.enabled(\"atsv2s\");var U;!function(e){e[e.OneSecond=1e3]=\"OneSecond\""
+      ]
+    },
+    {
+      "feature": "auto_enable_symbol_labels",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "empty line tools\",a.t(null,void 0,i(727171))),U_=l.enabled(\"auto_enable_symbol_labels\"),j_=l.enabled(\"saveload_separate_drawings_storage\"",
+        "mpty line tools\",a.t(null,void 0,i(727171))),U_=l.enabled(\"auto_enable_symbol_labels\"),j_=l.enabled(\"saveload_separate_drawings_storage\""
+      ]
+    },
+    {
+      "feature": "axis_pressed_mouse_move_scale",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "handle_scale"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "nabled(\"pinch_scale\"),axisPressedMouseMove:{time:l.enabled(\"axis_pressed_mouse_move_scale\"),price:l.enabled(\"axis_pressed_mouse_move_scale\")}",
+        "l.enabled(\"axis_pressed_mouse_move_scale\"),price:l.enabled(\"axis_pressed_mouse_move_scale\")}},handleScroll:{mouseWheel:l.enabled(\"mouse_wheel",
+        "abled(\"pinch_scale\"),axisPressedMouseMove:{time:l.enabled(\"axis_pressed_mouse_move_scale\"),price:l.enabled(\"axis_pressed_mouse_move_scale\")}"
+      ]
+    },
+    {
+      "feature": "bovespa_widget",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [
+        "widget",
+        "header_settings",
+        "linetoolpropertieswidget_template_button",
+        "compare_recent_symbols_enabled"
+      ],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "bugreport_button",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [
+        "right_toolbar"
+      ],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "contexts": [
+        "d(\"order_panel\")||l.enabled(\"show_object_tree\")||l.enabled(\"bugreport_button\")),hS=l.enabled(\"header_widget\")?Xv.allocate({areaN",
+        "(\"order_panel\")||l.enabled(\"show_object_tree\")||l.enabled(\"bugreport_button\")),hS=l.enabled(\"header_widget\")?Xv.allocate({areaN",
+        "htToolbarOptions={isSupportTicketButtonAvailable:I.enabled(\"bugreport_button\"),isHelpButtonAvailable:!I.enabled(\"widget\")&&!1,is"
+      ]
+    },
+    {
+      "feature": "bypass_chart_height_check",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "gin=0]=\"TopToolbarMargin\"}(Ye||(Ye={}));const Ze=l.enabled(\"bypass_chart_height_check\");function Xe(e){const t=l.enabled(\"side_toolbar_in",
+        "in=0]=\"TopToolbarMargin\"}(Ye||(Ye={}));const Ze=l.enabled(\"bypass_chart_height_check\");function Xe(e){const t=l.enabled(\"side_toolbar_in"
+      ]
+    },
+    {
+      "feature": "chart_content_overrides_by_defaults",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "0,le.getLogger)(\"ChartWidget\",{color:\"#606\"}),Fg=l.enabled(\"chart_content_overrides_by_defaults\"),Wg=l.enabled(\"symphony_embed\"),Hg=new Vt.Translat",
+        ",le.getLogger)(\"ChartWidget\",{color:\"#606\"}),Fg=l.enabled(\"chart_content_overrides_by_defaults\"),Wg=l.enabled(\"symphony_embed\"),Hg=new Vt.Translat"
+      ]
+    },
+    {
+      "feature": "chart_drag_export",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        ".subscribe(this._onShiftKeyStateChangedListener),l.enabled(\"chart_drag_export\")&&(_.draggable=this._chartModel().dragExportEnable",
+        "get.model().model(),t)))}setDragExportEnabled(e){l.enabled(\"chart_drag_export\")?this._chartWidget.model().model().setDragExportEn",
+        "subscribe(this._onShiftKeyStateChangedListener),l.enabled(\"chart_drag_export\")&&(_.draggable=this._chartModel().dragExportEnable"
+      ]
+    },
+    {
+      "feature": "chart_hide_close_order_button",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "6161.10c4a7de17f463d1d76e.js"
+      ],
+      "contexts": [
+        "9016),n=o(168873),l=o(96829),d=o(112232);const c=s.enabled(\"chart_hide_close_order_button\");class h extends l.OrderBaseItem{style(){return th",
+        "016),n=o(168873),l=o(96829),d=o(112232);const c=s.enabled(\"chart_hide_close_order_button\");class h extends l.OrderBaseItem{style(){return th"
+      ]
+    },
+    {
+      "feature": "chart_hide_close_position_button",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "6161.10c4a7de17f463d1d76e.js"
+      ],
+      "contexts": [
+        ";const v=(0, d.getLogger)(\"Trading.Positions\"),g=a.enabled(\"chart_hide_close_position_button\");class P extends _.BaseItem{constructor(t,e,o,r,i,",
+        "const v=(0, d.getLogger)(\"Trading.Positions\"),g=a.enabled(\"chart_hide_close_position_button\");class P extends _.BaseItem{constructor(t,e,o,r,i,"
+      ]
+    },
+    {
+      "feature": "chart_property_page",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "property_pages"
+      ],
+      "subsets": [
+        "chart_property_page_scales",
+        "chart_property_page_trading",
+        "chart_property_page_right_margin_editor"
+      ],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "chart_property_page_right_margin_editor",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "chart_property_page"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "contexts": [
+        "1),unit:new s.WatchedValue(\"%\")});if(f.push(W,M),r.enabled(\"chart_property_page_right_margin_editor\")){const i={value:(0,c.convertFromWVToDefinitionPro",
+        "),unit:new s.WatchedValue(\"%\")});if(f.push(W,M),r.enabled(\"chart_property_page_right_margin_editor\")){const i={value:(0,c.convertFromWVToDefinitionPro"
+      ]
+    },
+    {
+      "feature": "chart_template_storage",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "general-chart-properties-dialog.f1e0baa3f7c3ba8b7a81.js"
+      ],
+      "contexts": [
+        "oid 0,n(276266))),N=i.t(null,void 0,n(277571)),W=p.enabled(\"chart_template_storage\");class F extends o.PureComponent{constructor(e){su",
+        "id 0,n(276266))),N=i.t(null,void 0,n(277571)),W=p.enabled(\"chart_template_storage\");class F extends o.PureComponent{constructor(e){su"
+      ]
+    },
+    {
+      "feature": "charting_library",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "static_charts_service"
+      ],
+      "subsets": [
+        "charting_library_base"
+      ],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ll!==e)))];if(this._externalDatafeed.getQuotes&&!r.enabled(\"charting_library\")){const[t,i]=await Promise.all([a(this._quotesInfo",
+        "t===_v||this._layout===pv){let e;switch(!0){case l.enabled(\"charting_library\"):e=\"library\";break;case l.enabled(\"trading_termina",
+        "l!==e)))];if(this._externalDatafeed.getQuotes&&!r.enabled(\"charting_library\")){const[t,i]=await Promise.all([a(this._quotesInfo"
+      ]
+    },
+    {
+      "feature": "charting_library_base",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library",
+        "trading_terminal"
+      ],
+      "subsets": [
+        "14851",
+        "allow_supported_resolutions_set_only",
+        "auto_enable_symbol_labels",
+        "border_around_the_chart",
+        "collapsible_header",
+        "constraint_dialogs_movement",
+        "context_menus",
+        "control_bar",
+        "create_volume_indicator_by_default",
+        "custom_items_in_context_menu",
+        "datasource_copypaste",
+        "uppercase_instrument_names",
+        "display_market_status",
+        "edit_buttons_in_legend",
+        "object_tree_legend_mode",
+        "graying_disabled_tools_enabled",
+        "header_widget",
+        "legend_widget",
+        "header_saveload",
+        "dont_show_boolean_study_arguments",
+        "lean_chart_load",
+        "left_toolbar",
+        "right_toolbar",
+        "link_to_tradingview",
+        "pay_attention_to_ticker_not_symbol",
+        "plain_studymarket",
+        "refresh_saved_charts_list_on_dialog_show",
+        "right_bar_stays_on_scroll",
+        "saveload_storage_customization",
+        "stop_study_on_restart",
+        "timeframes_toolbar",
+        "symbol_search_hot_key",
+        "update_study_formatter_on_symbol_resolve",
+        "update_timeframes_set_on_symbol_resolve",
+        "use_localstorage_for_settings",
+        "volume_force_overlay",
+        "widget_logo",
+        "countdown",
+        "use_overrides_for_overlay",
+        "trading_notifications",
+        "compare_symbol",
+        "symbol_info",
+        "timezone_menu",
+        "main_series_scale_menu",
+        "create_volume_indicator_by_default_once",
+        "bars_marks",
+        "chart_scroll",
+        "chart_zoom",
+        "source_selection_markers",
+        "property_pages",
+        "go_to_date",
+        "adaptive_logo",
+        "show_animated_logo",
+        "handle_scale",
+        "handle_scroll",
+        "shift_visible_range_on_new_bar",
+        "chart_content_overrides_by_defaults",
+        "cropped_tick_marks",
+        "scales_date_format",
+        "scales_time_hours_format",
+        "popup_hints",
+        "save_shortcut",
+        "show_right_widgets_panel_by_default",
+        "show_object_tree",
+        "insert_indicator_dialog_shortcut",
+        "compare_recent_symbols_enabled",
+        "hide_main_series_symbol_from_indicator_legend",
+        "chart_style_hilo",
+        "request_only_visible_range_on_reset",
+        "clear_price_scale_on_error_or_empty_bars",
+        "show_symbol_logo_in_legend",
+        "show_symbol_logo_for_compare_studies",
+        "library_custom_color_themes"
+      ],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "charting_library_debug_mode",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "d)(e.value(),t,i,s),a=n.Interval.parse(o);return r.enabled(\"charting_library_debug_mode\")&&console.log(`${(new Date).toISOString()} Selecte",
+        "equestedTo({to:e,countBack:0})}_logMessage(e,t){(r.enabled(\"charting_library_debug_mode\")||t)&&console.log(`${this._logMessagePrefix()}${e}",
+        "this._nextSubscriptionId++}_checkBars(e,t=!1){if(r.enabled(\"charting_library_debug_mode\"))for(let i=1;i<e.length;i++){if(e[i].time<=e[i-1]."
+      ]
+    },
+    {
+      "feature": "charting_library_single_symbol_request",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ol\"),m=l.enabled(\"uppercase_instrument_names\"),g=l.enabled(\"charting_library_single_symbol_request\"),f=l.enabled(\"use_ticker_on_symbol_info_update\"),y",
+        "l\"),m=l.enabled(\"uppercase_instrument_names\"),g=l.enabled(\"charting_library_single_symbol_request\"),f=l.enabled(\"use_ticker_on_symbol_info_update\"),y"
+      ]
+    },
+    {
+      "feature": "charts_auto_save",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "Autosave():this._stopAutosave()}_startAutosave(){l.enabled(\"charts_auto_save\")&&null===this._autosaveTimer&&(this._autosaveTimer",
+        "utosave():this._stopAutosave()}_startAutosave(){l.enabled(\"charts_auto_save\")&&null===this._autosaveTimer&&(this._autosaveTimer"
+      ]
+    },
+    {
+      "feature": "charts_emoji_sync",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "d=i(728591);const u=(0,c.getLogger)(\"Linking\"),_=o.enabled(\"charts_emoji_sync\");var p,m;!function(e){e[e.NotBound=0]=\"NotBound\",e",
+        "=i(728591);const u=(0,c.getLogger)(\"Linking\"),_=o.enabled(\"charts_emoji_sync\");var p,m;!function(e){e[e.NotBound=0]=\"NotBound\",e"
+      ]
+    },
+    {
+      "feature": "clear_bars_on_series_error",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "hartapiMessagerInstances[e].onSeriesError(t,i,s),r.enabled(\"clear_bars_on_series_error\")&&(n.isMain?this.onSessionSeriesError(e):this._cle",
+        "artapiMessagerInstances[e].onSeriesError(t,i,s),r.enabled(\"clear_bars_on_series_error\")&&(n.isMain?this.onSessionSeriesError(e):this._cle"
+      ]
+    },
+    {
+      "feature": "clear_price_scale_on_error_or_empty_bars",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "){e&&(e.colorType??=Jr.ColorType.Solid)}const od=l.enabled(\"clear_price_scale_on_error_or_empty_bars\"),ad=(0,le.getLogger)(\"Chart.Pane\");var ld;function",
+        "{e&&(e.colorType??=Jr.ColorType.Solid)}const od=l.enabled(\"clear_price_scale_on_error_or_empty_bars\"),ad=(0,le.getLogger)(\"Chart.Pane\");var ld;function"
+      ]
+    },
+    {
+      "feature": "collapsible_header",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "contexts": [
+        "bled(\"show_spread_operators\"),allowToolbarHiding:m.enabled(\"collapsible_header\")},this._setDisplayMode=(0,u.default)(this._setDisp",
+        "led(\"show_spread_operators\"),allowToolbarHiding:m.enabled(\"collapsible_header\")},this._setDisplayMode=(0,u.default)(this._setDisp"
+      ]
+    },
+    {
+      "feature": "compare_recent_symbols_enabled",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "bovespa_widget",
+        "charting_library_base",
+        "trading_terminal"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "compare-model.17fcdaff82dd9646d47f.js"
+      ],
+      "contexts": [
+        "is._chartSession=null,this._recentSymbolsEnabled=r.enabled(\"compare_recent_symbols_enabled\"),this._preventHandleSourcesChange=!0,this.removeSt",
+        "s._chartSession=null,this._recentSymbolsEnabled=r.enabled(\"compare_recent_symbols_enabled\"),this._preventHandleSourcesChange=!0,this.removeSt"
+      ]
+    },
+    {
+      "feature": "compare_symbol",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "header_widget",
+        "tv_production",
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [
+        "header_compare"
+      ],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "compare_symbol_search_spread_operators",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "add-compare-dialog.5c5e616ea16bb43dcec2.js"
+      ],
+      "contexts": [
+        "id a(t);e.preventDefault();const o=function(){if(i.enabled(\"compare_symbol_search_spread_operators\")&&i.enabled(\"show_spread_operators\")&&S)return n?.",
+        "preadActions:i.enabled(\"show_spread_operators\")&&i.enabled(\"compare_symbol_search_spread_operators\")});var t}},6519:(e,t,n)=>{\"use strict\";var o;n.d(t",
+        "d a(t);e.preventDefault();const o=function(){if(i.enabled(\"compare_symbol_search_spread_operators\")&&i.enabled(\"show_spread_operators\")&&S)return n?."
+      ]
+    },
+    {
+      "feature": "confirm_overwrite_if_chart_layout_with_name_exists",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "nc function G(){return!0}var q=i(153055);const $=l.enabled(\"confirm_overwrite_if_chart_layout_with_name_exists\");class K{constructor(e,t,i){this._visibility=new F",
+        "c function G(){return!0}var q=i(153055);const $=l.enabled(\"confirm_overwrite_if_chart_layout_with_name_exists\");class K{constructor(e,t,i){this._visibility=new F"
+      ]
+    },
+    {
+      "feature": "constraint_dialogs_movement",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "context_menus",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [
+        "pane_context_menu",
+        "scales_context_menu",
+        "legend_context_menu",
+        "objects_tree_context_menu"
+      ],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "control_bar",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "this._mainDiv),(this._options.controlBarEnabled||l.enabled(\"control_bar\"))&&this._createControlBar(),this._options.handleSc",
+        "his._mainDiv),(this._options.controlBarEnabled||l.enabled(\"control_bar\"))&&this._createControlBar(),this._options.handleSc"
+      ]
+    },
+    {
+      "feature": "create_volume_indicator_by_default_once",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "lt\")&&this._options.addVolume,t=!this._content,i=l.enabled(\"create_volume_indicator_by_default_once\"),s=this._content&&!this._content.loading;if(e&&(t|",
+        "t\")&&this._options.addVolume,t=!this._content,i=l.enabled(\"create_volume_indicator_by_default_once\"),s=this._content&&!this._content.loading;if(e&&(t|"
+      ]
+    },
+    {
+      "feature": "cropped_tick_marks",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "hift_visible_range_on_new_bar\"),croppedTickMarks:l.enabled(\"cropped_tick_marks\"),countdownEnabled:l.enabled(\"countdown\"),indicator",
+        "ift_visible_range_on_new_bar\"),croppedTickMarks:l.enabled(\"cropped_tick_marks\"),countdownEnabled:l.enabled(\"countdown\"),indicator"
+      ]
+    },
+    {
+      "feature": "currency_menu_disabled",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "t.isNumber)(i)&&!e.isLog()?t.format(i):\"\"}(4),Qn=l.enabled(\"currency_menu_disabled\"),eo=l.enabled(\"unit_menu_disabled\"),to={contextMen",
+        ".isNumber)(i)&&!e.isLog()?t.format(i):\"\"}(4),Qn=l.enabled(\"currency_menu_disabled\"),eo=l.enabled(\"unit_menu_disabled\"),to={contextMen"
+      ]
+    },
+    {
+      "feature": "custom_items_in_context_menu",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "this._state&&this._state.defaultPriceScale();if(!l.enabled(\"custom_items_in_context_menu\"))return e;const s=t.isEmpty()?void 0:t.indexToUser",
+        "his._state&&this._state.defaultPriceScale();if(!l.enabled(\"custom_items_in_context_menu\"))return e;const s=t.isEmpty()?void 0:t.indexToUser"
+      ]
+    },
+    {
+      "feature": "determine_first_data_request_size_using_visible_range",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "s._modelCreated.fire(e),this._tagsChanged.fire(),l.enabled(\"determine_first_data_request_size_using_visible_range\")&&this._setFirstRequestNumbarsUsingTimeframeAndInt",
+        "._modelCreated.fire(e),this._tagsChanged.fire(),l.enabled(\"determine_first_data_request_size_using_visible_range\")&&this._setFirstRequestNumbarsUsingTimeframeAndInt"
+      ]
+    },
+    {
+      "feature": "disable_legend_inplace_symbol_change",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "contexts": [
+        "nabled(\"symbol_search_option_chain_selector\")})};c.enabled(\"disable_legend_inplace_symbol_change\")||(this._titleActions.title={onClick:e,tooltip:Ue}",
+        "abled(\"symbol_search_option_chain_selector\")})};c.enabled(\"disable_legend_inplace_symbol_change\")||(this._titleActions.title={onClick:e,tooltip:Ue}"
+      ]
+    },
+    {
+      "feature": "disable_pulse_animation",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "e(){if(!this._options.lastPriceAnimationEnabled||b.enabled(\"disable_pulse_animation\"))return;const e=this._lastPriceAnimationActive,t=t",
+        "(){if(!this._options.lastPriceAnimationEnabled||b.enabled(\"disable_pulse_animation\"))return;const e=this._lastPriceAnimationActive,t=t"
+      ]
+    },
+    {
+      "feature": "disable_resolution_rebuild",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "static_charts_service"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "reBarsCache[this._futureBarsCache.length-1]>=e||(r.enabled(\"disable_resolution_rebuild\")&&(this._interval.isDays()||this._interval.isWeeks",
+        "this._futureBarsCache,this._extrapolateLimit))&&(r.enabled(\"disable_resolution_rebuild\")&&(this._interval.isDays()||this._interval.isWeeks",
+        "e)(\"Etc/UTC\")),r.getTime()}}}function h(){return!r.enabled(\"disable_resolution_rebuild\")}function d(e,t){if(!h())return e=>e;const i=new o"
+      ]
+    },
+    {
+      "feature": "disable_sameinterval_aligning",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "e:d,subsessionId:i.subsession_id,forceAlignBars:!r.enabled(\"disable_sameinterval_aligning\")&&(0,m.isAlignmentEnabled)(),enableDwmAligning:r.e",
+        ":d,subsessionId:i.subsession_id,forceAlignBars:!r.enabled(\"disable_sameinterval_aligning\")&&(0,m.isAlignmentEnabled)(),enableDwmAligning:r.e"
+      ]
+    },
+    {
+      "feature": "display_data_mode",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        ".enabled(\"price_scale_always_last_bar_value\"),Ti=b.enabled(\"display_data_mode\"),xi=!b.enabled(\"hide_series_legend_item\"),Ii=b.ena",
+        "enabled(\"price_scale_always_last_bar_value\"),Ti=b.enabled(\"display_data_mode\"),xi=!b.enabled(\"hide_series_legend_item\"),Ii=b.ena"
+      ]
+    },
+    {
+      "feature": "display_legend_on_all_charts",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "e.Text,\"Text\"],[li.AreaName.Style,\"Style\"]]),jo=!l.enabled(\"display_legend_on_all_charts\");var Go;!function(e){e[e.MinScrollSpeed=.2]=\"MinSc",
+        ".Text,\"Text\"],[li.AreaName.Style,\"Style\"]]),jo=!l.enabled(\"display_legend_on_all_charts\");var Go;!function(e){e[e.MinScrollSpeed=.2]=\"MinSc"
+      ]
+    },
+    {
+      "feature": "dont_show_boolean_study_arguments",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "denInputs:!1,skipFakeInputs:!1,skipBooleanInputs:H.enabled(\"dont_show_boolean_study_arguments\"),asObject:!0,skippedGroups:[],skippedInputs:[],noE",
+        "enInputs:!1,skipFakeInputs:!1,skipBooleanInputs:H.enabled(\"dont_show_boolean_study_arguments\"),asObject:!0,skippedGroups:[],skippedInputs:[],noE"
+      ]
+    },
+    {
+      "feature": "embed_resizer_overrides",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2538.13f4bc31d9a146bc25c4.js",
+        "4570.2c8d882e1ef1f67d91f4.js",
+        "currency-label-menu.5e4a65f682c315c97785.js",
+        "custom-intervals-add-dialog.d76a6a740a6ac3246ab1.js",
+        "data-exportdialog.8525d1f6cf241ad40fb2.js"
+      ],
+      "contexts": [
+        "diaQuery=null,this._embedResizerOverridesEnabled=E.enabled(\"embed_resizer_overrides\"),this._titleId=`title_${(0,S.randomHash)()}`,this.",
+        "iaQuery=null,this._embedResizerOverridesEnabled=E.enabled(\"embed_resizer_overrides\"),this._titleId=`title_${(0,S.randomHash)()}`,this.",
+        "diaQuery=null,this._embedResizerOverridesEnabled=E.enabled(\"embed_resizer_overrides\"),this._titleId=`title_${(0,R.randomHash)()}`,this."
+      ]
+    },
+    {
+      "feature": "expand_symbolsearch_items",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "extended_extrapolation_limit",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "l=u.Interval.parse(t),this._extrapolateLimit=i??(r.enabled(\"extended_extrapolation_limit\")?45e4:2e5),this._session=new p.SessionInfo(e.timez",
+        "=u.Interval.parse(t),this._extrapolateLimit=i??(r.enabled(\"extended_extrapolation_limit\")?45e4:2e5),this._session=new p.SessionInfo(e.timez"
+      ]
+    },
+    {
+      "feature": "fix_left_edge",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "if(this._requestingMoreData=!1,this._endOfData=e,l.enabled(\"fix_left_edge\")&&this._endOfData){const e=this._points.range().va",
+        "f(this._requestingMoreData=!1,this._endOfData=e,l.enabled(\"fix_left_edge\")&&this._endOfData){const e=this._points.range().va"
+      ]
+    },
+    {
+      "feature": "footer_publish_idea_button",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "force_exchange_as_title",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "contexts": [
+        ",le=i(851658),ce=i(932116),he=i(934135);const de=b.enabled(\"force_exchange_as_title\"),ue=b.enabled(\"chart_style_hilo_last_price\");const",
+        "941),d=i(887946),u=i(932116),_=i(589637);const p=c.enabled(\"force_exchange_as_title\");class m extends d.PriceAxisView{constructor(e,t){",
+        "enabled(\"study_overlay_compare_legend_option\"),R=c.enabled(\"force_exchange_as_title\"),N=!c.enabled(\"hide_study_compare_legend_item\"),O="
+      ]
+    },
+    {
+      "feature": "fundamental_widget",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "chart-bottom-toolbar.fd38479e975a1ac4fdd8.js",
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "Ke.FragmentMap,{map:this._injector},!1,!1,!1,s&&!c.enabled(\"fundamental_widget\")&&i.createElement(wt,{className:vt.item}),o&&i.cre",
+        "e.FragmentMap,{map:this._injector},!1,!1,!1,s&&!c.enabled(\"fundamental_widget\")&&i.createElement(wt,{className:vt.item}),o&&i.cre",
+        "}));c.enabled(\"hide_legend_by_default\");const Pl=c.enabled(\"fundamental_widget\"),zl=c.enabled(\"legend_context_menu\"),Nl=2*parseInt"
+      ]
+    },
+    {
+      "feature": "graying_disabled_tools_enabled",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "study-market.958531c4a183b19a7315.js"
+      ],
+      "contexts": [
+        ",is_hidden_study:l,version:c,extra:d,tags:u}=e,h=f.enabled(\"graying_disabled_tools_enabled\")&&window.ChartApiInstance?.studiesAccessController",
+        "is_hidden_study:l,version:c,extra:d,tags:u}=e,h=f.enabled(\"graying_disabled_tools_enabled\")&&window.ChartApiInstance?.studiesAccessController"
+      ]
+    },
+    {
+      "feature": "handle_scale",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [
+        "mouse_wheel_scale",
+        "pinch_scale",
+        "axis_pressed_mouse_move_scale"
+      ],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "handle_scroll",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [
+        "mouse_wheel_scroll",
+        "pressed_mouse_move_scroll",
+        "horz_touch_drag_scroll",
+        "vert_touch_drag_scroll"
+      ],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "header_in_fullscreen_mode",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "t=l.enabled(\"side_toolbar_in_fullscreen_mode\"),i=l.enabled(\"header_in_fullscreen_mode\");return\"center\"===e||\"left\"===e&&t||\"top\"===e&&i}v",
+        "=l.enabled(\"side_toolbar_in_fullscreen_mode\"),i=l.enabled(\"header_in_fullscreen_mode\");return\"center\"===e||\"left\"===e&&t||\"top\"===e&&i}v"
+      ]
+    },
+    {
+      "feature": "header_widget",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "charting_library_base"
+      ],
+      "subsets": [
+        "header_widget_dom_node",
+        "header_symbol_search",
+        "header_resolutions",
+        "header_chart_type",
+        "header_settings",
+        "header_indicators",
+        "header_compare",
+        "header_undo_redo",
+        "header_quick_search",
+        "header_fullscreen_button",
+        "compare_symbol",
+        "header_screenshot"
+      ],
+      "sources": [
+        "2614.js (baseTree)",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "gnet)}})),t})(e),s=function(e){const t=[];return Q.enabled(\"header_widget\")&&Q.enabled(\"header_compare\")&&t.push(new U({icon:",
+        "Actions\",onExecute:()=>e.toggleCompareOrAdd()})),Q.enabled(\"header_widget\")&&Q.enabled(\"header_indicators\")&&t.push(new U({ic",
+        "nExecute:()=>e.showObjectsTreePanelOrDialog()})),Q.enabled(\"header_widget\")&&Q.enabled(\"header_settings\")&&t.push(new U({labe"
+      ]
+    },
+    {
+      "feature": "header_widget_dom_node",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "header_widget",
+        "widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "hide_alert_referral_tool",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "contexts": [
+        "Name:U.button,displayMode:r})),e.AlertReferral&&!m.enabled(\"hide_alert_referral_tool\")&&s.createElement(C,{key:\"alert-referral\"},s.creat",
+        "ame:U.button,displayMode:r})),e.AlertReferral&&!m.enabled(\"hide_alert_referral_tool\")&&s.createElement(C,{key:\"alert-referral\"},s.creat"
+      ]
+    },
+    {
+      "feature": "hide_chats_page",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "contexts": [
+        "null,void 0,i(134504)),widgets:[{type:\"notes\"}]},I.enabled(\"hide_chats_page\")?null:{_gaEvent:\"Chats\",title:a.t(null,void 0,i(62",
+        "ull,void 0,i(134504)),widgets:[{type:\"notes\"}]},I.enabled(\"hide_chats_page\")?null:{_gaEvent:\"Chats\",title:a.t(null,void 0,i(62"
+      ]
+    },
+    {
+      "feature": "hide_exponentiation_spread_operator",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "7335.f7017c32a7d4a05f3652.js"
+      ],
+      "contexts": [
+        "\",type:\"binaryOp\",name:\"multiplication\"}];return u.enabled(\"hide_exponentiation_spread_operator\")||(i=i.concat([{icon:de,insert:\"^\",type:\"binaryOp\"",
+        ",type:\"binaryOp\",name:\"multiplication\"}];return u.enabled(\"hide_exponentiation_spread_operator\")||(i=i.concat([{icon:de,insert:\"^\",type:\"binaryOp\""
+      ]
+    },
+    {
+      "feature": "hide_ideas_page",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "contexts": [
+        "s:{}},{type:\"earnings_calendar\",properties:{}}]},I.enabled(\"hide_ideas_page\")||isFeatureEnabled(\"show_community_feed_button\")?n",
+        ":{}},{type:\"earnings_calendar\",properties:{}}]},I.enabled(\"hide_ideas_page\")||isFeatureEnabled(\"show_community_feed_button\")?n"
+      ]
+    },
+    {
+      "feature": "hide_ideas_streams_page",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "contexts": [
+        "\",icon:\"messages\",widgets:[{type:\"unionchats\"}]},I.enabled(\"hide_ideas_streams_page\")||isFeatureEnabled(\"show_community_feed_button\")?n",
+        ",icon:\"messages\",widgets:[{type:\"unionchats\"}]},I.enabled(\"hide_ideas_streams_page\")||isFeatureEnabled(\"show_community_feed_button\")?n"
+      ]
+    },
+    {
+      "feature": "hide_image_invalid_symbol",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "7335.f7017c32a7d4a05f3652.js"
+      ],
+      "contexts": [
+        "),Ne=r(56871),Me=r(686870),De=r(976717);const _e=u.enabled(\"hide_image_invalid_symbol\");function Oe(e){const{otherSymbolsCount:t,onChange",
+        ",Ne=r(56871),Me=r(686870),De=r(976717);const _e=u.enabled(\"hide_image_invalid_symbol\");function Oe(e){const{otherSymbolsCount:t,onChange"
+      ]
+    },
+    {
+      "feature": "hide_last_na_study_output",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "96292),m=i(209039);const g=r.CheckMobile.any(),f=o.enabled(\"hide_last_na_study_output\"),y=o.enabled(\"always_show_legend_values_on_mobile\"",
+        "6292),m=i(209039);const g=r.CheckMobile.any(),f=o.enabled(\"hide_last_na_study_output\"),y=o.enabled(\"always_show_legend_values_on_mobile\""
+      ]
+    },
+    {
+      "feature": "hide_left_toolbar_by_default",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "var s=i(870122),r=i(440891),n=i(240534);const o=!r.enabled(\"hide_left_toolbar_by_default\"),a=s.getBool(\"ChartDrawingToolbarWidget.visible\",o",
+        "ar s=i(870122),r=i(440891),n=i(240534);const o=!r.enabled(\"hide_left_toolbar_by_default\"),a=s.getBool(\"ChartDrawingToolbarWidget.visible\",o"
+      ]
+    },
+    {
+      "feature": "hide_legend_by_default",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "contexts": [
+        "=\"TextSourceIsAlwaysTickerMaxSize\"}(Dl||(Dl={}));c.enabled(\"hide_legend_by_default\");const Pl=c.enabled(\"fundamental_widget\"),zl=c.ena",
+        "\"TextSourceIsAlwaysTickerMaxSize\"}(Dl||(Dl={}));c.enabled(\"hide_legend_by_default\");const Pl=c.enabled(\"fundamental_widget\"),zl=c.ena"
+      ]
+    },
+    {
+      "feature": "hide_loading_screen_on_series_error",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "hide_main_series_symbol_from_indicator_legend",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "=H.enabled(\"study_symbol_ticker_description\"),Nt=H.enabled(\"hide_main_series_symbol_from_indicator_legend\"),Ot=H.enabled(\"datasource_copypaste\"),Ft=H.enabled",
+        "H.enabled(\"study_symbol_ticker_description\"),Nt=H.enabled(\"hide_main_series_symbol_from_indicator_legend\"),Ot=H.enabled(\"datasource_copypaste\"),Ft=H.enabled"
+      ]
+    },
+    {
+      "feature": "hide_object_tree_and_price_scale_exchange_label",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "=l.enabled(\"use_ticker_on_symbol_info_update\"),y=l.enabled(\"hide_object_tree_and_price_scale_exchange_label\");var v;!function(e){e.LastUsedStyleKey=\"chart.last",
+        "l.enabled(\"use_ticker_on_symbol_info_update\"),y=l.enabled(\"hide_object_tree_and_price_scale_exchange_label\");var v;!function(e){e.LastUsedStyleKey=\"chart.last"
+      ]
+    },
+    {
+      "feature": "hide_open_popup_button",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "contexts": [
+        "de:r})),t.showLaunchInPopupButton&&e.OpenPopup&&!m.enabled(\"hide_open_popup_button\")&&s.createElement(C,{key:\"popup\"},s.createElement(",
+        "e:r})),t.showLaunchInPopupButton&&e.OpenPopup&&!m.enabled(\"hide_open_popup_button\")&&s.createElement(C,{key:\"popup\"},s.createElement("
+      ]
+    },
+    {
+      "feature": "hide_price_scale_global_last_bar_value",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [
+        "use_last_visible_bar_value_in_legend"
+      ],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "de\"),xi=!b.enabled(\"hide_series_legend_item\"),Ii=b.enabled(\"hide_price_scale_global_last_bar_value\"),Mi=b.enabled(\"show_average_close_price_line_and_l",
+        "e\"),xi=!b.enabled(\"hide_series_legend_item\"),Ii=b.enabled(\"hide_price_scale_global_last_bar_value\"),Mi=b.enabled(\"show_average_close_price_line_and_l"
+      ]
+    },
+    {
+      "feature": "hide_price_scale_if_all_sources_hidden",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "return t}}var Uh=i(172912),jh=i(251940);const Gh=l.enabled(\"hide_price_scale_if_all_sources_hidden\"),qh=(0,jh.getPercentageFormatter)(),$h=new Uh.Pric",
+        "eturn t}}var Uh=i(172912),jh=i(251940);const Gh=l.enabled(\"hide_price_scale_if_all_sources_hidden\"),qh=(0,jh.getPercentageFormatter)(),$h=new Uh.Pric"
+      ]
+    },
+    {
+      "feature": "hide_publish_button",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "contexts": [
+        "enshot,className:U.iconButton})),!o&&e.Publish&&!m.enabled(\"hide_publish_button\")&&s.createElement(C,{key:\"publish\",className:U.mob",
+        "lishMobile})),...S]))))))))),e.Publish&&!o&&!h&&!m.enabled(\"hide_publish_button\")&&s.createElement(e.Publish,{id:H.PublishDesktop,c",
+        "nshot,className:U.iconButton})),!o&&e.Publish&&!m.enabled(\"hide_publish_button\")&&s.createElement(C,{key:\"publish\",className:U.mob"
+      ]
+    },
+    {
+      "feature": "hide_reciprocal_spread_operator",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "7335.f7017c32a7d4a05f3652.js"
+      ],
+      "contexts": [
+        "rt:\"^\",type:\"binaryOp\",name:\"exponentiation\"}])),u.enabled(\"hide_reciprocal_spread_operator\")||(i=i.concat([{icon:me,type:\"complete\",name:\"1/x\"",
+        "t:\"^\",type:\"binaryOp\",name:\"exponentiation\"}])),u.enabled(\"hide_reciprocal_spread_operator\")||(i=i.concat([{icon:me,type:\"complete\",name:\"1/x\""
+      ]
+    },
+    {
+      "feature": "hide_resolution_in_legend",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "\"),je=c.enabled(\"show_hide_button_in_legend\"),$e=c.enabled(\"hide_resolution_in_legend\");class Qe extends Me{constructor(e,t,s,i,l){super(",
+        "),je=c.enabled(\"show_hide_button_in_legend\"),$e=c.enabled(\"hide_resolution_in_legend\");class Qe extends Me{constructor(e,t,s,i,l){super(",
+        "40891),h=i(624202);const d=o.CheckMobile.any(),u=c.enabled(\"hide_resolution_in_legend\");class _ extends r.DataWindowView{constructor(e,t)"
+      ]
+    },
+    {
+      "feature": "hide_right_toolbar",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js",
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "contexts": [
+        "r{constructor(e){super(),this._options=e;const t=l.enabled(\"hide_right_toolbar\")?0:this._calcWidgetBarWidth();this._options.resize",
+        "{constructor(e){super(),this._options=e;const t=l.enabled(\"hide_right_toolbar\")?0:this._calcWidgetBarWidth();this._options.resize",
+        "l,this._draggable=null,this._shouldHideWidgetBar=I.enabled(\"hide_right_toolbar\"),this._shouldHideWidgetBarTabs=I.enabled(\"hide_rig"
+      ]
+    },
+    {
+      "feature": "hide_right_toolbar_tabs",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "contexts": [
+        "e:this._registry},this.props.children)}}const dt=I.enabled(\"hide_right_toolbar_tabs\");class ct{constructor(t,e,i){this._widgetBar=t,thi",
+        "de_right_toolbar\"),this._shouldHideWidgetBarTabs=I.enabled(\"hide_right_toolbar_tabs\"),this.widgetBar=t.widgetBar,this._rightToolbar=Boo",
+        ":this._registry},this.props.children)}}const dt=I.enabled(\"hide_right_toolbar_tabs\");class ct{constructor(t,e,i){this._widgetBar=t,thi"
+      ]
+    },
+    {
+      "feature": "hide_series_legend_item",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ar_value\"),Ti=b.enabled(\"display_data_mode\"),xi=!b.enabled(\"hide_series_legend_item\"),Ii=b.enabled(\"hide_price_scale_global_last_bar_va",
+        "r_value\"),Ti=b.enabled(\"display_data_mode\"),xi=!b.enabled(\"hide_series_legend_item\"),Ii=b.enabled(\"hide_price_scale_global_last_bar_va"
+      ]
+    },
+    {
+      "feature": "hide_study_compare_legend_item",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "tion\"),R=c.enabled(\"force_exchange_as_title\"),N=!c.enabled(\"hide_study_compare_legend_item\"),O=c.enabled(\"hide_unresolved_symbols_in_legend\"),",
+        "ion\"),R=c.enabled(\"force_exchange_as_title\"),N=!c.enabled(\"hide_study_compare_legend_item\"),O=c.enabled(\"hide_unresolved_symbols_in_legend\"),"
+      ]
+    },
+    {
+      "feature": "hide_study_overlay_legend_item",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "contexts": [
+        "enabled(\"hide_unresolved_symbols_in_legend\"),ue=!p.enabled(\"hide_study_overlay_legend_item\"),de=p.enabled(\"symbol_info_price_source\"),pe=(0,l.",
+        "nabled(\"hide_unresolved_symbols_in_legend\"),ue=!p.enabled(\"hide_study_overlay_legend_item\"),de=p.enabled(\"symbol_info_price_source\"),pe=(0,l."
+      ]
+    },
+    {
+      "feature": "hide_unresolved_symbols_in_legend",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "contexts": [
+        "void 0,i(270963)),k=S.t(null,void 0,i(975546)),D=b.enabled(\"hide_unresolved_symbols_in_legend\"),E=b.enabled(\"symbol_info_price_source\");class B e",
+        "N=!c.enabled(\"hide_study_compare_legend_item\"),O=c.enabled(\"hide_unresolved_symbols_in_legend\"),F=c.enabled(\"symbol_info_price_source\");var W;!fu",
+        "legend\"),Ot=H.enabled(\"datasource_copypaste\"),Ft=H.enabled(\"hide_unresolved_symbols_in_legend\");function Wt(e,t){const i=e.plots[t];if(!i||!(0,M."
+      ]
+    },
+    {
+      "feature": "hide_volume_ma",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "nabled(\"volume_force_overlay\")),i.setPaneSize(t),l.enabled(\"hide_volume_ma\")&&i.setPropertiesState({styles:{vol_ma:{display:0}",
+        "abled(\"volume_force_overlay\")),i.setPaneSize(t),l.enabled(\"hide_volume_ma\")&&i.setPropertiesState({styles:{vol_ma:{display:0}"
+      ]
+    },
+    {
+      "feature": "horz_touch_drag_scroll",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "handle_scroll"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "abled(\"pressed_mouse_move_scroll\"),horzTouchDrag:l.enabled(\"horz_touch_drag_scroll\"),vertTouchDrag:l.enabled(\"vert_touch_drag_scroll\")",
+        "bled(\"pressed_mouse_move_scroll\"),horzTouchDrag:l.enabled(\"horz_touch_drag_scroll\"),vertTouchDrag:l.enabled(\"vert_touch_drag_scroll\")"
+      ]
+    },
+    {
+      "feature": "iframe_loading_compatibility_mode",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "charting_library.standalone.js"
+      ],
+      "contexts": [
+        "ame_loading_same_origin\")??!1,t=e||(this._options.enabled_features?.includes(\"iframe_loading_compatibility_mode\")??!1),i=e&&(this._options.enabled_features?.includ"
+      ]
+    },
+    {
+      "feature": "iframe_loading_root_path",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "charting_library.standalone.js"
+      ],
+      "contexts": [
+        "ing_compatibility_mode\")??!1),i=e&&(this._options.enabled_features?.includes(\"iframe_loading_root_path\")??!1),[o,r]=this._render(!t,e,i),n=this._options.c"
+      ]
+    },
+    {
+      "feature": "iframe_loading_same_origin",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "charting_library.standalone.js"
+      ],
+      "contexts": [
+        "\"px\"}),30))}async _create(){const e=this._options.enabled_features?.includes(\"iframe_loading_same_origin\")??!1,t=e||(this._options.enabled_features?.include"
+      ]
+    },
+    {
+      "feature": "image_drawingtool",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "drawing-toolbar.9f682ebb059580da885e.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "9838),i=(o(601227),o(440891)),l=o(41899);const a=i.enabled(\"image_drawingtool\"),s=[{id:\"linetool-group-cursors\",title:n.t(null,vo",
+        "838),i=(o(601227),o(440891)),l=o(41899);const a=i.enabled(\"image_drawingtool\"),s=[{id:\"linetool-group-cursors\",title:n.t(null,vo",
+        "9838),i=(o(601227),o(440891)),l=o(41899);const s=i.enabled(\"image_drawingtool\"),a=[{id:\"linetool-group-cursors\",title:n.t(null,vo"
+      ]
+    },
+    {
+      "feature": "insert_indicator_dialog_shortcut",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "led(\"countdown\"),indicatorsDialogShortcutEnabled:l.enabled(\"insert_indicator_dialog_shortcut\")},seriesControlBarEnabled:l.enabled(\"timeframes_to",
+        "ed(\"countdown\"),indicatorsDialogShortcutEnabled:l.enabled(\"insert_indicator_dialog_shortcut\")},seriesControlBarEnabled:l.enabled(\"timeframes_to"
+      ]
+    },
+    {
+      "feature": "intraday_inactivity_gaps",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "1119.d9afdd012b225f041951.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "await this._seriesDataDefinitions(y),S,w];return s.enabled(\"intraday_inactivity_gaps\")&&m.push((0,a.createCheckablePropertyDefinition)({",
+        "wait this._seriesDataDefinitions(y),S,w];return s.enabled(\"intraday_inactivity_gaps\")&&m.push((0,a.createCheckablePropertyDefinition)({",
+        "ime_scale\")&&\"Overlay@tv-basicstudies-1\"===i.id||r.enabled(\"intraday_inactivity_gaps\")&&\"IntradayInactivityGaps@tv-basicstudies-1\"===i.i"
+      ]
+    },
+    {
+      "feature": "lean_chart_load",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "_line\")&&this._createPrePostMarket(i.model()),i};l.enabled(\"lean_chart_load\")?this._model=this._model||t():this._model=t(),this",
+        "),this._updateAndPaint()}_makeLoadingScreen(){if(l.enabled(\"lean_chart_load\")){if(this.screen)return;this.screen=new tn(this,(0",
+        "line\")&&this._createPrePostMarket(i.model()),i};l.enabled(\"lean_chart_load\")?this._model=this._model||t():this._model=t(),this"
+      ]
+    },
+    {
+      "feature": "legend_last_day_change",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "contexts": [
+        "_last_price_and_change_only_in_series_legend\"),n=s.enabled(\"legend_last_day_change\")},979910:(e,t,i)=>{\"use strict\";i.d(t,{lineToolsDo",
+        "last_price_and_change_only_in_series_legend\"),n=s.enabled(\"legend_last_day_change\")},979910:(e,t,i)=>{\"use strict\";i.d(t,{lineToolsDo",
+        "abled(\"show_symbol_logo_for_compare_studies\"),oe=p.enabled(\"legend_last_day_change\"),ae=(r.CheckMobile.any()||le||oe)&&!0,ne=p.enabled"
+      ]
+    },
+    {
+      "feature": "legend_widget",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "l.enabled(\"pricescale_unit\"),legendWidgetEnabled:l.enabled(\"legend_widget\"),legendWidget:{contextMenu:{settings:l.enabled(\"sh",
+        ".enabled(\"pricescale_unit\"),legendWidgetEnabled:l.enabled(\"legend_widget\"),legendWidget:{contextMenu:{settings:l.enabled(\"sh"
+      ]
+    },
+    {
+      "feature": "library_custom_color_themes",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ferredPromise)(),oS=l.enabled(\"left_toolbar\"),aS=l.enabled(\"library_custom_color_themes\"),lS=JSON.parse(eS.widgetbar),cS=l.enabled(\"right_t",
+        "erredPromise)(),oS=l.enabled(\"left_toolbar\"),aS=l.enabled(\"library_custom_color_themes\"),lS=JSON.parse(eS.widgetbar),cS=l.enabled(\"right_t"
+      ]
+    },
+    {
+      "feature": "linetoolpropertieswidget_template_button",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "drawing_templates",
+        "tv_production",
+        "widget",
+        "bovespa_widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "link_to_tradingview",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        ";return JSON.parse(urlParams.logo).image&&(e=\"C\",s.enabled(\"link_to_tradingview\")||(e=\"D\")),e}();window.ga&&(0!==e&&window.ga(\"send",
+        "e.link,this._needToShow=l.enabled(\"widget_logo\"),l.enabled(\"link_to_tradingview\")?this._layout=pv:this._layout=mv):(e.tradingviewLo",
+        "return JSON.parse(urlParams.logo).image&&(e=\"C\",s.enabled(\"link_to_tradingview\")||(e=\"D\")),e}();window.ga&&(0!==e&&window.ga(\"send"
+      ]
+    },
+    {
+      "feature": "lock_visible_range_when_adjusting_percentage_right_margin",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "etOptionsUpdated(){const e=this.rightOffset();if(l.enabled(\"lock_visible_range_when_adjusting_percentage_right_margin\")&&e>=0){const e=this._defaultRightOffsetPercentage",
+        "tOptionsUpdated(){const e=this.rightOffset();if(l.enabled(\"lock_visible_range_when_adjusting_percentage_right_margin\")&&e>=0){const e=this._defaultRightOffsetPercentage"
+      ]
+    },
+    {
+      "feature": "lock_visible_time_range_on_resize",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "eserveBarSpacing:!1,lockVisibleTimeRangeOnResize:l.enabled(\"lock_visible_time_range_on_resize\"),rightBarStaysOnScroll:l.enabled(\"right_bar_stays_",
+        "serveBarSpacing:!1,lockVisibleTimeRangeOnResize:l.enabled(\"lock_visible_time_range_on_resize\"),rightBarStaysOnScroll:l.enabled(\"right_bar_stays_"
+      ]
+    },
+    {
+      "feature": "logo_always_maximized",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ow_animated_logo\")||e===ov,this._alwaysMaximized=l.enabled(\"logo_always_maximized\")||this._model.isSnapshot()&&!Ue.CheckMobile.any()|",
+        "w_animated_logo\")||e===ov,this._alwaysMaximized=l.enabled(\"logo_always_maximized\")||this._model.isSnapshot()&&!Ue.CheckMobile.any()|"
+      ]
+    },
+    {
+      "feature": "logo_without_link",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "seAnimation()}hitTest(e){if(!this._showBranding||l.enabled(\"logo_without_link\"))return null;if(this._powBy&&this._layout!==cv&&th",
+        "eAnimation()}hitTest(e){if(!this._showBranding||l.enabled(\"logo_without_link\"))return null;if(this._powBy&&this._layout!==cv&&th"
+      ]
+    },
+    {
+      "feature": "low_density_bars",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "!1,rightBarStaysOnScroll:!0,minBarSpacing:.5},kd=l.enabled(\"low_density_bars\"),Dd=kd?1:2,Ed=(0,le.getLogger)(\"Chart.TimeScale\");",
+        "1,rightBarStaysOnScroll:!0,minBarSpacing:.5},kd=l.enabled(\"low_density_bars\"),Dd=kd?1:2,Ed=(0,le.getLogger)(\"Chart.TimeScale\");"
+      ]
+    },
+    {
+      "feature": "marked_symbols",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "mobile_app_action_open_details_webview",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "mobile_app_hide_replay_toolbar",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "mobile_trading",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "mouse_wheel_scale",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "handle_scale"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "\"chart_crosshair_menu\")},handleScale:{mouseWheel:l.enabled(\"mouse_wheel_scale\"),pinch:l.enabled(\"pinch_scale\"),axisPressedMouseMo",
+        "chart_crosshair_menu\")},handleScale:{mouseWheel:l.enabled(\"mouse_wheel_scale\"),pinch:l.enabled(\"pinch_scale\"),axisPressedMouseMo"
+      ]
+    },
+    {
+      "feature": "mouse_wheel_scroll",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "handle_scroll"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ed_mouse_move_scale\")}},handleScroll:{mouseWheel:l.enabled(\"mouse_wheel_scroll\"),pressedMouseMove:l.enabled(\"pressed_mouse_move_sc",
+        "d_mouse_move_scale\")}},handleScroll:{mouseWheel:l.enabled(\"mouse_wheel_scroll\"),pressedMouseMove:l.enabled(\"pressed_mouse_move_sc"
+      ]
+    },
+    {
+      "feature": "move_logo_to_main_pane",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        " t=this._model.mainPane();if(!t)return[];const i=l.enabled(\"move_logo_to_main_pane\");let s=!1;if(e.maximized().value())s=!0;else if(i)",
+        "t=this._model.mainPane();if(!t)return[];const i=l.enabled(\"move_logo_to_main_pane\");let s=!1;if(e.maximized().value())s=!0;else if(i)"
+      ]
+    },
+    {
+      "feature": "moving_average_study_changable_currency_unit",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "405)).then((e=>e.study_ScriptWithDataOffset))))),r.enabled(\"moving_average_study_changable_currency_unit\")&&(0,c.addStudyInfoToMap)(\"study_Moving Average\",(",
+        "05)).then((e=>e.study_ScriptWithDataOffset))))),r.enabled(\"moving_average_study_changable_currency_unit\")&&(0,c.addStudyInfoToMap)(\"study_Moving Average\",("
+      ]
+    },
+    {
+      "feature": "no_bars_status",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ed(\"show_average_close_price_line_and_label\"),Ai=b.enabled(\"no_bars_status\"),Li=b.enabled(\"charting_library_debug_mode\"),ki=b.",
+        "d(\"show_average_close_price_line_and_label\"),Ai=b.enabled(\"no_bars_status\"),Li=b.enabled(\"charting_library_debug_mode\"),ki=b."
+      ]
+    },
+    {
+      "feature": "no_min_chart_width",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        ".max)return!1}return!0}var $e=i(346827);const Ke=l.enabled(\"no_min_chart_width\");var Ye;!function(e){e[e.MinChartHeight=300]=\"MinC",
+        "=e&&(e.style.border=\"0px\",e.style.padding=\"1px\")}l.enabled(\"no_min_chart_width\")&&(document.body.style.minWidth=\"0px\"),null!=eS.st",
+        "max)return!1}return!0}var $e=i(346827);const Ke=l.enabled(\"no_min_chart_width\");var Ye;!function(e){e[e.MinChartHeight=300]=\"MinC"
+      ]
+    },
+    {
+      "feature": "object_tree_legend_mode",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "contexts": [
+        "2]=\"HideIntervalMultiChart\"}(q||(q={}));const se=c.enabled(\"object_tree_legend_mode\"),ie=[27,9,37,39,38,40];class le{constructor(e,t){t",
+        "]=\"HideIntervalMultiChart\"}(q||(q={}));const se=c.enabled(\"object_tree_legend_mode\"),ie=[27,9,37,39,38,40];class le{constructor(e,t){t"
+      ]
+    },
+    {
+      "feature": "objects_tree_context_menu",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "context_menus"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "options_details_widget",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "symbol-details.b77e4d320c1dbbfb0ea5.js"
+      ],
+      "contexts": [
+        "pe)&&t.financialIndicatorId);case\"Options\":return isFeatureEnabled(\"options_details_widget\")&&Boolean(t.optionsInfo)&&checkExchangeOptionsVisi"
+      ]
+    },
+    {
+      "feature": "pay_attention_to_ticker_not_symbol",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "7335.f7017c32a7d4a05f3652.js",
+        "compare-model.17fcdaff82dd9646d47f.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "on t(e){return e.pro_name}function r(e){{const t=a.enabled(\"pay_attention_to_ticker_not_symbol\")?e.ticker:e.name;return(0,o.ensureDefined)(t)}}e.f",
+        "ction(e,t){{const{ticker:r,symbol:n}=t??e;return a.enabled(\"pay_attention_to_ticker_not_symbol\")?(0,o.ensureDefined)(r??n):(0,o.ensureDefined)(n)}",
+        "n t(e){return e.pro_name}function r(e){{const t=a.enabled(\"pay_attention_to_ticker_not_symbol\")?e.ticker:e.name;return(0,o.ensureDefined)(t)}}e.f"
+      ]
+    },
+    {
+      "feature": "phone_verification",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "pinch_scale",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "handle_scale"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "{mouseWheel:l.enabled(\"mouse_wheel_scale\"),pinch:l.enabled(\"pinch_scale\"),axisPressedMouseMove:{time:l.enabled(\"axis_presse",
+        "mouseWheel:l.enabled(\"mouse_wheel_scale\"),pinch:l.enabled(\"pinch_scale\"),axisPressedMouseMove:{time:l.enabled(\"axis_presse"
+      ]
+    },
+    {
+      "feature": "plain_studymarket",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "prefer_quote_short_name",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "trading_terminal"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "symbol-details.b77e4d320c1dbbfb0ea5.js",
+        "watchlist-widget.c7bd684646cd360803e2.js"
+      ],
+      "contexts": [
+        "oolean(t)),T=c.enabled(\"show_symbol_logos\"),F=C&&c.enabled(\"prefer_quote_short_name\");return i.createPortal(n.createElement(\"div\",{clas",
+        "olean(t)),T=c.enabled(\"show_symbol_logos\"),F=C&&c.enabled(\"prefer_quote_short_name\");return i.createPortal(n.createElement(\"div\",{clas",
+        "bol:t,manualUpdate:!0,tooltipType:\"custom\"}),fe=me.enabled(\"prefer_quote_short_name\");class ge extends i.PureComponent{constructor(){su"
+      ]
+    },
+    {
+      "feature": "prefer_symbol_name_over_fullname",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "trading_terminal"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "9088.e5b04ee7028204603d5e.js"
+      ],
+      "contexts": [
+        "racketType.GuaranteedStop}}function se(e){return a.enabled(\"prefer_symbol_name_over_fullname\")?ce(e)[1]:e}function ce(e){const[t,n]=e.split(\":\")",
+        "acketType.GuaranteedStop}}function se(e){return a.enabled(\"prefer_symbol_name_over_fullname\")?ce(e)[1]:e}function ce(e){const[t,n]=e.split(\":\")"
+      ]
+    },
+    {
+      "feature": "pressed_mouse_move_scroll",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "handle_scroll"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "l.enabled(\"mouse_wheel_scroll\"),pressedMouseMove:l.enabled(\"pressed_mouse_move_scroll\"),horzTouchDrag:l.enabled(\"horz_touch_drag_scroll\")",
+        ".enabled(\"mouse_wheel_scroll\"),pressedMouseMove:l.enabled(\"pressed_mouse_move_scroll\"),horzTouchDrag:l.enabled(\"horz_touch_drag_scroll\")"
+      ]
+    },
+    {
+      "feature": "price_scale_always_last_bar_value",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        ",bi=i(530530),wi=i(776165),Ci=i(245952);const Pi=b.enabled(\"price_scale_always_last_bar_value\"),Ti=b.enabled(\"display_data_mode\"),xi=!b.enabled(\"",
+        "bi=i(530530),wi=i(776165),Ci=i(245952);const Pi=b.enabled(\"price_scale_always_last_bar_value\"),Ti=b.enabled(\"display_data_mode\"),xi=!b.enabled(\""
+      ]
+    },
+    {
+      "feature": "pricescale_currency",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "\"scales_context_menu\"),currencyConversionEnabled:l.enabled(\"pricescale_currency\"),unitConversionEnabled:l.enabled(\"pricescale_unit\"",
+        "scales_context_menu\"),currencyConversionEnabled:l.enabled(\"pricescale_currency\"),unitConversionEnabled:l.enabled(\"pricescale_unit\""
+      ]
+    },
+    {
+      "feature": "pricescale_unit",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "led(\"pricescale_currency\"),unitConversionEnabled:l.enabled(\"pricescale_unit\"),legendWidgetEnabled:l.enabled(\"legend_widget\"),le",
+        "ed(\"pricescale_currency\"),unitConversionEnabled:l.enabled(\"pricescale_unit\"),legendWidgetEnabled:l.enabled(\"legend_widget\"),le"
+      ]
+    },
+    {
+      "feature": "real_brokers",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "referral_program_for_widget_owners",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "refresh_saved_charts_list_on_dialog_show",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "remove_img_from_rss",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "Logger)(\"Library.News.RSS\");function g(e){return u.enabled(\"remove_img_from_rss\")?e.replace(/<img[^>]*>/g,\"\"):e}function f(e){const",
+        "ogger)(\"Library.News.RSS\");function g(e){return u.enabled(\"remove_img_from_rss\")?e.replace(/<img[^>]*>/g,\"\"):e}function f(e){const"
+      ]
+    },
+    {
+      "feature": "remove_library_container_border",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "debug||l.enabled(\"charting_library_debug_mode\")),l.enabled(\"remove_library_container_border\")){const e=document.querySelector(\"#library-contain",
+        "ebug||l.enabled(\"charting_library_debug_mode\")),l.enabled(\"remove_library_container_border\")){const e=document.querySelector(\"#library-contain"
+      ]
+    },
+    {
+      "feature": "request_only_visible_range_on_reset",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "st e=this._leftDate;this._purgeCache(),null===e||r.enabled(\"request_only_visible_range_on_reset\")||this._ensureRequestedTo({to:e,countBack:0})}_log",
+        ".resolution!==i;const n=st(o),c={countBack:n||0};r.enabled(\"request_only_visible_range_on_reset\")&&n&&(delete this._objectsDataCache[Xe(e,a.guid)],",
+        "houldDefineNumberOfBarsForModifySeries(e){return b.enabled(\"request_only_visible_range_on_reset\")&&e.force||!1}_onShowCountdownChanged(e){e.value()"
+      ]
+    },
+    {
+      "feature": "right_bar_stays_on_scroll",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ble_time_range_on_resize\"),rightBarStaysOnScroll:l.enabled(\"right_bar_stays_on_scroll\"),minBarSpacing:eS.time_scale&&JSON.parse(eS.time_s",
+        "le_time_range_on_resize\"),rightBarStaysOnScroll:l.enabled(\"right_bar_stays_on_scroll\"),minBarSpacing:eS.time_scale&&JSON.parse(eS.time_s"
+      ]
+    },
+    {
+      "feature": "save_old_chart_before_save_as",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "saved_charts_count_restriction",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "saveload_requires_authentication",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "(240534),W=i(559410),H=i(677299);function z(e,t){l.enabled(\"saveload_requires_authentication\")?(0,H.runOrSigninWithFeature)(e,{...t,feature:\"sav",
+        "hartDialog.favorites\",{})}}function re(){return!(l.enabled(\"saveload_requires_authentication\")&&!window.is_authenticated)}class ne extends Q.Dia",
+        "240534),W=i(559410),H=i(677299);function z(e,t){l.enabled(\"saveload_requires_authentication\")?(0,H.runOrSigninWithFeature)(e,{...t,feature:\"sav"
+      ]
+    },
+    {
+      "feature": "saveload_separate_drawings_storage",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "7415.6d9e5497dea3ae9ce05b.js",
+        "drawing-toolbar.9f682ebb059580da885e.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "9756),A=n(94007),k=n(962766),E=n(806746);const N=l.enabled(\"saveload_separate_drawings_storage\");function L(e){const{id:t}=e,n=(0,o.useContext)(u.",
+        "playTarget.DataWindow))}const H=new i.Delegate,W=p.enabled(\"saveload_separate_drawings_storage\");function U(e){return 0===e?0:1===e?1:2}class Z{co",
+        "756),A=n(94007),k=n(962766),E=n(806746);const N=l.enabled(\"saveload_separate_drawings_storage\");function L(e){const{id:t}=e,n=(0,o.useContext)(u."
+      ]
+    },
+    {
+      "feature": "saveload_storage_customization",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        ")+\":\"}_actionHandler({newValue:e,dialogClose:t}){l.enabled(\"saveload_storage_customization\")&&this._doCloneCurrentLayout(e),t()}async _cloneCh",
+        "State({chartList:s}),this._isActiveChart(e.id)&&(l.enabled(\"saveload_storage_customization\")||isSymphonyEmbed()?null!==this._chartWidgetCollec",
+        "{(0,n.ensureNotNull)(e).selectBroker(null)}))})),l.enabled(\"saveload_storage_customization\")&&(Yv.saveLoadAdapter?E.setCustomAdapter(Yv.saveLo"
+      ]
+    },
+    {
+      "feature": "scales_date_format",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "contexts": [
+        "up)(h,\"scalesLabelsLineGroup\",je));const T=[];if(r.enabled(\"scales_date_format\")){const i=(0,c.createOptionsPropertyDefinition)({o",
+        "p)(h,\"scalesLabelsLineGroup\",je));const T=[];if(r.enabled(\"scales_date_format\")){const i=(0,c.createOptionsPropertyDefinition)({o"
+      ]
+    },
+    {
+      "feature": "scales_time_hours_format",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "contexts": [
+        "ns:o.dateFormatPropertyObj.values});T.push(i)}if(r.enabled(\"scales_time_hours_format\")){const i=(0,c.createOptionsPropertyDefinition)({o",
+        "s:o.dateFormatPropertyObj.values});T.push(i)}if(r.enabled(\"scales_time_hours_format\")){const i=(0,c.createOptionsPropertyDefinition)({o"
+      ]
+    },
+    {
+      "feature": "secondary_series_extend_time_scale",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "add-compare-dialog.5c5e616ea16bb43dcec2.js",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "contexts": [
+        "oe.label},r.t(null,void 0,n(501048)))))}const se=i.enabled(\"secondary_series_extend_time_scale\");function ie(e){return new Z({wrapper:(t=e,e=>o.cr",
+        "e.label},r.t(null,void 0,n(501048)))))}const se=i.enabled(\"secondary_series_extend_time_scale\");function ie(e){return new Z({wrapper:(t=e,e=>o.cr",
+        "or-ripe-red-400\"),m=r(\"color-minty-green-400\"),g=s.enabled(\"secondary_series_extend_time_scale\");JSServer.studyLibrary=JSServer.studyLibrary.conca"
+      ]
+    },
+    {
+      "feature": "shift_visible_range_on_new_bar",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "t_touch_drag_scroll\")},shiftVisibleRangeOnNewBar:l.enabled(\"shift_visible_range_on_new_bar\"),croppedTickMarks:l.enabled(\"cropped_tick_marks\"),",
+        "_touch_drag_scroll\")},shiftVisibleRangeOnNewBar:l.enabled(\"shift_visible_range_on_new_bar\"),croppedTickMarks:l.enabled(\"cropped_tick_marks\"),"
+      ]
+    },
+    {
+      "feature": "show_animated_logo",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "_showTradeWithLogo=!1,this._showAnimatedBranding=l.enabled(\"show_animated_logo\")||e===ov,this._alwaysMaximized=l.enabled(\"logo_alw",
+        "showTradeWithLogo=!1,this._showAnimatedBranding=l.enabled(\"show_animated_logo\")||e===ov,this._alwaysMaximized=l.enabled(\"logo_alw"
+      ]
+    },
+    {
+      "feature": "show_chart_warn_message",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "show_community_feed_button",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "widgetbar.d988faecd0403223478e.js"
+      ],
+      "contexts": [
+        "r\",properties:{}}]},I.enabled(\"hide_ideas_page\")||isFeatureEnabled(\"show_community_feed_button\")?null:{_gaEvent:\"My Ideas\",title:a.t(null,void 0,i",
+        "onchats\"}]},I.enabled(\"hide_ideas_streams_page\")||isFeatureEnabled(\"show_community_feed_button\")?null:{_gaEvent:\"Ideas Stream\",title:a.t(null,void"
+      ]
+    },
+    {
+      "feature": "show_last_price_and_change_only_in_series_legend",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "yChangeAvailable:()=>n});var s=i(440891);const r=s.enabled(\"show_last_price_and_change_only_in_series_legend\"),n=s.enabled(\"legend_last_day_change\")},979910:(e,",
+        "ChangeAvailable:()=>n});var s=i(440891);const r=s.enabled(\"show_last_price_and_change_only_in_series_legend\"),n=s.enabled(\"legend_last_day_change\")},979910:(e,"
+      ]
+    },
+    {
+      "feature": "show_login_dialog",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "show_percent_option_for_right_margin",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "contexts": [
+        "WatchedValue(1),unit:new s.WatchedValue(rt)} ;if(r.enabled(\"show_percent_option_for_right_margin\")){const o=(0,c.createNumberPropertyDefinition)({..",
+        "atchedValue(1),unit:new s.WatchedValue(rt)} ;if(r.enabled(\"show_percent_option_for_right_margin\")){const o=(0,c.createNumberPropertyDefinition)({.."
+      ]
+    },
+    {
+      "feature": "show_saved_watchlists",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "show_source_code",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "show_spread_operators",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "7000.21314dd7f29723dd7570.js",
+        "7335.f7017c32a7d4a05f3652.js",
+        "add-compare-dialog.5c5e616ea16bb43dcec2.js",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "contexts": [
+        "search_option_chain_selector\"),showSpreadActions:u.enabled(\"show_spread_operators\")&&u.enabled(\"studies_symbol_search_spread_operator",
+        "earch_option_chain_selector\"),showSpreadActions:u.enabled(\"show_spread_operators\")&&u.enabled(\"studies_symbol_search_spread_operator",
+        ":0,currentState:\"var\",warnings:[],errors:[]};if(!u.enabled(\"show_spread_operators\"))return t;let r=\"init\";const n=[];for(let o=0;o<e."
+      ]
+    },
+    {
+      "feature": "show_zoom_and_move_buttons_on_touch",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "contexts": [
+        "-scale\"),totalWidth:50},{shouldBeHiddenOnMobile:!a.enabled(\"show_zoom_and_move_buttons_on_touch\"),available:()=>this._options.zoomInOut,className:\"",
+        "p-zoom\"),totalWidth:86},{shouldBeHiddenOnMobile:!a.enabled(\"show_zoom_and_move_buttons_on_touch\"),available:()=>this._options.scrollLeftRight,class",
+        "scale\"),totalWidth:50},{shouldBeHiddenOnMobile:!a.enabled(\"show_zoom_and_move_buttons_on_touch\"),available:()=>this._options.zoomInOut,className:\""
+      ]
+    },
+    {
+      "feature": "side_toolbar_in_fullscreen_mode",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "pass_chart_height_check\");function Xe(e){const t=l.enabled(\"side_toolbar_in_fullscreen_mode\"),i=l.enabled(\"header_in_fullscreen_mode\");return\"c",
+        "ass_chart_height_check\");function Xe(e){const t=l.enabled(\"side_toolbar_in_fullscreen_mode\"),i=l.enabled(\"header_in_fullscreen_mode\");return\"c"
+      ]
+    },
+    {
+      "feature": "skip_event_target_check",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "3010.b6767e7ba0734f8ea43b.js",
+        "427.8e4ad2884751c78b5ebd.js",
+        "chart-bottom-toolbar.fd38479e975a1ac4fdd8.js",
+        "floating-toolbars.435f06c307950384d090.js",
+        "footer-widget.08780bf0181c58031ae2.js"
+      ],
+      "contexts": [
+        "roller.current?.focus())},this._handleClick=e=>{(h.enabled(\"skip_event_target_check\")||e.target instanceof Node)&&e.currentTarget.conta",
+        "oller.current?.focus())},this._handleClick=e=>{(h.enabled(\"skip_event_target_check\")||e.target instanceof Node)&&e.currentTarget.conta",
+        "roller.current?.focus())},this._handleClick=e=>{(h.enabled(\"skip_event_target_check\")||e.target instanceof Node)&&e.currentTarget.conta"
+      ]
+    },
+    {
+      "feature": "small_no_display",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ld-style\",Xy]]),iv=l.enabled(\"adaptive_logo\"),sv=l.enabled(\"small_no_display\"),rv=l.enabled(\"38914\"),nv=\"site_branding\",ov=\"widg",
+        "d-style\",Xy]]),iv=l.enabled(\"adaptive_logo\"),sv=l.enabled(\"small_no_display\"),rv=l.enabled(\"38914\"),nv=\"site_branding\",ov=\"widg"
+      ]
+    },
+    {
+      "feature": "star_some_intervals_by_default",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "contexts": [
+        "unction we(e=[]){return(0,ee.mergeResolutions)(e,m.enabled(\"star_some_intervals_by_default\")?Ee:[])}new re(ae.TVXWindowEvents,ie,we()),new Z(a",
+        "nction we(e=[]){return(0,ee.mergeResolutions)(e,m.enabled(\"star_some_intervals_by_default\")?Ee:[])}new re(ae.TVXWindowEvents,ie,we()),new Z(a"
+      ]
+    },
+    {
+      "feature": "static_charts_service",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [
+        "charting_library",
+        "disable_resolution_rebuild"
+      ],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "stop_study_on_restart",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "contexts": [
+        "tart(e){this._restarting=!0,this.clearData(),(e||H.enabled(\"stop_study_on_restart\"))&&this.stop(),setTimeout(this.start.bind(this),0)",
+        "_studySource.start()}restart(){this._clearData(),l.enabled(\"stop_study_on_restart\")&&this.stop(),this.start()}isStarted(){return this",
+        "art(e){this._restarting=!0,this.clearData(),(e||H.enabled(\"stop_study_on_restart\"))&&this.stop(),setTimeout(this.start.bind(this),0)"
+      ]
+    },
+    {
+      "feature": "studies_extend_time_scale",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "studiesCache[e][t]?.metainfo;return void 0!==i&&(r.enabled(\"studies_extend_time_scale\")&&i.canExtendTimeScale||r.enabled(\"secondary_serie",
+        "tudiesCache[e][t]?.metainfo;return void 0!==i&&(r.enabled(\"studies_extend_time_scale\")&&i.canExtendTimeScale||r.enabled(\"secondary_serie"
+      ]
+    },
+    {
+      "feature": "studies_symbol_search_spread_operators",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "7000.21314dd7f29723dd7570.js",
+        "chart-widget-gui.373398f680e71823f0f1.js"
+      ],
+      "contexts": [
+        "preadActions:u.enabled(\"show_spread_operators\")&&u.enabled(\"studies_symbol_search_spread_operators\")})},disabled:i,className:a()(p,u.enabled(\"uppercas",
+        "readActions:u.enabled(\"show_spread_operators\")&&u.enabled(\"studies_symbol_search_spread_operators\")})},disabled:i,className:a()(p,u.enabled(\"uppercas",
+        "preadActions:c.enabled(\"show_spread_operators\")&&c.enabled(\"studies_symbol_search_spread_operators\")})}))},tooltip:ct}}_isSymbolLikeStudy(){return(0,K"
+      ]
+    },
+    {
+      "feature": "study_dialog_fundamentals_economy_addons",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "study_overlay_compare_legend_option",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "contexts": [
+        "}}var D=i(38157),E=i(451676),B=i(240534);const V=c.enabled(\"study_overlay_compare_legend_option\"),R=c.enabled(\"force_exchange_as_title\"),N=!c.enabl",
+        "}var D=i(38157),E=i(451676),B=i(240534);const V=c.enabled(\"study_overlay_compare_legend_option\"),R=c.enabled(\"force_exchange_as_title\"),N=!c.enabl",
+        "change\"),ae=(r.CheckMobile.any()||le||oe)&&!0,ne=p.enabled(\"study_overlay_compare_legend_option\"),he=p.enabled(\"secondary_series_extend_time_scale\""
+      ]
+    },
+    {
+      "feature": "study_symbol_ticker_description",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ipTextareaInputs:!1,priceInputsForDisplay:!1},Rt=H.enabled(\"study_symbol_ticker_description\"),Nt=H.enabled(\"hide_main_series_symbol_from_indica",
+        "pTextareaInputs:!1,priceInputsForDisplay:!1},Rt=H.enabled(\"study_symbol_ticker_description\"),Nt=H.enabled(\"hide_main_series_symbol_from_indica"
+      ]
+    },
+    {
+      "feature": "support_manage_drawings",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "symbol_info_long_description",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "general-property-page.b2b045afa1ff86d18bcd.js"
+      ],
+      "contexts": [
+        "-description\",title:n.t(null,void 0,t(716816))}];r.enabled(\"symbol_info_long_description\")&&mo.push({id:\"symbol-text-source-long-description",
+        "description\",title:n.t(null,void 0,t(716816))}];r.enabled(\"symbol_info_long_description\")&&mo.push({id:\"symbol-text-source-long-description"
+      ]
+    },
+    {
+      "feature": "symbol_search_flags",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "symbol_search_hot_key",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "(0,c.showChangeIntervalDialogAsync)({initVal:t}):l.enabled(\"symbol_search_hot_key\")&&(g({defaultValue:t,selectSearchOnInit:!1,source:",
+        "0,c.showChangeIntervalDialogAsync)({initVal:t}):l.enabled(\"symbol_search_hot_key\")&&(g({defaultValue:t,selectSearchOnInit:!1,source:"
+      ]
+    },
+    {
+      "feature": "symbol_search_limited_exchanges",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "symbol_search_option_chain_selector",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "7000.21314dd7f29723dd7570.js",
+        "chart-widget-gui.373398f680e71823f0f1.js",
+        "global-search-dialog.be3beae2e53101d0e894.js",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        ",x=(0,o.useContext)(c.PopupContext);let E;return u.enabled(\"symbol_search_option_chain_selector\")&&({quotes:E}=useSymbolQuotes(matchesOptionPattern",
+        "=\"option\"===E?.type,o=E?.[\"underlying-symbol\"],a=u.enabled(\"symbol_search_option_chain_selector\")&&t&&o?{type:\"option\",value:g,underlying:o}:e,i=(0",
+        "iationPoint:\"indicatorInputs\",enableOptionsChain:u.enabled(\"symbol_search_option_chain_selector\"),showSpreadActions:u.enabled(\"show_spread_operator"
+      ]
+    },
+    {
+      "feature": "symbol_search_parser_mixin",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "symbol_search_three_columns_exchanges",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "symphony_embed",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "nabled(\"chart_content_overrides_by_defaults\"),Wg=l.enabled(\"symphony_embed\"),Hg=new Vt.TranslatedString(\"hide {title}\",a.t(nul",
+        "abled(\"chart_content_overrides_by_defaults\"),Wg=l.enabled(\"symphony_embed\"),Hg=new Vt.TranslatedString(\"hide {title}\",a.t(nul"
+      ]
+    },
+    {
+      "feature": "test_show_object_tree_debug",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "7415.6d9e5497dea3ae9ce05b.js"
+      ],
+      "contexts": [
+        "]=z.hasChildren()?\"group\":\"data-source\"}const ge=l.enabled(\"test_show_object_tree_debug\")?`<${z.id()}> (${z.zOrder()}) ${z.title()}`:z.titl",
+        "=z.hasChildren()?\"group\":\"data-source\"}const ge=l.enabled(\"test_show_object_tree_debug\")?`<${z.id()}> (${z.zOrder()}) ${z.title()}`:z.titl"
+      ]
+    },
+    {
+      "feature": "text_notes",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "dToWatchlist.prepare(),i.push(o.addToWatchlist)),l.enabled(\"text_notes\")&&i.push(o.addToTextNotes),i[i.length-1]instanceof",
+        "dToWatchlist.prepare(),i.push(t.addToWatchlist))}l.enabled(\"text_notes\")&&i.push(t.addToTextNotes),i[i.length-1]instanceof",
+        "ToWatchlist.prepare(),i.push(o.addToWatchlist)),l.enabled(\"text_notes\")&&i.push(o.addToTextNotes),i[i.length-1]instanceof"
+      ]
+    },
+    {
+      "feature": "text-note-align-anchor-to-corner",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "line-tool-text-note.84dddfb7b76a7bca47bb.js"
+      ],
+      "contexts": [
+        "B,F,W=i(440891),O=i(653900);function E(e){return W.enabled(\"text-note-align-anchor-to-corner\")?function(e){let t,i;return e>=-180&&e<-90?(t=z.Ho",
+        "{context:i}=e,o=t.points[0];let r=t.points[1];if(W.enabled(\"text-note-align-anchor-to-corner\")){const e=Math.atan2(r.y-o.y,r.x-o.x);r=r.add(new ",
+        ",F,W=i(440891),O=i(653900);function E(e){return W.enabled(\"text-note-align-anchor-to-corner\")?function(e){let t,i;return e>=-180&&e<-90?(t=z.Ho"
+      ]
+    },
+    {
+      "feature": "tpo_summary",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "Id(tpoSummaryDataSourceId);if(18!==this.style()||!isFeatureEnabled(\"tpo_summary\"))return void(e&&this._model.removeSource(e));const"
+      ]
+    },
+    {
+      "feature": "tv_production",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [
+        "advanced_emoji_in_titles",
+        "auto_enable_symbol_labels",
+        "symbol_search_parser_mixin",
+        "header_fullscreen_button",
+        "header_widget",
+        "dont_show_boolean_study_arguments",
+        "left_toolbar",
+        "right_toolbar",
+        "buy_sell_buttons",
+        "control_bar",
+        "symbol_search_hot_key",
+        "context_menus",
+        "edit_buttons_in_legend",
+        "object_tree_legend_mode",
+        "uppercase_instrument_names",
+        "use_localstorage_for_settings",
+        "saveload_requires_authentication",
+        "volume_force_overlay",
+        "saved_charts_count_restriction",
+        "create_volume_indicator_by_default",
+        "create_volume_indicator_by_default_once",
+        "charts_auto_save",
+        "save_old_chart_before_save_as",
+        "chart_content_overrides_by_defaults",
+        "alerts",
+        "header_saveload",
+        "header_layouttoggle",
+        "datasource_copypaste",
+        "show_saved_watchlists",
+        "watchlists_from_to_file",
+        "add_to_watchlist",
+        "property_pages",
+        "support_multicharts",
+        "display_market_status",
+        "display_data_mode",
+        "show_chart_warn_message",
+        "support_manage_drawings",
+        "widgetbar_tabs",
+        "study_templates",
+        "collapsible_header",
+        "drawing_templates",
+        "footer_publish_idea_button",
+        "text_notes",
+        "show_source_code",
+        "symbol_info",
+        "linetoolpropertieswidget_template_button",
+        "trading_notifications",
+        "symbol_search_three_columns_exchanges",
+        "symbol_search_flags",
+        "symbol_search_limited_exchanges",
+        "phone_verification",
+        "custom_resolutions",
+        "compare_symbol",
+        "study_on_study",
+        "japanese_chart_styles",
+        "show_login_dialog",
+        "dom_widget",
+        "bars_marks",
+        "chart_scroll",
+        "chart_zoom",
+        "show_trading_notifications_history",
+        "source_selection_markers",
+        "study_dialog_fundamentals_economy_addons",
+        "multiple_watchlists",
+        "marked_symbols",
+        "order_panel",
+        "pricescale_currency",
+        "show_animated_logo",
+        "pricescale_currency",
+        "show_object_tree",
+        "watchlist_import_export",
+        "scales_date_format",
+        "scales_time_hours_format",
+        "popup_hints",
+        "show_right_widgets_panel_by_default",
+        "compare_recent_symbols_enabled",
+        "chart_style_hilo_last_price",
+        "symbol_search_option_chain_selector"
+      ],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "two_character_bar_marks_labels",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ngify(i)));const a=(0,m.createDwmAligner)(n,e),c=r.enabled(\"two_character_bar_marks_labels\"),h=i.map((e=>{const t=e;return t.tickmark=null!==a",
+        "gify(i)));const a=(0,m.createDwmAligner)(n,e),c=r.enabled(\"two_character_bar_marks_labels\"),h=i.map((e=>{const t=e;return t.tickmark=null!==a"
+      ]
+    },
+    {
+      "feature": "unit_menu_disabled",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "\"\"}(4),Qn=l.enabled(\"currency_menu_disabled\"),eo=l.enabled(\"unit_menu_disabled\"),to={contextMenuEnabled:!0,currencyConversionEnabl",
+        "\"}(4),Qn=l.enabled(\"currency_menu_disabled\"),eo=l.enabled(\"unit_menu_disabled\"),to={contextMenuEnabled:!0,currencyConversionEnabl"
+      ]
+    },
+    {
+      "feature": "update_study_formatter_on_symbol_resolve",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "scribe(this,(()=>this.invalidateTitleCache(!0))),H.enabled(\"update_study_formatter_on_symbol_resolve\")&&e.mainSeries().dataEvents().symbolResolved().sub",
+        "cribe(this,(()=>this.invalidateTitleCache(!0))),H.enabled(\"update_study_formatter_on_symbol_resolve\")&&e.mainSeries().dataEvents().symbolResolved().sub"
+      ]
+    },
+    {
+      "feature": "update_timeframes_set_on_symbol_resolve",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "chart-bottom-toolbar.fd38479e975a1ac4fdd8.js"
+      ],
+      "contexts": [
+        "ed().subscribe(this,this._updateAvailableRanges),c.enabled(\"update_timeframes_set_on_symbol_resolve\")&&n.dataEvents().symbolResolved().subscribe(this,t",
+        "().unsubscribe(this,this._updateAvailableRanges),c.enabled(\"update_timeframes_set_on_symbol_resolve\")&&n.dataEvents().symbolResolved().unsubscribe(this",
+        "d().subscribe(this,this._updateAvailableRanges),c.enabled(\"update_timeframes_set_on_symbol_resolve\")&&n.dataEvents().symbolResolved().subscribe(this,t"
+      ]
+    },
+    {
+      "feature": "uppercase_instrument_names",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "7000.21314dd7f29723dd7570.js",
+        "7335.f7017c32a7d4a05f3652.js",
+        "library.e8d44337c84d65489d2c.js",
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "contexts": [
+        "spread_operators\")})},disabled:i,className:a()(p,u.enabled(\"uppercase_instrument_names\")&&C.uppercase)})}function x(e){if(\"definition\"in e",
+        "pread_operators\")})},disabled:i,className:a()(p,u.enabled(\"uppercase_instrument_names\")&&C.uppercase)})}function x(e){if(\"definition\"in e",
+        "hSources)(),Je=(0,m.getDefaultSearchSource)(),et=u.enabled(\"uppercase_instrument_names\");function tt(e){ const{onClose:t,symbolTypeFilter:"
+      ]
+    },
+    {
+      "feature": "use_last_visible_bar_value_in_legend",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "hide_price_scale_global_last_bar_value"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "data-window-widget.997c077e13963f88220b.js",
+        "library.e8d44337c84d65489d2c.js",
+        "studies.df9d03d5d71d89aed43c.js"
+      ],
+      "contexts": [
+        "e||isNaN(e))&&(e=this._study.data().lastIndex(), l.enabled(\"use_last_visible_bar_value_in_legend\")&&(e=this._model.timeScale().visibleBarsStrictRang",
+        "||isNaN(e))&&(e=this._study.data().lastIndex(), l.enabled(\"use_last_visible_bar_value_in_legend\")&&(e=this._model.timeScale().visibleBarsStrictRang",
+        "t i=this._model.crosshairSource().appliedIndex();c.enabled(\"use_last_visible_bar_value_in_legend\")&&!(0,s.isNumber)(i)&&(i=this._model.timeScale().v"
+      ]
+    },
+    {
+      "feature": "use_localstorage_for_settings",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production",
+        "widget",
+        "charting_library_base"
+      ],
+      "subsets": [
+        "items_favoriting",
+        "save_chart_properties_to_local_storage"
+      ],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js",
+        "symbol-list-service.ff72f86845c1d337fda3.js"
+      ],
+      "contexts": [
+        "\"s.tradingview.com\",\"betacdn.tradingview.com\"],c=a.enabled(\"use_localstorage_for_settings\"),h=window.TVSettings=function(){var e=!1,t=null;fu",
+        "apter;null!=m?(d.setSettingsAdapter(m),d.sync()):l.enabled(\"use_localstorage_for_settings\")&&d.sync();var g=i(799839);const f=(0,o.getChartin",
+        "Overrides)(this.properties(),void 0,!1,t,void 0),l.enabled(\"use_localstorage_for_settings\")&&this.properties().saveDefaults(),this._model){(0"
+      ]
+    },
+    {
+      "feature": "use_na_string_for_not_available_values",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "vailable:()=>r});var s=i(609838);const r=i(440891).enabled(\"use_na_string_for_not_available_values\")?s.t(null,void 0,i(690091)):\"∅\"},251940:(e,t,i)=>{",
+        "ailable:()=>r});var s=i(609838);const r=i(440891).enabled(\"use_na_string_for_not_available_values\")?s.t(null,void 0,i(690091)):\"∅\"},251940:(e,t,i)=>{"
+      ]
+    },
+    {
+      "feature": "use_overrides_for_overlay",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "basicstudies\"},[]),o={allowExtendTimeScale:i};if(l.enabled(\"use_overrides_for_overlay\")){const e=(0,h.factoryDefaults)(\"study_Overlay@tv-",
+        "asicstudies\"},[]),o={allowExtendTimeScale:i};if(l.enabled(\"use_overrides_for_overlay\")){const e=(0,h.factoryDefaults)(\"study_Overlay@tv-"
+      ]
+    },
+    {
+      "feature": "use_symbol_name_for_header_toolbar",
+      "inBaseTree": false,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "restricted-toolset.6f81af351cfbad2af083.js"
+      ],
+      "contexts": [
+        "nking.proSymbol.subscribe(this._onSymbolChanged),i.enabled(\"use_symbol_name_for_header_toolbar\")&&r.linking.getChartWidget()?.model().mainSeries()",
+        "ing.proSymbol.unsubscribe(this._onSymbolChanged),i.enabled(\"use_symbol_name_for_header_toolbar\")&&r.linking.getChartWidget()?.model().mainSeries()",
+        "tion mn(){const e=r.linking.proSymbol.value();if(i.enabled(\"use_symbol_name_for_header_toolbar\")){const e=r.linking.seriesShortSymbol.value();if(e"
+      ]
+    },
+    {
+      "feature": "use_ticker_on_symbol_info_update",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "bled(\"charting_library_single_symbol_request\"),f=l.enabled(\"use_ticker_on_symbol_info_update\"),y=l.enabled(\"hide_object_tree_and_price_scale_exc",
+        "led(\"charting_library_single_symbol_request\"),f=l.enabled(\"use_ticker_on_symbol_info_update\"),y=l.enabled(\"hide_object_tree_and_price_scale_exc"
+      ]
+    },
+    {
+      "feature": "vert_touch_drag_scroll",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "handle_scroll"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        ".enabled(\"horz_touch_drag_scroll\"),vertTouchDrag:l.enabled(\"vert_touch_drag_scroll\")},shiftVisibleRangeOnNewBar:l.enabled(\"shift_visib",
+        "enabled(\"horz_touch_drag_scroll\"),vertTouchDrag:l.enabled(\"vert_touch_drag_scroll\")},shiftVisibleRangeOnNewBar:l.enabled(\"shift_visib"
+      ]
+    },
+    {
+      "feature": "watchlists_from_to_file",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "tv_production"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree subset)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "whotrades_auth_only",
+      "inBaseTree": true,
+      "parentFeatures": [],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)"
+      ],
+      "contexts": []
+    },
+    {
+      "feature": "widget",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "bovespa_widget"
+      ],
+      "subsets": [
+        "auto_enable_symbol_labels",
+        "symbol_search_parser_mixin",
+        "uppercase_instrument_names",
+        "left_toolbar",
+        "right_toolbar",
+        "control_bar",
+        "symbol_search_hot_key",
+        "context_menus",
+        "edit_buttons_in_legend",
+        "object_tree_legend_mode",
+        "use_localstorage_for_settings",
+        "saveload_requires_authentication",
+        "volume_force_overlay",
+        "create_volume_indicator_by_default",
+        "create_volume_indicator_by_default_once",
+        "dont_show_boolean_study_arguments",
+        "header_widget_dom_node",
+        "header_symbol_search",
+        "header_resolutions",
+        "header_chart_type",
+        "header_compare",
+        "header_indicators",
+        "star_some_intervals_by_default",
+        "display_market_status",
+        "display_data_mode",
+        "show_chart_warn_message",
+        "symbol_info",
+        "linetoolpropertieswidget_template_button",
+        "symbol_search_three_columns_exchanges",
+        "symbol_search_flags",
+        "symbol_search_limited_exchanges",
+        "widgetbar_tabs",
+        "compare_symbol",
+        "show_login_dialog",
+        "plain_studymarket",
+        "japanese_chart_styles",
+        "bars_marks",
+        "chart_scroll",
+        "chart_zoom",
+        "source_selection_markers",
+        "property_pages",
+        "show_right_widgets_panel_by_default",
+        "chart_style_hilo_last_price"
+      ],
+      "sources": [
+        "2614.js (baseTree)",
+        "7898.93482c7ce4146884bda0.js",
+        "compare-model.17fcdaff82dd9646d47f.js",
+        "floating-toolbars.435f06c307950384d090.js",
+        "header-toolbar.33da2545627b9608b949.js"
+      ],
+      "contexts": [
+        "gger)(\"Platform.Model.SymbolLists\");function*_(){h.enabled(\"widget\")||(yield(0,o.fork)(y))}function I(t){return new Pr",
+        "ger)(\"Platform.Model.SymbolLists\");function*_(){h.enabled(\"widget\")||(yield(0,o.fork)(y))}function I(t){return new Pr",
+        "519),l=o(278906),d=o(420066),u=o(542923);new Set(r.enabled(\"widget\")?[\"pro_name\",\"short_name\",\"description\",\"exchange\""
+      ]
+    },
+    {
+      "feature": "widget_logo",
+      "inBaseTree": true,
+      "parentFeatures": [
+        "charting_library_base"
+      ],
+      "subsets": [],
+      "sources": [
+        "2614.js (baseTree)",
+        "library.e8d44337c84d65489d2c.js"
+      ],
+      "contexts": [
+        "ewModel}}var Jg=i(287489),Qg=i(776351);const ef=!l.enabled(\"widget_logo\")||!1;var tf;function sf(e,t=null,i=null){let s={};",
+        "age,this._customLogoLink=e.link,this._needToShow=l.enabled(\"widget_logo\"),l.enabled(\"link_to_tradingview\")?this._layout=pv:",
+        "lace(/^\\//,\"\")),this._layout=_v,this._needToShow=l.enabled(\"widget_logo\"))}}}_startOpenAnimation(){if(null!==this._openAnim"
+      ]
+    }
+  ]
+}

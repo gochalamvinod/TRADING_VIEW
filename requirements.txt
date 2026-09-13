@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+MetaTrader5
+python-dateutil
+pandas
+numpy
+requests

@@ -1,0 +1,263 @@
+[
+  {
+    "pine": "3D_MACD_Bar_Plot_LuxAlgo.pine",
+    "js": "3D_MACD_Bar_Plot_LuxAlgo.js",
+    "title": "3D MACD Bar Plot [LuxAlgo]",
+    "shortTitle": "3D MACD Bar Plo",
+    "overlay": false,
+    "score": 100,
+    "jsLines": 2076
+  },
+  {
+    "pine": "Arbitrage_Matrix_LuxAlgo.pine",
+    "js": "Arbitrage_Matrix_LuxAlgo.js",
+    "title": "Arbitrage Matrix [LuxAlgo]",
+    "shortTitle": "Arbitrage Matri",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 2243
+  },
+  {
+    "pine": "Asset_Drift_Model.pine",
+    "js": "Asset_Drift_Model.js",
+    "title": "Asset Drift Model",
+    "shortTitle": "ADM",
+    "overlay": false,
+    "score": 100,
+    "jsLines": 2237
+  },
+  {
+    "pine": "Automatic_Trendline_Metrify.pine",
+    "js": "Automatic_Trendline_Metrify.js",
+    "title": "Automatic Trendline [Metrify]",
+    "shortTitle": "Automatic Trend",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 2186
+  },
+  {
+    "pine": "CE_1M_3M_Buy_Sell_Hold.pine",
+    "js": "CE_1M_3M_Buy_Sell_Hold.js",
+    "title": "CE 1M + 3M Buy, Sell, Hold",
+    "shortTitle": "CE 1M + 3M Buy,",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 1945
+  },
+  {
+    "pine": "Crossing_Moving_Averages_with_ADX_Filter.pine",
+    "js": "Crossing_Moving_Averages_with_ADX_Filter.js",
+    "title": "Crossing Moving Averages with ADX Filter",
+    "shortTitle": "Crossing Moving",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 1967
+  },
+  {
+    "pine": "Folded_RSI.pine",
+    "js": "Folded_RSI.js",
+    "title": "Folded RSI (custom RSI, phase-invariant)",
+    "shortTitle": "Folded RSI",
+    "overlay": false,
+    "score": 100,
+    "jsLines": 2052
+  },
+  {
+    "pine": "Golden_Pocket_Zones.pine",
+    "js": "Golden_Pocket_Zones.js",
+    "title": "Golden Pocket Zones",
+    "shortTitle": "Golden Pocket Z",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 2139
+  },
+  {
+    "pine": "Hyperfork_Matrix.pine",
+    "js": "Hyperfork_Matrix.js",
+    "title": "Hyperfork Matrix",
+    "shortTitle": "Hyperfork Matri",
+    "overlay": false,
+    "score": 100,
+    "jsLines": 2584
+  },
+  {
+    "pine": "Impulse_Trend_Arrows.pine",
+    "js": "Impulse_Trend_Arrows.js",
+    "title": "Impulse Trend Arrows",
+    "shortTitle": "Impulse Trend Arrows",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 1992
+  },
+  {
+    "pine": "Institutional_Order_Flow_Strength_Classifier_LuxAlgo.pine",
+    "js": "Institutional_Order_Flow_Strength_Classifier_LuxAlgo.js",
+    "title": "Institutional Order Flow Strength Classifier [LuxAlgo]",
+    "shortTitle": "Institutional O",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 2102
+  },
+  {
+    "pine": "Liquidity_Sweep_Detector.pine",
+    "js": "Liquidity_Sweep_Detector.js",
+    "title": "Liquidity Sweep Detector [DefinedEdge]",
+    "shortTitle": "Sweep Detector",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 2239
+  },
+  {
+    "pine": "Manias_Panics_and_Crashes.pine",
+    "js": "Manias_Panics_and_Crashes.js",
+    "title": "Manias, Panics and Crashes",
+    "shortTitle": "MPC",
+    "overlay": false,
+    "score": 100,
+    "jsLines": 2239
+  },
+  {
+    "pine": "Net_Buy_Volume_theUltimator5.pine",
+    "js": "Net_Buy_Volume_theUltimator5.js",
+    "title": "Net Buy Volume [theUltimator5]",
+    "shortTitle": "Net Buy Volume ",
+    "overlay": false,
+    "score": 100,
+    "jsLines": 1952
+  },
+  {
+    "pine": "NY_5m_15m_Orb_-_Statistics_LTF_Candle_structure.pine",
+    "js": "NY_5m_15m_Orb_-_Statistics_LTF_Candle_structure.js",
+    "title": "NY 5m 15m Orb - Statistics LTF Candle structure",
+    "shortTitle": "NY ORB",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 2948
+  },
+  {
+    "pine": "Peak_Trading_Activity_Graphs_LuxAlgo.pine",
+    "js": "Peak_Trading_Activity_Graphs_LuxAlgo.js",
+    "title": "Peak Trading Activity Graphs [LuxAlgo]",
+    "shortTitle": "Peak Trading Ac",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 2193
+  },
+  {
+    "pine": "Proximal_Range_Filter_LuxAlgo.pine",
+    "js": "Proximal_Range_Filter_LuxAlgo.js",
+    "title": "L1 Proximal Filter [LuxAlgo]",
+    "shortTitle": "L1 Proximal Fil",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 1963
+  },
+  {
+    "pine": "Pro_Pattern_Long-Short_High_Winrate.pine",
+    "js": "Pro_Pattern_Long-Short_High_Winrate.js",
+    "title": "Pro Pattern Al-Sat (High Winrate)",
+    "shortTitle": "Pro Pattern Al-",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 2207
+  },
+  {
+    "pine": "Quantum_Structure_jjart.pine",
+    "js": "Quantum_Structure_jjart.js",
+    "title": "Quantum Structure | jjart",
+    "shortTitle": "Quantum Structu",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 3165
+  },
+  {
+    "pine": "RBT_strategy.pine",
+    "js": "RBT_strategy.js",
+    "title": "LuckyFX RBtrader strategy",
+    "shortTitle": "LuckyFX RBtrade",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 1971
+  },
+  {
+    "pine": "Scalping_Strategy_3_minutes.pine",
+    "js": "Scalping_Strategy_3_minutes.js",
+    "title": "Scalping Strategy 3 minutes",
+    "shortTitle": "XXX ",
+    "overlay": true,
+    "score": 75,
+    "jsLines": 2736
+  },
+  {
+    "pine": "Singular_Spectrum_Decomposition_LuxAlgo.pine",
+    "js": "Singular_Spectrum_Decomposition_LuxAlgo.js",
+    "title": "Singular Spectrum Decomposition [LuxAlgo]",
+    "shortTitle": "Singular Spectr",
+    "overlay": false,
+    "score": 100,
+    "jsLines": 2182
+  },
+  {
+    "pine": "Smart_Trader_Episode_03_by_Ata_Sabanci_Candles_and_Tradelines.pine",
+    "js": "Smart_Trader_Episode_03_by_Ata_Sabanci_Candles_and_Tradelines.js",
+    "title": "Smart Trader, Episode 03, by Ata Sabancı | Candles and Tradelines",
+    "shortTitle": "ST-EP03",
+    "overlay": true,
+    "score": 90,
+    "jsLines": 4305
+  },
+  {
+    "pine": "SMC_Trade_with_Dhruv.pine",
+    "js": "SMC_Trade_with_Dhruv.js",
+    "title": "SMC [Trade with Dhruv]",
+    "shortTitle": "SMC [Trade with",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 2511
+  },
+  {
+    "pine": "TehThomas_-_Aligned_Timeframe_Fair_Value_Gaps.pine",
+    "js": "TehThomas_-_Aligned_Timeframe_Fair_Value_Gaps.js",
+    "title": "[TehThomas] - Aligned Timeframe Fair Value Gaps",
+    "shortTitle": "[TehThomas] - A",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 2171
+  },
+  {
+    "pine": "Volatility_Contraction_Score.pine",
+    "js": "Volatility_Contraction_Score.js",
+    "title": "Volatility Contraction Score",
+    "shortTitle": "VCS",
+    "overlay": false,
+    "score": 100,
+    "jsLines": 2000
+  },
+  {
+    "pine": "Volume_Surprise_LuxAlgo.pine",
+    "js": "Volume_Surprise_LuxAlgo.js",
+    "title": "Volume Surprise [LuxAlgo]",
+    "shortTitle": "Volume Surprise",
+    "overlay": false,
+    "score": 100,
+    "jsLines": 2007
+  },
+  {
+    "pine": "Volume_Weighted_Trend_QuantAlgo.pine",
+    "js": "Volume_Weighted_Trend_QuantAlgo.js",
+    "title": "Volume Weighted Trend [QuantAlgo]",
+    "shortTitle": "Volume Weighted",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 1990
+  },
+  {
+    "pine": "VSA_Pro_Trend_and_Rejection.pine",
+    "js": "VSA_Pro_Trend_and_Rejection.js",
+    "title": "VSA Pro Trend and Rejection",
+    "shortTitle": "VSA Pro Trend a",
+    "overlay": true,
+    "score": 100,
+    "jsLines": 1982
+  }
+]

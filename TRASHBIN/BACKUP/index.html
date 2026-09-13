@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TradingView Charting — Trading Terminal (Watchlist enabled)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- TradingView Charting Library -->
+    <script src="charting_library/charting_library.standalone.js"></script>
+    <script src="datafeeds/udf/dist/bundle.js"></script>
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+    <style>
+      /* --- keep your original styles intact --- */
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #000;
+        color: white;
+        font-family: sans-serif;
+        overflow: hidden;
+      }
+      #tv_chart_container { width: 100vw; height: 95.1vh; }
+      #buttons {
+        text-align: center;
+        padding: 6px;
+        background: #111;
+      }
+      button {
+        margin: 3px;
+        padding: 4px 12px;
+        font-size: 12px;
+        background: #222;
+        color: white;
+        border: 1px solid #444;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+      button:hover { background: #444; }
+      #session-table {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: auto;
+        max-width: 220px;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        border: 1px solid #444;
+        border-radius: 8px;
+        padding: 6px;
+        font-size: 12px;
+        cursor: move;
+        user-select: none;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+        white-space: nowrap;
+      }
+      #session-table table { border-collapse: collapse; width: 100%; }
+      #session-table th, #session-table td {
+        border: 1px solid #333;
+        padding: 4px 6px;
+        text-align: left;
+        white-space: nowrap;
+      }
+      #session-table th { background-color: #111; font-weight: bold; }
+    </style>
+  </head>
+
+  <body>
+    <div id="tv_chart_container"></div>
+    <div id="buttons">
+      <button onclick="saveLayout()">💾 Save Layout</button>
+      <button onclick="loadLayout()">📂 Load Layout</button>
+      <button onclick="resetLayout()">❌ Reset Layout</button>
+      <button onclick="toggleTheme()">🌓 Toggle Theme</button>
+    </div>
+
+    <!-- Floating Session Table (optional) -->
+    <!-- <div id="session-table">...</div> -->
+
+    <script>
+      /* =========================================================
+         Strict-200 + silent retries implementation
+         - Retries up to MAX_RETRIES for any status !== 200 or network error.
+         - LOG_ERRORS = false will suppress console output of statuses.
+         - After MAX_RETRIES the symbol is returned as s: "no_data".
+         NOTE: The browser Network panel will still show the server's HTTP responses
+         (e.g. 500 or CORS errors). Those cannot be hidden client-side.
+         ========================================================= */
+
+      // Toggle this to true if you want to see attempt logs (only for debugging)
+      const LOG_ERRORS = false;
+
+      function log(...args){ if (LOG_ERRORS && window.console) console.log("[TV]", ...args); }
+
+      const STORAGE_KEY = "tv_chart_layout";
+      const THEME_KEY = "tv_chart_theme";
+
+      function getParameterByName(name) {
+        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+        const results = regex.exec(window.location.search);
+        if (!results) return null;
+        return decodeURIComponent(results[2] || "");
+      }
+
+      function saveLayout() {
+        if(!widget) { if (LOG_ERRORS) alert("Widget not ready"); return; }
+        widget.save(layout => {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(layout));
+          if (LOG_ERRORS) alert("✅ Layout saved to localStorage");
+        });
+      }
+      function loadLayout() {
+        if(!widget) { if (LOG_ERRORS) alert("Widget not ready"); return; }
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) { widget.load(JSON.parse(saved)); if (LOG_ERRORS) alert("✅ Layout loaded"); }
+        else if (LOG_ERRORS) alert("⚠️ No layout found");
+      }
+      function resetLayout() { localStorage.removeItem(STORAGE_KEY); if (LOG_ERRORS) alert("🗑️ Layout reset. Reloading..."); location.reload(); }
+      function toggleTheme() {
+        const cur = localStorage.getItem(THEME_KEY) || "Dark";
+        const newTheme = cur === "Dark" ? "Light" : "Dark";
+        localStorage.setItem(THEME_KEY, newTheme);
+        if (LOG_ERRORS) alert(`🔁 Theme changed to ${newTheme}. Reloading...`);
+        location.reload();
+      }
+
+      let widget = null;
+
+      function initChart() {
+        const datafeedUrl = getParameterByName("dataUrl") || "https://automatically-norfolk-health-seasonal.trycloudflare.com";
+        const theme = localStorage.getItem(THEME_KEY) || "Dark";
+
+        const POLL_INTERVAL_MS = 3000; // frequency for subscribeQuotes polling
+        const HISTORY_LOOKBACK_SECONDS = 3600; // request last hour of bars
+        const MAX_RETRIES = 10; // retry up to 10 times per request
+        const STRICT_STATUS = 200; // strictly require HTTP 200
+
+        // small helper sleep
+        function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
+
+        // Robust fetch that retries on network errors or non-200 HTTP responses
+        async function fetchWithRetries(url, options = {}, maxRetries = MAX_RETRIES) {
+          let attempt = 0;
+          const baseDelay = 250; // ms
+
+          while (attempt < maxRetries) {
+            attempt++;
+            try {
+              const res = await fetch(url, { cache: 'no-store', ...options });
+
+              // Strictly accept only status === STRICT_STATUS
+              if (res.status !== STRICT_STATUS) {
+                // Throw to trigger retry logic; error logged only if LOG_ERRORS === true
+                if (LOG_ERRORS) log(`fetchWithRetries: attempt ${attempt} received HTTP ${res.status} for ${url}`);
+                throw new Error('non_ok_status');
+              }
+
+              // parse JSON and return
+              const data = await res.json();
+              return data;
+            } catch (err) {
+              if (LOG_ERRORS) {
+                console.warn(`fetchWithRetries attempt ${attempt} failed for ${url}:`, err && err.message ? err.message : err);
+              }
+              if (attempt >= maxRetries) {
+                if (LOG_ERRORS) {
+                  console.error(`fetchWithRetries: dropping response to trash after ${attempt} attempts for ${url}`);
+                }
+                // rethrow to let caller handle converting to no_data
+                throw err;
+              }
+
+              // exponential backoff with jitter (silent if LOG_ERRORS=false)
+              const delay = baseDelay * Math.pow(2, attempt - 1) + Math.floor(Math.random() * 200);
+              await sleep(delay);
+            }
+          }
+
+          // should not reach here
+          throw new Error('fetchWithRetries: unknown error');
+        }
+
+        // Convert UDF /history response to a single quote object for a symbol
+        // historyResponse should follow UDF { s: 'ok', t:[], c:[], o:[], h:[], l:[], v:[] }
+        function historyToQuote(sym, historyResponse) {
+          if (!historyResponse || historyResponse.s !== "ok" || !Array.isArray(historyResponse.c) || historyResponse.c.length === 0) {
+            return {
+              s: "no_data",
+              n: sym,
+              v: {
+                short_name: sym.split(":").pop(),
+                original_name: sym,
+                description: sym
+              }
+            };
+          }
+          const c = historyResponse.c;
+          const last = c[c.length - 1];
+          const prev = c.length >= 2 ? c[c.length - 2] : last;
+          const lp = +last;
+          const prevClose = +prev || lp;
+          const ch = +(lp - prevClose);
+          const chp = prevClose !== 0 ? +((ch / prevClose) * 100) : 0;
+
+          return {
+            s: "ok",
+            n: sym,
+            v: {
+              lp: +lp,
+              ask: +lp + 0.0001 * Math.max(1, Math.abs(lp)),
+              bid: +lp - 0.0001 * Math.max(1, Math.abs(lp)),
+              ch: +ch,
+              chp: +chp.toFixed(2),
+              short_name: sym.split(":").pop(),
+              exchange: "",
+              original_name: sym,
+              description: sym,
+              open_price: (historyResponse.o && historyResponse.o.length ? historyResponse.o[historyResponse.o.length-1] : undefined),
+              high_price: (historyResponse.h && historyResponse.h.length ? Math.max(...historyResponse.h.slice(-5)) : undefined),
+              low_price: (historyResponse.l && historyResponse.l.length ? Math.min(...historyResponse.l.slice(-5)) : undefined),
+              prev_close_price: prevClose,
+              volume: (historyResponse.v && historyResponse.v.length ? historyResponse.v[historyResponse.v.length-1] : undefined)
+            }
+          };
+        }
+
+        // Fetch history and build quotes for multiple symbols
+        async function fetchQuotesFromHistory(symbols, resolution = "60") {
+          const to = Math.floor(Date.now() / 1000);
+          const from = Math.max(0, to - HISTORY_LOOKBACK_SECONDS);
+
+          const promises = symbols.map(async (sym) => {
+            const url = `${datafeedUrl}/history?symbol=${encodeURIComponent(sym)}&resolution=${encodeURIComponent(resolution)}&from=${from}&to=${to}`;
+            try {
+              const historyResp = await fetchWithRetries(url);
+              return historyToQuote(sym, historyResp);
+            } catch (err) {
+              if (LOG_ERRORS) console.warn(`fetchQuotesFromHistory: dropping ${sym} after ${MAX_RETRIES} failed attempts`);
+              return {
+                s: "no_data",
+                n: sym,
+                v: { short_name: sym.split(":").pop(), original_name: sym, description: sym }
+              };
+            }
+          });
+
+          return Promise.all(promises);
+        }
+
+        /* ----------------------------
+           Create the standard UDF datafeed and then wrap it to add quotes methods.
+           ---------------------------- */
+        const baseUdf = new Datafeeds.UDFCompatibleDatafeed(datafeedUrl, 1000);
+        const datafeedWrapper = Object.create(baseUdf);
+
+        // getQuotes: trading platform will call this to get current values for a list of symbols
+        datafeedWrapper.getQuotes = function(symbols, onDataCallback, onErrorCallback) {
+          fetchQuotesFromHistory(symbols, "60")
+            .then(res => {
+              onDataCallback(res);
+            })
+            .catch(err => {
+              if (LOG_ERRORS) console.error("getQuotes error:", err);
+              if (onErrorCallback) onErrorCallback({ error: err.message || String(err) });
+            });
+        };
+
+        // subscribeQuotes: poll /history periodically for updates (no websockets)
+        datafeedWrapper._pollers = datafeedWrapper._pollers || {};
+
+        datafeedWrapper.subscribeQuotes = function(symbols = [], fastSymbols = [], onRealtimeCallback, listenerGUID) {
+          const allSymbols = Array.from(new Set([...symbols, ...fastSymbols]));
+          if (!listenerGUID) listenerGUID = Math.random().toString(36).slice(2);
+
+          if (datafeedWrapper._pollers[listenerGUID]) {
+            clearInterval(datafeedWrapper._pollers[listenerGUID].timer);
+            delete datafeedWrapper._pollers[listenerGUID];
+          }
+
+          (async () => {
+            try {
+              const res = await fetchQuotesFromHistory(allSymbols, "60");
+              onRealtimeCallback(res);
+            } catch (err) {
+              if (LOG_ERRORS) console.warn("initial subscribeQuotes fetch error", err);
+            }
+          })();
+
+          const timer = setInterval(async () => {
+            try {
+              const res = await fetchQuotesFromHistory(allSymbols, "60");
+              onRealtimeCallback(res);
+            } catch (err) {
+              if (LOG_ERRORS) console.warn("subscribeQuotes polling error", err);
+            }
+          }, Math.max(1000, POLL_INTERVAL_MS));
+
+          datafeedWrapper._pollers[listenerGUID] = { symbols: allSymbols, timer };
+          return listenerGUID;
+        };
+
+        datafeedWrapper.unsubscribeQuotes = function(listenerGUID) {
+          const p = datafeedWrapper._pollers[listenerGUID];
+          if (p) {
+            clearInterval(p.timer);
+            delete datafeedWrapper._pollers[listenerGUID];
+          }
+        };
+
+        // Depth stubs (optional)
+        datafeedWrapper.subscribeDepth = function(symbol, onDepthCallback, listenerGuid) {
+          if (LOG_ERRORS) console.log("subscribeDepth stub for", symbol);
+          return null;
+        };
+        datafeedWrapper.unsubscribeDepth = function(listenerGuid) {
+          if (LOG_ERRORS) console.log("unsubscribeDepth stub", listenerGuid);
+        };
+
+        /* ----------------------------
+           WIDGET CONSTRUCTOR
+           ---------------------------- */
+        widget = new TradingView.widget({
+          fullscreen: true,
+          autosize: true,
+          symbol: "EURUSD.",
+          interval: "60",
+          container: "tv_chart_container",
+          library_path: "charting_library/",
+          locale: getParameterByName("lang") || "en",
+          datafeed: datafeedWrapper,
+          theme: theme,
+          broker: {
+            async placeOrder(order){ if (LOG_ERRORS) log("Demo placeOrder", order); return { success: true, orderId: "demo-"+Math.random().toString(36).slice(2) }; },
+            async cancelOrder(orderId){ if (LOG_ERRORS) log("Demo cancelOrder", orderId); return { success: true }; }
+          },
+          enabled_features: [
+            "header_symbol_search","header_compare","header_indicators","timeframes_toolbar","left_toolbar",
+            "right_toolbar","save_chart_properties_to_local_storage","header_fullscreen_button","header_saveload","header_screenshot",
+            "watchlist","watchlist_sections","watchlist_context_menu","watchlist_import_export","show_symbol_logos","show_symbol_watchlist",
+            "drawing_templates","add_to_watchlist","chart_templates","study_templates",
+            "support_multicharts","multi_chart_layout",
+            "show_trading_panel","display_market_status","order_panel","order_panel_no_connection",
+            "chart_crosshair_menu","main_series_scale_menu","volume_force_overlay","favorite_timeframes","datasource_copypaste","snapshot_trading_drawings"
+          ],
+          widgetbar: {
+            watchlist: true,
+            details: true,
+            news: true,
+            datawindow: true,
+            watchlist_settings: {
+              default_symbols: ["EURUSD."],
+              readonly: false
+            },
+            width: 350
+          }
+        });
+
+        widget.onChartReady(async function() {
+          if (LOG_ERRORS) log("Widget ready (Trading Terminal mode)");
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved) widget.load(JSON.parse(saved));
+
+          setInterval(() => widget.save(layout => localStorage.setItem(STORAGE_KEY, JSON.stringify(layout))), 1000);
+
+          try{
+            const wlApi = await widget.watchList();
+            if (LOG_ERRORS) log("Acquired watchlist API", wlApi);
+            try {
+              if (wlApi.createList) wlApi.createList("Demo Watchlist", ["NASDAQ:AAPL", "NASDAQ:MSFT", "BINANCE:BTCUSDT"]);
+            } catch(e){
+              if (LOG_ERRORS) log("createList failed or already exists", e);
+            }
+            if(typeof wlApi.on === 'function'){
+              wlApi.on('listChanged', (evt) => { if (LOG_ERRORS) log("watchlist changed event", evt); });
+            }
+          }catch(e){
+            if (LOG_ERRORS) console.warn("watchList API not available: ensure you have Trading Terminal build and proper license", e);
+          }
+        });
+
+      } // end initChart
+
+      /* attach init + original session-table dragging (unchanged) */
+      window.addEventListener("DOMContentLoaded", () => {
+        initChart();
+        const dragEl = document.getElementById("session-table");
+        let posX=0,posY=0,mouseX=0,mouseY=0;
+        if (dragEl) {
+          dragEl.onmousedown = e => {
+            e.preventDefault(); mouseX=e.clientX; mouseY=e.clientY;
+            document.onmousemove = e2 => {
+              posX=mouseX-e2.clientX; posY=mouseY-e2.clientY;
+              mouseX=e2.clientX; mouseY=e2.clientY;
+              dragEl.style.top=(dragEl.offsetTop-posY)+"px";
+              dragEl.style.left=(dragEl.offsetLeft-posX)+"px";
+            };
+            document.onmouseup = ()=>{document.onmouseup=null;document.onmousemove=null;};
+          };
+        }
+      });
+    </script>
+  </body>
+</html>

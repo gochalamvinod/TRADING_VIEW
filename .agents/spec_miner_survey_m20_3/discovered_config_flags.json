@@ -1,0 +1,595 @@
+{
+  "isSuspended": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "427.8e4ad2884751c78b5ebd.js",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportDemoLiveSwitcher": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportModifyOrderPrice": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportEditAmount": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportModifyBrackets": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportMarketBrackets": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportMarketOrders": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "dom-panel.81d8dd298ff835119bb5.js",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportStopOrders": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "dom-panel.81d8dd298ff835119bb5.js",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportLimitOrders": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "dom-panel.81d8dd298ff835119bb5.js",
+      "library.e8d44337c84d65489d2c.js",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportLeverageButton": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportStopLimitOrders": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "dom-panel.81d8dd298ff835119bb5.js",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportPositions": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportDOM": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "dom-panel.81d8dd298ff835119bb5.js"
+    ]
+  },
+  "supportModifyTrailingStop": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportAddBracketsToExistingOrder": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportVerifyLiveAccount": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportReversePosition": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "showNotificationsLog": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportPLUpdate": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportTwoFactorAuthorization": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportDisplayBrokerNameInSymbolSearch": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportCurrencyInOrderPreview": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportRiskControlsAndInfo": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "6161.10c4a7de17f463d1d76e.js",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportCreateAccount": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportDeleteAccount": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "checkBracketsAfterOrderModification": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "hideMarginIfNoLeverage": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportStrictCheckingLimitOrderPrice": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportOrdersHistory": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportOrderBrackets": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportPositionBrackets": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportMultiposition": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "dom-panel.81d8dd298ff835119bb5.js",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportClosePosition": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportPartialClosePosition": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportNativeReversePosition": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportTrailingStop": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportStopOrdersInBothDirections": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportStopLimitOrdersInBothDirections": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportModifyDuration": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportCryptoExchangeOrderTicket": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportPlaceOrderPreview": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportModifyOrderPreview": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "showQuantityInsteadOfAmount": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportBalances": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportExecutions": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportLeverage": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportLevel2Data": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportTrackLatency": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportPositionNetting": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportIndividualPositionBrackets": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportPartialCloseIndividualPosition": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportStopLoss": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportGuaranteedStop": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportPartialOrderExecution": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportDigitalSignature": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportLogout": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportCustomAccountSummaryRow": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportPositionCustomFields": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportOrderCustomFields": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportOrderHistoryCustomFields": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportCryptoBrackets": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportCloseIndividualPosition": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportSymbolSearch": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportMargin": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "calculatePLUsingLast": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "dom-panel.81d8dd298ff835119bb5.js"
+    ]
+  },
+  "closePositionCancelsOrders": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportOnlyPairPositionBrackets": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportConfirmations": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "positionPLInInstrumentCurrency": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportCancellingBothBracketsOnly": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportUnformattedAvgFillPrice": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "forceLogoutAfterUnauthorizedResponse": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "forceLogoutAfterTooManyRequestsResponse": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "useJsonContentType": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportHyperlinksInOrderDialog": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportHyperlinksInOrderPreview": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportModifyPositionBrackets": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportModifyOrderBrackets": {
+    "default": "!0",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)",
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportOAuthCodeFlowMultiplexing": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportClearPositionsStateAfterStreamReconnect": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportClearIndividualPositionsStateAfterStreamReconnect": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportClearOrdersStateAfterStreamReconnect": {
+    "default": "!1",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js (default table)"
+    ]
+  },
+  "supportPlacingOrderCancelling": {
+    "default": "undefined",
+    "seen_in": [
+      "trading-account-manager.1b2c5c3fc6d9600dc0fb.js"
+    ]
+  },
+  "supportCustomOrderInfo": {
+    "default": "undefined",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "showAvgFillPriceColumnAsLastFillPrice": {
+    "default": "undefined",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportCancelOrderForNonTradableSymbol": {
+    "default": "undefined",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "usesWSConnection": {
+    "default": "undefined",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportRealtimeDataCheck": {
+    "default": "undefined",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportModifyOrderType": {
+    "default": "undefined",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  },
+  "supportSymbolSpecificCryptoOrderTicket": {
+    "default": "undefined",
+    "seen_in": [
+      "trading.5355aa53ba59846168ee.js"
+    ]
+  }
+}

@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>TradingView Advanced Charts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Pine Script v5 Engine Transpiler & Runtime Bridge -->
+    <script src="pine_engine.js"></script>
+    <script src="tv_indicator_engine.js"></script>
+
+    <!-- TradingView Charting Library (TT v29.6.0 Standalone) -->
+    <script src="charting_library/charting_library.standalone.js"></script>
+    <script src="datafeeds/udf/dist/bundle.js"></script>
+    <script src="mt5_broker.js"></script>
+    <link rel="icon" type="image/png" href="tv-icon.png">
+
+    <style>
+      :root {
+        --tv-bg-primary: #131722;
+        --tv-bg-secondary: #1e222d;
+        --tv-bg-tertiary: #2a2e39;
+        --tv-border: #363a45;
+        --tv-border-hover: #4a4e59;
+        --tv-text-primary: #d1d4dc;
+        --tv-text-secondary: #787b86;
+        --tv-accent: #2962ff;
+        --tv-accent-hover: #1e53e5;
+        --tv-success: #089981;
+        --tv-error: #f23645;
+        --tv-warning: #ff9800;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #000;
+        color: var(--tv-text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, Ubuntu, sans-serif;
+        overflow: hidden;
+      }
+
+      #tv_chart_container {
+        width: 100vw;
+        height: calc(100vh - 42px);
+      }
+
+      #buttons {
+        text-align: center;
+        padding: 6px 12px;
+        background: var(--tv-bg-primary);
+        border-top: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 42px;
+      }
+
+      button, .btn {
+        margin: 0;
+        padding: 5px 14px;
+        font-size: 12px;
+        font-weight: 500;
+        background: var(--tv-bg-secondary);
+        color: var(--tv-text-primary);
+        border: 1px solid var(--tv-border);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.15s ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        user-select: none;
+      }
+
+      button:hover, .btn:hover {
+        background: var(--tv-bg-tertiary);
+        border-color: var(--tv-border-hover);
+        color: #fff;
+      }
+
+      button:active, .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn-primary {
+        background: var(--tv-accent);
+        border-color: var(--tv-accent);
+        color: #ffffff;
+        font-weight: 600;
+      }
+
+      .btn-primary:hover {
+        background: var(--tv-accent-hover);
+        border-color: var(--tv-accent-hover);
+      }
+
+      .btn-success {
+        background: var(--tv-success);
+        border-color: var(--tv-success);
+        color: #ffffff;
+      }
+
+      .btn-success:hover {
+        background: #067a67;
+        border-color: #067a67;
+      }
+
+      .btn-danger {
+        background: transparent;
+        border-color: var(--tv-error);
+        color: var(--tv-error);
+      }
+
+      .btn-danger:hover {
+        background: rgba(242, 54, 69, 0.15);
+        color: #ff5c6c;
+      }
+
+      /* Floating Session Table */
+      #session-table {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: auto;
+        max-width: 220px;
+        z-index: 1000;
+        background-color: rgba(19, 23, 34, 0.9);
+        color: #fff;
+        border: 1px solid var(--tv-border);
+        border-radius: 8px;
+        padding: 6px;
+        font-size: 12px;
+        cursor: move;
+        user-select: none;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        white-space: nowrap;
+      }
+      #session-table table { border-collapse: collapse; width: 100%; }
+      #session-table th, #session-table td {
+        border: 1px solid var(--tv-border);
+        padding: 4px 6px;
+        text-align: left;
+        white-space: nowrap;
+      }
+      #session-table th { background-color: var(--tv-bg-primary); font-weight: bold; }
+
+      /* =========================================================================
+       * Pine Script Modal Dialog Styles
+       * ========================================================================= */
+      .pine-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(3px);
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pineFadeIn 0.15s ease-out;
+      }
+
+      @keyframes pineFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .pine-modal-container {
+        width: 92vw;
+        max-width: 1000px;
+        height: 88vh;
+        max-height: 800px;
+        min-height: 520px;
+        background: var(--tv-bg-secondary);
+        border: 1px solid var(--tv-border);
+        border-radius: 10px;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      /* Modal Header */
+      .pine-modal-header {
+        padding: 12px 18px;
+        background: var(--tv-bg-primary);
+        border-bottom: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .pine-modal-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .pine-modal-title span.badge {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        background: rgba(41, 98, 255, 0.2);
+        color: #5c8aff;
+        border: 1px solid rgba(41, 98, 255, 0.4);
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .pine-modal-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .pine-close-btn {
+        background: transparent;
+        border: none;
+        color: var(--tv-text-secondary);
+        font-size: 18px;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        line-height: 1;
+      }
+
+      .pine-close-btn:hover {
+        background: var(--tv-bg-tertiary);
+        color: #fff;
+      }
+
+      /* Toolbar Bar */
+      .pine-toolbar-bar {
+        padding: 8px 18px;
+        background: var(--tv-bg-secondary);
+        border-bottom: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .pine-toolbar-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .pine-toolbar-label {
+        font-size: 12px;
+        color: var(--tv-text-secondary);
+        font-weight: 500;
+      }
+
+      .pine-select, .pine-input {
+        background: var(--tv-bg-primary);
+        border: 1px solid var(--tv-border);
+        color: var(--tv-text-primary);
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .pine-select:focus, .pine-input:focus {
+        border-color: var(--tv-accent);
+      }
+
+      .pine-input {
+        cursor: text;
+        width: 180px;
+      }
+
+      /* Editor Body */
+      .pine-editor-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        background: #141720;
+        position: relative;
+      }
+
+      .pine-editor-split {
+        flex: 1;
+        display: flex;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Line numbers */
+      .pine-line-numbers {
+        width: 44px;
+        padding: 12px 6px;
+        background: #11141c;
+        border-right: 1px solid #232733;
+        color: #4a5061;
+        font-family: 'Consolas', 'Fira Code', 'Monaco', 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 20px;
+        text-align: right;
+        user-select: none;
+        overflow: hidden;
+      }
+
+      .pine-line-numbers div {
+        height: 20px;
+      }
+
+      /* Editor & Syntax Layer Wrapper */
+      .pine-editor-text-wrap {
+        position: relative;
+        flex: 1;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .pine-highlight-layer,
+      .pine-code-editor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 12px 14px;
+        box-sizing: border-box;
+        font-family: 'Consolas', 'Fira Code', 'Monaco', 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 20px;
+        tab-size: 2;
+        white-space: pre;
+        word-wrap: normal;
+        overflow: auto;
+        border: none;
+        outline: none;
+      }
+
+      .pine-highlight-layer {
+        pointer-events: none;
+        background: transparent;
+        color: #abb2bf;
+        z-index: 1;
+      }
+
+      .pine-code-editor {
+        background: transparent;
+        color: transparent;
+        caret-color: #2962ff;
+        resize: none;
+        z-index: 2;
+      }
+
+      .pine-code-editor::selection {
+        background: rgba(41, 98, 255, 0.35);
+      }
+
+      /* Syntax Tokens */
+      .pine-comment { color: #676e7d; font-style: italic; }
+      .pine-keyword { color: #e06c75; font-weight: 600; }
+      .pine-string { color: #98c379; }
+      .pine-number { color: #d19a66; }
+      .pine-ta-function { color: #61afef; font-weight: 600; }
+      .pine-builtin { color: #e5c07b; }
+      .pine-property { color: #56b6c2; }
+      .pine-operator { color: #56b6c2; }
+      .pine-ident { color: #abb2bf; }
+
+      /* Diagnostics / Console Panel */
+      .pine-diagnostics-panel {
+        height: 110px;
+        background: var(--tv-bg-primary);
+        border-top: 1px solid var(--tv-border);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .pine-diag-header {
+        padding: 4px 14px;
+        background: #181b24;
+        border-bottom: 1px solid #232733;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--tv-text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .pine-diag-content {
+        flex: 1;
+        padding: 8px 14px;
+        overflow-y: auto;
+        font-family: 'Consolas', 'Fira Code', 'Monaco', 'Courier New', monospace;
+        font-size: 12px;
+        line-height: 17px;
+        color: var(--tv-text-primary);
+        white-space: pre-wrap;
+      }
+
+      .pine-status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      /* Modal Footer */
+      .pine-modal-footer {
+        padding: 10px 18px;
+        background: var(--tv-bg-primary);
+        border-top: 1px solid var(--tv-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .pine-footer-info {
+        font-size: 12px;
+        color: var(--tv-text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .pine-footer-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* Scrollbar Styling */
+      .pine-code-editor::-webkit-scrollbar,
+      .pine-highlight-layer::-webkit-scrollbar,
+      .pine-diag-content::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      .pine-code-editor::-webkit-scrollbar-track,
+      .pine-diag-content::-webkit-scrollbar-track {
+        background: #141720;
+      }
+      .pine-code-editor::-webkit-scrollbar-thumb,
+      .pine-diag-content::-webkit-scrollbar-thumb {
+        background: #2a2e39;
+        border-radius: 4px;
+      }
+      .pine-code-editor::-webkit-scrollbar-thumb:hover,
+      .pine-diag-content::-webkit-scrollbar-thumb:hover {
+        background: #3c4150;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <!-- TradingView Chart Container -->
+    <div id="tv_chart_container"></div>
+
+    <div id="buttons">
+      <button onclick="saveLayout()">💾 Save Layout</button>
+      <button onclick="loadLayout()">📂 Load Layout</button>
+      <button onclick="resetLayout()">❌ Reset Layout</button>
+      <button onclick="toggleTheme()">🌓 Toggle Theme</button>
+      <button onclick="openPineEditorModal(widget)" class="btn-primary" title="Open Custom Pine Script Indicator Editor">➕ Custom Indicator</button>
+    </div>
+
+    <div id="pine-modal" class="pine-modal-backdrop" style="display: none;">
+      <div class="pine-modal-container" role="dialog" aria-labelledby="pine-modal-title" aria-modal="true">
+        <!-- Header -->
+        <div class="pine-modal-header">
+          <div class="pine-modal-title" id="pine-modal-title">
+            <span>🌲 Pine Script v5 Custom Indicator Editor</span>
+            <span class="badge">v5 Live Engine</span>
+          </div>
+          <div class="pine-modal-controls">
+            <button class="pine-close-btn" onclick="closePineEditorModal()" title="Close (Esc)">✕</button>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="pine-toolbar-bar">
+          <div class="pine-toolbar-group">
+            <span class="pine-toolbar-label">Templates:</span>
+            <select id="pine-template-select" class="pine-select" onchange="onTemplateSelectChange(this.value)">
+              <option value="">-- Choose Template --</option>
+              <option value="ema_cross">EMA Cross Strategy (Overlay)</option>
+              <option value="rsi">Relative Strength Index (RSI)</option>
+              <option value="macd">MACD Oscillator</option>
+              <option value="bollinger_bands">Bollinger Bands with Cloud Fill (Overlay)</option>
+              <option value="supertrend">SuperTrend with Bar Color (Overlay)</option>
+              <option value="stoch_rsi">Stochastic RSI Oscillator</option>
+              <option value="ttm_squeeze">TTM Squeeze Momentum (BB & KC)</option>
+              <option value="pivot_breakout">Pivot High/Low Breakout (Overlay)</option>
+            </select>
+
+            <span class="pine-toolbar-label" style="margin-left: 8px;">Saved Scripts:</span>
+            <select id="pine-saved-select" class="pine-select" onchange="onSavedScriptSelectChange(this.value)">
+              <option value="">-- Saved Indicators --</option>
+            </select>
+          </div>
+
+          <div class="pine-toolbar-group">
+            <span class="pine-toolbar-label">Script Name:</span>
+            <input type="text" id="pine-script-name" class="pine-input" placeholder="Indicator Name..." value="My Custom Indicator">
+            <button class="btn" onclick="createNewScript()" title="Create Blank Script">📄 New</button>
+          </div>
+        </div>
+
+        <!-- Editor Main Body -->
+        <div class="pine-editor-main">
+          <div class="pine-editor-split">
+            <div id="pine-line-numbers" class="pine-line-numbers">1</div>
+            <div class="pine-editor-text-wrap">
+              <pre id="pine-highlight-layer" class="pine-highlight-layer" aria-hidden="true"></pre>
+              <textarea id="pine-code-editor" class="pine-code-editor" spellcheck="false" placeholder="Write Pine Script v5 code here..."></textarea>
+            </div>
+          </div>
+
+          <!-- Diagnostics Console -->
+          <div class="pine-diagnostics-panel">
+            <div class="pine-diag-header">
+              <span>Compiler Diagnostics & Runtime Output</span>
+              <div id="pine-status-pill" class="pine-status-pill">
+                <span style="color: var(--tv-success);">● Ready</span>
+              </div>
+            </div>
+            <div id="pine-diag-content" class="pine-diag-content">Engine initialized. Select a template or write Pine Script v5 code to compile.</div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="pine-modal-footer">
+          <div class="pine-footer-info">
+            <span id="pine-script-info">Mode: Overlay / Separate Pane</span>
+            <span id="pine-char-count">Lines: 1 | Chars: 0</span>
+          </div>
+
+          <div class="pine-footer-actions">
+            <button class="btn btn-danger" id="pine-delete-btn" onclick="deleteCurrentScript()" style="display: none;" title="Delete this saved script">🗑️ Delete</button>
+            <button class="btn" onclick="saveCurrentScript()" title="Save to Browser LocalStorage">💾 Save Script</button>
+            <button class="btn btn-primary" onclick="compileAndApplyToChart()" title="Transpile & Add Directly to Active Chart Canvas">▶️ Compile & Apply to Chart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* =========================================================================
+       * 1. LocalStorageSaveLoadAdapter Class
+       * ========================================================================= */
+      class LocalStorageSaveLoadAdapter {
+        constructor() {
+          this._charts = this._getFromLocalStorage("LocalStorageSaveLoadAdapter_charts") ?? [];
+          this._studyTemplates = this._getFromLocalStorage("LocalStorageSaveLoadAdapter_studyTemplates") ?? [];
+          this._drawingTemplates = this._getFromLocalStorage("LocalStorageSaveLoadAdapter_drawingTemplates") ?? [];
+          this._chartTemplates = this._getFromLocalStorage("LocalStorageSaveLoadAdapter_chartTemplates") ?? [];
+          this._drawings = this._getFromLocalStorage("LocalStorageSaveLoadAdapter_drawings") ?? {};
+          this._isDirty = false;
+          setInterval(() => { if (this._isDirty) { this._saveAllToLocalStorage(); this._isDirty = false; } }, 1000);
+        }
+        getAllCharts() { return Promise.resolve(this._charts); }
+        removeChart(id) { this._charts = this._charts.filter(c => c.id !== id); this._isDirty = true; return Promise.resolve(); }
+        saveChart(chartData) {
+          if (!chartData.id) chartData.id = this._generateUniqueChartId();
+          else this.removeChart(chartData.id);
+          const saved = { ...chartData, id: chartData.id, timestamp: Math.round(Date.now() / 1000) };
+          this._charts.push(saved); this._isDirty = true; return Promise.resolve(saved.id);
+        }
+        getChartContent(id) { const c = this._charts.find(x => x.id === id); return c ? Promise.resolve(c.content) : Promise.reject("Chart not found"); }
+        getAllStudyTemplates() { return Promise.resolve(this._studyTemplates); }
+        saveStudyTemplate(t) { this._studyTemplates = this._studyTemplates.filter(x=>x.name!==t.name); this._studyTemplates.push(t); this._isDirty=true; return Promise.resolve(); }
+        removeStudyTemplate(t) { this._studyTemplates=this._studyTemplates.filter(x=>x.name!==t.name); this._isDirty=true; return Promise.resolve(); }
+        getStudyTemplateContent(t){const s=this._studyTemplates.find(x=>x.name===t.name);return s?Promise.resolve(s.content):Promise.reject("Not found");}
+        saveDrawingTemplate(tool,name,content){this._drawingTemplates=this._drawingTemplates.filter(x=>!(x.name===name&&x.toolName===tool));this._drawingTemplates.push({toolName:tool,name:name,content});this._isDirty=true;return Promise.resolve();}
+        loadDrawingTemplate(tool,name){const t=this._drawingTemplates.find(x=>x.name===name&&x.toolName===tool);return t?Promise.resolve(t.content):Promise.reject("Not found");}
+        removeDrawingTemplate(tool,name){this._drawingTemplates=this._drawingTemplates.filter(x=>!(x.name===name&&x.toolName===tool));this._isDirty=true;return Promise.resolve();}
+        getDrawingTemplates(){return Promise.resolve(this._drawingTemplates.map(t=>t.name));}
+        async getAllChartTemplates(){return this._chartTemplates.map(x=>x.name);}
+        async saveChartTemplate(name,content){const t=this._chartTemplates.find(x=>x.name===name);if(t)t.content=content;else this._chartTemplates.push({name,content});this._isDirty=true;}
+        async removeChartTemplate(name){this._chartTemplates=this._chartTemplates.filter(x=>x.name!==name);this._isDirty=true;}
+        async getChartTemplateContent(name){const c=this._chartTemplates.find(x=>x.name===name)?.content;return {content:structuredClone(c)};}
+        async saveLineToolsAndGroups(layoutId,chartId,state){if(!state.sources)return;if(!this._drawings[this._getDrawingKey(layoutId,chartId)])this._drawings[this._getDrawingKey(layoutId,chartId)]={};for(let [k,s] of state.sources){if(s===null)delete this._drawings[this._getDrawingKey(layoutId,chartId)][k];else this._drawings[this._getDrawingKey(layoutId,chartId)][k]=s;}this._isDirty=true;}
+        async loadLineToolsAndGroups(layoutId,chartId){if(!layoutId)return null;const raw=this._drawings[this._getDrawingKey(layoutId,chartId)];if(!raw)return null;const sources=new Map(Object.entries(raw));return {sources};}
+        _generateUniqueChartId(){let ids=this._charts.map(i=>i.id);while(true){const uid=Math.random().toString(16).slice(2);if(!ids.includes(uid))return uid;}}
+        _getFromLocalStorage(k){return JSON.parse(localStorage.getItem(k)||"null");}
+        _saveToLocalStorage(k,d){localStorage.setItem(k,JSON.stringify(d));}
+        _saveAllToLocalStorage(){this._saveToLocalStorage("LocalStorageSaveLoadAdapter_charts",this._charts);this._saveToLocalStorage("LocalStorageSaveLoadAdapter_studyTemplates",this._studyTemplates);this._saveToLocalStorage("LocalStorageSaveLoadAdapter_drawingTemplates",this._drawingTemplates);this._saveToLocalStorage("LocalStorageSaveLoadAdapter_chartTemplates",this._chartTemplates);this._saveToLocalStorage("LocalStorageSaveLoadAdapter_drawings",this._drawings);}
+        _getDrawingKey(l,c){return `${l}/${c}`;}
+      }
+
+      /* =========================================================================
+       * 2. Pine Script Modal Dialog Controller & UI Logic
+       * ========================================================================= */
+      let currentScriptId = null;
+      let activeChartWidget = null;
+      let validateDebounceTimer = null;
+
+      // Ensure alias PineEngine.applyToChart exists
+      if (window.PineEngine && !window.PineEngine.applyToChart) {
+        window.PineEngine.applyToChart = window.PineEngine.registerDynamicStudy;
+      }
+
+      function openPineEditorModal(targetWidget) {
+        activeChartWidget = targetWidget || widget;
+        const modal = document.getElementById("pine-modal");
+        if (!modal) return;
+        modal.style.display = "flex";
+        
+        refreshSavedScriptsDropdown();
+
+        // If editor empty, load default EMA Cross template
+        const codeEditor = document.getElementById("pine-code-editor");
+        if (!codeEditor.value.trim()) {
+          loadTemplate("ema_cross");
+        } else {
+          syncEditorAndHighlight();
+          validateLiveCode();
+        }
+
+        setTimeout(() => {
+          codeEditor.focus();
+        }, 50);
+      }
+
+      function closePineEditorModal() {
+        const modal = document.getElementById("pine-modal");
+        if (modal) modal.style.display = "none";
+      }
+
+      function syncEditorAndHighlight() {
+        const codeEditor = document.getElementById("pine-code-editor");
+        const highlightLayer = document.getElementById("pine-highlight-layer");
+        const lineNumbers = document.getElementById("pine-line-numbers");
+        const charCountEl = document.getElementById("pine-char-count");
+        if (!codeEditor || !highlightLayer || !lineNumbers) return;
+
+        const code = codeEditor.value;
+
+        // Line numbers
+        const lines = code.split('\n');
+        let lineNumsHtml = '';
+        for (let i = 1; i <= lines.length; i++) {
+          lineNumsHtml += `<div>${i}</div>`;
+        }
+        lineNumbers.innerHTML = lineNumsHtml;
+
+        // Highlight
+        if (window.PineScriptHighlighter && typeof window.PineScriptHighlighter.highlight === 'function') {
+          highlightLayer.innerHTML = window.PineScriptHighlighter.highlight(code) + '\n';
+        } else {
+          highlightLayer.innerText = code;
+        }
+
+        // Sync scroll
+        highlightLayer.scrollTop = codeEditor.scrollTop;
+        highlightLayer.scrollLeft = codeEditor.scrollLeft;
+        lineNumbers.scrollTop = codeEditor.scrollTop;
+
+        // Char count
+        if (charCountEl) {
+          charCountEl.innerText = `Lines: ${lines.length} | Chars: ${code.length}`;
+        }
+      }
+
+      function validateLiveCode() {
+        const codeEditor = document.getElementById("pine-code-editor");
+        const statusPill = document.getElementById("pine-status-pill");
+        const diagContent = document.getElementById("pine-diag-content");
+        const infoEl = document.getElementById("pine-script-info");
+        if (!codeEditor || !window.PineEngine) return;
+
+        const code = codeEditor.value;
+        if (!code.trim()) {
+          if (statusPill) statusPill.innerHTML = '<span style="color: var(--tv-text-secondary);">● Empty</span>';
+          if (diagContent) diagContent.innerText = "No code entered.";
+          return;
+        }
+
+        const res = window.PineEngine.validate(code);
+        if (res.valid) {
+          const isOverlay = res.descriptor.overlay;
+          const plotsCount = (res.descriptor.metainfo && res.descriptor.metainfo.plots) ? res.descriptor.metainfo.plots.length : 0;
+          if (statusPill) {
+            statusPill.innerHTML = '<span style="color: var(--tv-success);">● Valid (v5)</span>';
+          }
+          if (diagContent) {
+            diagContent.innerHTML = `<span style="color: var(--tv-success);">✓ Syntax Clean. Ready to apply.</span>\n• Study Name: "${res.descriptor.name}"\n• Pane: ${isOverlay ? 'Overlay (Price Chart)' : 'Separate Sub-pane'}\n• Output Plots: ${plotsCount} plot series defined\n• Inputs: ${res.descriptor.metainfo.inputs.length} parameters configured`;
+          }
+          if (infoEl) {
+            infoEl.innerText = `Mode: ${isOverlay ? 'Overlay on Price' : 'Separate Pane'} | Plots: ${plotsCount}`;
+          }
+        } else {
+          if (statusPill) {
+            statusPill.innerHTML = '<span style="color: var(--tv-error);">✕ Syntax Error</span>';
+          }
+          if (diagContent) {
+            diagContent.innerHTML = `<span style="color: var(--tv-error);">✕ Compilation Error:</span>\n${res.errors.join('\n')}`;
+          }
+        }
+      }
+
+      function onTemplateSelectChange(templateKey) {
+        if (!templateKey) return;
+        loadTemplate(templateKey);
+      }
+
+      function loadTemplate(templateKey) {
+        if (!window.PineScriptTemplates || !window.PineScriptTemplates[templateKey]) return;
+        const tmpl = window.PineScriptTemplates[templateKey];
+        currentScriptId = tmpl.id;
+
+        const codeEditor = document.getElementById("pine-code-editor");
+        const nameInput = document.getElementById("pine-script-name");
+        const tmplSelect = document.getElementById("pine-template-select");
+        const savedSelect = document.getElementById("pine-saved-select");
+        const delBtn = document.getElementById("pine-delete-btn");
+
+        if (codeEditor) codeEditor.value = tmpl.code;
+        if (nameInput) nameInput.value = tmpl.name;
+        if (tmplSelect) tmplSelect.value = templateKey;
+        if (savedSelect) savedSelect.value = "";
+        if (delBtn) delBtn.style.display = "none";
+
+        syncEditorAndHighlight();
+        validateLiveCode();
+      }
+
+      function refreshSavedScriptsDropdown() {
+        const savedSelect = document.getElementById("pine-saved-select");
+        if (!savedSelect || !window.PineScriptStorage) return;
+
+        const customScripts = window.PineScriptStorage.getCustomScripts();
+        savedSelect.innerHTML = '<option value="">-- Saved Indicators --</option>';
+        customScripts.forEach(s => {
+          const opt = document.createElement("option");
+          opt.value = s.id;
+          opt.textContent = `${s.name} ${s.overlay ? '(Overlay)' : '(Pane)'}`;
+          savedSelect.appendChild(opt);
+        });
+      }
+
+      function onSavedScriptSelectChange(scriptId) {
+        if (!scriptId || !window.PineScriptStorage) return;
+        const script = window.PineScriptStorage.getScriptById(scriptId);
+        if (!script) return;
+
+        currentScriptId = script.id;
+        const codeEditor = document.getElementById("pine-code-editor");
+        const nameInput = document.getElementById("pine-script-name");
+        const tmplSelect = document.getElementById("pine-template-select");
+        const delBtn = document.getElementById("pine-delete-btn");
+
+        if (codeEditor) codeEditor.value = script.code;
+        if (nameInput) nameInput.value = script.name;
+        if (tmplSelect) tmplSelect.value = "";
+        if (delBtn) delBtn.style.display = script.isTemplate ? "none" : "inline-flex";
+
+        syncEditorAndHighlight();
+        validateLiveCode();
+      }
+
+      function createNewScript() {
+        currentScriptId = null;
+        const codeEditor = document.getElementById("pine-code-editor");
+        const nameInput = document.getElementById("pine-script-name");
+        const tmplSelect = document.getElementById("pine-template-select");
+        const savedSelect = document.getElementById("pine-saved-select");
+        const delBtn = document.getElementById("pine-delete-btn");
+
+        const boilerplate = `//@version=5
+indicator("My Custom Indicator", overlay=true)
+
+length = input.int(14, "SMA Length", minval=1)
+src = input.source(close, "Source")
+
+smaVal = ta.sma(src, length)
+
+plot(smaVal, "Custom SMA", color=color.blue, linewidth=2)
+`;
+
+        if (codeEditor) codeEditor.value = boilerplate;
+        if (nameInput) nameInput.value = "My Custom Indicator";
+        if (tmplSelect) tmplSelect.value = "";
+        if (savedSelect) savedSelect.value = "";
+        if (delBtn) delBtn.style.display = "none";
+
+        syncEditorAndHighlight();
+        validateLiveCode();
+      }
+
+      function saveCurrentScript() {
+        const codeEditor = document.getElementById("pine-code-editor");
+        const nameInput = document.getElementById("pine-script-name");
+        const diagContent = document.getElementById("pine-diag-content");
+        const delBtn = document.getElementById("pine-delete-btn");
+        if (!codeEditor || !window.PineScriptStorage) return;
+
+        const code = codeEditor.value;
+        let name = nameInput ? nameInput.value.trim() : "";
+        if (!name) {
+          const match = code.match(/(?:indicator|study)\s*\(\s*["']([^"']+)["']/);
+          name = match ? match[1] : "Custom Indicator";
+          if (nameInput) nameInput.value = name;
+        }
+
+        try {
+          const record = window.PineScriptStorage.saveScript({
+            id: currentScriptId && !currentScriptId.startsWith('template_') ? currentScriptId : undefined,
+            name: name,
+            code: code
+          });
+          currentScriptId = record.id;
+          refreshSavedScriptsDropdown();
+          const savedSelect = document.getElementById("pine-saved-select");
+          if (savedSelect) savedSelect.value = record.id;
+          if (delBtn) delBtn.style.display = "inline-flex";
+
+          if (diagContent) {
+            diagContent.innerHTML = `<span style="color: var(--tv-success);">💾 Indicator "${record.name}" saved to browser LocalStorage successfully!</span>`;
+          }
+        } catch (e) {
+          alert("Error saving script: " + e.message);
+        }
+      }
+
+      function deleteCurrentScript() {
+        if (!currentScriptId || currentScriptId.startsWith('template_')) {
+          alert("Built-in templates cannot be deleted.");
+          return;
+        }
+        if (confirm("Are you sure you want to delete this saved custom indicator?")) {
+          window.PineScriptStorage.deleteScript(currentScriptId);
+          refreshSavedScriptsDropdown();
+          createNewScript();
+        }
+      }
+
+      async function compileAndApplyToChart() {
+        const codeEditor = document.getElementById("pine-code-editor");
+        const statusPill = document.getElementById("pine-status-pill");
+        const diagContent = document.getElementById("pine-diag-content");
+        if (!codeEditor || !window.PineEngine) return;
+
+        const code = codeEditor.value;
+        if (!code.trim()) {
+          alert("Please enter Pine Script code to compile.");
+          return;
+        }
+
+        const targetWidget = activeChartWidget || widget;
+        if (!targetWidget) {
+          alert("TradingView chart widget is not yet initialized.");
+          return;
+        }
+
+        if (statusPill) statusPill.innerHTML = '<span style="color: var(--tv-warning);">⏳ Compiling & Plotting...</span>';
+        if (diagContent) diagContent.innerText = "Transpiling AST and injecting study into TradingView engine...";
+
+        try {
+          const applyFn = window.PineEngine.applyToChart || window.PineEngine.registerDynamicStudy;
+          const result = await applyFn.call(window.PineEngine, targetWidget, code);
+
+          if (statusPill) statusPill.innerHTML = '<span style="color: var(--tv-success);">● Plotted on Chart</span>';
+          if (diagContent) {
+            diagContent.innerHTML = `<span style="color: var(--tv-success);">🚀 Study "${result.name}" successfully created and rendered on chart!</span>\n• Study ID: ${result.studyId}\n• Overlay: ${result.isOverlay ? 'Price Chart Pane' : 'Separate Sub-Pane'}\n• Time: ${new Date().toLocaleTimeString()}`;
+          }
+
+          // If current script is a custom script (not a built-in template), update its saved state
+          if (currentScriptId && !currentScriptId.startsWith('template_')) {
+            saveCurrentScript();
+          }
+        } catch (err) {
+          if (statusPill) statusPill.innerHTML = '<span style="color: var(--tv-error);">✕ Failed</span>';
+          if (diagContent) {
+            diagContent.innerHTML = `<span style="color: var(--tv-error);">✕ Error Applying to Chart:</span>\n${err.message}`;
+          }
+          console.error("Apply to Chart error:", err);
+        }
+      }
+
+      /* Setup Editor Event Listeners */
+      window.addEventListener("DOMContentLoaded", () => {
+        const codeEditor = document.getElementById("pine-code-editor");
+        const highlightLayer = document.getElementById("pine-highlight-layer");
+        const lineNumbers = document.getElementById("pine-line-numbers");
+
+        if (codeEditor) {
+          codeEditor.addEventListener("input", () => {
+            syncEditorAndHighlight();
+            clearTimeout(validateDebounceTimer);
+            validateDebounceTimer = setTimeout(validateLiveCode, 250);
+          });
+
+          codeEditor.addEventListener("scroll", () => {
+            if (highlightLayer) {
+              highlightLayer.scrollTop = codeEditor.scrollTop;
+              highlightLayer.scrollLeft = codeEditor.scrollLeft;
+            }
+            if (lineNumbers) {
+              lineNumbers.scrollTop = codeEditor.scrollTop;
+            }
+          });
+
+          codeEditor.addEventListener("keydown", (e) => {
+            if (e.key === "Tab") {
+              e.preventDefault();
+              const start = codeEditor.selectionStart;
+              const end = codeEditor.selectionEnd;
+              codeEditor.value = codeEditor.value.substring(0, start) + "  " + codeEditor.value.substring(end);
+              codeEditor.selectionStart = codeEditor.selectionEnd = start + 2;
+              syncEditorAndHighlight();
+              clearTimeout(validateDebounceTimer);
+              validateDebounceTimer = setTimeout(validateLiveCode, 250);
+            }
+          });
+        }
+
+        // Close on Escape or Backdrop Click
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            closePineEditorModal();
+          }
+        });
+
+        const modal = document.getElementById("pine-modal");
+        if (modal) {
+          modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+              closePineEditorModal();
+            }
+          });
+        }
+      });
+
+      /* =========================================================================
+       * 3. Chart Init & TradingView Integration Logic
+       * ========================================================================= */
+      let widget;
+      const STORAGE_KEY = "tv_chart_layout";
+      const THEME_KEY = "tv_chart_theme";
+
+      function getParameterByName(name) {
+        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+        const results = regex.exec(window.location.search);
+        if (!results) return null;
+        return decodeURIComponent(results[2] || "");
+      }
+
+      function saveLayout() {
+        if (!widget) return;
+        widget.save(layout => {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(layout));
+          alert("✅ Layout saved to localStorage");
+        });
+      }
+      function loadLayout() {
+        if (!widget) return;
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) { widget.load(JSON.parse(saved)); alert("✅ Layout loaded"); }
+        else alert("⚠️ No layout found");
+      }
+      function resetLayout() { localStorage.removeItem(STORAGE_KEY); alert("🗑️ Layout reset. Reloading..."); location.reload(); }
+      function toggleTheme() {
+        const cur = localStorage.getItem(THEME_KEY) || "Dark";
+        const newTheme = cur === "Dark" ? "Light" : "Dark";
+        localStorage.setItem(THEME_KEY, newTheme);
+        alert(`🔁 Theme changed to ${newTheme}. Reloading...`);
+        location.reload();
+      }
+
+      async function detectDatafeedUrl() {
+        const queryUrl = getParameterByName("dataUrl");
+        if (queryUrl) return queryUrl;
+
+        // When accessed on port 9000 (proxy server), immediately resolve to window.location.origin
+        // without probing external ports to avoid cross-origin issues and proxy bypass.
+        const isPort9000 = (typeof window !== "undefined" && window.location) && (
+          window.location.port === "9000" ||
+          (window.location.host && window.location.host.endsWith(":9000")) ||
+          (window.location.href && (window.location.href.includes(":9000") || window.location.href.includes("127.0.0.1:9000") || window.location.href.includes("localhost:9000")))
+        );
+
+        if (isPort9000) {
+          const origin = (window.location.origin && window.location.origin !== "null")
+            ? window.location.origin
+            : `http://${window.location.hostname || "127.0.0.1"}:9000`;
+          return origin;
+        }
+
+        // If not accessed on port 9000, probe ports 9000, 8080, 8888, 8001 in order
+        const candidatePorts = [9000, 8080, 8888, 8001];
+        for (const p of candidatePorts) {
+          try {
+            const timeoutSignal = (typeof AbortSignal !== "undefined" && AbortSignal.timeout)
+              ? AbortSignal.timeout(400)
+              : undefined;
+            const res = await fetch(`http://127.0.0.1:${p}/time`, timeoutSignal ? { signal: timeoutSignal } : {});
+            if (res.ok) {
+              return `http://127.0.0.1:${p}`;
+            }
+          } catch (e) {
+            // port not reachable, try next candidate
+          }
+        }
+
+        return "http://127.0.0.1:9000";
+      }
+      window.detectDatafeedUrl = detectDatafeedUrl;
+
+      async function initChart() {
+        const datafeedUrl = await detectDatafeedUrl();
+        console.log("\U0001f517 TradingView Datafeed URL resolved to:", datafeedUrl);
+        const theme = localStorage.getItem(THEME_KEY) || "Dark";
+
+        widget = new TradingView.widget({
+          fullscreen: false,
+          autosize: true,
+          symbol: "XAUUSD.",
+          interval: "1",
+          container: "tv_chart_container",
+          library_path: "charting_library/",
+          locale: getParameterByName("lang") || "en",
+          datafeed: new Datafeeds.UDFCompatibleDatafeed(datafeedUrl, 1000),
+          theme: theme,
+          save_load_adapter: new LocalStorageSaveLoadAdapter(),
+          custom_indicators_getter: function(PineJS) {
+            var p1 = window.PineEngine ? window.PineEngine.getCustomIndicators(PineJS) : Promise.resolve([]);
+            var p2 = window.TVIndicatorEngine ? window.TVIndicatorEngine.getCustomIndicators(PineJS) : Promise.resolve([]);
+            return Promise.all([p1, p2]).then(function(results) {
+              return (results[0] || []).concat(results[1] || []);
+            });
+          },
+
+          // ── MT5 Native Broker Integration ──────────────────────────
+          broker_factory: function(host) {
+            var broker = new MT5Broker(host, datafeedUrl);
+            window._mt5Broker = broker;
+            return broker;
+          },
+          broker_config: {
+            configFlags: {
+              supportReversePosition: true,
+              supportClosePosition: true,
+              supportPartialClosePosition: false,
+              supportEditAmount: false,
+              supportLevel2Data: false,
+              supportMarketOrders: true,
+              supportLimitOrders: true,
+              supportStopOrders: true,
+              supportStopLimitOrders: false,
+              supportPositionBrackets: true,
+              showQuantityInsteadOfAmount: true,
+              supportOrderBrackets: true,
+              supportModifyOrder: true,
+              supportModifyOrderPrice: true,
+              supportCancelOrder: true,
+              supportModifyBrackets: true
+            }
+          },
+
+          disabled_features: [
+            "news_widget",
+            "news_provider",
+            "widgetbar_tabs",
+            "timescale_marks",
+            "marks"
+          ],
+          enabled_features: [
+            "seconds_resolution", "tick_resolution",
+            "study_templates", "header_symbol_search", "save_chart_properties_to_local_storage", "watchlist_context_menu", "watchlist_import_export",
+            "header_compare", "header_indicators", "timeframes_toolbar", "left_toolbar",
+            "items_favoriting", "show_object_tree", "edit_buttons_in_legend", "display_market_status", "watchlist_sections", "custom_resolutions", "right_toolbar",
+            "watchlist", "legend_context_menu", "volume_force_overlay", "main_series_scale_menu",
+            "chart_crosshair_menu", "border_around_the_chart", "chart_property_page_trading",
+            "property_pages", "hide_left_toolbar_by_default", "show_dialog_on_double_click",
+            "go_to_date", "timezone_menu", "snapshot_trading_drawings", "show_symbol_watchlist",
+            "property_page_scales", "header_screenshot", "header_fullscreen_button",
+            "favorite_timeframes", "chart_templates", "header_saveload", "datasource_copypaste", "add_to_watchlist", "drawing_templates", "multiple_watchlists", "support_multicharts", "multi_chart_layout",
+            "order_panel", "show_order_panel_on_start", "trading_account_manager"
+          ]
+        });
+
+        widget.onChartReady(() => {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved) widget.load(JSON.parse(saved));
+          setInterval(() => widget.save(layout =>
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(layout))), 2000);
+
+          // Add Custom Indicator button to header
+          widget.headerReady().then(() => {
+            const btn = widget.createButton();
+            btn.setAttribute("title", "Add Custom Pine Script Indicator");
+            btn.innerHTML = "<span>\u2795 Add Custom Indicator</span>";
+            btn.addEventListener("click", () => {
+              if (typeof window.openPineEditorModal === "function") {
+                window.openPineEditorModal(widget);
+              } else {
+                alert("Pine Editor Loading...");
+              }
+            });
+          }).catch(err => {
+            console.warn("Could not add header toolbar button:", err);
+          });
+        });
+      }
+
+      /* =========================================================================
+       * 4. DOM Initialization
+       * ========================================================================= */
+      window.addEventListener("DOMContentLoaded", () => {
+        initChart();
+
+        // Session table drag handler
+        const dragEl = document.getElementById("session-table");
+        if (dragEl) {
+          let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+          dragEl.onmousedown = e => {
+            e.preventDefault();
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            document.onmousemove = e2 => {
+              posX = mouseX - e2.clientX;
+              posY = mouseY - e2.clientY;
+              mouseX = e2.clientX;
+              mouseY = e2.clientY;
+              dragEl.style.top = (dragEl.offsetTop - posY) + "px";
+              dragEl.style.left = (dragEl.offsetLeft - posX) + "px";
+            };
+            document.onmouseup = () => {
+              document.onmouseup = null;
+              document.onmousemove = null;
+            };
+          };
+        }
+      });
+    </script>
+  </body>
+</html>

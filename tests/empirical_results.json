@@ -1,0 +1,183 @@
+{
+  "verdict": "REJECT",
+  "quotes_8080_sequential": {
+    "count": 100,
+    "min": 1.825,
+    "p25": 3.72,
+    "median": 4.47,
+    "p75": 5.373,
+    "p90": 6.955,
+    "p95": 8.273,
+    "p99": 17.035,
+    "max": 18.153,
+    "mean": 4.941,
+    "stdev": 2.463
+  },
+  "quotes_8080_concurrent": {
+    "count": 100,
+    "min": 12.658,
+    "p25": 34.703,
+    "median": 41.53,
+    "p75": 44.655,
+    "p90": 47.447,
+    "p95": 48.976,
+    "p99": 52.094,
+    "max": 55.132,
+    "mean": 39.414,
+    "stdev": 8.015
+  },
+  "quotes_9000_proxy": {
+    "count": 100,
+    "min": 5.935,
+    "p25": 8.332,
+    "median": 9.471,
+    "p75": 10.645,
+    "p90": 20.836,
+    "p95": 24.215,
+    "p99": 27.709,
+    "max": 31.074,
+    "mean": 11.246,
+    "stdev": 5.272
+  },
+  "resampling": {
+    "XAUUSD. 21S History": {
+      "stats": {
+        "count": 20,
+        "min": 14.145,
+        "p25": 15.22,
+        "median": 15.898,
+        "p75": 16.077,
+        "p90": 16.802,
+        "p95": 17.129,
+        "p99": 17.343,
+        "max": 17.343,
+        "mean": 15.722,
+        "stdev": 0.88
+      },
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "count": 992,
+        "violations_count": 0,
+        "first_t": 1788834915,
+        "last_t": 1788855726
+      }
+    },
+    "EURUSD. 27S History": {
+      "stats": {
+        "count": 20,
+        "min": 13.688,
+        "p25": 15.046,
+        "median": 16.577,
+        "p75": 16.965,
+        "p90": 19.365,
+        "p95": 19.553,
+        "p99": 19.893,
+        "max": 19.893,
+        "mean": 16.367,
+        "stdev": 1.791
+      },
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "count": 2373,
+        "violations_count": 0,
+        "first_t": 1788790635,
+        "last_t": 1788855732
+      }
+    },
+    "XAUUSD. 20T Ticks Endpoint": {
+      "stats": {
+        "count": 20,
+        "min": 18.321,
+        "p25": 20.906,
+        "median": 25.281,
+        "p75": 30.629,
+        "p90": 40.826,
+        "p95": 43.087,
+        "p99": 45.85,
+        "max": 45.85,
+        "mean": 27.47,
+        "stdev": 8.669
+      },
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "count": 7500,
+        "violations_count": 0,
+        "first_t": 1788834924.781,
+        "last_t": 1788855733.71
+      }
+    },
+    "EURUSD. 40T Ticks Endpoint": {
+      "stats": {
+        "count": 20,
+        "min": 16.151,
+        "p25": 22.084,
+        "median": 26.081,
+        "p75": 28.345,
+        "p90": 37.356,
+        "p95": 47.747,
+        "p99": 53.207,
+        "max": 53.207,
+        "mean": 28.001,
+        "stdev": 9.328
+      },
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "count": 3750,
+        "violations_count": 0,
+        "first_t": 1788790653.188,
+        "last_t": 1788855734.115
+      }
+    },
+    "XAUUSD. 20T History Resolution": {
+      "stats": {
+        "count": 20,
+        "min": 33.308,
+        "p25": 36.322,
+        "median": 38.347,
+        "p75": 39.916,
+        "p90": 45.819,
+        "p95": 50.262,
+        "p99": 62.709,
+        "max": 62.709,
+        "mean": 39.875,
+        "stdev": 6.74
+      },
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "count": 7500,
+        "violations_count": 0,
+        "first_t": 1788834925.594,
+        "last_t": 1788855734.783
+      }
+    },
+    "EURUSD. 40T History Resolution": {
+      "stats": {
+        "count": 20,
+        "min": 19.483,
+        "p25": 27.822,
+        "median": 32.545,
+        "p75": 35.096,
+        "p90": 37.349,
+        "p95": 38.219,
+        "p99": 40.067,
+        "max": 40.067,
+        "mean": 31.135,
+        "stdev": 6.11
+      },
+      "validation": {
+        "valid": true,
+        "issues": [],
+        "count": 3750,
+        "violations_count": 0,
+        "first_t": 1788790655.872,
+        "last_t": 1788855736.385
+      }
+    }
+  },
+  "adversarial_passed": true
+}

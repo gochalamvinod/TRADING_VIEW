@@ -306,6 +306,7 @@
     name: TEMPLATES[0].name,
     code: TEMPLATES[0].code,
     isDirty: false,
+    isReadOnly: false,
     activeStudyId: null
   };
 
@@ -362,12 +363,211 @@
     return highlightedLines.join('\n') + '\n ';
   }
 
+  /* =========================================================================
+   * Pine Editor Settings Engine & State
+   * ========================================================================= */
+  const SETTINGS_KEY = "tv_pine_editor_settings";
+  function getEditorSettings() {
+    try {
+      const raw = localStorage.getItem(SETTINGS_KEY);
+      if (raw) {
+        return Object.assign({
+          inlineSuggestions: true,
+          autocompletePopover: true,
+          paramHints: true,
+          lineNumbers: true,
+          tabSize: 2
+        }, JSON.parse(raw));
+      }
+    } catch (e) {}
+    return {
+      inlineSuggestions: true,
+      autocompletePopover: true,
+      paramHints: true,
+      lineNumbers: true,
+      tabSize: 2
+    };
+  }
+
+  function saveEditorSettings(s) {
+    try {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+    } catch (e) {}
+  }
+
+  function openEditorSettingsModal() {
+    let backdrop = document.getElementById('pine_editor_settings_modal');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.id = 'pine_editor_settings_modal';
+      backdrop.className = 'pine-settings-modal-backdrop';
+      backdrop.innerHTML = `
+        <div class="pine-settings-modal" role="dialog" aria-label="Pine Editor Settings">
+          <div class="pine-settings-header">
+            <span class="pine-settings-title">Pine Editor Settings</span>
+            <button type="button" class="pine-settings-close-btn" id="pine_settings_close_btn" title="Close">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="2" y1="2" x2="12" y2="12"/>
+                <line x1="12" y1="2" x2="2" y2="12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="pine-settings-body">
+            <div class="pine-setting-row">
+              <div class="pine-setting-label-col">
+                <span class="pine-setting-label">Inline suggestions (Ghost text)</span>
+                <span class="pine-setting-desc">Show inline gray ghost completions ahead of cursor accepted with Tab</span>
+              </div>
+              <label class="pine-setting-toggle">
+                <input type="checkbox" id="pine_setting_inline_suggestions">
+                <span class="pine-setting-slider"></span>
+              </label>
+            </div>
+            <div class="pine-setting-row">
+              <div class="pine-setting-label-col">
+                <span class="pine-setting-label">Auto-complete popover</span>
+                <span class="pine-setting-desc">Show floating IntelliSense suggestion menu while typing</span>
+              </div>
+              <label class="pine-setting-toggle">
+                <input type="checkbox" id="pine_setting_ac_popover">
+                <span class="pine-setting-slider"></span>
+              </label>
+            </div>
+            <div class="pine-setting-row">
+              <div class="pine-setting-label-col">
+                <span class="pine-setting-label">Parameter hints</span>
+                <span class="pine-setting-desc">Show parameter documentation tooltips when calling functions</span>
+              </div>
+              <label class="pine-setting-toggle">
+                <input type="checkbox" id="pine_setting_param_hints">
+                <span class="pine-setting-slider"></span>
+              </label>
+            </div>
+            <div class="pine-setting-row">
+              <div class="pine-setting-label-col">
+                <span class="pine-setting-label">Line numbers</span>
+                <span class="pine-setting-desc">Display line number gutter on the left side of the editor</span>
+              </div>
+              <label class="pine-setting-toggle">
+                <input type="checkbox" id="pine_setting_line_numbers">
+                <span class="pine-setting-slider"></span>
+              </label>
+            </div>
+            <div class="pine-setting-row">
+              <div class="pine-setting-label-col">
+                <span class="pine-setting-label">Tab size</span>
+                <span class="pine-setting-desc">Number of spaces to insert when pressing Tab</span>
+              </div>
+              <select id="pine_setting_tab_size" class="pine-setting-select">
+                <option value="2">2 spaces</option>
+                <option value="4">4 spaces</option>
+              </select>
+            </div>
+          </div>
+          <div class="pine-settings-footer">
+            <button type="button" class="pine-settings-btn-cancel" id="pine_settings_cancel_btn">Cancel</button>
+            <button type="button" class="pine-settings-btn-save" id="pine_settings_save_btn">Save Changes</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) backdrop.style.display = 'none';
+      });
+      document.getElementById('pine_settings_close_btn')?.addEventListener('click', () => {
+        backdrop.style.display = 'none';
+      });
+      document.getElementById('pine_settings_cancel_btn')?.addEventListener('click', () => {
+        backdrop.style.display = 'none';
+      });
+      document.getElementById('pine_settings_save_btn')?.addEventListener('click', () => {
+        const s = {
+          inlineSuggestions: document.getElementById('pine_setting_inline_suggestions').checked,
+          autocompletePopover: document.getElementById('pine_setting_ac_popover').checked,
+          paramHints: document.getElementById('pine_setting_param_hints').checked,
+          lineNumbers: document.getElementById('pine_setting_line_numbers').checked,
+          tabSize: parseInt(document.getElementById('pine_setting_tab_size').value, 10) || 2
+        };
+        saveEditorSettings(s);
+        const gutter = document.getElementById('pine_gutter');
+        if (gutter) gutter.style.display = s.lineNumbers ? 'block' : 'none';
+        backdrop.style.display = 'none';
+        logConsole('Editor settings saved.', 'info');
+      });
+    }
+
+    const current = getEditorSettings();
+    const inlineChk = document.getElementById('pine_setting_inline_suggestions');
+    const popChk = document.getElementById('pine_setting_ac_popover');
+    const hintChk = document.getElementById('pine_setting_param_hints');
+    const numChk = document.getElementById('pine_setting_line_numbers');
+    const tabSel = document.getElementById('pine_setting_tab_size');
+    if (inlineChk) inlineChk.checked = current.inlineSuggestions !== false;
+    if (popChk) popChk.checked = current.autocompletePopover !== false;
+    if (hintChk) hintChk.checked = current.paramHints !== false;
+    if (numChk) numChk.checked = current.lineNumbers !== false;
+    if (tabSel) tabSel.value = String(current.tabSize || 2);
+
+    backdrop.style.display = 'flex';
+  }
+
+  let _inlineGhostSuggestion = '';
+  let _inlineGhostItem = null;
+
+  function clearInlineGhost() {
+    if (_inlineGhostSuggestion || _inlineGhostItem) {
+      _inlineGhostSuggestion = '';
+      _inlineGhostItem = null;
+      updateSyntaxBackdrop();
+    }
+  }
+
+  function insertInlineGhost() {
+    const codeInput = document.getElementById('pine_code_input');
+    if (!codeInput || !_inlineGhostSuggestion) return false;
+
+    const cursor = codeInput.selectionStart;
+    const text = codeInput.value;
+    const beforeCursor = text.substring(0, cursor);
+    const afterCursor = text.substring(cursor);
+
+    const toInsert = _inlineGhostSuggestion;
+    const newBefore = beforeCursor + toInsert;
+    codeInput.value = newBefore + afterCursor;
+    codeInput.selectionStart = codeInput.selectionEnd = newBefore.length;
+
+    clearInlineGhost();
+    hideAcPopover();
+    updateSyntaxBackdrop();
+    updateCursor();
+    codeInput.focus();
+    codeInput.dispatchEvent(new Event('input'));
+    return true;
+  }
+
   function updateSyntaxBackdrop() {
     const codeInput = document.getElementById('pine_code_input');
     const backdropCode = document.getElementById('pine_syntax_code');
     const backdrop = document.getElementById('pine_syntax_backdrop');
     if (!codeInput || !backdropCode) return;
-    backdropCode.innerHTML = highlightPineScript(codeInput.value);
+
+    const val = codeInput.value;
+    const settings = getEditorSettings();
+
+    if (_inlineGhostSuggestion && settings.inlineSuggestions !== false && codeInput.selectionStart === codeInput.selectionEnd) {
+      const cursor = codeInput.selectionStart;
+      const before = val.substring(0, cursor);
+      const after = val.substring(cursor);
+
+      const beforeHtml = highlightPineScript(before);
+      const afterHtml = highlightPineScript(after);
+      const cleanBefore = beforeHtml.endsWith('\n ') ? beforeHtml.slice(0, -2) : beforeHtml;
+      backdropCode.innerHTML = `${cleanBefore}<span class="pine-ghost-suggestion">${escapeHtml(_inlineGhostSuggestion)}</span>${afterHtml}`;
+    } else {
+      backdropCode.innerHTML = highlightPineScript(val);
+    }
+
     if (backdrop) {
       backdrop.scrollTop = codeInput.scrollTop;
       backdrop.scrollLeft = codeInput.scrollLeft;
@@ -378,91 +578,199 @@
    * Pine Script Autocomplete (IntelliSense) Catalog & Engine
    * ========================================================================= */
   const PINE_AUTOCOMPLETE_CATALOG = [
+    // ta.* technical analysis functions
     { label: "ta.sma", insert: "ta.sma(close, 14)", type: "fn", desc: "Simple Moving Average: ta.sma(source, length)" },
     { label: "ta.ema", insert: "ta.ema(close, 14)", type: "fn", desc: "Exponential Moving Average: ta.ema(source, length)" },
     { label: "ta.rma", insert: "ta.rma(close, 14)", type: "fn", desc: "Moving average used in RSI: ta.rma(source, length)" },
     { label: "ta.wma", insert: "ta.wma(close, 14)", type: "fn", desc: "Weighted Moving Average: ta.wma(source, length)" },
     { label: "ta.vwma", insert: "ta.vwma(close, 14)", type: "fn", desc: "Volume-Weighted Moving Average" },
+    { label: "ta.swma", insert: "ta.swma(close)", type: "fn", desc: "Symmetric Weighted Moving Average (fixed 4 bars)" },
+    { label: "ta.alma", insert: "ta.alma(close, 9, 0.85, 6)", type: "fn", desc: "Arnaud Legoux Moving Average" },
     { label: "ta.rsi", insert: "ta.rsi(close, 14)", type: "fn", desc: "Relative Strength Index: ta.rsi(source, length)" },
     { label: "ta.macd", insert: "ta.macd(close, 12, 26, 9)", type: "fn", desc: "MACD [macd, signal, hist]: ta.macd(source, fast, slow, sig)" },
     { label: "ta.crossover", insert: "ta.crossover(fast, slow)", type: "fn", desc: "True if source1 crosses above source2" },
     { label: "ta.crossunder", insert: "ta.crossunder(fast, slow)", type: "fn", desc: "True if source1 crosses below source2" },
+    { label: "ta.cross", insert: "ta.cross(fast, slow)", type: "fn", desc: "True if source1 crosses source2" },
     { label: "ta.bb", insert: "ta.bb(close, 20, 2.0)", type: "fn", desc: "Bollinger Bands [middle, upper, lower]" },
+    { label: "ta.bbw", insert: "ta.bbw(close, 20, 2.0)", type: "fn", desc: "Bollinger Bands Width: ta.bbw(source, length, mult)" },
     { label: "ta.atr", insert: "ta.atr(14)", type: "fn", desc: "Average True Range: ta.atr(length)" },
+    { label: "ta.tr", insert: "ta.tr(true)", type: "fn", desc: "True Range: ta.tr(handle_first_bar)" },
     { label: "ta.highest", insert: "ta.highest(high, 14)", type: "fn", desc: "Highest value over length bars" },
     { label: "ta.lowest", insert: "ta.lowest(low, 14)", type: "fn", desc: "Lowest value over length bars" },
+    { label: "ta.highestbars", insert: "ta.highestbars(high, 14)", type: "fn", desc: "Offset to highest bar over length bars" },
+    { label: "ta.lowestbars", insert: "ta.lowestbars(low, 14)", type: "fn", desc: "Offset to lowest bar over length bars" },
     { label: "ta.supertrend", insert: "ta.supertrend(3.0, 10)", type: "fn", desc: "SuperTrend [supertrend, direction]" },
+    { label: "ta.sar", insert: "ta.sar(0.02, 0.02, 0.2)", type: "fn", desc: "Parabolic SAR: ta.sar(start, inc, max)" },
     { label: "ta.change", insert: "ta.change(close, 1)", type: "fn", desc: "Difference between current and previous bar" },
+    { label: "ta.mom", insert: "ta.mom(close, 10)", type: "fn", desc: "Momentum: source - source[length]" },
+    { label: "ta.roc", insert: "ta.roc(close, 14)", type: "fn", desc: "Rate of Change: (change / source[length]) * 100" },
     { label: "ta.stoch", insert: "ta.stoch(close, high, low, 14)", type: "fn", desc: "Stochastic oscillator" },
     { label: "ta.mfi", insert: "ta.mfi(close, 14)", type: "fn", desc: "Money Flow Index" },
     { label: "ta.cci", insert: "ta.cci(close, 20)", type: "fn", desc: "Commodity Channel Index" },
     { label: "ta.cum", insert: "ta.cum(close)", type: "fn", desc: "Cumulative sum of series" },
     { label: "ta.valuewhen", insert: "ta.valuewhen(condition, source, 0)", type: "fn", desc: "Value of source when condition was true" },
+    { label: "ta.barssince", insert: "ta.barssince(condition)", type: "fn", desc: "Number of bars since condition was true" },
+    { label: "ta.stdev", insert: "ta.stdev(close, 20)", type: "fn", desc: "Standard Deviation: ta.stdev(source, length)" },
+    { label: "ta.variance", insert: "ta.variance(close, 20)", type: "fn", desc: "Variance: ta.variance(source, length)" },
+    { label: "ta.correlation", insert: "ta.correlation(src1, src2, 20)", type: "fn", desc: "Correlation coefficient between two series" },
+    { label: "ta.percentrank", insert: "ta.percentrank(close, 20)", type: "fn", desc: "Percentile rank over length bars" },
+    { label: "ta.falling", insert: "ta.falling(close, 5)", type: "fn", desc: "True if source is strictly falling for length bars" },
+    { label: "ta.rising", insert: "ta.rising(close, 5)", type: "fn", desc: "True if source is strictly rising for length bars" },
+    { label: "ta.range", insert: "ta.range(close, 20)", type: "fn", desc: "Difference between highest and lowest values" },
 
-    { label: "strategy.entry", insert: "strategy.entry(\"Long\", strategy.long)", type: "fn", desc: "Open an order or enter position: strategy.entry(id, direction, qty)" },
-    { label: "strategy.exit", insert: "strategy.exit(\"Exit\", \"Long\", profit=100, loss=50)", type: "fn", desc: "Bracket exit orders (TP/SL): strategy.exit(id, from_entry, profit, loss)" },
-    { label: "strategy.close", insert: "strategy.close(\"Long\")", type: "fn", desc: "Close specific open position: strategy.close(id)" },
-    { label: "strategy.close_all", insert: "strategy.close_all()", type: "fn", desc: "Close all open positions" },
-    { label: "strategy.order", insert: "strategy.order(\"Order\", strategy.long, 1)", type: "fn", desc: "Place basic order without auto-reversal" },
-    { label: "strategy.long", insert: "strategy.long", type: "var", desc: "Constant representing Long trade direction" },
-    { label: "strategy.short", insert: "strategy.short", type: "var", desc: "Constant representing Short trade direction" },
-    { label: "strategy.position_size", insert: "strategy.position_size", type: "var", desc: "Current open position size" },
-    { label: "strategy.position_avg_price", insert: "strategy.position_avg_price", type: "var", desc: "Average entry price of open position" },
-    { label: "strategy.netprofit", insert: "strategy.netprofit", type: "var", desc: "Total net profit of all closed trades" },
-    { label: "strategy.openprofit", insert: "strategy.openprofit", type: "var", desc: "Current unrealized profit/loss" },
-    { label: "strategy.initial_capital", insert: "strategy.initial_capital", type: "var", desc: "Starting strategy capital" },
-    { label: "strategy.equity", insert: "strategy.equity", type: "var", desc: "Total account equity" },
-    { label: "strategy.closedtrades", insert: "strategy.closedtrades", type: "var", desc: "Number of completed closed trades" },
+    // request.* multi-data functions
+    { label: "request.security", insert: 'request.security(syminfo.tickerid, "", close)', type: "fn", desc: "Request data from another symbol or timeframe" },
+    { label: "request.security_lower_tf", insert: 'request.security_lower_tf(syminfo.tickerid, "1", close)', type: "fn", desc: "Request lower timeframe array data" },
+    { label: "request.financial", insert: 'request.financial(syminfo.tickerid, "TOTAL_REVENUE", "FY")', type: "fn", desc: "Request financial data statement item" },
 
-    { label: "input.int", insert: "input.int(14, \"Length\")", type: "fn", desc: "Integer input: input.int(defval, title, minval, maxval)" },
-    { label: "input.float", insert: "input.float(1.0, \"Multiplier\", step=0.1)", type: "fn", desc: "Float input: input.float(defval, title, step)" },
-    { label: "input.bool", insert: "input.bool(true, \"Enable Feature\")", type: "fn", desc: "Boolean checkbox: input.bool(defval, title)" },
-    { label: "input.string", insert: "input.string(\"Default\", \"Title\")", type: "fn", desc: "String input: input.string(defval, title)" },
-    { label: "input.color", insert: "input.color(color.blue, \"Color\")", type: "fn", desc: "Color picker: input.color(defval, title)" },
-    { label: "input.symbol", insert: "input.symbol(\"\", \"Symbol\")", type: "fn", desc: "Symbol selector: input.symbol(defval, title)" },
-    { label: "input.timeframe", insert: "input.timeframe(\"\", \"Timeframe\")", type: "fn", desc: "Timeframe selector: input.timeframe(defval, title)" },
-    { label: "input.session", insert: "input.session(\"0930-1600\", \"Hours\")", type: "fn", desc: "Trading session hours: input.session(defval, title)" },
+    // barmerge.* constants
+    { label: "barmerge.gaps_off", insert: "barmerge.gaps_off", type: "var", desc: "Fills missing HTF bars with previous close (default)" },
+    { label: "barmerge.gaps_on", insert: "barmerge.gaps_on", type: "var", desc: "Leaves missing HTF bars as na" },
+    { label: "barmerge.lookahead_off", insert: "barmerge.lookahead_off", type: "var", desc: "Prevents lookahead bias on historical bars (default)" },
+    { label: "barmerge.lookahead_on", insert: "barmerge.lookahead_on", type: "var", desc: "Enables HTF bar lookahead on history" },
 
-    { label: "plot", insert: "plot(close, \"Title\", color=color.blue, linewidth=2)", type: "fn", desc: "Plot line or histogram: plot(series, title, color)" },
-    { label: "plotcandle", insert: "plotcandle(open, high, low, close, title=\"Candles\")", type: "fn", desc: "Plot custom OHLC candlesticks" },
-    { label: "plotbar", insert: "plotbar(open, high, low, close)", type: "fn", desc: "Plot custom OHLC bars" },
-    { label: "plotshape", insert: "plotshape(condition, title=\"Signal\", style=shape.triangleup, location=location.belowbar, color=color.green)", type: "fn", desc: "Plot visual shapes above/below bars" },
-    { label: "hline", insert: "hline(0, \"Zero Level\", color=color.gray, linestyle=hline.style_dashed)", type: "fn", desc: "Plot horizontal level line" },
-    { label: "fill", insert: "fill(p1, p2, color=color.new(color.blue, 80))", type: "fn", desc: "Fill shaded area between two plots" },
+    // barstate.* constants
+    { label: "barstate.islast", insert: "barstate.islast", type: "var", desc: "True on the last (current) bar of the dataset" },
+    { label: "barstate.isconfirmed", insert: "barstate.isconfirmed", type: "var", desc: "True on the closing tick of the current bar" },
+    { label: "barstate.isfirst", insert: "barstate.isfirst", type: "var", desc: "True on the first historical bar" },
+    { label: "barstate.ishistory", insert: "barstate.ishistory", type: "var", desc: "True on all historical bars except real-time" },
+    { label: "barstate.isrealtime", insert: "barstate.isrealtime", type: "var", desc: "True on real-time live trading bars" },
+    { label: "barstate.isnew", insert: "barstate.isnew", type: "var", desc: "True on the first tick of a newly opened bar" },
+
+    // input.* declarations
+    { label: "input", insert: 'input(close, "Source")', type: "fn", desc: "Generic script input: input(defval, title)" },
+    { label: "input.int", insert: 'input.int(14, "Length")', type: "fn", desc: "Integer input: input.int(defval, title, minval, maxval)" },
+    { label: "input.float", insert: 'input.float(1.0, "Multiplier", step=0.1)', type: "fn", desc: "Float input: input.float(defval, title, step)" },
+    { label: "input.bool", insert: 'input.bool(true, "Show Wicks")', type: "fn", desc: "Boolean checkbox input: input.bool(defval, title)" },
+    { label: "input.string", insert: 'input.string("Default", "Title")', type: "fn", desc: "String text input: input.string(defval, title)" },
+    { label: "input.color", insert: 'input.color(color.blue, "Color")', type: "fn", desc: "Color picker input: input.color(defval, title)" },
+    { label: "input.symbol", insert: 'input.symbol("EURUSD", "Symbol")', type: "fn", desc: "Symbol selector: input.symbol(defval, title)" },
+    { label: "input.timeframe", insert: 'input.timeframe("", "Timeframe")', type: "fn", desc: "Timeframe selector: input.timeframe(defval, title)" },
+    { label: "input.session", insert: 'input.session("0930-1600", "Hours")', type: "fn", desc: "Trading session hours: input.session(defval, title)" },
+    { label: "input.source", insert: 'input.source(close, "Source")', type: "fn", desc: "Price source selector: input.source(defval, title)" },
+    { label: "input.text_area", insert: 'input.text_area("Text", "Notes")', type: "fn", desc: "Multi-line text area input" },
+    { label: "input.price", insert: 'input.price(0.0, "Price Level")', type: "fn", desc: "Interactive chart price input" },
+    { label: "input.time", insert: 'input.time(0, "Timestamp")', type: "fn", desc: "Date/time selector input" },
+
+    // plot* functions
+    { label: "plot", insert: 'plot(close, "Title", color=color.blue, linewidth=2)', type: "fn", desc: "Plot series: plot(series, title, color, linewidth, style)" },
+    { label: "plotcandle", insert: 'plotcandle(open, high, low, close, title="Candles", color=color.green, wickcolor=color.gray, bordercolor=color.green)', type: "fn", desc: "Plot custom OHLC candlesticks" },
+    { label: "plotbar", insert: 'plotbar(open, high, low, close, title="Bars", color=color.green)', type: "fn", desc: "Plot custom OHLC bars" },
+    { label: "plotshape", insert: 'plotshape(condition, title="Signal", style=shape.triangleup, location=location.belowbar, color=color.green)', type: "fn", desc: "Plot visual shapes on chart" },
+    { label: "plotchar", insert: 'plotchar(condition, title="Char", char="★", location=location.abovebar, color=color.yellow)', type: "fn", desc: "Plot character glyph on chart" },
+    { label: "plotarrow", insert: 'plotarrow(series, title="Arrow", colorup=color.green, colordown=color.red)', type: "fn", desc: "Plot up/down direction arrows" },
+    { label: "hline", insert: 'hline(0, "Zero Level", color=color.gray, linestyle=hline.style_dashed)', type: "fn", desc: "Plot horizontal reference line" },
+    { label: "fill", insert: 'fill(p1, p2, color=color.new(color.blue, 80), title="Fill")', type: "fn", desc: "Fill shaded region between two plots" },
     { label: "bgcolor", insert: "bgcolor(condition ? color.new(color.green, 90) : na)", type: "fn", desc: "Set chart background color for bars" },
+    { label: "barcolor", insert: "barcolor(close >= open ? color.green : color.red)", type: "fn", desc: "Color main chart candlesticks" },
 
+    // label.* functions & constants
+    { label: "label.new", insert: 'label.new(bar_index, high, text="Text", style=label.style_label_left, color=color.blue, textcolor=color.white, size=size.small)', type: "fn", desc: "Create new text label: label.new(x, y, text, ...)" },
+    { label: "label.delete", insert: "label.delete(id)", type: "fn", desc: "Delete specified label object" },
+    { label: "label.set_text", insert: 'label.set_text(id, "New Text")', type: "fn", desc: "Set label text" },
+    { label: "label.set_xy", insert: "label.set_xy(id, bar_index, high)", type: "fn", desc: "Set label bar_index and price coordinate" },
+    { label: "label.set_color", insert: "label.set_color(id, color.blue)", type: "fn", desc: "Set label box background color" },
+    { label: "label.set_textcolor", insert: "label.set_textcolor(id, color.white)", type: "fn", desc: "Set label text color" },
+    { label: "label.set_size", insert: "label.set_size(id, size.small)", type: "fn", desc: "Set label text size" },
+    { label: "label.set_style", insert: "label.set_style(id, label.style_label_left)", type: "fn", desc: "Set label pointer style" },
+    { label: "label.style_label_left", insert: "label.style_label_left", type: "var", desc: "Label with pointer pointing left" },
+    { label: "label.style_label_right", insert: "label.style_label_right", type: "var", desc: "Label with pointer pointing right" },
+    { label: "label.style_label_up", insert: "label.style_label_up", type: "var", desc: "Label with pointer pointing up" },
+    { label: "label.style_label_down", insert: "label.style_label_down", type: "var", desc: "Label with pointer pointing down" },
+    { label: "label.style_none", insert: "label.style_none", type: "var", desc: "Label box with no pointer" },
+
+    // line.*, box.*, table.* drawings
+    { label: "line.new", insert: "line.new(bar_index - 1, low[1], bar_index, high, color=color.blue, width=2)", type: "fn", desc: "Create drawing line between coordinates" },
+    { label: "line.delete", insert: "line.delete(id)", type: "fn", desc: "Delete drawing line" },
+    { label: "box.new", insert: "box.new(left=bar_index - 10, top=high, right=bar_index, bottom=low, border_color=color.blue, bgcolor=color.new(color.blue, 90))", type: "fn", desc: "Create drawing box / rectangle" },
+    { label: "box.delete", insert: "box.delete(id)", type: "fn", desc: "Delete drawing box" },
+    { label: "table.new", insert: "table.new(position.top_right, 4, 4, bgcolor=color.gray, border_color=color.black)", type: "fn", desc: "Create dashboard display table" },
+    { label: "table.cell", insert: 'table.cell(id, 0, 0, "Value", text_color=color.white)', type: "fn", desc: "Set content of table cell" },
+
+    // str.* string functions
+    { label: "str.tostring", insert: 'str.tostring(close, "#.####")', type: "fn", desc: "Convert value to formatted string: str.tostring(val, format)" },
+    { label: "str.format", insert: 'str.format("Price: {0}", close)', type: "fn", desc: "Format template string: str.format(pattern, args...)" },
+    { label: "str.length", insert: "str.length(text)", type: "fn", desc: "Length of string" },
+    { label: "str.contains", insert: "str.contains(source, sub)", type: "fn", desc: "True if source string contains substring" },
+    { label: "str.lower", insert: "str.lower(text)", type: "fn", desc: "Convert string to lowercase" },
+    { label: "str.upper", insert: "str.upper(text)", type: "fn", desc: "Convert string to uppercase" },
+    { label: "str.split", insert: 'str.split(text, ",")', type: "fn", desc: "Split string into array of tokens" },
+
+    // color.* declarations & constants
+    { label: "color.new", insert: "color.new(color.blue, 50)", type: "fn", desc: "Color with transparency 0 (opaque) to 100 (transparent)" },
+    { label: "color.rgb", insert: "color.rgb(255, 0, 0)", type: "fn", desc: "RGB color: color.rgb(r, g, b, transp)" },
+    { label: "color.from_gradient", insert: "color.from_gradient(value, bottom_value, top_value, bottom_color, top_color)", type: "fn", desc: "Gradient color interpolation" },
+    { label: "color.blue", insert: "color.blue", type: "var", desc: "Standard Blue (#2962ff)" },
+    { label: "color.green", insert: "color.green", type: "var", desc: "Standard Green (#089981)" },
+    { label: "color.red", insert: "color.red", type: "var", desc: "Standard Red (#f23645)" },
+    { label: "color.orange", insert: "color.orange", type: "var", desc: "Standard Orange (#ff9800)" },
+    { label: "color.yellow", insert: "color.yellow", type: "var", desc: "Standard Yellow (#ffeb3b)" },
+    { label: "color.teal", insert: "color.teal", type: "var", desc: "Standard Teal (#00897b)" },
+    { label: "color.maroon", insert: "color.maroon", type: "var", desc: "Standard Maroon (#880e4f)" },
+    { label: "color.gray", insert: "color.gray", type: "var", desc: "Standard Gray (#787b86)" },
+    { label: "color.white", insert: "color.white", type: "var", desc: "Standard White (#ffffff)" },
+    { label: "color.black", insert: "color.black", type: "var", desc: "Standard Black (#000000)" },
+    { label: "color.purple", insert: "color.purple", type: "var", desc: "Standard Purple (#9c27b0)" },
+    { label: "color.navy", insert: "color.navy", type: "var", desc: "Standard Navy (#1a237e)" },
+    { label: "color.lime", insert: "color.lime", type: "var", desc: "Standard Lime (#00e676)" },
+    { label: "color.aqua", insert: "color.aqua", type: "var", desc: "Standard Aqua (#00e5ff)" },
+
+    // math.* functions
     { label: "math.abs", insert: "math.abs(x)", type: "fn", desc: "Absolute value: math.abs(x)" },
     { label: "math.max", insert: "math.max(a, b)", type: "fn", desc: "Maximum value: math.max(val1, val2)" },
     { label: "math.min", insert: "math.min(a, b)", type: "fn", desc: "Minimum value: math.min(val1, val2)" },
     { label: "math.round", insert: "math.round(x, 2)", type: "fn", desc: "Round number: math.round(number, precision)" },
+    { label: "math.ceil", insert: "math.ceil(x)", type: "fn", desc: "Smallest integer greater than or equal to x" },
+    { label: "math.floor", insert: "math.floor(x)", type: "fn", desc: "Largest integer less than or equal to x" },
     { label: "math.pow", insert: "math.pow(base, exponent)", type: "fn", desc: "Power function: base ^ exponent" },
-    { label: "math.sqrt", insert: "math.sqrt(x)", type: "fn", desc: "Square root" },
+    { label: "math.sqrt", insert: "math.sqrt(x)", type: "fn", desc: "Square root: math.sqrt(x)" },
+    { label: "math.log", insert: "math.log(x)", type: "fn", desc: "Natural logarithm" },
+    { label: "math.log10", insert: "math.log10(x)", type: "fn", desc: "Base 10 logarithm" },
+    { label: "math.sign", insert: "math.sign(x)", type: "fn", desc: "Sign of number (-1, 0, or 1)" },
+    { label: "math.avg", insert: "math.avg(a, b)", type: "fn", desc: "Arithmetic mean of arguments" },
+    { label: "math.sum", insert: "math.sum(a, b)", type: "fn", desc: "Sum of arguments" },
 
-    { label: "color.new", insert: "color.new(color.blue, 50)", type: "fn", desc: "Color with transparency 0 (opaque) to 100 (transparent)" },
-    { label: "color.rgb", insert: "color.rgb(255, 0, 0)", type: "fn", desc: "RGB color: color.rgb(r, g, b, transp)" },
-    { label: "color.blue", insert: "color.blue", type: "var", desc: "Standard Blue color" },
-    { label: "color.green", insert: "color.green", type: "var", desc: "Standard Green color" },
-    { label: "color.red", insert: "color.red", type: "var", desc: "Standard Red color" },
-    { label: "color.orange", insert: "color.orange", type: "var", desc: "Standard Orange color" },
-    { label: "color.yellow", insert: "color.yellow", type: "var", desc: "Standard Yellow color" },
-    { label: "color.gray", insert: "color.gray", type: "var", desc: "Standard Gray color" },
-    { label: "color.white", insert: "color.white", type: "var", desc: "Standard White color" },
-    { label: "color.black", insert: "color.black", type: "var", desc: "Standard Black color" },
-    { label: "color.teal", insert: "color.teal", type: "var", desc: "Standard Teal color" },
-    { label: "color.maroon", insert: "color.maroon", type: "var", desc: "Standard Maroon color" },
+    // syminfo.* & timeframe.* properties
+    { label: "syminfo.tickerid", insert: "syminfo.tickerid", type: "var", desc: "Exchange prefix and ticker (e.g. FX:EURUSD)" },
+    { label: "syminfo.ticker", insert: "syminfo.ticker", type: "var", desc: "Ticker symbol without exchange prefix" },
+    { label: "syminfo.mintick", insert: "syminfo.mintick", type: "var", desc: "Minimum price movement tick size" },
+    { label: "syminfo.currency", insert: "syminfo.currency", type: "var", desc: "Currency code for ticker" },
+    { label: "timeframe.period", insert: "timeframe.period", type: "var", desc: "Current chart resolution string (e.g. 1D, 60)" },
+    { label: "timeframe.multiplier", insert: "timeframe.multiplier", type: "var", desc: "Current chart resolution multiplier number" },
+    { label: "timeframe.isintraday", insert: "timeframe.isintraday", type: "var", desc: "True if timeframe is intraday (minutes/seconds)" },
+    { label: "timeframe.isdaily", insert: "timeframe.isdaily", type: "var", desc: "True if timeframe is 1D (daily)" },
 
-    { label: "close", insert: "close", type: "var", desc: "Current bar closing price" },
-    { label: "open", insert: "open", type: "var", desc: "Current bar open price" },
-    { label: "high", insert: "high", type: "var", desc: "Current bar high price" },
-    { label: "low", insert: "low", type: "var", desc: "Current bar low price" },
-    { label: "volume", insert: "volume", type: "var", desc: "Current bar volume" },
+    // shape.*, location.*, size.* enums
+    { label: "shape.triangleup", insert: "shape.triangleup", type: "var", desc: "Triangle pointing up shape" },
+    { label: "shape.triangledown", insert: "shape.triangledown", type: "var", desc: "Triangle pointing down shape" },
+    { label: "shape.arrowup", insert: "shape.arrowup", type: "var", desc: "Upward pointing arrow" },
+    { label: "shape.arrowdown", insert: "shape.arrowdown", type: "var", desc: "Downward pointing arrow" },
+    { label: "shape.circle", insert: "shape.circle", type: "var", desc: "Circle shape" },
+    { label: "shape.diamond", insert: "shape.diamond", type: "var", desc: "Diamond shape" },
+    { label: "location.abovebar", insert: "location.abovebar", type: "var", desc: "Plot shape/label above bar" },
+    { label: "location.belowbar", insert: "location.belowbar", type: "var", desc: "Plot shape/label below bar" },
+    { label: "location.absolute", insert: "location.absolute", type: "var", desc: "Plot shape at exact absolute price coordinate" },
+    { label: "size.small", insert: "size.small", type: "var", desc: "Small visual element size" },
+    { label: "size.tiny", insert: "size.tiny", type: "var", desc: "Tiny visual element size" },
+    { label: "size.normal", insert: "size.normal", type: "var", desc: "Normal visual element size" },
+    { label: "size.large", insert: "size.large", type: "var", desc: "Large visual element size" },
+
+    // Builtin series variables & Keywords
+    { label: "close", insert: "close", type: "var", desc: "Current bar closing price series" },
+    { label: "open", insert: "open", type: "var", desc: "Current bar open price series" },
+    { label: "high", insert: "high", type: "var", desc: "Current bar high price series" },
+    { label: "low", insert: "low", type: "var", desc: "Current bar low price series" },
+    { label: "volume", insert: "volume", type: "var", desc: "Current bar volume series" },
     { label: "time", insert: "time", type: "var", desc: "Current bar UNIX timestamp in milliseconds" },
     { label: "bar_index", insert: "bar_index", type: "var", desc: "Current bar index (0 to N)" },
+    { label: "hl2", insert: "hl2", type: "var", desc: "Median price: (high + low) / 2" },
+    { label: "hlc3", insert: "hlc3", type: "var", desc: "Typical price: (high + low + close) / 3" },
+    { label: "ohlc4", insert: "ohlc4", type: "var", desc: "Average price: (open + high + low + close) / 4" },
+    { label: "tr", insert: "tr", type: "var", desc: "Current bar True Range" },
     { label: "na", insert: "na", type: "var", desc: "Not Available / Null value" },
-    { label: "request.security", insert: "request.security(syminfo.tickerid, \"\", close)", type: "fn", desc: "Request data from another symbol or timeframe" },
-
-    { label: "indicator", insert: "indicator(\"Title\", overlay=true)", type: "kw", desc: "Declare a technical indicator script" },
-    { label: "strategy", insert: "strategy(\"Title\", overlay=true, initial_capital=10000)", type: "kw", desc: "Declare a strategy script with backtesting properties" },
+    { label: "nz", insert: "nz(val, 0)", type: "fn", desc: "Replace NaN with default value: nz(x, y)" },
+    { label: "indicator", insert: 'indicator("Title", overlay=true)', type: "kw", desc: "Declare a technical indicator script" },
+    { label: "strategy", insert: 'strategy("Title", overlay=true, initial_capital=10000)', type: "kw", desc: "Declare a strategy script with backtesting properties" },
     { label: "var", insert: "var int count = 0", type: "kw", desc: "Declare persistent variable initialized once on first bar" },
     { label: "varip", insert: "varip int tickCount = 0", type: "kw", desc: "Declare persistent variable updated on every tick" }
   ];
@@ -476,20 +784,23 @@
     const codeInput = document.getElementById('pine_code_input');
     const popover = document.getElementById('pine_autocomplete_popover');
     const acList = document.getElementById('pine_ac_list');
-    if (!codeInput || !popover || !acList) return;
+    if (!codeInput) return;
 
+    const settings = getEditorSettings();
     const cursor = codeInput.selectionStart;
     const text = codeInput.value.substring(0, cursor);
     const wordMatch = text.match(/([a-zA-Z_0-9\.]+)$/);
 
     if (!wordMatch && !force) {
       hideAcPopover();
+      clearInlineGhost();
       return;
     }
 
     _acPrefix = wordMatch ? wordMatch[1].toLowerCase() : '';
     if (!_acPrefix && !force) {
       hideAcPopover();
+      clearInlineGhost();
       return;
     }
 
@@ -500,10 +811,37 @@
 
     if (_acCurrentMatches.length === 0) {
       hideAcPopover();
+      clearInlineGhost();
       return;
     }
 
-    _acCurrentMatches = _acCurrentMatches.slice(0, 25);
+    // 1. Calculate inline ghost text preview
+    const topMatch = _acCurrentMatches[0];
+    const topLabel = topMatch.label;
+    if (settings.inlineSuggestions !== false && topLabel.toLowerCase().startsWith(_acPrefix) && topLabel.length > _acPrefix.length) {
+      const insertStr = topMatch.insert || topLabel;
+      let remainder = '';
+      if (insertStr.toLowerCase().startsWith(_acPrefix)) {
+        remainder = insertStr.substring(_acPrefix.length);
+      } else {
+        remainder = topLabel.substring(_acPrefix.length);
+      }
+      _inlineGhostSuggestion = remainder;
+      _inlineGhostItem = topMatch;
+      updateSyntaxBackdrop();
+    } else {
+      clearInlineGhost();
+    }
+
+    // 2. Autocomplete Popover (if enabled)
+    if (settings.autocompletePopover === false && !force) {
+      hideAcPopover();
+      return;
+    }
+
+    if (!popover || !acList) return;
+
+    _acCurrentMatches = _acCurrentMatches.slice(0, 30);
     _acActiveIdx = 0;
     renderAcList();
 
@@ -512,16 +850,20 @@
     const colNum = lines[lines.length - 1].length;
 
     const lineHeight = 20;
-    const charWidth = 7.5;
-    let top = (lineNum * lineHeight) + 12 - codeInput.scrollTop;
+    const charWidth = 7.8;
+    let top = (lineNum * lineHeight) + 14 - codeInput.scrollTop;
     let left = (colNum * charWidth) + 16 - codeInput.scrollLeft;
 
     const container = codeInput.parentElement;
-    const maxTop = container ? container.offsetHeight - 260 : 300;
-    const maxLeft = container ? container.offsetWidth - 330 : 200;
+    const containerH = container ? container.offsetHeight : 300;
+    const containerW = container ? container.offsetWidth : 600;
 
-    top = Math.max(10, Math.min(maxTop, top));
-    left = Math.max(10, Math.min(maxLeft, left));
+    // Flip above cursor if near bottom of dock
+    if (top + 230 > containerH && top > 240) {
+      top = top - lineHeight - 230;
+    }
+    top = Math.max(10, Math.min(containerH - 50, top));
+    left = Math.max(10, Math.min(containerW - 330, left));
 
     popover.style.top = `${top}px`;
     popover.style.left = `${left}px`;
@@ -570,6 +912,7 @@
     codeInput.value = newBefore + afterCursor;
     codeInput.selectionStart = codeInput.selectionEnd = newBefore.length;
 
+    clearInlineGhost();
     hideAcPopover();
     updateSyntaxBackdrop();
     updateCursor();
@@ -2663,6 +3006,9 @@
         const parsed = JSON.parse(saved);
         if (parsed && parsed.code) {
           _currentScript = parsed;
+          if (_currentScript.id && !_currentScript.id.startsWith('builtin_')) {
+            _currentScript.isReadOnly = false;
+          }
         }
       }
     } catch (e) {}
@@ -2713,13 +3059,14 @@
             <button type="button" class="pine-script-dropdown-btn-v2" id="pine_script_dropdown_trigger" title="Script options and templates">
               <span class="pine-icon-sine">~</span>
               <span class="pine-script-title-text" id="pine_script_title_display">${escapeHtml(_currentScript.name)}</span>
+              <span id="pine_dirty_indicator" class="pine-dirty-dot" style="display: none; color: #2962ff; margin-left: 3px; font-weight: bold;">*</span>
               <span class="pine-more-dots">...</span>
               <svg class="pine-caret-v2" viewBox="0 0 10 6">
                 <path d="M0 0l5 5 5-5z" fill="currentColor"/>
               </svg>
             </button>
             <div class="pine-header-dropdown-menu-v2" id="pine_dropdown_menu">
-              <div class="pine-menu-item-v2 ${(_currentScript.isReadOnly !== false) ? 'disabled' : ''}" id="pine_menu_save_script">
+              <div class="pine-menu-item-v2 ${(_currentScript.isReadOnly === true) ? 'disabled' : ''}" id="pine_menu_save_script">
                 <div class="pine-menu-item-left">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
@@ -2741,7 +3088,7 @@
                 </div>
               </div>
 
-              <div class="pine-menu-item-v2 ${(_currentScript.isReadOnly !== false) ? 'disabled' : ''}" id="pine_menu_rename">
+              <div class="pine-menu-item-v2 ${(_currentScript.isReadOnly === true) ? 'disabled' : ''}" id="pine_menu_rename">
                 <div class="pine-menu-item-left">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
@@ -2917,7 +3264,7 @@
       </div>
 
       <!-- 3. Read-Only Warning Banner (Image 1) -->
-      <div class="pine-readonly-banner" id="pine_readonly_banner" style="display: ${_currentScript.isReadOnly !== false ? 'flex' : 'none'};">
+      <div class="pine-readonly-banner" id="pine_readonly_banner" style="display: ${_currentScript.isReadOnly === true ? 'flex' : 'none'};">
         <div class="pine-readonly-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="#e65100">
             <circle cx="12" cy="12" r="10" fill="#e65100"/>
@@ -3378,7 +3725,7 @@
     const scriptId = id || 'custom_script';
     const savedActiveId = localStorage.getItem('tv_pine_active_study_' + scriptId);
     const isBuiltinOrReadonly = (isReadOnly !== undefined) ? !!isReadOnly : (
-      Boolean((scriptId && String(scriptId).startsWith('builtin_')) || BUILTIN_TECHNICALS.includes(name) || !getUserSavedScripts().some(s => s.id === scriptId || s.name === name))
+      Boolean((scriptId && String(scriptId).startsWith('builtin_')) || (typeof BUILTIN_TECHNICALS !== 'undefined' && BUILTIN_TECHNICALS.includes(name)))
     );
     _currentScript = {
       id: scriptId,
@@ -3508,7 +3855,7 @@
     // More Menu actions
     document.getElementById('pine_menu_editor_settings')?.addEventListener('click', () => {
       moreMenu?.classList.remove('show');
-      alert("Pine Editor Settings: Authentic TradingView v6 Engine Active.");
+      openEditorSettingsModal();
     });
     document.getElementById('pine_menu_open_new_window')?.addEventListener('click', () => {
       moreMenu?.classList.remove('show');
@@ -3668,7 +4015,7 @@
       updateSyntaxBackdrop();
       _currentScript.code = codeInput.value;
       _currentScript.isDirty = true;
-      dirtyInd.style.display = 'inline';
+      if (dirtyInd) dirtyInd.style.display = 'inline';
       setStatus('Ready', 'ready');
       saveCurrentToStorage();
       triggerAutocomplete();
@@ -3744,11 +4091,28 @@
           insertAcItem(_acCurrentMatches[_acActiveIdx]);
           return;
         }
+        if (e.key === 'ArrowRight' && codeInput.selectionStart === codeInput.selectionEnd && _inlineGhostSuggestion) {
+          e.preventDefault();
+          insertInlineGhost();
+          return;
+        }
         if (e.key === 'Escape') {
           e.preventDefault();
+          clearInlineGhost();
           hideAcPopover();
           return;
         }
+      }
+
+      // Inline Ghost Suggestion completion with Tab or ArrowRight (when popover not handling)
+      if (_inlineGhostSuggestion && (e.key === 'Tab' || (e.key === 'ArrowRight' && codeInput.selectionStart === codeInput.selectionEnd))) {
+        e.preventDefault();
+        insertInlineGhost();
+        return;
+      }
+      if (e.key === 'Escape') {
+        clearInlineGhost();
+        hideAcPopover();
       }
 
       // Explicit Ctrl + Space for autocomplete

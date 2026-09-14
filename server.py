@@ -221,6 +221,17 @@ def resolve_symbol(symbol: str) -> str:
     return symbol
 
 
+_symbol_point_cache: Dict[str, float] = {}
+
+def _get_symbol_point(symbol: str) -> float:
+    pt = _symbol_point_cache.get(symbol)
+    if pt is None:
+        sym_info = mt5.symbol_info(symbol)
+        pt = float(getattr(sym_info, 'point', 0.00001) or 0.00001)
+        _symbol_point_cache[symbol] = pt
+    return pt
+
+
 def extract_currencies(symbol: str):
     """Extract 3-letter currency tokens from symbol name for news calendar filtering."""
     clean = ''.join(filter(str.isalpha, symbol.upper()))
@@ -242,6 +253,7 @@ def get_broker_timezone_offset(symbol: str = "XAUUSD.") -> int:
         return broker_time.get_broker_timezone_offset(symbol)
     except Exception:
         return 0
+
 
 
 
@@ -277,9 +289,7 @@ UDF_RESOLUTION_TO_MT5_TIMEFRAME = {
 }
 
 SUPPORTED_RESOLUTIONS: List[str] = [
-    "1T", "2T", "3T", "4T", "5T", "6T", "7T", "8T", "9T", "10T", "12T", "15T", "20T", "25T", "30T", "40T", "50T", "60T", "75T", "100T", "200T", "500T", "1000T",
-    "1", "2", "3", "5", "10", "15", "20", "30", "45", "60", "120", "180", "240",
-    "1D", "1W", "1M", "3M", "6M", "12M"
+    "1S", "5S", "1", "5", "15", "30", "60", "240", "1D", "1W", "1M"
 ]
 
 
@@ -531,8 +541,8 @@ async def get_config() -> Response:
         "has_ticks": True,
         "is-tickbars-available": True,
         "is_tickbars_available": True,
-        "tick_multipliers": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "15", "20", "25", "30", "40", "50", "60", "75", "100", "200", "500", "1000"],
-        "ticks_multipliers": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "15", "20", "25", "30", "40", "50", "60", "75", "100", "200", "500", "1000"],
+        "tick_multipliers": [],
+        "ticks_multipliers": [],
         "has_intraday": True,
         "intraday_multipliers": ["1", "3", "5", "15", "30", "60", "120", "240"],
         "has_daily": True,
@@ -1158,8 +1168,8 @@ def get_symbols(symbol: str = Query(..., description="Symbol ticker, e.g., EURUS
         "has_ticks": True,
         "is-tickbars-available": True,
         "is_tickbars_available": True,
-        "tick_multipliers": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "15", "20", "25", "30", "40", "50", "60", "75", "100", "200", "500", "1000"],
-        "ticks_multipliers": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "15", "20", "25", "30", "40", "50", "60", "75", "100", "200", "500", "1000"],
+        "tick_multipliers": [],
+        "ticks_multipliers": [],
         "has_daily": True,
         "daily_multipliers": ["1"],
         "has_weekly_and_monthly": True,
@@ -1198,39 +1208,103 @@ def get_history(
     ensure_mt5()
 
     # 1. Seconds-based resolution (e.g. "1S", "5S", "10S", "15S", "30S")
+    # Sub-minute seconds (<60s) use tick bucketing. Multi-minute seconds (e.g. "60S", "50000S") pass through to timeframe aggregator.
+    is_sub_minute_sec = False
+    sec = 1
     if res.endswith("S"):
         sec_str = res.rstrip("S")
         try:
             sec_float = float(sec_str) if sec_str else 1.0
             if sec_float <= 0:
-                raise HTTPException(status_code=400, detail=f"Invalid seconds resolution: {resolution}")
+                sec_float = 1.0
             sec = max(1, int(round(sec_float)))
+            if sec < 60:
+                is_sub_minute_sec = True
         except ValueError:
-            raise HTTPException(status_code=400, detail=f"Invalid seconds resolution: {resolution}")
+            sec = 1
+            is_sub_minute_sec = True
 
+    if is_sub_minute_sec:
         try:
             offset = broker_time.get_broker_timezone_offset(resolved_symbol)
             now_utc = time.time()
-            to_val = to if to is not None and to > 0 else now_utc
+            to_val = float(to) if to is not None and to > 0 else now_utc
             cb = countback or 500
-            req_span = max(600.0, float(cb * sec * 1.5))
+            req_span = max(3600.0, float(cb * sec * 2.0))
             if _from is not None and to_val is not None and (to_val - float(_from)) > 0:
                 req_span = max(req_span, float(to_val - float(_from)) + 60.0)
-            from_val = float(_from) if _from is not None and _from > 0 else (to_val - req_span)
+
+            # Ensure from_val is strictly less than to_val
+            if _from is not None and _from > 0 and float(_from) < to_val:
+                from_val = float(_from)
+            else:
+                from_val = to_val - req_span
 
             start_broker = int(from_val + offset)
             end_broker = int(to_val + offset + 60)
             raw_ticks = mt5.copy_ticks_range(resolved_symbol, start_broker, end_broker, mt5.COPY_TICKS_ALL)
-            fallback_used = False
+            
+            # If empty, look backwards across weekends/gaps up to 4 days (345600 sec)
             if raw_ticks is None or len(raw_ticks) == 0:
-                last_tick = mt5.symbol_info_tick(resolved_symbol)
-                if last_tick and last_tick.time > 0:
-                    end_b = int(last_tick.time + 60)
-                    start_b = int(last_tick.time - req_span)
-                    raw_ticks = mt5.copy_ticks_range(resolved_symbol, start_b, end_b, mt5.COPY_TICKS_ALL)
-                    if raw_ticks is None or len(raw_ticks) == 0:
-                        raw_ticks = mt5.copy_ticks_from(resolved_symbol, start_b, int(cb * 2), mt5.COPY_TICKS_ALL)
-                    fallback_used = True
+                expanded_span = max(int(req_span * 4), 345600)
+                expanded_start = max(0, end_broker - expanded_span)
+                raw_ticks = mt5.copy_ticks_range(resolved_symbol, expanded_start, end_broker, mt5.COPY_TICKS_ALL)
+
+            # If still empty (e.g. historical ticks not downloaded locally in MT5), fall back to resampling M1 rates!
+            if raw_ticks is None or len(raw_ticks) == 0:
+                m1_from_dt = datetime.fromtimestamp(max(0, int(from_val + offset)), tz=timezone.utc)
+                m1_to_dt = datetime.fromtimestamp(int(to_val + offset + 60), tz=timezone.utc)
+                m1_rates = mt5.copy_rates_range(resolved_symbol, mt5.TIMEFRAME_M1, m1_from_dt, m1_to_dt)
+                if (m1_rates is None or len(m1_rates) == 0) and countback is not None:
+                    m1_count = max(10, min(1000, int(cb * sec / 60) + 10))
+                    m1_rates = mt5.copy_rates_from(resolved_symbol, mt5.TIMEFRAME_M1, end_broker, m1_count)
+
+                if m1_rates is not None and len(m1_rates) > 0:
+                    b_t = []
+                    b_o = []
+                    b_h = []
+                    b_l = []
+                    b_c = []
+                    b_v = []
+                    sub_count = max(1, 60 // sec)
+                    for mb in m1_rates:
+                        m_time_utc = int(mb['time'] - offset)
+                        mo = float(mb['open'])
+                        mh = float(mb['high'])
+                        ml = float(mb['low'])
+                        mc = float(mb['close'])
+                        mv = float(mb['tick_volume']) / sub_count
+                        for si in range(sub_count):
+                            st = m_time_utc + (si * sec)
+                            if to is not None and st > int(to):
+                                continue
+                            if _from is not None and countback is None and st < int(_from):
+                                continue
+                            if sub_count == 1:
+                                so, sh, sl, sc = mo, mh, ml, mc
+                            elif si == 0:
+                                so, sh, sl, sc = mo, max(mo, mh), min(mo, ml), (mo + mh) / 2
+                            elif si == sub_count - 1:
+                                so, sh, sl, sc = (ml + mc) / 2, max(mc, mh), min(mc, ml), mc
+                            else:
+                                so, sh, sl, sc = (mh + ml) / 2, mh, ml, (mh + ml) / 2
+                            b_t.append(st)
+                            b_o.append(so)
+                            b_h.append(sh)
+                            b_l.append(sl)
+                            b_c.append(sc)
+                            b_v.append(mv)
+                    if len(b_t) > 0:
+                        max_bars = countback if (countback is not None and countback > 0) else 5000
+                        if len(b_t) > max_bars:
+                            b_t = b_t[-max_bars:]
+                            b_o = b_o[-max_bars:]
+                            b_h = b_h[-max_bars:]
+                            b_l = b_l[-max_bars:]
+                            b_c = b_c[-max_bars:]
+                            b_v = b_v[-max_bars:]
+                        records = {"s": "ok", "t": b_t, "o": b_o, "h": b_h, "l": b_l, "c": b_c, "v": b_v}
+                        return Response(content=fast_json_dumps(records), media_type="application/json")
 
             if raw_ticks is None or len(raw_ticks) == 0:
                 return Response(content=b'{"s":"no_data","t":[],"o":[],"h":[],"l":[],"c":[],"v":[]}', media_type="application/json")
@@ -1261,7 +1335,7 @@ def get_history(
             b_l = np.minimum.reduceat(prices, idx_start)
             b_v = np.add.reduceat(vols, idx_start)
 
-            if not fallback_used and (_from is not None or to is not None):
+            if (_from is not None or to is not None):
                 mask = np.ones(len(b_t), dtype=bool)
                 if _from is not None and countback is None:
                     mask &= (b_t >= int(_from))
@@ -1297,19 +1371,27 @@ def get_history(
         try:
             tpb = int(tpb_str) if tpb_str else 1
             if tpb < 1:
-                raise HTTPException(status_code=400, detail=f"Invalid tick count resolution: {resolution}")
+                tpb = 1
         except (ValueError, TypeError):
-            raise HTTPException(status_code=400, detail=f"Invalid tick count resolution: {resolution}")
+            tpb = 1
 
         try:
             offset = broker_time.get_broker_timezone_offset(resolved_symbol)
             now_utc = time.time()
-            to_val = to if to is not None and to > 0 else now_utc
+            to_val = float(to) if to is not None and to > 0 else now_utc
             cb = countback or 300
             req_span = max(300.0, float(cb * tpb * 2))
             if _from is not None and to_val is not None and (to_val - float(_from)) > 0:
                 req_span = max(req_span, float(to_val - float(_from)) + 60.0)
-            from_val = float(_from) if _from is not None and _from > 0 else (to_val - req_span)
+
+            # Cap req_span so arbitrary large tick intervals (e.g. 10000T) don't request months of ticks and hang
+            req_span = min(req_span, 86400.0 * 2)
+
+            # Ensure from_val is strictly less than to_val
+            if _from is not None and _from > 0 and float(_from) < to_val:
+                from_val = float(_from)
+            else:
+                from_val = to_val - req_span
 
             start_broker = int(from_val + offset)
             end_broker = int(to_val + offset + 60)
@@ -1321,7 +1403,7 @@ def get_history(
                     start_b = int(last_tick.time - req_span)
                     raw_ticks = mt5.copy_ticks_range(resolved_symbol, start_b, end_b, mt5.COPY_TICKS_ALL)
                     if raw_ticks is None or len(raw_ticks) == 0:
-                        raw_ticks = mt5.copy_ticks_from(resolved_symbol, start_b, int(cb * tpb * 2), mt5.COPY_TICKS_ALL)
+                        raw_ticks = mt5.copy_ticks_from(resolved_symbol, start_b, min(50000, int(cb * tpb * 2)), mt5.COPY_TICKS_ALL)
 
             if raw_ticks is None or len(raw_ticks) == 0:
                 return Response(content=b'{"s":"no_data","t":[],"o":[],"h":[],"l":[],"c":[],"v":[]}', media_type="application/json")
@@ -1343,6 +1425,8 @@ def get_history(
             sub_len = len(prices)
             num_bars = sub_len // tpb
             if num_bars == 0:
+                if sub_len == 0:
+                    return Response(content=b'{"s":"no_data","t":[],"o":[],"h":[],"l":[],"c":[],"v":[]}', media_type="application/json")
                 records = {
                     "s": "ok",
                     "t": [round(float(t_sub_float[0]), 3)],
@@ -1410,171 +1494,301 @@ def get_history(
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 
-    # 3. Standard timeframe resolution (Minutes, Hours, Days, Weeks, Months)
+    # 3. Timeframe resolutions (Standard & Arbitrary Custom)
     norm_res = res
-    if norm_res == "D":
+    if norm_res in ("D", "1D"):
         norm_res = "1D"
-    elif norm_res == "W":
+    elif norm_res in ("W", "1W"):
         norm_res = "1W"
-    elif norm_res == "M":
+    elif norm_res in ("M", "1M"):
         norm_res = "1M"
+    elif norm_res.endswith("H") and norm_res[:-1].isdigit():
+        norm_res = str(int(norm_res[:-1]) * 60)
+
+    hours_offset = get_broker_timezone_offset(resolved_symbol)
+    now_utc = time.time()
+    to_ts = float(to) if to is not None and float(to) > 0 else now_utc
+    from_ts = float(_from) if _from is not None and float(_from) > 0 else (to_ts - 86400 * 30)
+    if from_ts > to_ts:
+        from_ts, to_ts = to_ts, from_ts
 
     mt5_timeframe = UDF_RESOLUTION_TO_MT5_TIMEFRAME.get(norm_res)
-    if mt5_timeframe is None:
-        raise HTTPException(status_code=400, detail=f"Unsupported resolution: {resolution}")
 
-    # Build datetime range with safe bounds for Windows 32/64-bit epoch
-    tick = mt5.symbol_info_tick(resolved_symbol)
-    now_utc = time.time()
-
-    # Calculate timezone offset between broker server clock (e.g. OrbexGlobal UTC+3) and UTC
-    hours_offset = get_broker_timezone_offset(resolved_symbol)
-
-    from_ts = _from if _from is not None else (now_utc - 86400 * 30)
-    to_ts = to if to is not None else now_utc
-
-    # Clamp timestamp to valid positive range (minimum 1970-01-01 UTC, max 9999-12-31 UTC)
-    safe_from = max(0.0, min(253402300799.0, float(from_ts)))
-    safe_to = max(0.0, min(253402300799.0, float(to_ts)))
-
-    if safe_from > safe_to:
-        safe_from, safe_to = safe_to, safe_from
-
-    # Only cap lookback for high-frequency intraday resolutions (minutes) to prevent memory overload.
-    # For D, W, M: do NOT cap history because multi-year bars are very small and essential.
-    is_dwm = norm_res in ("1D", "D", "1W", "W", "1M", "M", "3M", "6M", "12M")
-    if not is_dwm and (safe_to - safe_from) > 86400 * 365 * 5:
-        safe_from = max(0.0, safe_to - 86400 * 365 * 5)
-
-    # Shift query window to broker clock so MT5 retrieves the correct historical rates
-    safe_from_broker = safe_from + hours_offset
-    safe_to_broker = safe_to + hours_offset
-    safe_to_broker_int = int(safe_to_broker)
-    safe_from_broker_int = int(safe_from_broker)
-
-    try:
+    if mt5_timeframe is not None:
+        # ── DIRECT FAST-PATH for standard MT5 timeframes ──
+        safe_count = min(10000, max(1, countback or 300))
         rates = None
-        if countback is not None and countback > 0:
-            safe_count = min(10000, max(1, countback))
-            rates = mt5.copy_rates_from(resolved_symbol, mt5_timeframe, safe_to_broker_int, safe_count)
+
+        # Direct fast-path copy_rates_from_pos for latest bars (<0.1ms)
+        if (to is None or to_ts >= (now_utc - 60)) and (countback is not None and countback > 0):
+            rates = mt5.copy_rates_from_pos(resolved_symbol, mt5_timeframe, 0, safe_count)
 
         if rates is None or len(rates) == 0:
-            rates = mt5.copy_rates_range(
-                resolved_symbol,
-                mt5_timeframe,
-                datetime.fromtimestamp(safe_from_broker_int, tz=timezone.utc),
-                datetime.fromtimestamp(safe_to_broker_int, tz=timezone.utc)
-            )
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+            safe_to_broker = int(to_ts + hours_offset)
+            if countback is not None and countback > 0:
+                rates = mt5.copy_rates_from(resolved_symbol, mt5_timeframe, safe_to_broker, safe_count)
 
-    # CRITICAL: MT5 copy_rates_from clamps forward if date is before first bar.
-    # Filter out any bars that are after the requested safe_to_broker timestamp!
-    # Also filter out bars BEFORE safe_from_broker when 'from' is explicitly provided
-    # (incremental updates). Without this, TradingView sees unexpected timestamps
-    # and throws "Incremental update failed" in the console loop.
-    if rates is not None and len(rates) > 0:
-        if hasattr(rates, 'dtype'):
-            mask = rates['time'] <= safe_to_broker_int
-            # Only apply from-filter for explicit from/to range requests (not countback)
-            if _from is not None and countback is None:
-                mask = mask & (rates['time'] >= safe_from_broker_int)
-            if not mask.all():
-                rates = rates[mask]
-        else:
-            if _from is not None and countback is None:
-                rates = [r for r in rates if safe_from_broker_int <= r['time'] <= safe_to_broker_int]
+            if rates is None or len(rates) == 0:
+                safe_from_broker = int(from_ts + hours_offset)
+                rates = mt5.copy_rates_range(
+                    resolved_symbol,
+                    mt5_timeframe,
+                    datetime.fromtimestamp(max(0, safe_from_broker), tz=timezone.utc),
+                    datetime.fromtimestamp(max(0, safe_to_broker), tz=timezone.utc)
+                )
+
+        if rates is None or len(rates) == 0:
+            try:
+                earliest = mt5.copy_rates_from_pos(resolved_symbol, mt5_timeframe, 0, 10000)
+                if earliest is not None and len(earliest) > 0:
+                    earliest_utc = int(earliest[0]['time']) - hours_offset
+                    return Response(content=fast_json_dumps({"s": "no_data", "nextTime": earliest_utc}), media_type="application/json")
+            except Exception:
+                pass
+            return Response(content=b'{"s":"no_data","t":[],"o":[],"h":[],"l":[],"c":[],"v":[]}', media_type="application/json")
+
+        if to is not None:
+            safe_to_broker_int = int(to_ts + hours_offset)
+            if hasattr(rates, 'dtype'):
+                mask = rates['time'] <= safe_to_broker_int
+                if _from is not None and countback is None:
+                    mask = mask & (rates['time'] >= int(from_ts + hours_offset))
+                if not mask.all():
+                    rates = rates[mask]
             else:
                 rates = [r for r in rates if r['time'] <= safe_to_broker_int]
 
-    if rates is None or len(rates) == 0:
-        # Provide nextTime of earliest available bar so TradingView stops infinite backward lookback!
-        try:
-            earliest = mt5.copy_rates_from_pos(resolved_symbol, mt5_timeframe, 0, 10000)
-            if earliest is not None and len(earliest) > 0:
-                earliest_utc = int(earliest[0]['time']) - hours_offset
-                resp_bytes = orjson.dumps({"s": "no_data", "nextTime": earliest_utc})
-                return Response(content=resp_bytes, media_type="application/json")
-        except Exception:
-            pass
-        resp_bytes = orjson.dumps({"s": "no_data"})
-        return Response(content=resp_bytes, media_type="application/json")
+        if rates is None or len(rates) == 0:
+            return Response(content=b'{"s":"no_data","t":[],"o":[],"h":[],"l":[],"c":[],"v":[]}', media_type="application/json")
 
-    # High-performance zero-copy vectorized extraction
-    if hasattr(rates, 'dtype'):
-        t_values = (rates['time'] - hours_offset).astype('int64')
-        o_values = rates['open'].astype('float64')
-        h_values = rates['high'].astype('float64')
-        l_values = rates['low'].astype('float64')
-        c_values = rates['close'].astype('float64')
-        v_values = rates['tick_volume'].astype('float64')
-    else:
-        t_values = np.array([int(rate['time']) - hours_offset for rate in rates], dtype=np.int64)
-        o_values = np.array([float(rate['open']) for rate in rates], dtype=np.float64)
-        h_values = np.array([float(rate['high']) for rate in rates], dtype=np.float64)
-        l_values = np.array([float(rate['low']) for rate in rates], dtype=np.float64)
-        c_values = np.array([float(rate['close']) for rate in rates], dtype=np.float64)
-        v_values = np.array([float(rate['tick_volume']) for rate in rates], dtype=np.float64)
-
-    # Adjust MT5 OHLC bars according to selected PRICE_TYPE (BID, ASK, or MID)
-    if PRICE_TYPE in ("ASK", "MID"):
-        sym_info = mt5.symbol_info(resolved_symbol)
-        pt = float(getattr(sym_info, 'point', 0.00001) or 0.00001)
-        multiplier = 1.0 if PRICE_TYPE == "ASK" else 0.5
-        if hasattr(rates, 'dtype') and 'spread' in rates.dtype.names:
-            spread_pts = rates['spread'].astype('float64')
-            if np.all(spread_pts == 0) and tick and tick.ask > tick.bid > 0:
-                spread_offset = (tick.ask - tick.bid) * multiplier
-            else:
-                spread_offset = (spread_pts * pt) * multiplier
-        elif tick and tick.ask > tick.bid > 0:
-            spread_offset = (tick.ask - tick.bid) * multiplier
+        if hasattr(rates, 'dtype'):
+            t_values = (rates['time'] - hours_offset).astype('int64')
+            o_values = rates['open'].astype('float64')
+            h_values = rates['high'].astype('float64')
+            l_values = rates['low'].astype('float64')
+            c_values = rates['close'].astype('float64')
+            v_values = rates['tick_volume'].astype('float64')
         else:
+            t_values = np.array([int(r['time']) - hours_offset for r in rates], dtype=np.int64)
+            o_values = np.array([float(r['open']) for r in rates], dtype=np.float64)
+            h_values = np.array([float(r['high']) for r in rates], dtype=np.float64)
+            l_values = np.array([float(r['low']) for r in rates], dtype=np.float64)
+            c_values = np.array([float(r['close']) for r in rates], dtype=np.float64)
+            v_values = np.array([float(r['tick_volume']) for r in rates], dtype=np.float64)
+
+        # Spread offset for PRICE_TYPE
+        if PRICE_TYPE in ("ASK", "MID"):
+            pt = _get_symbol_point(resolved_symbol)
+            multiplier = 1.0 if PRICE_TYPE == "ASK" else 0.5
             spread_offset = 0.0
+            if hasattr(rates, 'dtype') and 'spread' in rates.dtype.names:
+                spread_pts = rates['spread'].astype('float64')
+                if np.all(spread_pts == 0):
+                    tick = mt5.symbol_info_tick(resolved_symbol)
+                    if tick and tick.ask > tick.bid > 0:
+                        spread_offset = (tick.ask - tick.bid) * multiplier
+                else:
+                    spread_offset = spread_pts * pt * multiplier
+            else:
+                tick = mt5.symbol_info_tick(resolved_symbol)
+                if tick and tick.ask > tick.bid > 0:
+                    spread_offset = (tick.ask - tick.bid) * multiplier
 
-        o_values = o_values + spread_offset
-        h_values = h_values + spread_offset
-        l_values = l_values + spread_offset
-        c_values = c_values + spread_offset
+            o_values = o_values + spread_offset
+            h_values = h_values + spread_offset
+            l_values = l_values + spread_offset
+            c_values = c_values + spread_offset
 
-    # Calculate timeframe bar duration in seconds
-    res_seconds = 60
-    if norm_res.isdigit():
-        res_seconds = int(norm_res) * 60
-    elif norm_res == "1D":
-        res_seconds = 86400
-    elif norm_res == "1W":
-        res_seconds = 604800
-    elif norm_res == "1M":
-        res_seconds = 2592000
+        # Calculate timeframe bar duration in seconds
+        res_seconds = 60
+        if norm_res.isdigit():
+            res_seconds = int(norm_res) * 60
+        elif norm_res == "1D":
+            res_seconds = 86400
+        elif norm_res == "1W":
+            res_seconds = 604800
+        elif norm_res == "1M":
+            res_seconds = 2592000
 
-    # Dynamically inject current live tick price ONLY into active forming bar
-    if tick and tick.time > 0 and len(t_values) > 0:
-        if (now_utc - t_values[-1]) < max(120, res_seconds * 2):
-            if PRICE_TYPE == "BID":
-                live_price = float(tick.bid if tick.bid > 0 else tick.last)
-            elif PRICE_TYPE == "ASK":
-                live_price = float(tick.ask if tick.ask > 0 else tick.last)
-            else: # MID
-                live_price = float((tick.bid + tick.ask) * 0.5 if (tick.bid > 0 and tick.ask > 0) else (tick.bid or tick.ask or tick.last))
-            if live_price > 0:
-                c_values[-1] = live_price
-                if live_price > h_values[-1]:
-                    h_values[-1] = live_price
-                if live_price < l_values[-1]:
-                    l_values[-1] = live_price
+        # Dynamically inject current live tick price ONLY into active forming bar
+        if (to is None or to_ts >= (now_utc - 60)) and len(t_values) > 0 and (now_utc - t_values[-1]) < max(120, res_seconds * 2):
+            tick = mt5.symbol_info_tick(resolved_symbol)
+            if tick and tick.time > 0:
+                if PRICE_TYPE == "BID":
+                    live_price = float(tick.bid if tick.bid > 0 else tick.last)
+                elif PRICE_TYPE == "ASK":
+                    live_price = float(tick.ask if tick.ask > 0 else tick.last)
+                else: # MID
+                    live_price = float((tick.bid + tick.ask) * 0.5 if (tick.bid > 0 and tick.ask > 0) else (tick.bid or tick.ask or tick.last))
+                if live_price > 0:
+                    c_values[-1] = live_price
+                    if live_price > h_values[-1]:
+                        h_values[-1] = live_price
+                    if live_price < l_values[-1]:
+                        l_values[-1] = live_price
 
-    res_dict = {
-        "s": "ok",
-        "t": t_values,
-        "o": o_values,
-        "h": h_values,
-        "l": l_values,
-        "c": c_values,
-        "v": v_values
-    }
-    resp_bytes = fast_json_dumps(res_dict)
-    return Response(content=resp_bytes, media_type="application/json")
+        res_dict = {
+            "s": "ok",
+            "t": t_values,
+            "o": o_values,
+            "h": h_values,
+            "l": l_values,
+            "c": c_values,
+            "v": v_values
+        }
+        return Response(content=fast_json_dumps(res_dict), media_type="application/json")
+
+    # ── DYNAMIC CUSTOM TIMEFRAME AGGREGATOR (Handles 8000, 21, 45, 2D, 3D, 50000S, etc.) ──
+    target_seconds = 60
+    if norm_res.endswith("S") and norm_res[:-1].isdigit():
+        target_seconds = max(1, int(norm_res[:-1]))
+    elif norm_res.endswith("D") and (norm_res[:-1].isdigit() or norm_res == "D"):
+        days_num = int(norm_res[:-1]) if norm_res[:-1].isdigit() else 1
+        target_seconds = days_num * 86400
+    elif norm_res.endswith("W") and (norm_res[:-1].isdigit() or norm_res == "W"):
+        weeks_num = int(norm_res[:-1]) if norm_res[:-1].isdigit() else 1
+        target_seconds = weeks_num * 604800
+    elif norm_res.endswith("M") and (norm_res[:-1].isdigit() or norm_res == "M"):
+        months_num = int(norm_res[:-1]) if norm_res[:-1].isdigit() else 1
+        target_seconds = months_num * 2592000
+    elif norm_res.endswith("H") and norm_res[:-1].isdigit():
+        target_seconds = int(norm_res[:-1]) * 3600
+    elif norm_res.isdigit():
+        target_seconds = int(norm_res) * 60
+    else:
+        digits = ''.join(c for c in norm_res if c.isdigit())
+        target_seconds = max(1, int(digits) * 60) if digits else 60
+
+    # Pick the best base MT5 timeframe and step
+    if target_seconds >= 86400 * 2:
+        base_tf = mt5.TIMEFRAME_D1
+        base_step = 86400
+    elif target_seconds >= 86400:
+        base_tf = mt5.TIMEFRAME_D1
+        base_step = 86400
+    elif target_seconds >= 14400 and target_seconds % 14400 == 0:
+        base_tf = mt5.TIMEFRAME_H4
+        base_step = 14400
+    elif target_seconds >= 3600 and target_seconds % 3600 == 0:
+        base_tf = mt5.TIMEFRAME_H1
+        base_step = 3600
+    elif target_seconds >= 3600:
+        base_tf = mt5.TIMEFRAME_H1
+        base_step = 3600
+    elif target_seconds % 1800 == 0:
+        base_tf = mt5.TIMEFRAME_M30
+        base_step = 1800
+    elif target_seconds % 900 == 0:
+        base_tf = mt5.TIMEFRAME_M15
+        base_step = 900
+    elif target_seconds % 300 == 0:
+        base_tf = mt5.TIMEFRAME_M5
+        base_step = 300
+    elif target_seconds % 180 == 0:
+        base_tf = mt5.TIMEFRAME_M3
+        base_step = 180
+    elif target_seconds % 120 == 0:
+        base_tf = mt5.TIMEFRAME_M2
+        base_step = 120
+    else:
+        base_tf = mt5.TIMEFRAME_M1
+        base_step = 60
+
+    cb = countback or 300
+    needed_base_bars = min(10000, max(50, int(cb * (target_seconds / base_step) * 1.2) + 20))
+
+    rates = None
+    if (to is None or to_ts >= (now_utc - 60)) and (countback is not None and countback > 0):
+        rates = mt5.copy_rates_from_pos(resolved_symbol, base_tf, 0, needed_base_bars)
+
+    if rates is None or len(rates) == 0:
+        safe_to_broker = int(to_ts + hours_offset)
+        rates = mt5.copy_rates_from(resolved_symbol, base_tf, safe_to_broker, needed_base_bars)
+
+    if rates is None or len(rates) == 0:
+        safe_to_broker = int(to_ts + hours_offset)
+        safe_from_broker = int((to_ts - (needed_base_bars * base_step)) + hours_offset)
+        rates = mt5.copy_rates_range(
+            resolved_symbol,
+            base_tf,
+            datetime.fromtimestamp(max(0, safe_from_broker), tz=timezone.utc),
+            datetime.fromtimestamp(max(0, safe_to_broker), tz=timezone.utc)
+        )
+
+    if rates is None or len(rates) == 0:
+        return Response(content=b'{"s":"no_data","t":[],"o":[],"h":[],"l":[],"c":[],"v":[]}', media_type="application/json")
+
+    # Vectorized NumPy bucketing for custom timeframe
+    t_arr = rates['time']
+    o_arr = rates['open']
+    h_arr = rates['high']
+    l_arr = rates['low']
+    c_arr = rates['close']
+    v_arr = rates['tick_volume']
+
+    if target_seconds < 86400:
+        day_start = (t_arr // 86400) * 86400
+        sec_in_day = t_arr - day_start
+        buckets = day_start + (sec_in_day // target_seconds) * target_seconds
+    else:
+        buckets = (t_arr // target_seconds) * target_seconds
+
+    u_buckets, idx_start, counts = np.unique(buckets, return_index=True, return_counts=True)
+    idx_end = idx_start + counts - 1
+
+    b_t = (u_buckets - hours_offset).astype('int64')
+    b_o = o_arr[idx_start].astype('float64')
+    b_c = c_arr[idx_end].astype('float64')
+    b_h = np.maximum.reduceat(h_arr, idx_start).astype('float64')
+    b_l = np.minimum.reduceat(l_arr, idx_start).astype('float64')
+    b_v = np.add.reduceat(v_arr, idx_start).astype('float64')
+
+    # Spread adjustment for custom timeframe
+    if PRICE_TYPE in ("ASK", "MID"):
+        pt = _get_symbol_point(resolved_symbol)
+        multiplier = 1.0 if PRICE_TYPE == "ASK" else 0.5
+        spread_offset = 0.0
+        if hasattr(rates, 'dtype') and 'spread' in rates.dtype.names:
+            spread_pts = rates['spread'][idx_start].astype('float64')
+            if np.all(spread_pts == 0):
+                tick = mt5.symbol_info_tick(resolved_symbol)
+                if tick and tick.ask > tick.bid > 0:
+                    spread_offset = (tick.ask - tick.bid) * multiplier
+            else:
+                spread_offset = spread_pts * pt * multiplier
+        else:
+            tick = mt5.symbol_info_tick(resolved_symbol)
+            if tick and tick.ask > tick.bid > 0:
+                spread_offset = (tick.ask - tick.bid) * multiplier
+
+        b_o = b_o + spread_offset
+        b_h = b_h + spread_offset
+        b_l = b_l + spread_offset
+        b_c = b_c + spread_offset
+
+    if to is not None:
+        mask = b_t <= int(to)
+        if _from is not None and countback is None:
+            mask = mask & (b_t >= int(_from))
+        b_t = b_t[mask]
+        b_o = b_o[mask]
+        b_h = b_h[mask]
+        b_l = b_l[mask]
+        b_c = b_c[mask]
+        b_v = b_v[mask]
+
+    max_bars = countback if (countback is not None and countback > 0) else 5000
+    if len(b_t) > max_bars:
+        b_t = b_t[-max_bars:]
+        b_o = b_o[-max_bars:]
+        b_h = b_h[-max_bars:]
+        b_l = b_l[-max_bars:]
+        b_c = b_c[-max_bars:]
+        b_v = b_v[-max_bars:]
+
+    records = {"s": "ok", "t": b_t, "o": b_o, "h": b_h, "l": b_l, "c": b_c, "v": b_v}
+    return Response(content=fast_json_dumps(records), media_type="application/json")
+
 
 
 @app.get("/ticks")

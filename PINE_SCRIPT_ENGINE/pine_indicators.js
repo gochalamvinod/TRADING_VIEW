@@ -1843,7 +1843,19 @@
     };
 
     const evalLabel = {
-      new: () => ({ id: Math.random() }),
+      new: (x, y, textOrOpts, ...rest) => {
+        let text = '', style = 'label_left', col = '#26a69a', textcol = '#ffffff', sz = 'small';
+        if (textOrOpts && typeof textOrOpts === 'object') {
+          text = textOrOpts.text || '';
+          style = textOrOpts.style || style;
+          col = textOrOpts.color || col;
+          textcol = textOrOpts.textcolor || textcol;
+          sz = textOrOpts.size || sz;
+        } else {
+          text = String(textOrOpts || '');
+        }
+        return { id: Math.random(), x, y, text, style, color: col, textcolor: textcol, size: sz };
+      },
       delete: () => {},
       set_text: () => {},
       set_xy: () => {},
@@ -1854,6 +1866,13 @@
       style_label_up: 'label_up',
       style_label_left: 'label_left',
       style_label_right: 'label_right'
+    };
+
+    const evalBarmerge = {
+      gaps_off: false,
+      gaps_on: true,
+      lookahead_off: false,
+      lookahead_on: true
     };
 
     const evalTable = {
@@ -1880,6 +1899,7 @@
           'position', 'line', 'box', 'label', 'table', 'session',
           'na', 'nz', 'ta', 'math', 'syminfo', 'timeframe', 'barstate', 'Math',
           'study', 'sma', 'rsi', 'abs', 'red', 'green', 'blue', 'orange', 'security', 'request', 'tostring', 'pineTa', 'pineRequest',
+          'barmerge',
           transpiledJs
         );
       } catch(e) {
@@ -2067,6 +2087,72 @@
           e: Math.E
         });
 
+        const chartSym = extractCleanSymbol((ctx.symbol && (ctx.symbol.ticker || ctx.symbol.symbol)) || '');
+        let chartRes = '';
+        let lastExtractedSecurity = null;
+        if (typeof window !== 'undefined' && window.widget && typeof window.widget.activeChart === 'function') {
+          try {
+            const ac = window.widget.activeChart();
+            if (ac && typeof ac.resolution === 'function') chartRes = String(ac.resolution());
+          } catch(e) {}
+        }
+        if (!chartRes) chartRes = String(ctx.symbol?.resolution || ctx.symbol?.interval || '1');
+
+        const evalRequest = {
+          security: (reqSym, reqTf, expr, options) => {
+            let targetSym = extractCleanSymbol(reqSym);
+            if (!targetSym) targetSym = chartSym || 'EURUSD.';
+
+            const effectiveRes = (reqTf !== undefined && reqTf !== null && reqTf !== '' && reqTf !== 'CURRENT' && reqTf !== 'SAME') ? reqTf : chartRes;
+            const cacheKey = `${targetSym}_${effectiveRes}`;
+            let cached = _securityCache.get(cacheKey);
+
+            if (!cached || (!cached.fetching && (!cached.bars || cached.bars.length === 0))) {
+              fetchSecurityBarsOnDemand(targetSym, effectiveRes);
+            }
+
+            const tSec = (t > 1e11) ? Math.floor(t / 1000) : t;
+            let matched = null;
+            if (cached && Array.isArray(cached.bars) && cached.bars.length > 0) {
+              let lo = 0, hi = cached.bars.length - 1;
+              while (lo <= hi) {
+                const mid = (lo + hi) >> 1;
+                if (cached.bars[mid].time <= tSec) {
+                  matched = cached.bars[mid];
+                  lo = mid + 1;
+                } else {
+                  hi = mid - 1;
+                }
+              }
+            }
+
+            if (matched) {
+              lastExtractedSecurity = matched;
+              if (Array.isArray(expr)) {
+                return [matched.open, matched.high, matched.low, matched.close];
+              }
+              if (expr === seriesO || expr === o) return matched.open;
+              if (expr === seriesH || expr === h) return matched.high;
+              if (expr === seriesL || expr === l) return matched.low;
+              if (expr === seriesC || expr === c) return matched.close;
+              if (expr === seriesV || expr === v) return matched.volume || 0;
+              return matched.close;
+            }
+
+            if (targetSym === chartSym || !chartSym) {
+              if (Array.isArray(expr)) return [o, h, l, c];
+              return c;
+            }
+
+            if (Array.isArray(expr)) return [NaN, NaN, NaN, NaN];
+            return NaN;
+          }
+        };
+
+        const isLastBar = (typeof ctx.symbol?.isLastBar === 'function')
+          ? ctx.symbol.isLastBar()
+          : (ctx.symbol?.barsCount ? (i >= ctx.symbol.barsCount - 1) : true);
+
         if (barEvaluator) {
           try {
             barEvaluator(
@@ -2152,7 +2238,7 @@
               pineMath,
               { mintick: 0.00001, ticker: (ctx.symbol && ctx.symbol.ticker) || 'SYMBOL', currency: 'USD' },
               { isintraday: true, isdaily: false, isweekly: false, ismonthly: false, multiplier: 1, period: '1' },
-              { islast: true, isfirst: (i === 0), isconfirmed: true, isnew: true, ishistory: true, isrealtime: false },
+              { islast: isLastBar, isfirst: (i === 0), isconfirmed: true, isnew: true, ishistory: true, isrealtime: false },
               Math,
               () => {}, // study
               pineTa.sma, // sma
@@ -2162,11 +2248,12 @@
               '#089981', // green
               '#2962ff', // blue
               '#ff9800', // orange
-              (sym, tf, expr) => (Array.isArray(expr) ? expr : expr), // security
-              { security: (sym, tf, expr) => (Array.isArray(expr) ? expr : expr) }, // request
+              (sym, tf, expr) => evalRequest.security(sym, tf, expr), // security
+              evalRequest, // request
               String, // tostring
               pineTa, // pineTa
-              { security: (sym, tf, expr) => (Array.isArray(expr) ? expr : expr) } // pineRequest
+              evalRequest, // pineRequest
+              evalBarmerge // barmerge
             );
           } catch(e) {
             console.warn('[PineIndicators] barEvaluator runtime error on bar', i, e.message);
@@ -2205,7 +2292,6 @@
         const plotValues = [];
 
         // 1. Process Candle Plots (OHLC + body/wick/border colors via 7-element array)
-        let lastExtractedSecurity = null;
         if (hasCandles) {
           meta.candlePlots.forEach((cp, cpIdx) => {
             let rawSym = currentInputs.sym || currentInputs.symbol || currentInputs.ticker || currentInputs.s;

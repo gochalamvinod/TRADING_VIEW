@@ -1628,25 +1628,14 @@
 
         // Standard base multipliers
         const defaultSecondsMultipliers = ["1", "5", "10", "15", "30"];
-        const defaultTicksMultipliers = ["1", "10", "100"];
+        const defaultTicksMultipliers = [];
 
         // Base standard intervals; custom intervals can be freely added via TradingView's "+ Add custom interval..."
         const standardIntervals = [
-          "1S", "5S", "10S", "30S",
-          "1T", "10T", "100T",
-          "1", "3", "5", "15", "30", "45", "60", "120", "180", "240", "1D", "1W", "1M"
+          "1S", "5S", "15S", "30S",
+          "1", "5", "15", "30", "60", "240", "1D", "1W", "1M"
         ];
         window.standardIntervals = standardIntervals;
-
-        // Seed popular intervals (including 3T, 15S) into TradingView's native intervals
-        try {
-          const stored = JSON.parse(localStorage.getItem("IntervalWidget.intervals") || "[]");
-          const needed = ["3T", "15S"];
-          const toAdd = needed.filter(x => !stored.includes(x));
-          if (toAdd.length > 0) {
-            localStorage.setItem("IntervalWidget.intervals", JSON.stringify([...stored, ...toAdd]));
-          }
-        } catch (e) {}
 
         // Hook onReady to expose seconds and ticks capability to TradingView widget
         const origOnReady = datafeed.onReady.bind(datafeed);
@@ -1680,7 +1669,7 @@
               const origInc = configuration.supported_resolutions.includes.bind(configuration.supported_resolutions);
               configuration.supported_resolutions.includes = function(val) {
                 if (origInc(val)) return true;
-                if (typeof val === "string" && (/^\d+[ST]$/i.test(val) || /^\d+$/i.test(val))) return true;
+                if (typeof val === "string" && (/^\d+[STHDWM]?$/i.test(val) || /^[DWM]$/i.test(val))) return true;
                 return false;
               };
             }
@@ -1753,7 +1742,7 @@
             const origIncludes = symbolInfo.supported_resolutions.includes.bind(symbolInfo.supported_resolutions);
             symbolInfo.supported_resolutions.includes = function(val) {
               if (origIncludes(val)) return true;
-              if (typeof val === "string" && (/^\d+[ST]$/i.test(val) || /^\d+$/i.test(val))) {
+              if (typeof val === "string" && (/^\d+[STHDWM]?$/i.test(val) || /^[DWM]$/i.test(val))) {
                 return true;
               }
               return false;
@@ -1763,7 +1752,7 @@
             symbolInfo.supported_resolutions.indexOf = function(val) {
               const idx = origIndexOf(val);
               if (idx !== -1) return idx;
-              if (typeof val === "string" && (/^\d+[ST]$/i.test(val) || /^\d+$/i.test(val))) {
+              if (typeof val === "string" && (/^\d+[STHDWM]?$/i.test(val) || /^[DWM]$/i.test(val))) {
                 return 0;
               }
               return -1;
@@ -1902,7 +1891,9 @@
             'mainSeriesProperties.statusViewStyle.showInterval': true,
             'mainSeriesProperties.prePostMarket.preMarketColor': 'transparent',
             'mainSeriesProperties.prePostMarket.postMarketColor': 'transparent',
-            'scalesProperties.showPrePostMarketPriceLabel': false
+            'scalesProperties.showPrePostMarketPriceLabel': false,
+            'mainSeriesProperties.averageClosePriceLabelVisible': false,
+            'mainSeriesProperties.averageClosePriceLineVisible': false
           },
           favorites: {
             intervals: ["1T", "3T", "10T", "1S", "5S", "15S", "30S", "1", "5", "15", "60", "240", "1D", "1W", "1M"],
@@ -1946,7 +1937,8 @@
             "intraday_inactivity_gaps",
             "pre_post_market_sessions",
             "pre_post_market_price_line",
-            "show_symbol_logos"
+            "show_symbol_logos",
+            "show_average_close_price_line_and_label"
           ],
           addVolume: false,
           enabled_features: [
@@ -1961,7 +1953,6 @@
 
             // ── Datafeed & Resolutions ─────────────────────────────────
             "seconds_resolution", "tick_resolution", "custom_resolutions",
-            "show_average_close_price_line_and_label",
             "countdown", "display_market_status",
 
             // ── Charts & Styles ────────────────────────────────────────
@@ -2231,7 +2222,9 @@
                 'paneProperties.legendProperties.showStudyValues': true,
                 'mainSeriesProperties.statusViewStyle.symbolTextSource': 'ticker',
                 'mainSeriesProperties.statusViewStyle.showExchange': true,
-                'mainSeriesProperties.statusViewStyle.showInterval': true
+                'mainSeriesProperties.statusViewStyle.showInterval': true,
+                'mainSeriesProperties.averageClosePriceLabelVisible': false,
+                'mainSeriesProperties.averageClosePriceLineVisible': false
               });
             }
             try {
@@ -2240,8 +2233,16 @@
                 model.properties().childs().paneProperties.childs().legendProperties.childs().showStudyArguments.setValue(true);
               }
               const ms = model?.mainSeries();
-              if (ms && ms.properties && ms.properties().childs().statusViewStyle) {
-                ms.properties().childs().statusViewStyle.childs().symbolTextSource.setValue('ticker');
+              if (ms && ms.properties) {
+                if (ms.properties().childs().statusViewStyle) {
+                  ms.properties().childs().statusViewStyle.childs().symbolTextSource.setValue('ticker');
+                }
+                if (ms.properties().childs().averageClosePriceLabelVisible) {
+                  ms.properties().childs().averageClosePriceLabelVisible.setValue(false);
+                }
+                if (ms.properties().childs().averageClosePriceLineVisible) {
+                  ms.properties().childs().averageClosePriceLineVisible.setValue(false);
+                }
               }
             } catch (err) {}
           } catch (e) {

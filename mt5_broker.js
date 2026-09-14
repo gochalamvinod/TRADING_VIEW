@@ -1243,8 +1243,15 @@
       }
       var clean = ('' + symbol).replace(/\.$/, '');
       var dot = clean + '.';
+      var isReplayActive = typeof window !== 'undefined' && window.BAR_REPLAY && window.BAR_REPLAY.active;
+      var isReplayingThisSym = false;
+      if (isReplayActive) {
+        var replaySym = (window.BAR_REPLAY.currentSymbol || '').split(':').pop().replace(/\.$/, '').toUpperCase();
+        var thisSym = clean.toUpperCase();
+        isReplayingThisSym = (!replaySym || thisSym === replaySym);
+      }
       var q = (this._lastQuotes && (this._lastQuotes[symbol] || this._lastQuotes[clean] || this._lastQuotes[dot]));
-      if (q) {
+      if (q && !isReplayingThisSym) {
         try {
           this._host.realtimeUpdate(symbol, q);
           if (clean !== symbol) {
@@ -1262,7 +1269,9 @@
           this._ws.send(JSON.stringify({ action: 'subscribe', symbol: dot }));
         } catch (e) {}
       }
-      this._pollQuotes();
+      if (!isReplayingThisSym) {
+        this._pollQuotes();
+      }
     },
 
     unsubscribeRealtime: function (symbol, callback) {
@@ -1790,30 +1799,42 @@
                 self._lastQuotes[clean] = quote;
                 self._lastQuotes[dot] = quote;
 
-                self._host.realtimeUpdate(sym, quote);
-                if (clean !== sym) {
-                  self._host.realtimeUpdate(clean, quote);
-                } else {
-                  self._host.realtimeUpdate(dot, quote);
+                var isReplayActive = typeof window !== 'undefined' && window.BAR_REPLAY && window.BAR_REPLAY.active;
+                var isReplayingThisSym = false;
+                if (isReplayActive) {
+                  var replaySym = (window.BAR_REPLAY.currentSymbol || '').split(':').pop().replace(/\.$/, '').toUpperCase();
+                  var thisSym = clean.toUpperCase();
+                  isReplayingThisSym = (!replaySym || thisSym === replaySym);
+                }
+
+                if (!isReplayingThisSym) {
+                  self._host.realtimeUpdate(sym, quote);
+                  if (clean !== sym) {
+                    self._host.realtimeUpdate(clean, quote);
+                  } else {
+                    self._host.realtimeUpdate(dot, quote);
+                  }
                 }
 
                 // Update live floating position P&L in real time
                 self._updatePositionProfits(sym, quote);
                 if (clean !== sym) self._updatePositionProfits(clean, quote);
 
-                // Dispatch to registered listener callbacks (signature: cb(symbol, quote))
-                var targetListeners = [];
-                if (self._realtimeListeners) {
-                  if (self._realtimeListeners[sym]) targetListeners = targetListeners.concat(self._realtimeListeners[sym]);
-                  if (clean !== sym && self._realtimeListeners[clean]) targetListeners = targetListeners.concat(self._realtimeListeners[clean]);
-                  if (dot !== sym && self._realtimeListeners[dot]) targetListeners = targetListeners.concat(self._realtimeListeners[dot]);
-                }
-                targetListeners.forEach(function (cb) {
-                  try { cb(sym, quote); } catch (e) {}
-                });
+                if (!isReplayingThisSym) {
+                  // Dispatch to registered listener callbacks (signature: cb(symbol, quote))
+                  var targetListeners = [];
+                  if (self._realtimeListeners) {
+                    if (self._realtimeListeners[sym]) targetListeners = targetListeners.concat(self._realtimeListeners[sym]);
+                    if (clean !== sym && self._realtimeListeners[clean]) targetListeners = targetListeners.concat(self._realtimeListeners[clean]);
+                    if (dot !== sym && self._realtimeListeners[dot]) targetListeners = targetListeners.concat(self._realtimeListeners[dot]);
+                  }
+                  targetListeners.forEach(function (cb) {
+                    try { cb(sym, quote); } catch (e) {}
+                  });
 
-                if (self._domSubscriptions && (self._domSubscriptions[sym] || self._domSubscriptions[clean] || self._domSubscriptions[dot])) {
-                  self._emitDOMUpdate(sym, false);
+                  if (self._domSubscriptions && (self._domSubscriptions[sym] || self._domSubscriptions[clean] || self._domSubscriptions[dot])) {
+                    self._emitDOMUpdate(sym, false);
+                  }
                 }
               }
             });
@@ -1886,33 +1907,46 @@
               self._lastQuotes[clean] = quote;
               self._lastQuotes[dot] = quote;
 
-              // Immediately push realtime quotes to chart Buy/Sell buttons without delay
-              self._host.realtimeUpdate(sym, quote);
-              if (clean !== sym) {
-                self._host.realtimeUpdate(clean, quote);
-              } else {
-                self._host.realtimeUpdate(dot, quote);
+              // Check if chart is in Bar Replay mode
+              var isReplayActive = typeof window !== 'undefined' && window.BAR_REPLAY && window.BAR_REPLAY.active;
+              var isReplayingThisSym = false;
+              if (isReplayActive) {
+                var replaySym = (window.BAR_REPLAY.currentSymbol || '').split(':').pop().replace(/\.$/, '').toUpperCase();
+                var thisSym = clean.toUpperCase();
+                isReplayingThisSym = (!replaySym || thisSym === replaySym);
+              }
+
+              // Immediately push realtime quotes to chart Buy/Sell buttons without delay (suppressed during Replay)
+              if (!isReplayingThisSym) {
+                self._host.realtimeUpdate(sym, quote);
+                if (clean !== sym) {
+                  self._host.realtimeUpdate(clean, quote);
+                } else {
+                  self._host.realtimeUpdate(dot, quote);
+                }
               }
 
               // Update live floating position P&L with 0ms WebSocket latency
               self._updatePositionProfits(sym, quote);
               if (clean !== sym) self._updatePositionProfits(clean, quote);
 
-              var targetListeners = [];
-              if (self._realtimeListeners) {
-                if (self._realtimeListeners[sym]) targetListeners = targetListeners.concat(self._realtimeListeners[sym]);
-                if (clean !== sym && self._realtimeListeners[clean]) targetListeners = targetListeners.concat(self._realtimeListeners[clean]);
-                if (dot !== sym && self._realtimeListeners[dot]) targetListeners = targetListeners.concat(self._realtimeListeners[dot]);
+              if (!isReplayingThisSym) {
+                var targetListeners = [];
+                if (self._realtimeListeners) {
+                  if (self._realtimeListeners[sym]) targetListeners = targetListeners.concat(self._realtimeListeners[sym]);
+                  if (clean !== sym && self._realtimeListeners[clean]) targetListeners = targetListeners.concat(self._realtimeListeners[clean]);
+                  if (dot !== sym && self._realtimeListeners[dot]) targetListeners = targetListeners.concat(self._realtimeListeners[dot]);
+                }
+                targetListeners.forEach(function (cb) {
+                  try { cb(sym, quote); } catch (e) {}
+                });
               }
-              targetListeners.forEach(function (cb) {
-                try { cb(sym, quote); } catch (e) {}
-              });
 
-              if (self._domSubscriptions && (self._domSubscriptions[sym] || self._domSubscriptions[clean] || self._domSubscriptions[dot])) {
+              if (!isReplayingThisSym && self._domSubscriptions && (self._domSubscriptions[sym] || self._domSubscriptions[clean] || self._domSubscriptions[dot])) {
                 self._emitDOMUpdate(sym, false);
               }
 
-              if (typeof window !== 'undefined' && typeof window._onRealtimeTick === 'function') {
+              if (!isReplayingThisSym && typeof window !== 'undefined' && typeof window._onRealtimeTick === 'function') {
                 try { window._onRealtimeTick(sym, quote); } catch (e) {}
               }
             }

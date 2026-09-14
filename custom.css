@@ -43,14 +43,20 @@
   opacity: 1 !important;
 }
 
-[class*=valueItem],
-.valueItem-l31H9iuA {
+[class*=valueItem]:not([class*=blockHidden]):not([class*=hidden]),
+.valueItem-l31H9iuA:not([class*=blockHidden]) {
   display: inline-flex !important;
   align-items: center !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   padding: 0 4px !important;
 }
+
+[class*=blockHidden],
+.blockHidden-e6PF69Df {
+  display: none !important;
+}
+
 
 /* Ensure Buy/Sell trading buttons do not clip or obscure series title and OHLC */
 [class*=container-hw_3o_pb],
@@ -274,7 +280,8 @@ canvas,
   --tv-warning: #ff9800;
 }
 
-* {
+#app_root,
+#app_root * {
   box-sizing: border-box;
 }
 

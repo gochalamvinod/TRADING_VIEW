@@ -1,0 +1,4 @@
+{
+  "summary": "Test script for live MT5 FastAPI ASGI endpoints to verify /time, /config, and /health.",
+  "updatedAt": "2026-09-14T06:53:28.803201400Z"
+}

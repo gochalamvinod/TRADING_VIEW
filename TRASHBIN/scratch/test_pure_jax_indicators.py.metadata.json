@@ -1,0 +1,4 @@
+{
+  "summary": "Test script to verify all indicators with pure JAX and CuPy, zero numpy and zero pandas.",
+  "updatedAt": "2026-09-13T05:17:01.018739200Z"
+}

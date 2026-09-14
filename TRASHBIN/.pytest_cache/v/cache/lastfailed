@@ -1,7 +1,1 @@
-{
-  "tests/test_agent13_challenger_quotes_intervals.py::test_quotes_burst_sequential": true,
-  "tests/test_agent13_challenger_quotes_intervals.py::test_quotes_burst_concurrent": true,
-  "tests/test_agent14_mt5_execution_adversarial.py::test_03_position_verification_and_close": true,
-  "tests/test_agent14_mt5_execution_adversarial.py::test_07_concurrency_deadlock_stress": true,
-  "tests/test_pine_v6_adversarial_challenger.py::TestAdversarialPineV6Compiler::test_syntax_errors_exact_line_and_column[//@version=6\\nindicator('Err')\\nvar int a = \\nplot(1)\\n-4-1-Incomplete variable initialization]": true
-}
+{}

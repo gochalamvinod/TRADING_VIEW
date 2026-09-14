@@ -1,0 +1,4 @@
+{
+  "summary": "Benchmark script for all 22 indicators using pure RAPIDS cuDF and JAX Engine.",
+  "updatedAt": "2026-09-13T05:19:49.612354600Z"
+}

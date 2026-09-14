@@ -1,0 +1,4 @@
+{
+  "summary": "Script that dynamically queries every button element on the page, clicks each one sequentially, captures screenshots, and verifies responsiveness.",
+  "updatedAt": "2026-09-12T05:23:28.736698500Z"
+}

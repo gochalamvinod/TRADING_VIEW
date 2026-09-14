@@ -1,0 +1,4 @@
+{
+  "summary": "Test script for live FastAPI endpoints of server_oanda using ASGI transport to verify /time, /config, /quotes, /symbols, and /history.",
+  "updatedAt": "2026-09-14T06:52:14.617688400Z"
+}

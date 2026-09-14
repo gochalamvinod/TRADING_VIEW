@@ -1,0 +1,4 @@
+{
+  "summary": "Exhaustive interactive element discovery and click-test engine. Crawls main document + all iframes to find every button, link, input, ARIA role, onclick, tabindex, data-name, and cursor:pointer element. Click-tests all visible elements and generates a full report.",
+  "updatedAt": "2026-09-12T07:43:24.194620800Z"
+}

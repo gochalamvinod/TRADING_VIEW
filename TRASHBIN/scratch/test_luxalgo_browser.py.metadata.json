@@ -1,0 +1,4 @@
+{
+  "summary": "Playwright test script to load the LuxAlgo script in the browser, click Add to chart, and capture all console logs and errors",
+  "updatedAt": "2026-09-09T15:04:05.952540400Z"
+}

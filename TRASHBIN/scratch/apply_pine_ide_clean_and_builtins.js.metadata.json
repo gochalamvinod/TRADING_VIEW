@@ -1,0 +1,4 @@
+{
+  "summary": "Script to patch pine_editor_ide.js to remove mock indicators, add 115+ built-ins, clean templates, empty state for myscripts, and server-side indicator integration.",
+  "updatedAt": "2026-09-13T05:06:13.630238100Z"
+}

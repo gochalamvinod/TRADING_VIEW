@@ -1,0 +1,302 @@
+[
+  {
+    "url": "http://localhost:9000/charting_library/bundles/runtime.67c2e5bed6ec1f033e4f.js",
+    "status": 200,
+    "body": "(()=>{\"use strict\";var e,a,c,d,f,b={},t={};function o(e){var a=t[e];if(void 0!==a)return a.exports;var c=t[e]={id:e,loaded:!1,exports:{}};return b[e].call(c.exports,c,c.exports,o),c.loaded=!0,c.exports}o.m=b,o.c=t,o._plural={ar:(e,a=6,c=(0==e?0:1==e?1:2==e?2:e%100>=3&&e%100<=10?3:e%100>=11&&e%100<=9"
+  },
+  {
+    "console": "log",
+    "text": "0 custom indicators loaded."
+  },
+  {
+    "url": "http://localhost:9999/config",
+    "status": 200,
+    "body": "{\"supports_search\":true,\"supports_group_request\":false,\"supports_marks\":false,\"supports_timescale_marks\":false,\"supports_time\":true,\"supports_quotes\":true,\"supported_resolutions\":[\"1T\",\"2T\",\"3T\",\"4T\",\"5T\",\"6T\",\"7T\",\"8T\",\"9T\",\"10T\",\"12T\",\"15T\",\"20T\",\"25T\",\"30T\",\"40T\",\"50T\",\"60T\",\"75T\",\"100T\",\"200T\",\""
+  },
+  {
+    "url": "http://localhost:9999/time?format=float",
+    "status": 200,
+    "body": "1789320914.459502"
+  },
+  {
+    "console": "warning",
+    "text": "2026-09-13T17:35:14.768Z:Property:The state with a data type: unknown does not match a schema"
+  },
+  {
+    "url": "http://localhost:9000/charting_library/bundles/terminal-configset.abbe3b2ddf1adcad2530.js",
+    "status": 200,
+    "body": "(self.webpackChunktradingview=self.webpackChunktradingview||[]).push([[8179],{247465:(e,t,n)=>{\"use strict\";n.d(t,{isCancelled:()=>r,makeCancelable:()=>a});class i extends Error{constructor(){super(\"CancelToken\")}}function a(e){let t=!1;return{promise:new Promise(((n,a)=>{e.then((e=>t?a(new i):n(e))"
+  },
+  {
+    "console": "warning",
+    "text": "2026-09-13T17:35:15.153Z:Trading.OrderViewController:Failed to change status: Aborted"
+  },
+  {
+    "url": "http://localhost:9000/history?symbol=EURUSD.&resolution=1&countback=1500&to=1789320914",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"t\":[1789069920,1789069980,1789070040,1789070100,1789070160,1789070220,1789070280,1789070340,1789070400,1789070460,1789070520,1789070580,1789070640,1789070700,1789070760,1789070820,1789070880,1789070940,1789071000,1789071060,1789071120,1789071180,1789071240,1789071300,1789071360,1789071420"
+  },
+  {
+    "console": "warning",
+    "text": "2026-09-13T17:35:15.300Z:Trading.OrderViewController:Failed to open panel: Aborted"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=XAUUSD.",
+    "status": 200,
+    "body": "{\"name\":\"XAUUSD.\",\"ticker\":\"XAUUSD.\",\"description\":\"Gold (USD)\",\"type\":\"commodity\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_res"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=",
+    "status": 200,
+    "body": "{\"name\":\"EURUSD\",\"ticker\":\"EURUSD\",\"description\":\"EUR/USD\",\"type\":\"forex\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100000,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_resolutio"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=",
+    "status": 200,
+    "body": "{\"name\":\"EURUSD\",\"ticker\":\"EURUSD\",\"description\":\"EUR/USD\",\"type\":\"forex\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100000,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_resolutio"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=",
+    "status": 200,
+    "body": "{\"name\":\"EURUSD\",\"ticker\":\"EURUSD\",\"description\":\"EUR/USD\",\"type\":\"forex\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100000,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_resolutio"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=",
+    "status": 200,
+    "body": "{\"name\":\"EURUSD\",\"ticker\":\"EURUSD\",\"description\":\"EUR/USD\",\"type\":\"forex\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100000,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_resolutio"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=XAGUSD.",
+    "status": 200,
+    "body": "{\"name\":\"XAGUSD.\",\"ticker\":\"XAGUSD.\",\"description\":\"Silver (USD)\",\"type\":\"commodity\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":1000,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=XAUUSD.",
+    "status": 200,
+    "body": "{\"name\":\"XAUUSD.\",\"ticker\":\"XAUUSD.\",\"description\":\"Gold (USD)\",\"type\":\"commodity\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_res"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=XAUUSD.",
+    "status": 200,
+    "body": "{\"name\":\"XAUUSD.\",\"ticker\":\"XAUUSD.\",\"description\":\"Gold (USD)\",\"type\":\"commodity\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_res"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=XAUUSD.",
+    "status": 200,
+    "body": "{\"name\":\"XAUUSD.\",\"ticker\":\"XAUUSD.\",\"description\":\"Gold (USD)\",\"type\":\"commodity\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_res"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=XAUUSD.",
+    "status": 200,
+    "body": "{\"name\":\"XAUUSD.\",\"ticker\":\"XAUUSD.\",\"description\":\"Gold (USD)\",\"type\":\"commodity\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_res"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=XAUUSD.",
+    "status": 200,
+    "body": "{\"name\":\"XAUUSD.\",\"ticker\":\"XAUUSD.\",\"description\":\"Gold (USD)\",\"type\":\"commodity\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_res"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=",
+    "status": 200,
+    "body": "{\"name\":\"EURUSD\",\"ticker\":\"EURUSD\",\"description\":\"EUR/USD\",\"type\":\"forex\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100000,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_resolutio"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/symbols?symbol=XAUUSD.",
+    "status": 200,
+    "body": "{\"name\":\"XAUUSD.\",\"ticker\":\"XAUUSD.\",\"description\":\"Gold (USD)\",\"type\":\"commodity\",\"session\":\"24x7\",\"timezone\":\"Etc/UTC\",\"exchange\":\"OANDA\",\"minmov\":1,\"pricescale\":100,\"minmove2\":0,\"fractional\":false,\"has_intraday\":true,\"has_seconds\":true,\"has_daily\":true,\"has_weekly_and_monthly\":true,\"supported_res"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CAUDCAD.%2CEURUSD.%2CGBPUSD.%2CUSDJPY.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"AU"
+  },
+  {
+    "url": "http://localhost:9999/trade/history?type=orders",
+    "status": 200,
+    "body": "{\"deals\":[],\"orders\":[]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CEURUSD",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"EU"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CEURUSD",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"EU"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CEURUSD",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"EU"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CEURUSD",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"EU"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CEURUSD",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"EU"
+  },
+  {
+    "console": "log",
+    "text": "[HFT WS] Connected to MT5 ultra-low latency push stream at ws://localhost:9000/ws/quotes"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CXAGUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"XA"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CXAGUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"XA"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CXAGUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"XA"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CXAGUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"XA"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}}]}"
+  },
+  {
+    "console": "warning",
+    "text": "2026-09-13T17:35:16.784Z:Chart.ChartModel:Attempt to remove custom source which does not exist in the model - \"[object Object]\""
+  },
+  {
+    "url": "http://localhost:9999/history?symbol=XAUUSD.&resolution=1&from=1789309454&to=1789320974&countback=192",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"t\":[1789148880,1789148940,1789149000,1789149060,1789149120,1789149180,1789149240,1789149300,1789149360,1789149420,1789149480,1789149540,1789149600,1789149660,1789149720,1789149780,1789149840,1789149900,1789149960,1789150020,1789150080,1789150140,1789150200,1789150260,1789150320,1789150380"
+  },
+  {
+    "console": "warning",
+    "text": "2026-09-13T17:35:17.786Z:Chart.ChartModel:Attempt to remove custom source which does not exist in the model - \"[object Object]\""
+  },
+  {
+    "url": "http://localhost:9999/time?format=float",
+    "status": 200,
+    "body": "1789320919.363550"
+  },
+  {
+    "console": "warning",
+    "text": "2026-09-13T17:35:19.796Z:Chart.ChartModel:Attempt to remove custom source which does not exist in the model - \"[object Object]\""
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CAUDCAD.%2CEURUSD.%2CGBPUSD.%2CUSDJPY.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"AU"
+  },
+  {
+    "console": "warning",
+    "text": "2026-09-13T17:35:22.804Z:Chart.ChartModel:Attempt to remove custom source which does not exist in the model - \"[object Object]\""
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CXAGUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"XA"
+  },
+  {
+    "url": "http://localhost:9999/time?format=float",
+    "status": 200,
+    "body": "1789320924.150634"
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CXAGUSD.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"XA"
+  },
+  {
+    "console": "error",
+    "text": "2026-09-13T17:35:25.323Z:PromiseWithDefault:formatter not received"
+  },
+  {
+    "console": "error",
+    "text": "2026-09-13T17:35:25.323Z:PromiseWithDefault:spreadFormatter not received"
+  },
+  {
+    "chart_state": {
+      "symbol": "XAUUSD.",
+      "resolution": "1",
+      "visibleRange": {
+        "from": 1789149660,
+        "to": 1789321560
+      },
+      "hasBars": true
+    }
+  },
+  {
+    "url": "http://localhost:9999/quotes?symbols=XAUUSD.%2CAUDCAD.%2CEURUSD.%2CGBPUSD.%2CUSDJPY.",
+    "status": 200,
+    "body": "{\"s\":\"ok\",\"d\":[{\"s\":\"ok\",\"n\":\"XAUUSD\",\"v\":{\"ch\":0.0,\"chp\":0.0,\"short_name\":\"XAUUSD\",\"exchange\":\"OANDA\",\"description\":\"XAUUSD (OANDA MID)\",\"lp\":4349.42,\"ask\":4350.1,\"bid\":4348.74,\"open_price\":4349.42,\"high_price\":4349.42,\"low_price\":4349.42,\"prev_close_price\":4349.42,\"volume\":1000}},{\"s\":\"ok\",\"n\":\"AU"
+  }
+]

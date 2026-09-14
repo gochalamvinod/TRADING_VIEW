@@ -1,0 +1,4 @@
+{
+  "summary": "Fix regex for Windows CRLF in extract_chart_app.js",
+  "updatedAt": "2026-09-12T16:03:35.846573700Z"
+}

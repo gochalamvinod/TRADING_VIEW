@@ -11,28 +11,29 @@ echo   TRADINGVIEW ADVANCED CHARTS ENTERPRISE SYSTEM
 echo ================================================================================
 echo   [STEP 1/2] SELECT BROKER / DATAFEED BACKEND:
 echo.
-echo     [1] OANDA API (Practice Account: 101-001-40395350-001)
-echo     [2] Normal MetaTrader 5 (Local Terminal64 IPC / Orbex Global)
+echo     [1] Normal MetaTrader 5 (Local Terminal64 IPC / Orbex Global - Default)
+echo     [2] OANDA API (Practice Account: 101-001-40395350-001)
 echo.
 echo ================================================================================
 set "BROKER_CHOICE=1"
-set /p "BROKER_CHOICE=Enter broker choice [1 or 2, default: 1]: "
+set /p "BROKER_CHOICE=Enter broker choice [1=MT5, 2=OANDA, default: 1]: "
 if "%BROKER_CHOICE%"=="" set "BROKER_CHOICE=1"
 
-if /i "%BROKER_CHOICE%"=="2" goto :set_mt5
-if /i "%BROKER_CHOICE%"=="mt5" goto :set_mt5
-if /i "%BROKER_CHOICE%"=="m" goto :set_mt5
-if /i "%BROKER_CHOICE%"=="normal" goto :set_mt5
+if /i "%BROKER_CHOICE%"=="2" goto :set_oanda
+if /i "%BROKER_CHOICE%"=="oanda" goto :set_oanda
+if /i "%BROKER_CHOICE%"=="o" goto :set_oanda
 
+:set_mt5
+set "BROKER_BACKEND=MT5"
+set "BACKEND_LABEL=MetaTrader 5 IPC (Terminal64 / Orbex Global)"
+goto :done_broker
+
+:set_oanda
 set "BROKER_BACKEND=OANDA"
 set "OANDA_ACCOUNT_ID=101-001-40395350-001"
 set "OANDA_API_TOKEN=f2be2aaf1443ae8071a5982196c9e217-13d1b5a73efca27fd1c07b068bdd0832"
 set "BACKEND_LABEL=OANDA v20 REST API (101-001-40395350-001)"
 goto :done_broker
-
-:set_mt5
-set "BROKER_BACKEND=MT5"
-set "BACKEND_LABEL=MetaTrader 5 IPC (Terminal64 / Orbex Global)"
 
 :done_broker
 
@@ -80,8 +81,8 @@ echo ===========================================================================
 echo   ACTIVE CONFIGURATION: %BACKEND_LABEL%
 echo   PRICE TYPE:           %PRICE_LABEL% (%PRICE_TYPE%)
 echo ================================================================================
-echo   App URL:           http://localhost:9999 (Interactive Chart UI ^& In-Memory Engine)
-echo   Website URL:       http://localhost:9000 (Static Server)
+echo   App URL:           http://127.0.0.1:9999 (Interactive Chart UI ^& In-Memory Engine)
+echo   Website URL:       http://127.0.0.1:9000 (Static Server)
 echo   Python Engine:     http://127.0.0.1:8080 (FastAPI + %BACKEND_LABEL%)
 echo   Julia Accelerator: http://127.0.0.1:8085 (High-Performance Indicators)
 echo   WebSocket Stream:  ws://127.0.0.1:9999/ws/quotes (Real-Time Push)
@@ -159,7 +160,7 @@ echo.
 
 :: Step 5: Start Node.js Engine & Launch Browser
 echo [5/5] Starting Node.js Engine (Website: 9000, Proxy: 9999)...
-start "" http://localhost:9999
+start "" http://127.0.0.1:9999
 echo --------------------------------------------------------------------------------
 echo   TradingView Advanced System is running! Press [Ctrl+C] to stop all services.
 echo --------------------------------------------------------------------------------

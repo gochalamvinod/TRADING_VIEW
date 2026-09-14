@@ -99,7 +99,7 @@ echo   [OK] Target ports 9000, 9999, 8080, 8085 released.
 echo.
 
 :: Step 2: Check Broker Status
-if "%BROKER_BACKEND%"=="OANDA" (
+if /I "!BROKER_BACKEND!"=="OANDA" (
     echo [2/5] OANDA API mode active.
     echo   [OK] OANDA Account: %OANDA_ACCOUNT_ID% (Practice Server)
 ) else (
@@ -132,7 +132,13 @@ echo.
 
 :: Step 4: Launch Python Backend & Health Gate
 echo [4/5] Launching Python Backend (!BACKEND_LABEL!) on port 8080...
-start /B python -m uvicorn server:app --host 0.0.0.0 --port 8080 --log-level warning --no-access-log > "%~dp0logs\backend_out.log" 2> "%~dp0logs\backend_err.log"
+if /I "!BROKER_BACKEND!"=="OANDA" (
+    start /B python -m uvicorn server_oanda:app --host 0.0.0.0 --port 8080 --log-level warning --no-access-log > "%~dp0logs\backend_out.log" 2> "%~dp0logs\backend_err.log"
+    echo   [INFO] Using OANDA-dedicated server ^(server_oanda.py^) - zero MT5 dependencies.
+) else (
+    start /B python -m uvicorn server:app --host 0.0.0.0 --port 8080 --log-level warning --no-access-log > "%~dp0logs\backend_out.log" 2> "%~dp0logs\backend_err.log"
+    echo   [INFO] Using MT5-dedicated server ^(server.py^).
+)
 
 :: Readiness probe (polling http://127.0.0.1:8080/config up to 10 seconds)
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^

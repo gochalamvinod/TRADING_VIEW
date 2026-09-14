@@ -1,0 +1,3 @@
+[JuliaServer] Pre-warming LLVM JIT for indicators engine...
+[JuliaServer] Listening on http://127.0.0.1:8085
+[JuliaServer] Endpoints: GET /health, POST /compute (LLVM SIMD Sub-millisecond)

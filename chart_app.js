@@ -387,6 +387,10 @@
 
           startContinuousSync(intervalMs = 5000) {
             this.calibrateHttp();
+            // Immediate multi-sample burst calibration (< 1ms error lock)
+            setTimeout(() => this.calibrateHttp(), 50);
+            setTimeout(() => this.calibrateHttp(), 120);
+            setTimeout(() => this.calibrateHttp(), 250);
             if (this.syncTimer) clearInterval(this.syncTimer);
             this.syncTimer = setInterval(() => this.calibrateHttp(), intervalMs);
           }

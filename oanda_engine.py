@@ -34,6 +34,25 @@ PRICE_TYPE = os.environ.get("PRICE_TYPE", "MID").strip().upper()
 if PRICE_TYPE not in ("MID", "BID", "ASK"):
     PRICE_TYPE = "MID"
 
+import ctypes
+
+try:
+    class _FILETIME(ctypes.Structure):
+        _fields_ = [('dwLowDateTime', ctypes.c_uint32), ('dwHighDateTime', ctypes.c_uint32)]
+    _kernel32 = ctypes.windll.kernel32
+    _GetSystemTimePrecise = _kernel32.GetSystemTimePreciseAsFileTime
+    _GetSystemTimePrecise.argtypes = [ctypes.c_void_p]
+    _GetSystemTimePrecise.restype = None
+    _ft_buf = _FILETIME()
+    _byref_buf = ctypes.byref(_ft_buf)
+
+    def get_precise_utc() -> float:
+        _GetSystemTimePrecise(_byref_buf)
+        return (((_ft_buf.dwHighDateTime << 32) | _ft_buf.dwLowDateTime) - 116444736000000000) / 10000000.0
+except Exception:
+    def get_precise_utc() -> float:
+        return time.time_ns() / 1_000_000_000.0
+
 import threading
 
 # Ultra-Fast High-Throughput In-Memory Caches & TTL Management
@@ -350,7 +369,7 @@ def get_history(symbol: str, resolution: str, from_ts: Any = None, to_ts: Any = 
 
 def get_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
     """Fetch live pricing quotes from OANDA with high-speed in-memory cache and price-type handling."""
-    now = time.time()
+    now = get_precise_utc()
     results: List[Dict[str, Any]] = []
     missing: List[str] = []
 
@@ -392,9 +411,24 @@ def get_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
                     else: # MID
                         lp = round((bid + ask) * 0.5, disp_prec) if (bid > 0 and ask > 0) else (bid or ask)
 
+                    raw_p_time = p.get("time")
+                    if raw_p_time:
+                        try:
+                            p_ts = datetime.fromisoformat(raw_p_time.replace("Z", "+00:00")).timestamp()
+                        except Exception:
+                            p_ts = now
+                    else:
+                        p_ts = now
+                    p_msc = int(p_ts * 1000)
+
                     item = {
                         "s": "ok",
                         "n": tv_sym,
+                        "p": lp,
+                        "time": p_ts,
+                        "time_msc": p_msc,
+                        "time_utc_msc": p_msc,
+                        "_ts": p_ts,
                         "v": {
                             "ch": 0.0,
                             "chp": 0.0,
@@ -408,7 +442,10 @@ def get_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
                             "high_price": lp,
                             "low_price": lp,
                             "prev_close_price": lp,
-                            "volume": 1000
+                            "volume": 1000,
+                            "time_msc": p_msc,
+                            "time_utc_msc": p_msc,
+                            "lp_time": p_ts,
                         }
                     }
                     _quotes_cache[tv_sym] = item

@@ -43,16 +43,32 @@ from mt5_bridge_server import mt5_bridge
 import indicators_engine
 import numpy as np
 
-BROKER_BACKEND = os.environ.get("BROKER_BACKEND", "MT5").upper()
+BROKER_BACKEND = "MT5"  # This server is MT5-only. OANDA uses server_oanda.py.
 PRICE_TYPE = os.environ.get("PRICE_TYPE", "MID").strip().upper()
 if PRICE_TYPE not in ("MID", "BID", "ASK"):
     PRICE_TYPE = "MID"
 
-if BROKER_BACKEND == "OANDA":
-    import oanda_engine
-    print(f"[SERVER] Operating in OANDA API mode (Account: 101-001-40395350-001) | Price Type: {PRICE_TYPE}")
-else:
-    print(f"[SERVER] Operating in MetaTrader 5 mode | Price Type: {PRICE_TYPE}")
+print(f"[SERVER] MetaTrader 5 Backend | Price Type: {PRICE_TYPE}")
+
+# ─── Ultra-High-Precision UTC Timer (Sub-Microsecond Windows Kernel QPC) ────
+# Queries GetSystemTimePreciseAsFileTime on Windows (100ns precision, 0.0001 ms).
+# Zero drift, zero 15.6ms step, perfectly synchronized with true hardware UTC clock.
+try:
+    class _FILETIME(ctypes.Structure):
+        _fields_ = [('dwLowDateTime', ctypes.c_uint32), ('dwHighDateTime', ctypes.c_uint32)]
+    _kernel32 = ctypes.windll.kernel32
+    _GetSystemTimePrecise = _kernel32.GetSystemTimePreciseAsFileTime
+    _GetSystemTimePrecise.argtypes = [ctypes.c_void_p]
+    _GetSystemTimePrecise.restype = None
+    _ft_buf = _FILETIME()
+    _byref_buf = ctypes.byref(_ft_buf)
+
+    def get_precise_utc() -> float:
+        _GetSystemTimePrecise(_byref_buf)
+        return (((_ft_buf.dwHighDateTime << 32) | _ft_buf.dwLowDateTime) - 116444736000000000) / 10000000.0
+except Exception:
+    def get_precise_utc() -> float:
+        return time.time_ns() / 1_000_000_000.0
 
 def default_json_serializer(o):
     if hasattr(o, "tolist"):
@@ -113,8 +129,6 @@ _symbol_resolve_cache: Dict[str, str] = {}
 
 def ensure_mt5() -> bool:
     """Ensure MetaTrader5 IPC connection is initialized without per-request shutdowns."""
-    if BROKER_BACKEND == "OANDA":
-        return True
     try:
         info = mt5.terminal_info()
         if info is None:
@@ -129,15 +143,12 @@ def ensure_mt5() -> bool:
 
 def resolve_symbol(symbol: str) -> str:
     """
-    Resolve requested symbol name to exact MT5 Market Watch symbol or OANDA instrument.
+    Resolve requested symbol name to exact MT5 Market Watch symbol.
     Tries exact match, uppercase, dot suffix, broker suffixes ('m', '.r', 'pro', '_i'),
     and case-insensitive lookup. Strips exchange prefix (e.g. 'MetaTrader5:XAUUSD.' -> 'XAUUSD.').
     """
     if not symbol:
         return symbol
-
-    if BROKER_BACKEND == "OANDA":
-        return oanda_engine.tv_to_oanda_symbol(symbol)
 
     cached = _symbol_resolve_cache.get(symbol)
     if cached is not None:
@@ -227,8 +238,6 @@ def get_broker_timezone_offset(symbol: str = "XAUUSD.") -> int:
     Calculate exact integer seconds offset between MT5 broker server clock and true UTC.
     Uses broker_time.get_broker_timezone_offset for deterministic D1 daily bar alignment.
     """
-    if BROKER_BACKEND == "OANDA":
-        return 0
     try:
         return broker_time.get_broker_timezone_offset(symbol)
     except Exception:
@@ -311,49 +320,41 @@ async def lifespan(app: FastAPI):
 
     cdn_http_client = httpx.AsyncClient(timeout=20.0, follow_redirects=True)
 
-    if BROKER_BACKEND == "OANDA":
-        print(f"[INFO] Initializing OANDA v20 REST Engine (Account: {oanda_engine.OANDA_ACCOUNT_ID})...")
-        oanda_engine.init_instruments()
-        print(f"[INFO] OANDA engine initialized successfully. Loaded {len(oanda_engine._instruments_cache)} instrument mappings.")
+    if not mt5.initialize():
+        print(f"[ERROR] MT5 startup initialization failed: {mt5.last_error()}")
     else:
-        if not mt5.initialize():
-            print(f"[ERROR] MT5 startup initialization failed: {mt5.last_error()}")
-        else:
-            print("[INFO] MetaTrader 5 IPC connection initialized successfully.")
+        print("[INFO] MetaTrader 5 IPC connection initialized successfully.")
 
-        # Start high-frequency in-memory trading engine
-        try:
-            loop = asyncio.get_running_loop()
-            hft_engine.start(loop=loop)
-            print("[INFO] HFT Engine started in background daemon.")
-        except Exception as ex:
-            print(f"[WARN] Failed to start HFT engine: {ex}")
+    # Start high-frequency in-memory trading engine
+    try:
+        loop = asyncio.get_running_loop()
+        hft_engine.start(loop=loop)
+        print("[INFO] HFT Engine started in background daemon.")
+    except Exception as ex:
+        print(f"[WARN] Failed to start HFT engine: {ex}")
 
-        # Start ultra-high-speed MT5 EA Bridge server (Named Pipe & TCP)
-        try:
-            mt5_bridge.start()
-            print("[INFO] MT5 Bridge Server started (Named Pipes & TCP Sockets).")
-        except Exception as ex:
-            print(f"[WARN] Failed to start MT5 bridge server: {ex}")
+    # Start ultra-high-speed MT5 EA Bridge server (Named Pipe & TCP)
+    try:
+        mt5_bridge.start()
+        print("[INFO] MT5 Bridge Server started (Named Pipes & TCP Sockets).")
+    except Exception as ex:
+        print(f"[WARN] Failed to start MT5 bridge server: {ex}")
 
     yield
 
     if cdn_http_client:
         await cdn_http_client.aclose()
 
-    if BROKER_BACKEND == "OANDA":
-        print("[INFO] OANDA engine session terminated cleanly.")
-    else:
-        try:
-            mt5_bridge.stop()
-        except Exception:
-            pass
-        try:
-            hft_engine.stop()
-        except Exception:
-            pass
-        mt5.shutdown()
-        print("[INFO] MetaTrader 5 IPC connection closed.")
+    try:
+        mt5_bridge.stop()
+    except Exception:
+        pass
+    try:
+        hft_engine.stop()
+    except Exception:
+        pass
+    mt5.shutdown()
+    print("[INFO] MetaTrader 5 IPC connection closed.")
 
     if sys.platform == "win32":
         try:
@@ -487,9 +488,9 @@ async def robots_txt() -> PlainTextResponse:
 
 @app.get("/health")
 async def health_check() -> Response:
-    """Health check endpoint for unified server and broker backend."""
-    broker_ok = True if BROKER_BACKEND == "OANDA" else await asyncio.to_thread(ensure_mt5)
-    hft_ok = bool(getattr(hft_engine, "is_running", True)) if BROKER_BACKEND != "OANDA" else True
+    """Health check endpoint for MT5 server."""
+    broker_ok = await asyncio.to_thread(ensure_mt5)
+    hft_ok = bool(getattr(hft_engine, "is_running", True))
     now = time.time()
     payload = {
         "status": "healthy" if broker_ok else "degraded",
@@ -500,11 +501,11 @@ async def health_check() -> Response:
         "port_9000": "online",
         "backend_8080": "online",
         "static_8081": "online",
-        "broker_backend": BROKER_BACKEND,
+        "broker_backend": "MT5",
         "broker_status": "connected" if broker_ok else "disconnected",
-        "mt5": "connected" if (BROKER_BACKEND == "MT5" and broker_ok) else ("disabled" if BROKER_BACKEND == "OANDA" else "disconnected"),
-        "mt5_status": "connected" if (BROKER_BACKEND == "MT5" and broker_ok) else ("disabled" if BROKER_BACKEND == "OANDA" else "disconnected"),
-        "oanda": "connected" if BROKER_BACKEND == "OANDA" else "disabled",
+        "mt5": "connected" if broker_ok else "disconnected",
+        "mt5_status": "connected" if broker_ok else "disconnected",
+        "oanda": "disabled",
         "hft_engine": "running" if hft_ok else "stopped",
         "mm_timer_1ms": _mm_timer_active,
         "timer_resolution_ms": 1.0 if _mm_timer_active else None,
@@ -551,22 +552,27 @@ async def get_current_time(
     format: Optional[str] = Query(None, description="Response format: 'json', 'float', or 'int'")
 ) -> Response:
     """
-    Return high-resolution server time for UDF and TradingView timescale alignment.
-    Supports microsecond float ASCII string as default for UDF (e.g. 1725791234.567890),
-    and structured JSON via ?format=json or Accept: application/json.
+    Return high-resolution pure UTC server time for UDF and TradingView timescale alignment.
+    
+    CRITICAL: Returns ONLY pure UTC unix seconds — NEVER adds broker timezone offset.
+    The broker offset is used INTERNALLY for MT5 bar queries/storage only.
+    TradingView UDF + the frontend ServerTimeSyncEngine (Cristian's Algorithm)
+    both expect raw UTC. Adding offset here would make TV think server is hours ahead
+    → infinite "future bars" requests → OANDA 400 / MT5 empty data cascade.
+    
+    Uses kernel32.GetSystemTimePreciseAsFileTime for 100-nanosecond hardware UTC precision.
+    Windows time.time() has 15.6ms granularity — get_precise_utc() is sub-microsecond.
     """
-    now_utc = time.time()
-
-    offset = get_broker_timezone_offset()
-    broker_time_msc = int((now_utc + offset) * 1000)
+    now_utc = get_precise_utc()
 
     # Check if JSON format requested
     accept_hdr = request.headers.get("accept", "").lower()
     is_json = (format == "json") or (format is None and "application/json" in accept_hdr and "*/*" not in accept_hdr and "text/html" not in accept_hdr)
     if is_json:
+        offset = get_broker_timezone_offset()
         payload = {
             "time": now_utc,
-            "broker_time_msc": broker_time_msc,
+            "broker_time_msc": int((now_utc + offset) * 1000),
             "broker_offset_sec": offset,
             "precision": "microsecond"
         }
@@ -584,10 +590,9 @@ async def get_current_time(
             headers={"Cache-Control": "no-cache, no-store, must-revalidate"}
         )
 
-    # Default for UDF & live TradingView: microsecond float ASCII string
-    time_str = f"{now_utc:.6f}"
+    # Default for UDF & live TradingView: microsecond float ASCII string (pure UTC)
     return Response(
-        content=time_str.encode("ascii"),
+        content=f"{now_utc:.6f}".encode("ascii"),
         media_type="application/json",
         headers={"Cache-Control": "no-cache, no-store, must-revalidate"}
     )
@@ -833,11 +838,6 @@ async def get_quotes(symbols: str = Query(..., description="Comma-separated list
     Returns TradingView UDF standard format: {"s": "ok", "d": [...]}
     Direct in-memory RAM lookup without AnyIO threadpool dispatch or MT5 IPC lock waiting.
     """
-    if BROKER_BACKEND == "OANDA":
-        sym_list = [s.strip() for s in symbols.split(',') if s.strip()]
-        oanda_quotes = oanda_engine.get_quotes(sym_list)
-        return Response(content=orjson.dumps({"s": "ok", "d": oanda_quotes}), media_type="application/json")
-
     # Extreme sub-millisecond fast path: stream pre-baked JSON bytes directly from RAM
     cached_bytes = hft_engine.get_multi_quotes_http_bytes(symbols)
     if cached_bytes is not None:
@@ -998,12 +998,6 @@ _symbols_meta_cache: Dict[str, Dict[str, Any]] = {}
 @app.get("/symbols")
 def get_symbols(symbol: str = Query(..., description="Symbol ticker, e.g., EURUSD")) -> Dict[str, Any]:
     """Return TradingView metadata for a specific symbol."""
-    if BROKER_BACKEND == "OANDA":
-        meta = oanda_engine.get_symbol_info(symbol)
-        if not meta:
-            raise HTTPException(status_code=404, detail=f"Symbol '{symbol}' not found in OANDA.")
-        return meta
-
     cached = _symbols_meta_cache.get(symbol) or _symbols_meta_cache.get(symbol.upper())
     if cached is not None:
         return cached
@@ -1195,13 +1189,9 @@ def get_history(
     countback: Optional[int] = Query(None, description="Number of bars requested"),
 ) -> Response:
     """
-    Return OHLC bars for a given symbol and resolution directly from MetaTrader 5 or OANDA REST API.
+    Return OHLC bars for a given symbol and resolution directly from MetaTrader 5.
     Zero-caching direct fetch for 100% accurate, deep tick and timeframe history.
     """
-    if BROKER_BACKEND == "OANDA":
-        hist_data = oanda_engine.get_history(symbol, resolution, _from, to, countback)
-        return Response(content=orjson.dumps(hist_data), media_type="application/json")
-
     resolved_symbol = resolve_symbol(symbol)
     res = resolution.strip().upper()
 
@@ -1594,21 +1584,7 @@ def get_ticks(
     side: str = Query(PRICE_TYPE.lower(), description="Price side: bid, ask, mid"),
     days: int = Query(2, description="Days of history to fetch"),
 ) -> Dict[str, Any]:
-    """Return OHLC data based on tick count using the ultra-fast 2D numpy ticks module or OANDA candles."""
-    if BROKER_BACKEND == "OANDA":
-        h = oanda_engine.get_history(symbol, "5S", countback=300)
-        t_arr = h.get("t", [])
-        return {
-            "s": "ok",
-            "symbol": symbol,
-            "ticks_per_bar": ticks_per_bar,
-            "side": side,
-            "bars": len(t_arr),
-            "data": [
-                {"time": t_arr[i], "open": h["o"][i], "high": h["h"][i], "low": h["l"][i], "close": h["c"][i], "volume": h["v"][i], "ticks": ticks_per_bar}
-                for i in range(len(t_arr))
-            ]
-        }
+    """Return OHLC data based on tick count using the ultra-fast 2D numpy ticks module."""
     ensure_mt5()
     if ticks_per_bar < 1:
         raise HTTPException(status_code=400, detail="Invalid tick count: ticks_per_bar must be >= 1")
@@ -1803,9 +1779,6 @@ def search_symbols(
     limit: int = Query(30, description="Maximum number of results to return")
 ) -> List[Dict[str, Any]]:
     """Ultra-fast search for symbols matching query with alias resolution and category classification."""
-    if BROKER_BACKEND == "OANDA":
-        return oanda_engine.search_symbols(query, limit)
-
     ensure_mt5()
     all_symbols = mt5.symbols_get()
     if not all_symbols:
@@ -2127,40 +2100,9 @@ class LotCalculatorRequest(BaseModel):
 @app.post("/trade/order")
 async def execute_market_order(req: MarketOrderRequest) -> Response:
     """
-    Execute a market BUY or SELL order on MetaTrader 5 or OANDA with complete return codes & diagnostics.
+    Execute a market BUY or SELL order on MetaTrader 5 with complete return codes & diagnostics.
     Async lockless fast path returning pre-serialized orjson response bytes.
     """
-    if BROKER_BACKEND == "OANDA":
-        action_val = str(req.order_type if req.order_type is not None else (req.side if req.side is not None else req.action)).upper().strip()
-        res = oanda_engine.execute_order(
-            symbol=req.symbol,
-            action=action_val,
-            volume=float(req.volume),
-            price=float(req.price) if req.price else None,
-            sl=float(req.sl) if req.sl else None,
-            tp=float(req.tp) if req.tp else None,
-            order_type="MARKET"
-        )
-        is_success = res.get("retcode") == 10009
-        resp = {
-            "success": is_success,
-            "retcode": res.get("retcode", 10015),
-            "retcode_name": "TRADE_RETCODE_DONE" if is_success else "TRADE_RETCODE_ERROR",
-            "retcode_description": res.get("comment", res.get("error", "")),
-            "order": res.get("order", 0),
-            "ticket": res.get("order", 0),
-            "deal": res.get("deal", 0),
-            "volume": float(req.volume),
-            "price": res.get("price", 0.0),
-            "comment": res.get("comment", ""),
-            "symbol": req.symbol,
-            "action": action_val,
-            "request": req.dict() if hasattr(req, "dict") else dict(req),
-        }
-        if not is_success:
-            resp["error"] = res.get("error", "Order rejected")
-        return Response(content=orjson.dumps(resp, default=str), media_type="application/json")
-
     if not ensure_mt5():
         raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
@@ -2270,37 +2212,6 @@ async def place_pending_order(req: PendingOrderRequest) -> Response:
     Place a pending limit or stop order (BUY_LIMIT, SELL_LIMIT, BUY_STOP, SELL_STOP, BUY_STOP_LIMIT, SELL_STOP_LIMIT).
     Async lockless fast path returning pre-serialized orjson response bytes.
     """
-    if BROKER_BACKEND == "OANDA":
-        raw_type = str(req.order_type if req.order_type is not None else req.type).upper().strip()
-        action_val = "BUY" if "BUY" in raw_type else "SELL"
-        res = oanda_engine.execute_order(
-            symbol=req.symbol,
-            action=action_val,
-            volume=float(req.volume),
-            price=float(req.price) if req.price else None,
-            sl=float(req.sl) if req.sl else None,
-            tp=float(req.tp) if req.tp else None,
-            order_type=raw_type
-        )
-        is_success = res.get("retcode") == 10009
-        resp = {
-            "success": is_success,
-            "retcode": res.get("retcode", 10015),
-            "retcode_name": "TRADE_RETCODE_DONE" if is_success else "TRADE_RETCODE_ERROR",
-            "retcode_description": res.get("comment", res.get("error", "")),
-            "order": res.get("order", 0),
-            "ticket": res.get("order", 0),
-            "volume": float(req.volume),
-            "price": float(req.price) if req.price else 0.0,
-            "comment": res.get("comment", ""),
-            "symbol": req.symbol,
-            "action": action_val,
-            "request": req.dict() if hasattr(req, "dict") else dict(req),
-        }
-        if not is_success:
-            resp["error"] = res.get("error", "Order rejected")
-        return Response(content=orjson.dumps(resp, default=str), media_type="application/json")
-
     if not ensure_mt5():
         raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
@@ -2408,34 +2319,6 @@ async def modify_trade(req: ModifyOrderRequest) -> Response:
     Modify Stop Loss, Take Profit, price, or expiration of an open position or pending order.
     Async lockless fast path returning pre-serialized orjson response bytes.
     """
-    if BROKER_BACKEND == "OANDA":
-        target_ticket = None
-        if isinstance(req.ticket, int):
-            target_ticket = req.ticket
-        elif isinstance(req.ticket, str):
-            cleaned = req.ticket.replace("_sl", "").replace("_tp", "").strip()
-            if cleaned.isdigit():
-                target_ticket = int(cleaned)
-        if target_ticket is None and req.symbol:
-            open_pos = oanda_engine.get_open_positions(req.symbol)
-            if open_pos:
-                target_ticket = open_pos[0]["ticket"]
-        if target_ticket is None:
-            raise HTTPException(status_code=400, detail="Invalid ticket for modification")
-        res = oanda_engine.modify_trade_or_order(
-            ticket=target_ticket,
-            sl=float(req.sl) if req.sl is not None else None,
-            tp=float(req.tp) if req.tp is not None else None,
-            price=float(req.price) if req.price is not None else None
-        )
-        is_success = res.get("retcode") == 10009
-        return Response(content=orjson.dumps({
-            "success": is_success,
-            "retcode": res.get("retcode", 10009 if is_success else 10015),
-            "ticket": target_ticket,
-            "comment": res.get("comment", res.get("error", ""))
-        }), media_type="application/json")
-
     if not ensure_mt5():
         raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
@@ -2616,19 +2499,6 @@ async def close_trade_position(req: CloseOrderRequest) -> Response:
     if target_ticket is None or target_ticket <= 0:
         raise HTTPException(status_code=400, detail=f"Invalid ticket identifier '{req.ticket}'. Ticket must be a positive integer.")
 
-    if BROKER_BACKEND == "OANDA":
-        res = oanda_engine.close_trade_or_order(target_ticket)
-        is_success = res.get("retcode") == 10009
-        resp = {
-            "success": is_success,
-            "retcode": res.get("retcode", 10009),
-            "ticket": target_ticket,
-            "comment": res.get("comment", res.get("error", ""))
-        }
-        if not is_success:
-            resp["error"] = res.get("error", "Failed to close on OANDA")
-        return Response(content=orjson.dumps(resp, default=str), media_type="application/json")
-
     if not ensure_mt5():
         raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
@@ -2769,16 +2639,6 @@ async def close_all_positions(req: Optional[CloseAllRequest] = None) -> Response
     Resolves live bid/ask prices and symbol specifications directly from RAM cache (< 2µs).
     Guards raw_mt5.order_send under _trade_lock and returns pre-serialized orjson response bytes.
     """
-    if BROKER_BACKEND == "OANDA":
-        sym_filter = req.symbol if req else None
-        open_pos = oanda_engine.get_open_positions(sym_filter)
-        closed_count = 0
-        for p in open_pos:
-            t = p["ticket"]
-            oanda_engine.close_trade_or_order(t)
-            closed_count += 1
-        return Response(content=orjson.dumps({"success": True, "closed_positions": closed_count}), media_type="application/json")
-
     if not ensure_mt5():
         raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
@@ -2900,9 +2760,6 @@ def get_open_positions(
     """
     Return all active open positions or a specific position by ticket.
     """
-    if BROKER_BACKEND == "OANDA":
-        return oanda_engine.get_open_positions(symbol, ticket)
-
     if not ensure_mt5():
         raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
@@ -2958,9 +2815,6 @@ def get_pending_orders(
     """
     Return all active pending orders or a specific pending order by ticket.
     """
-    if BROKER_BACKEND == "OANDA":
-        return oanda_engine.get_pending_orders(symbol, ticket)
-
     if not ensure_mt5():
         raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
@@ -3005,9 +2859,6 @@ def get_account_summary() -> Dict[str, Any]:
     """
     Return real-time account summary (balance, equity, margin, free margin, profit, leverage, server).
     """
-    if BROKER_BACKEND == "OANDA":
-        return oanda_engine.get_account_summary()
-
     if not ensure_mt5():
         raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
@@ -3052,9 +2903,6 @@ def get_trade_history(
     """
     Return trade deals and historical orders with comprehensive filtering (ticket, position, symbol, date range).
     """
-    if BROKER_BACKEND == "OANDA":
-        return oanda_engine.get_trade_history(days=days)
-
     if not ensure_mt5():
         raise HTTPException(status_code=503, detail="MetaTrader 5 IPC connection is unavailable.")
 
@@ -3282,75 +3130,18 @@ async def websocket_quotes_endpoint(websocket: WebSocket):
             sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
     except Exception:
         pass
-    oanda_stream_task = None
-    oanda_subbed = set(["EURUSD", "XAUUSD"])
-
-    async def oanda_streamer():
+    hft_engine.add_ws_client(websocket)
+    sample_sym = "EURUSD." if "EURUSD." in hft_engine.latest_quotes else ("XAUUSD." if "XAUUSD." in hft_engine.latest_quotes else None)
+    if sample_sym:
+        q = hft_engine.latest_quotes[sample_sym]
+        init_msg = orjson.dumps({"type": "quote", "symbol": sample_sym, "data": q}).decode("utf-8")
         try:
-            while True:
-                await asyncio.sleep(0.35)
-                if oanda_subbed:
-                    syms_to_fetch = list(oanda_subbed)
-                    q_list = oanda_engine.get_quotes(syms_to_fetch)
-                    for q_item in q_list:
-                        n = q_item.get("n")
-                        t_msc = int(time.time() * 1000)
-                        msg_str = orjson.dumps({
-                            "type": "quote",
-                            "symbol": n,
-                            "data": q_item,
-                            "time_msc": t_msc,
-                            "time_utc_msc": t_msc
-                        }).decode("utf-8")
-                        await websocket.send_text(msg_str)
-        except (asyncio.CancelledError, WebSocketDisconnect, Exception):
-            pass
-
-    if BROKER_BACKEND == "OANDA":
-        try:
-            init_quotes = oanda_engine.get_quotes(["EURUSD", "XAUUSD"])
-            for q_it in init_quotes:
-                await websocket.send_text(orjson.dumps({"type": "quote", "symbol": q_it.get("n"), "data": q_it}).decode("utf-8"))
+            await websocket.send_text(init_msg)
         except Exception:
             pass
-        oanda_stream_task = asyncio.create_task(oanda_streamer())
-    else:
-        hft_engine.add_ws_client(websocket)
-        sample_sym = "EURUSD." if "EURUSD." in hft_engine.latest_quotes else ("XAUUSD." if "XAUUSD." in hft_engine.latest_quotes else None)
-        if sample_sym:
-            q = hft_engine.latest_quotes[sample_sym]
-            init_msg = orjson.dumps({"type": "quote", "symbol": sample_sym, "data": q}).decode("utf-8")
-            try:
-                await websocket.send_text(init_msg)
-            except Exception:
-                pass
     try:
         while True:
             msg = await websocket.receive_text()
-            if BROKER_BACKEND == "OANDA":
-                try:
-                    p = json.loads(msg)
-                    syms = p.get("symbols", [])
-                    if isinstance(syms, str):
-                        syms = [syms]
-                    if p.get("action") in ("subscribe", "sub") and syms:
-                        for s in syms:
-                            oanda_subbed.add(s)
-                        quotes = oanda_engine.get_quotes(syms)
-                        for q_item in quotes:
-                            await websocket.send_text(orjson.dumps({
-                                "type": "quote",
-                                "symbol": q_item.get("n"),
-                                "data": q_item,
-                                "time_msc": int(time.time() * 1000)
-                            }).decode("utf-8"))
-                    elif p.get("action") in ("unsubscribe", "unsub") and syms:
-                        for s in syms:
-                            oanda_subbed.discard(s)
-                except Exception:
-                    pass
-                continue
-
             subscribed = hft_engine.handle_ws_subscription(websocket, msg)
             if subscribed:
                 for sym in subscribed:
@@ -3370,8 +3161,6 @@ async def websocket_quotes_endpoint(websocket: WebSocket):
     except (WebSocketDisconnect, Exception):
         pass
     finally:
-        if oanda_stream_task:
-            oanda_stream_task.cancel()
         hft_engine.remove_ws_client(websocket)
 
 

@@ -159,8 +159,13 @@
       function getDatafeedUrl() {
         const queryUrl = getParameterByName("dataUrl");
         if (queryUrl) return queryUrl;
-        if (typeof window !== "undefined" && window.location && window.location.hostname) {
-          return window.location.protocol + "//" + window.location.hostname + ":9999";
+        if (typeof window !== "undefined" && window.location) {
+          if (window.location.port === "9999" || window.location.port === "8080") {
+            return window.location.origin;
+          }
+          if (window.location.hostname) {
+            return window.location.protocol + "//" + window.location.hostname + ":9999";
+          }
         }
         return "http://127.0.0.1:9999";
       }
@@ -1646,7 +1651,9 @@
             if (configuration) {
               window.lastKnownDatafeedConfiguration = configuration;
               configuration.has_seconds = true;
-              configuration.seconds_multipliers = defaultSecondsMultipliers;
+              configuration.build_seconds_from_ticks = true;
+              configuration["build_seconds_from_ticks"] = true;
+              configuration.seconds_multipliers = [];
               configuration.has_ticks = true;
               configuration["is-tickbars-available"] = true;
               configuration.is_tickbars_available = true;
@@ -1701,11 +1708,13 @@
             called = true;
             clearTimeout(timer);
 
-            // Guarantee flags for native interval dialog and dropdown
+            // Guarantee flags for native interval dialog and dropdown with auto-conversion from ticks
             symbolInfo.has_empty_bars = false;
             symbolInfo['has_empty_bars'] = false;
             symbolInfo.has_seconds = true;
-            symbolInfo.seconds_multipliers = defaultSecondsMultipliers;
+            symbolInfo.build_seconds_from_ticks = true;
+            symbolInfo['build_seconds_from_ticks'] = true;
+            symbolInfo.seconds_multipliers = [];
             symbolInfo.has_ticks = true;
             symbolInfo["is-tickbars-available"] = true;
             symbolInfo.is_tickbars_available = true;
@@ -1779,6 +1788,27 @@
               }
             }
           }
+        };
+
+        // Hook datafeed.searchSymbols for fast, resilient symbol search without undefined parameter crashes
+        datafeed.searchSymbols = async function(userInput, exchange, symbolType, onResultReadyCallback) {
+          try {
+            const q = (userInput || "").trim();
+            const ex = (exchange && typeof exchange === "string") ? exchange.trim() : "";
+            const ty = (symbolType && typeof symbolType === "string") ? symbolType.trim() : "";
+            const url = `${datafeedUrl}/search?query=${encodeURIComponent(q)}&exchange=${encodeURIComponent(ex)}&type=${encodeURIComponent(ty)}&limit=50`;
+            const res = await fetch(url);
+            if (res.ok) {
+              const data = await res.json();
+              if (Array.isArray(data)) {
+                onResultReadyCallback(data);
+                return;
+              }
+            }
+          } catch (err) {
+            console.warn("⚠️ [DATAFEED] searchSymbols error:", err);
+          }
+          onResultReadyCallback([]);
         };
 
         const defaultInitialSymbol = (window.__NODE_SERVER_STATE__ && window.__NODE_SERVER_STATE__.brokerBackend === 'OANDA') ? 'EURUSD' : 'XAUUSD.';

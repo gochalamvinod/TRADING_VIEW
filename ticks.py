@@ -24,7 +24,6 @@ def ensure_mt5() -> bool:
 
 _symbol_cache: Dict[str, str] = {}
 _selected_symbols: set = set()
-_cached_broker_offset: int = 10800
 
 
 def try_symbol_variants(symbol: str) -> str:

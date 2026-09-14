@@ -8,7 +8,7 @@ import os
 import time
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, List, Optional, Union
-import httpx
+from curl_cffi import requests as cffi_requests
 import orjson
 
 OANDA_ACCOUNT_ID = os.environ.get("OANDA_ACCOUNT_ID", "101-001-40395350-001")
@@ -22,12 +22,11 @@ HEADERS = {
     "Accept-Datetime-Format": "RFC3339"
 }
 
-# HTTP Client with connection pooling for sub-50ms REST queries
-client = httpx.Client(
+# High-speed HTTP/2 Client with connection pooling for sub-20ms REST queries
+client = cffi_requests.Session(
     base_url=OANDA_BASE_URL,
     headers=HEADERS,
     timeout=8.0,
-    limits=httpx.Limits(max_keepalive_connections=50, max_connections=100)
 )
 
 # Active Price Type (MID, BID, or ASK)
@@ -84,7 +83,7 @@ def init_instruments():
         url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/instruments"
         r = client.get(url)
         if r.status_code == 200:
-            data = r.json()
+            data = orjson.loads(r.content)
             for inst in data.get("instruments", []):
                 name = inst["name"]
                 _instruments_cache[name] = inst
@@ -230,11 +229,14 @@ def get_symbol_info(symbol: str) -> Dict[str, Any]:
         "fractional": False,
         "has_intraday": True,
         "has_seconds": True,
+        "build_seconds_from_ticks": True,
+        "seconds_multipliers": [],
+        "has_ticks": True,
+        "is-tickbars-available": True,
         "has_daily": True,
         "has_weekly_and_monthly": True,
-        "supported_resolutions": ["1S", "5S", "10S", "15S", "30S", "1", "2", "3", "5", "15", "30", "60", "120", "240", "1D", "1W", "1M"],
+        "supported_resolutions": ["1T", "1", "2", "3", "5", "15", "30", "60", "120", "240", "1D", "1W", "1M"],
         "intraday_multipliers": ["1", "2", "3", "5", "15", "30", "60", "120", "240"],
-        "seconds_multipliers": ["1", "5", "10", "15", "30"],
         "volume_precision": 0,
         "data_status": "streaming"
     }
@@ -296,7 +298,7 @@ def get_history(symbol: str, resolution: str, from_ts: Any = None, to_ts: Any = 
         r = client.get(url, params=params)
         candles = []
         if r.status_code == 200:
-            candles = r.json().get("candles", [])
+            candles = orjson.loads(r.content).get("candles", [])
 
         # Fallback if range query returned 0 candles or errored:
         # Fetch latest available candles ending at current market time
@@ -309,7 +311,7 @@ def get_history(symbol: str, resolution: str, from_ts: Any = None, to_ts: Any = 
             try:
                 r_fb = client.get(url, params=fb_params)
                 if r_fb.status_code == 200:
-                    candles = r_fb.json().get("candles", [])
+                    candles = orjson.loads(r_fb.content).get("candles", [])
             except Exception:
                 pass
 
@@ -372,7 +374,7 @@ def get_quotes(symbols: List[str]) -> List[Dict[str, Any]]:
         url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/pricing"
         r = client.get(url, params={"instruments": inst_str})
         if r.status_code == 200:
-            data = r.json()
+            data = orjson.loads(r.content)
             with _quotes_lock:
                 for p in data.get("prices", []):
                     inst = p["instrument"]
@@ -444,7 +446,7 @@ def get_account_summary() -> Dict[str, Any]:
         url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/summary"
         r = client.get(url)
         if r.status_code == 200:
-            acc = r.json().get("account", {})
+            acc = orjson.loads(r.content).get("account", {})
             bal = round(float(acc.get("balance", 100000.0)), 2)
             eq = round(float(acc.get("NAV", bal)), 2)
             m_used = round(float(acc.get("marginUsed", 0.0)), 2)
@@ -519,7 +521,7 @@ def get_open_positions(symbol: Optional[str] = None, ticket: Optional[int] = Non
         url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/openTrades"
         r = client.get(url)
         if r.status_code == 200:
-            trades = r.json().get("trades", [])
+            trades = orjson.loads(r.content).get("trades", [])
             results = []
             for t in trades:
                 inst = t["instrument"]
@@ -589,7 +591,7 @@ def get_pending_orders(symbol: Optional[str] = None, ticket: Optional[int] = Non
         url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/pendingOrders"
         r = client.get(url)
         if r.status_code == 200:
-            orders = r.json().get("orders", [])
+            orders = orjson.loads(r.content).get("orders", [])
             results = []
             for ord_obj in orders:
                 ord_type = ord_obj.get("type", "")
@@ -667,7 +669,7 @@ def execute_order(symbol: str, action: str, volume: float, price: Optional[float
     try:
         url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/orders"
         r = client.post(url, json={"order": order_data})
-        data = r.json()
+        data = orjson.loads(r.content)
         if r.status_code in (200, 201):
             create_tx = data.get("orderCreateTransaction", {})
             fill_tx = data.get("orderFillTransaction", {})
@@ -766,7 +768,7 @@ def modify_trade_or_order(ticket: int, sl: Optional[float] = None, tp: Optional[
         ord_url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/orders/{ticket}"
         r_get = client.get(ord_url)
         if r_get.status_code == 200:
-            curr_ord = r_get.json().get("order", {})
+            curr_ord = orjson.loads(r_get.content).get("order", {})
             ord_type = curr_ord.get("type", "LIMIT")
             new_price = str(round(price, 5)) if (price is not None and price > 0) else curr_ord.get("price")
             repl_body: Dict[str, Any] = {
@@ -790,12 +792,12 @@ def modify_trade_or_order(ticket: int, sl: Optional[float] = None, tp: Optional[
 
             r_put = client.put(ord_url, json=repl_body)
             if r_put.status_code in (200, 201):
-                put_data = r_put.json()
+                put_data = orjson.loads(r_put.content)
                 created_tx = put_data.get("orderCreateTransaction", {})
                 new_ticket = int(created_tx.get("id", ticket))
                 return {"retcode": 10009, "ticket": new_ticket, "comment": f"OANDA Order #{ticket} replaced by #{new_ticket}"}
             else:
-                err_msg = r_put.json().get("errorMessage", r_put.text[:200])
+                err_msg = orjson.loads(r_put.content).get("errorMessage", r_put.text[:200]) if r_put.content else r_put.text[:200]
                 return {"retcode": 10015, "error": f"OANDA Replace Error: {err_msg}"}
     except Exception as ex:
         return {"retcode": 10015, "error": str(ex)}
@@ -843,7 +845,7 @@ def get_trade_history(days: int = 7) -> Dict[str, Any]:
         url = f"/v3/accounts/{OANDA_ACCOUNT_ID}/transactions/sinceid?id=1"
         r = client.get(url)
         if r.status_code == 200:
-            txs = r.json().get("transactions", [])
+            txs = orjson.loads(r.content).get("transactions", [])
             deals = []
             orders = []
             for tx in txs:

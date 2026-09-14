@@ -80,8 +80,8 @@ echo ===========================================================================
 echo   ACTIVE CONFIGURATION: %BACKEND_LABEL%
 echo   PRICE TYPE:           %PRICE_LABEL% (%PRICE_TYPE%)
 echo ================================================================================
-echo   Website URL:       http://localhost:9000 (Interactive Chart UI)
-echo   Reverse Proxy:     http://127.0.0.1:9999 (In-Memory Engine ^& Trade Router)
+echo   App URL:           http://localhost:9999 (Interactive Chart UI ^& In-Memory Engine)
+echo   Website URL:       http://localhost:9000 (Static Server)
 echo   Python Engine:     http://127.0.0.1:8080 (FastAPI + %BACKEND_LABEL%)
 echo   Julia Accelerator: http://127.0.0.1:8085 (High-Performance Indicators)
 echo   WebSocket Stream:  ws://127.0.0.1:9999/ws/quotes (Real-Time Push)
@@ -153,7 +153,7 @@ echo.
 
 :: Step 5: Start Node.js Engine & Launch Browser
 echo [5/5] Starting Node.js Engine (Website: 9000, Proxy: 9999)...
-start "" http://localhost:9000
+start "" http://localhost:9999
 echo --------------------------------------------------------------------------------
 echo   TradingView Advanced System is running! Press [Ctrl+C] to stop all services.
 echo --------------------------------------------------------------------------------

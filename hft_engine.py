@@ -498,12 +498,15 @@ class HFTEngine:
         """Dynamically compute broker timezone offset in seconds quantized to 900s blocks."""
         try:
             import broker_time
-            self.broker_offset = broker_time.get_broker_timezone_offset(symbol)
+            offset = broker_time.get_broker_timezone_offset(symbol)
+            if offset != 0 or self.broker_offset == 0:
+                self.broker_offset = offset
         except Exception:
             if tick and getattr(tick, "time", 0) > 0:
                 diff = tick.time - time.time()
-                if abs(diff) < 5.0:
-                    self.broker_offset = int(round(diff / 900.0) * 900)
+                cand = int(round(diff / 900.0) * 900)
+                if abs(diff - cand) < 120.0:
+                    self.broker_offset = cand
         return self.broker_offset
 
     def _normalize_symbols(self, symbols: Union[str, List[str], Set[str]]) -> Set[str]:

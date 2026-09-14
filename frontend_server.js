@@ -91,9 +91,10 @@ const tradeState = {
 
 const backendAgent = new http.Agent({
   keepAlive: true,
-  maxSockets: 20,
-  keepAliveMsecs: 10000,
-  timeout: 3000
+  maxSockets: 100,
+  maxFreeSockets: 50,
+  keepAliveMsecs: 60000,
+  timeout: 10000
 });
 
 function computeTradeHash(positions, orders, account) {
@@ -712,6 +713,7 @@ function handleProxy(req, res) {
     port: BACKEND_PORT,
     path: req.url,
     method: req.method,
+    agent: backendAgent,
     headers: {
       ...req.headers,
       'accept-encoding': 'identity',
@@ -1014,15 +1016,6 @@ function handleHttpRequest(req, res) {
   }
   if (req.method === 'GET' && pathname === '/quotes') {
     return handleQuotes(req, res);
-  }
-  if (req.method === 'GET' && pathname === '/config') {
-    return handleCachedProxy(req, res, 3600000); // 1 hour
-  }
-  if (req.method === 'GET' && pathname === '/symbols') {
-    return handleCachedProxy(req, res, 60000); // 60s
-  }
-  if (req.method === 'GET' && pathname === '/history') {
-    return handleCachedProxy(req, res, 800); // 800ms
   }
 
   // 2. Reverse-Proxy API calls to Python backend

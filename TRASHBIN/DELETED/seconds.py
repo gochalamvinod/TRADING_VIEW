@@ -35,7 +35,7 @@ def ensure_mt5() -> bool:
 
 _symbol_cache: Dict[str, str] = {}
 _selected_symbols: set = set()
-_cached_broker_offset: int = 10800
+_cached_broker_offset: Optional[int] = None
 
 
 def try_symbol_variants(symbol: str) -> str:
@@ -223,25 +223,9 @@ def get_ohlc_records(
             "v": []
         }
 
-    # Calculate timezone offset between broker server clock (e.g. OrbexGlobal UTC+3) and UTC
-    global _cached_broker_offset
-    hours_offset = _cached_broker_offset
-    if ticks is not None and len(ticks) > 0:
-        last_t = ticks[-1]["time"] if "time" in ticks.dtype.names else (ticks[-1]["time_msc"] / 1000.0)
-        diff = last_t - time.time()
-        if abs(diff) < 86400 * 3:
-            hours_offset = int(round(diff / 1800.0) * 1800)
-            _cached_broker_offset = hours_offset
-    else:
-        try:
-            tick = mt5.symbol_info_tick(symbol)
-            if tick and tick.time > 0:
-                diff = tick.time - time.time()
-                if abs(diff) < 86400 * 3:
-                    hours_offset = int(round(diff / 1800.0) * 1800)
-                    _cached_broker_offset = hours_offset
-        except Exception:
-            pass
+    # Calculate timezone offset dynamically according to the active broker server clock
+    import broker_time
+    hours_offset = broker_time.get_broker_timezone_offset(symbol)
 
     # Time filtering on ticks using fast binary search (bisect: <20 microseconds)
     if from_ts is not None or to_ts is not None:

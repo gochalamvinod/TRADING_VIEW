@@ -220,50 +220,67 @@ def get_broker_timezone_offset(symbol: str = "XAUUSD.") -> int:
 
     cached = _symbol_offsets.get(resolved)
     last_ts = _symbol_offsets_ts.get(resolved, 0.0)
-    if cached is not None and (now - last_ts < 15.0):
+    if cached is not None and (now - last_ts < 30.0):
         return cached
 
-    # Priority 1: Check Daily (D1) bar timestamp alignment (Deterministic & Immune to market closed / weekends)
-    # In MT5, D1 bars open at 00:00:00 server time.
-    # The remainder (rate['time'] % 86400) gives the exact broker timezone shift relative to UTC midnight.
-    try:
-        rates_d1 = mt5.copy_rates_from_pos(resolved, mt5.TIMEFRAME_D1, 0, 3)
-        if rates_d1 is not None and len(rates_d1) > 0:
-            rem = int(rates_d1[-1]['time'] % 86400)
-            if rem == 0:
-                offset = 0
-            elif rem > 43200:
-                offset = 86400 - rem
-            else:
-                offset = -rem
-            _symbol_offsets[resolved] = offset
-            _symbol_offsets[symbol] = offset
-            _symbol_offsets_ts[resolved] = now
-            return offset
-    except Exception:
-        pass
+    # Priority 1: Check live tick of requested symbol or liquid symbols
+    candidate_symbols = [resolved, "XAUUSD.", "EURUSD.", "BTCUSD", "BTCUSD.", "ETHUSD", "ETHUSD.", "US30.", "GBPUSD."]
+    for sym_candidate in candidate_symbols:
+        try:
+            t = mt5.symbol_info_tick(sym_candidate)
+            if t and getattr(t, 'time', 0) > 0:
+                diff = t.time - now
+                cand_offset = int(round(diff / 900.0) * 900)
+                if -43200 <= cand_offset <= 50400:
+                    # Tick is fresh if within 120s of current broker time
+                    if abs(diff - cand_offset) < 120.0:
+                        _symbol_offsets[resolved] = cand_offset
+                        _symbol_offsets[symbol] = cand_offset
+                        _symbol_offsets_ts[resolved] = now
+                        _save_persistent_offset(cand_offset)
+                        return cand_offset
+        except Exception:
+            pass
 
-    # Priority 2: Read live tick ONLY IF it arrived within the last 5 seconds (active trading)
-    try:
-        tick = mt5.symbol_info_tick(resolved)
-        if tick and getattr(tick, 'time', 0) > 0:
-            diff = tick.time - now
-            # ONLY use if tick is truly fresh (< 5 seconds) to prevent market closure bias
-            if abs(diff) < 5.0:
-                offset = int(round(diff / 900.0) * 900)
-                _symbol_offsets[resolved] = offset
-                _symbol_offsets[symbol] = offset
-                _symbol_offsets_ts[resolved] = now
-                return offset
-    except Exception:
-        pass
-
-    # Priority 3: Fallback to any previously calculated offset across all symbols
+    # Priority 2: Fallback to any previously calculated offset across all symbols
     if _symbol_offsets:
         for off in _symbol_offsets.values():
-            return off
+            if off != 0:
+                return off
+
+    # Priority 3: Fallback to persistent offset on disk
+    persisted = _load_persistent_offset()
+    if persisted is not None:
+        _symbol_offsets[resolved] = persisted
+        _symbol_offsets[symbol] = persisted
+        _symbol_offsets_ts[resolved] = now
+        return persisted
 
     return 0
+
+
+def _save_persistent_offset(offset: int):
+    try:
+        import json, os
+        cfg_path = os.path.join(os.path.dirname(__file__), "logs", "broker_offset.json")
+        os.makedirs(os.path.dirname(cfg_path), exist_ok=True)
+        with open(cfg_path, "w") as f:
+            json.dump({"offset": offset, "updated": time.time()}, f)
+    except Exception:
+        pass
+
+
+def _load_persistent_offset() -> Optional[int]:
+    try:
+        import json, os
+        cfg_path = os.path.join(os.path.dirname(__file__), "logs", "broker_offset.json")
+        if os.path.exists(cfg_path):
+            with open(cfg_path, "r") as f:
+                data = json.load(f)
+                return int(data.get("offset", 0))
+    except Exception:
+        pass
+    return None
 
 
 def get_broker_info() -> Dict[str, Any]:

@@ -41,10 +41,7 @@ import ticks
 from hft_engine import hft_engine
 from mt5_bridge_server import mt5_bridge
 import indicators_engine
-import jax
-jax.config.update("jax_enable_x64", True)
-import jax.numpy as jnp
-np = jnp  # Pure JAX Engine replacement for all tensor and math operations
+import numpy as np
 
 BROKER_BACKEND = os.environ.get("BROKER_BACKEND", "MT5").upper()
 PRICE_TYPE = os.environ.get("PRICE_TYPE", "MID").strip().upper()
@@ -272,7 +269,6 @@ UDF_RESOLUTION_TO_MT5_TIMEFRAME = {
 
 SUPPORTED_RESOLUTIONS: List[str] = [
     "1T", "2T", "3T", "4T", "5T", "6T", "7T", "8T", "9T", "10T", "12T", "15T", "20T", "25T", "30T", "40T", "50T", "60T", "75T", "100T", "200T", "500T", "1000T",
-    "1S", "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "10S", "12S", "15S", "20S", "21S", "24S", "25S", "27S", "30S", "45S", "60S",
     "1", "2", "3", "5", "10", "15", "20", "30", "45", "60", "120", "180", "240",
     "1D", "1W", "1M", "3M", "6M", "12M"
 ]
@@ -529,7 +525,8 @@ async def get_config() -> Response:
         "supports_quotes": True,
         "supported_resolutions": SUPPORTED_RESOLUTIONS,
         "has_seconds": True,
-        "seconds_multipliers": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "15", "20", "21", "24", "25", "27", "30", "45", "60"],
+        "build_seconds_from_ticks": True,
+        "seconds_multipliers": [],
         "has_ticks": True,
         "is-tickbars-available": True,
         "is_tickbars_available": True,
@@ -1162,7 +1159,8 @@ def get_symbols(symbol: str = Query(..., description="Symbol ticker, e.g., EURUS
         "has_intraday": True,
         "intraday_multipliers": ["1", "3", "5", "15", "30", "60", "120", "240"],
         "has_seconds": True,
-        "seconds_multipliers": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "15", "20", "21", "24", "25", "27", "30", "45", "60"],
+        "build_seconds_from_ticks": True,
+        "seconds_multipliers": [],
         "has_ticks": True,
         "is-tickbars-available": True,
         "is_tickbars_available": True,
@@ -1225,10 +1223,10 @@ def get_history(
             now_utc = time.time()
             to_val = to if to is not None and to > 0 else now_utc
             cb = countback or 500
-            req_span = max(7200.0, float(cb * sec * 2))
+            req_span = max(600.0, float(cb * sec * 1.5))
+            if _from is not None and to_val is not None and (to_val - float(_from)) > 0:
+                req_span = max(req_span, float(to_val - float(_from)) + 60.0)
             from_val = float(_from) if _from is not None and _from > 0 else (to_val - req_span)
-            if _from is not None and countback is not None and (to_val - from_val) < 1800:
-                from_val = to_val - req_span
 
             start_broker = int(from_val + offset)
             end_broker = int(to_val + offset + 60)
@@ -1261,19 +1259,17 @@ def get_history(
                 prices = raw_ticks['bid'].astype(np.float64)
             vols = raw_ticks['volume_real'].astype(np.float64) if 'volume_real' in raw_ticks.dtype.names else raw_ticks['volume'].astype(np.float64)
 
-            # High-speed vectorized pure JAX bucketing by exact second interval (<1ms for 30,000 ticks)
+            # High-speed C-vectorized NumPy bucketing by exact second interval (<1ms)
             buckets = (t_utc_sec // sec) * sec
-            u_buckets, seg_ids = jnp.unique(buckets, return_inverse=True)
-            num_segments = len(u_buckets)
-            start_idx = jnp.searchsorted(seg_ids, jnp.arange(num_segments))
-            end_idx = jnp.searchsorted(seg_ids, jnp.arange(num_segments), side='right') - 1
+            u_buckets, idx_start, counts = np.unique(buckets, return_index=True, return_counts=True)
+            idx_end = idx_start + counts - 1
 
             b_t = u_buckets
-            b_o = prices[start_idx]
-            b_c = prices[end_idx]
-            b_h = jax.ops.segment_max(prices, seg_ids, num_segments=num_segments)
-            b_l = jax.ops.segment_min(prices, seg_ids, num_segments=num_segments)
-            b_v = jax.ops.segment_sum(vols, seg_ids, num_segments=num_segments)
+            b_o = prices[idx_start]
+            b_c = prices[idx_end]
+            b_h = np.maximum.reduceat(prices, idx_start)
+            b_l = np.minimum.reduceat(prices, idx_start)
+            b_v = np.add.reduceat(vols, idx_start)
 
             if not fallback_used and (_from is not None or to is not None):
                 mask = np.ones(len(b_t), dtype=bool)
@@ -1309,7 +1305,7 @@ def get_history(
     if res.endswith("T") or res == "T":
         tpb_str = res.rstrip("T")
         try:
-            tpb = int(tpb_str) if tpb_str else 40
+            tpb = int(tpb_str) if tpb_str else 1
             if tpb < 1:
                 raise HTTPException(status_code=400, detail=f"Invalid tick count resolution: {resolution}")
         except (ValueError, TypeError):
@@ -1320,10 +1316,10 @@ def get_history(
             now_utc = time.time()
             to_val = to if to is not None and to > 0 else now_utc
             cb = countback or 300
-            req_span = max(10800.0, float(cb * tpb * 2))
+            req_span = max(300.0, float(cb * tpb * 2))
+            if _from is not None and to_val is not None and (to_val - float(_from)) > 0:
+                req_span = max(req_span, float(to_val - float(_from)) + 60.0)
             from_val = float(_from) if _from is not None and _from > 0 else (to_val - req_span)
-            if _from is not None and countback is not None and (to_val - from_val) < 3600:
-                from_val = to_val - req_span
 
             start_broker = int(from_val + offset)
             end_broker = int(to_val + offset + 60)
@@ -1801,8 +1797,9 @@ async def compute_julia_proxy(request: Request = None) -> Response:
 
 @app.get("/search")
 def search_symbols(
-    query: str = Query(..., description="Search query, e.g., eur"),
+    query: str = Query("", description="Search query, e.g., eur"),
     _type: Optional[str] = Query(None, alias="type", description="Type of symbol, e.g., forex"),
+    exchange: Optional[str] = Query(None, description="Exchange filter"),
     limit: int = Query(30, description="Maximum number of results to return")
 ) -> List[Dict[str, Any]]:
     """Ultra-fast search for symbols matching query with alias resolution and category classification."""

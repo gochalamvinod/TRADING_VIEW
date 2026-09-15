@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+MetaTrader5
+python-dateutil
+polars>=1.44.0
+cupy-cuda12x>=14.2.0
+curl_cffi>=0.16.0
+aiohttp>=3.14.0
+orjson>=3.12.0

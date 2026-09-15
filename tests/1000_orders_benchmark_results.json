@@ -1,0 +1,21 @@
+{
+  "timestamp": 1788859628.1640477,
+  "total_target": 1000,
+  "successful_placed": 1000,
+  "successful_cancelled": 1000,
+  "failed_orders": 0,
+  "success_rate_pct": 100.0,
+  "total_elapsed_seconds": 657.61,
+  "throughput_ops": 1.52,
+  "latency_ms": {
+    "min": 284.01,
+    "median": 299.12,
+    "mean": 326.84,
+    "p90": 350.4,
+    "p95": 493.26,
+    "p99": 792.52,
+    "max": 2162.76
+  },
+  "final_positions": 1,
+  "final_orders": 0
+}

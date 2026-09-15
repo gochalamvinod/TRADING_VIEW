@@ -1,0 +1,395 @@
+/* ==========================================================================
+   TradingView Chart Custom Styling: Legend, Status Line & Toolbar
+   ========================================================================== */
+
+/* Top-left legend wrapper and status line */
+[class*=legend-],
+[data-name=legend] {
+  overflow: visible !important;
+  max-width: none !important;
+}
+
+[class*=legendMainSourceWrapper] {
+  overflow: visible !important;
+  max-width: 100% !important;
+}
+
+/* Ensure series title, description, interval, exchange and OHLC are never clipped or hidden */
+[data-name=legend-source-title],
+[data-name=legend-source-description],
+[data-name=legend-source-interval],
+[data-name=legend-source-exchange],
+[class*=mainTitle],
+[class*=descTitle],
+[class*=intervalTitle],
+[class*=exchangeTitle] {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Values wrapper: single line, no wrapping, no overlapping text */
+[class*=valuesWrapper],
+[class*=valuesAdditionalWrapper],
+.valuesWrapper-l31H9iuA,
+.valuesAdditionalWrapper-l31H9iuA {
+  display: inline-flex !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  max-height: 24px !important;
+  line-height: 24px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+[class*=valueItem],
+.valueItem-l31H9iuA {
+  display: inline-flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  padding: 0 4px !important;
+}
+
+/* Ensure Buy/Sell trading buttons do not clip or obscure series title and OHLC */
+[class*=container-hw_3o_pb],
+[class*=buttonsWrapper-hw_3o_pb],
+[class*=sellBuyAndPresetsButtonsContainer] {
+  overflow: visible !important;
+}
+
+/* Left drawing toolbar visibility guarantee */
+.drawingToolbar-BfVZxb4b,
+[class*=drawingToolbar],
+#drawing-toolbar {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* ==========================================================================
+   Legend Study Items & Action Buttons (Hide, Settings, Delete)
+   ========================================================================== */
+
+/* Ensure study items in the legend are interactive and comfortably laid out */
+[class*="study-"],
+[data-name="legend-study-item"],
+[class*="item-"] {
+  overflow: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Limit study title width to avoid blowing out across the chart pane */
+[class*="study-"] [class*="titlesWrapper-"] {
+  max-width: 320px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+[class*="item-"]:hover [class*="buttonsWrapper-"],
+[class*="study-"]:hover [class*="buttonsWrapper-"],
+[data-name="legend-study-item"]:hover [class*="buttonsWrapper-"],
+[class*="selected-"] [class*="buttonsWrapper-"] {
+  max-width: 220px !important;
+  width: auto !important;
+  z-index: 100 !important;
+  position: relative !important;
+}
+
+/* Show buttons container on hover and when selected */
+[class*="item-"]:hover [class*="buttons-"],
+[class*="study-"]:hover [class*="buttons-"],
+[data-name="legend-study-item"]:hover [class*="buttons-"],
+[class*="selected-"] [class*="buttons-"],
+[class*="withAction-"] [class*="buttons-"] {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  display: flex !important;
+  visibility: visible !important;
+}
+
+/* Explicitly HIDE the unwanted / duplicate interval eye action (orange crossed eye with "Show interval settings") */
+[data-name="legend-interval-show-hide-action"],
+[class*="intervalEye"],
+.intervalEye-l31H9iuA {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* Ensure individual button icons (Hide eye, Format gear, Delete trash, More) are visible and clickable */
+[class*="item-"]:hover [data-name="legend-show-hide-action"],
+[class*="item-"]:hover [data-name="legend-settings-action"],
+[class*="item-"]:hover [data-name="legend-delete-action"],
+[class*="item-"]:hover [data-name="legend-more-action"],
+[class*="study-"]:hover [data-name="legend-show-hide-action"],
+[class*="study-"]:hover [data-name="legend-settings-action"],
+[class*="study-"]:hover [data-name="legend-delete-action"],
+[class*="study-"]:hover [data-name="legend-more-action"],
+[data-name="legend-study-item"]:hover [data-name="legend-show-hide-action"],
+[data-name="legend-study-item"]:hover [data-name="legend-settings-action"],
+[data-name="legend-study-item"]:hover [data-name="legend-delete-action"],
+[data-name="legend-study-item"]:hover [data-name="legend-more-action"],
+[data-name="legend-study-item"]:hover [data-name="legend-source-code-action"],
+[class*="selected-"] [data-name="legend-show-hide-action"],
+[class*="selected-"] [data-name="legend-settings-action"],
+[class*="selected-"] [data-name="legend-delete-action"],
+[class*="selected-"] [data-name="legend-more-action"],
+[class*="selected-"] [data-name="legend-source-code-action"],
+[class*="withAction-"] [data-name="legend-show-hide-action"],
+[class*="withAction-"] [data-name="legend-settings-action"],
+[class*="withAction-"] [data-name="legend-delete-action"],
+[class*="withAction-"] [data-name="legend-more-action"],
+[class*="withAction-"] [data-name="legend-source-code-action"] {
+  opacity: 1 !important;
+  display: flex !important;
+  visibility: visible !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+}
+
+/* Authentic Source Code { } Button in Indicator Legend: ONLY visible on hover */
+[data-name="legend-source-code-action"],
+.tv-legend-code-btn {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  cursor: pointer !important;
+  color: #787b86 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Trebuchet MS", Roboto, Ubuntu, monospace, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  border-radius: 4px !important;
+  transition: background-color 0.15s, color 0.15s !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+}
+
+[data-name="legend-source-code-action"] span,
+.tv-legend-code-btn span {
+  display: inline-block !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  font-family: monospace !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+  letter-spacing: -0.5px !important;
+}
+
+/* Strictly reveal ONLY on hover or when study item has active menu */
+[data-name="legend-study-item"]:hover [data-name="legend-source-code-action"],
+[data-name="legend-study-item"]:hover .tv-legend-code-btn,
+[class*="item-"]:hover [data-name="legend-source-code-action"],
+[class*="item-"]:hover .tv-legend-code-btn,
+[class*="selected-"] [data-name="legend-source-code-action"],
+[class*="selected-"] .tv-legend-code-btn,
+[class*="withAction-"] [data-name="legend-source-code-action"],
+[class*="withAction-"] .tv-legend-code-btn {
+  display: inline-flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+[data-name="legend-source-code-action"]:hover,
+.tv-legend-code-btn:hover {
+  color: #d1d4dc !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+
+
+/* GPU Hardware Acceleration for Chart Canvases & Interactive Overlays */
+#tv_chart_container,
+#tv_chart_container iframe,
+canvas,
+.chart-container,
+.chart-gui-wrapper {
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  will-change: transform;
+}
+
+/* Ensure drawings floating toolbar NEVER has { } button */
+.tv-floating-code-btn,
+.tv-floating-code-btn-wrapper,
+[data-name="source-code"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
+}
+
+/* Ensure duplicate settings overlay is removed */
+#tv_settings_modal_overlay,
+.tv-settings-overlay {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+
+
+
+/* ==========================================================================
+   Root Application Layout & CSS Custom Properties
+   ========================================================================== */
+:root {
+  --tv-bg-primary: #131722;
+  --tv-bg-secondary: #1e222d;
+  --tv-bg-tertiary: #2a2e39;
+  --tv-border: #363a45;
+  --tv-border-hover: #4a4e59;
+  --tv-text-primary: #d1d4dc;
+  --tv-text-secondary: #787b86;
+  --tv-accent: #2962ff;
+  --tv-accent-hover: #1e53e5;
+  --tv-success: #089981;
+  --tv-error: #f23645;
+  --tv-warning: #ff9800;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #000;
+  color: var(--tv-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, Ubuntu, sans-serif;
+  overflow: hidden;
+}
+
+#app_root {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#tv_chart_container {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+  contain: layout size;
+}
+
+#tv_chart_container iframe,
+#tv_chart_container canvas {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Legend Fixes & Crossed-Eye Interval Icon Suppression */
+[data-name="legend-interval-show-hide-action"],
+.intervalEye,
+[class*="intervalEye"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+.valuesWrapper,
+.valuesAdditionalWrapper,
+[class*="valuesWrapper"],
+[class*="valuesAdditionalWrapper"] {
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  flex-wrap: nowrap !important;
+}
+
+/* ── CachedCharts HUD & Top Floating Pill ────────────────────────── */
+.cached-charts-pill {
+  position: fixed;
+  top: 6px;
+  right: 60px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(19, 23, 34, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #2a2e39;
+  border-radius: 20px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #d1d4dc;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+.cached-charts-pill:hover {
+  border-color: #00e676;
+  background: rgba(30, 34, 45, 0.96);
+  box-shadow: 0 4px 18px rgba(0, 230, 118, 0.25);
+  transform: translateY(-1px);
+}
+.pulse-dot-green {
+  width: 8px;
+  height: 8px;
+  background-color: #00e676;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00e676;
+  animation: pulse-glow-green 1.6s infinite ease-in-out;
+}
+@keyframes pulse-glow-green {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px #00e676; }
+  50% { opacity: 0.35; transform: scale(0.85); box-shadow: 0 0 2px #00e676; }
+}
+.pill-badge {
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TradingView Charting Library demo</title>
+
+    <!-- Fix for iOS Safari zooming bug -->
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0"
+    />
+
+    <!-- TradingView Charting Library -->
+    <script
+      type="text/javascript"
+      src="charting_library/charting_library.standalone.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="datafeeds/udf/dist/bundle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="broker-sample/dist/bundle.js"
+    ></script>
+  </head>
+
+  <body style="margin: 0px">
+    <div id="tv_chart_container"></div>
+
+    <script type="text/javascript">
+      // --- LocalStorageSaveLoadAdapter class ---
+      class LocalStorageSaveLoadAdapter {
+        constructor() {
+          this._charts =
+            this._getFromLocalStorage("LocalStorageSaveLoadAdapter_charts") ?? [];
+          this._studyTemplates =
+            this._getFromLocalStorage(
+              "LocalStorageSaveLoadAdapter_studyTemplates"
+            ) ?? [];
+          this._drawingTemplates =
+            this._getFromLocalStorage(
+              "LocalStorageSaveLoadAdapter_drawingTemplates"
+            ) ?? [];
+          this._chartTemplates =
+            this._getFromLocalStorage(
+              "LocalStorageSaveLoadAdapter_chartTemplates"
+            ) ?? [];
+          this._drawings =
+            this._getFromLocalStorage("LocalStorageSaveLoadAdapter_drawings") ??
+            {};
+          this._isDirty = false;
+
+          setInterval(() => {
+            if (this._isDirty) {
+              this._saveAllToLocalStorage();
+              this._isDirty = false;
+            }
+          }, 1000);
+        }
+
+        // --- Implementations (trimmed for clarity, keep everything from your code) ---
+        _getFromLocalStorage(key) {
+          const dataFromStorage = window.localStorage.getItem(key);
+          return JSON.parse(dataFromStorage || "null");
+        }
+
+        _saveToLocalStorage(key, data) {
+          const dataString = JSON.stringify(data);
+          window.localStorage.setItem(key, dataString);
+        }
+
+        _saveAllToLocalStorage() {
+          this._saveToLocalStorage(
+            "LocalStorageSaveLoadAdapter_charts",
+            this._charts
+          );
+          this._saveToLocalStorage(
+            "LocalStorageSaveLoadAdapter_studyTemplates",
+            this._studyTemplates
+          );
+          this._saveToLocalStorage(
+            "LocalStorageSaveLoadAdapter_drawingTemplates",
+            this._drawingTemplates
+          );
+          this._saveToLocalStorage(
+            "LocalStorageSaveLoadAdapter_chartTemplates",
+            this._chartTemplates
+          );
+          this._saveToLocalStorage(
+            "LocalStorageSaveLoadAdapter_drawings",
+            this._drawings
+          );
+        }
+      }
+
+      // --- Chart init ---
+      function initOnReady() {
+        const datafeed = new Datafeeds.UDFCompatibleDatafeed(
+          "https://guilty-jade-telling-lopez.trycloudflare.com",
+          1000
+        );
+
+        const widget = new TradingView.widget({
+          library_path:
+            "charting_library/lib",
+          fullscreen: true,
+          symbol: "XAUUSD.",
+          interval: "60",
+          container: "tv_chart_container",
+          datafeed: datafeed,
+          locale: "en",
+          disabled_features: ["order_panel", "trading_account_manager"],
+          enabled_features: [
+            "study_templates","header_symbol_search","save_chart_properties_to_local_storage","watchlist_context_menu","watchlist_import_export",
+            "header_compare","header_indicators","timeframes_toolbar","left_toolbar",
+            "items_favoriting","show_object_tree","edit_buttons_in_legend","display_market_status","watchlist_sections","custom_resolutions","right_toolbar",
+            "watchlist","legend_context_menu","volume_force_overlay","main_series_scale_menu",
+            "chart_crosshair_menu","border_around_the_chart","chart_property_page_trading",
+            "property_pages","hide_left_toolbar_by_default","show_dialog_on_double_click",
+            "go_to_date","timezone_menu","snapshot_trading_drawings","show_symbol_watchlist",
+            "property_page_scales","header_screenshot","header_fullscreen_button",
+            "favorite_timeframes","chart_templates", "header_saveload","datasource_copypaste","add_to_watchlist","drawing_templates","multiple_watchlists","support_multicharts",'multi_chart_layout',
+          ],
+
+          save_load_adapter: new LocalStorageSaveLoadAdapter(),
+        });
+      }
+
+      window.addEventListener("DOMContentLoaded", initOnReady, false);
+    </script>
+  </body>
+</html>

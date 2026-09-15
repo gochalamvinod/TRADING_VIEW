@@ -1,0 +1,12 @@
+[PINE ENGINE] Loaded PineTS CJS from: E:\TRADING_VIEW\PineTS-main\dist\pinets.min.cjs
+[PINE ENGINE] JIT Compiler pre-warmed and ready (sub-5ms transpilation enabled)
+================================================================================
+  NODE.JS POWERHOUSE ENGINE & TRI-SERVICE SYSTEM READY
+================================================================================
+  1. Website URL:      http://localhost:9000 (Dynamic HTML & TV UI)
+  2. Proxy Site:       http://127.0.0.1:9999 (In-Memory Engine & Reverse Proxy)
+  3. Datafeed Engine:  http://127.0.0.1:8080 (Python FastAPI MT5 Backend)
+  In-Memory Engine:    http://127.0.0.1:9999/trade/bundle (Sub-1ms RAM state)
+  PineTS Transpiler:   http://127.0.0.1:9999/pine/transpile (In-Process AST)
+  WebSocket URL:       ws://127.0.0.1:9999/ws/quotes
+================================================================================
